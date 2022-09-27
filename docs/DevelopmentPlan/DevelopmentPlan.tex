@@ -99,18 +99,48 @@ For the proof concept, the following will be demonstrated:
 \end{itemize}
 
 \section{Technology}
-
 \begin{itemize}
-\item Specific programming language
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Libraries you will likely be using?
-\item Tools you will likely be using?
+\item HTML, CSS, JavaScript
+\begin{itemize}
+    \item Since we need the client-side code to run on browsers (as specified by the project supervisor), HTML/CSS/Javascript are necessary.
+\end{itemize}
+
+\item For front-end, we will use the React framework for JavaScript. 
+\begin{itemize}
+    \item Although the React framework adds more learning on top of the barebones HTML/CSS/JS stack, the team felt that because we all have existing experience with React, it would streamline development. 
+    
+    \item React is very popular, there is a lot of documentation, examples, and extra packages available that make development easier. We can easily extend the functionality of React by using packages for whatever we need. 
+    
+    \item One possible restriction is that React has more of an impact on system performance and requires a stronger network connection. Seeing how many websites use React today, and considering that the app's demographic is not specifically people who have slow internet or old computers, this restriction is very unlikely to have an impact.
+\end{itemize}
+
+\item For back-end, we will use the Node.js framework.
+\begin{itemize}
+    \item Node.js is a back-end runtime for Javascript that executes Javascript code outside of a web browser. Node.js is very commonly paired with React as they both use Javascript, allowing for easy communication between front-end and back-end components. It also will increase the speed of development as the team doesn't have to learn a new language that some of us may be unfamiliar with.
+    \item To easily create a REST API, we can extend the functionality of Node with the \href{https://expressjs.com/}{Express} package. 
+\end{itemize}
+
+\item VSCode will be used as a coding editor by all developers. It will provide extensions and features that will help keep good programming practices and is helpful for debugging code.
+\item For front-end testing, we will use \href{https://jestjs.io/}{Jest}. For back-end, we will use \href{https://mochajs.org/}{Mocha}.
+\begin{itemize}
+    \item Mocha is the most popular Javascript unit testing framework. It is designed to be simple, extensible, and fast. Mocha provides a lot of useful functionality out of the box such as fixtures, mocking, etc. It also provides a lot of features for async testing, which will be useful for testing back-end components that need to do async operations such as writing to a database (for example). 
+    
+    \item Jest is also very popular, however we will specifically use it for front-end testing as it provides a suite of useful features such as snapshot testing that can be used to ensure the layout of a page doesn't change.
+\end{itemize}
+
+\item For code coverage, we will use \href{https://istanbul.js.org/}{istanbul.js}.
+\begin{itemize}
+    \item Istanbul.js is a very simple, lightweight code coverage tool that bundles and runs all unit tests with a single command. It generates a very readable and understandable output and prints it to the terminal. An example can be seen in the linked website. 
+\end{itemize}
+
+\item Latex will be used for documentation
+\item CI will be set up using GitHub actions. The CI system will run automated tests triggered by a change to the main branch to ensure the main branch is always stable.
+\begin{itemize}
+    \item Mocha and Jest both have the necessary features needed to automate testing with GitHub actions.
+\end{itemize}
+
+\item Performance measuring tools are not needed for this project as performance is not a requirement or limiting factor.
+\item Linter: \href{https://prettier.io/}{prettier}
 \end{itemize}
 
 \section{Coding Standard}
