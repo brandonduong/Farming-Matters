@@ -77,7 +77,27 @@ User characteristics should go under assumptions.
 
 \subsubsection{The Context of the Work}
 
+
 \subsubsection{Work Partitioning}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{0.33\linewidth} | p{0.33\linewidth} | p{0.33\linewidth}| }
+    \hline
+         Event & Input/Output & Summary \\
+         \hline
+         User ends turn & Input: user selects end turn option & System responds and update current game state\\
+         \hline 
+         Collect user decisions & Input: all prior user decisions, users progression and focus group \newline Output: Group data based on focus group  & System provides organized data \\
+         \hline 
+          User creates account & Input: Username and password \newline Output: Associated account & The user inputs their desired username and password and the system creates an account and stores the credentials\\
+         \hline 
+         User requests to delete their data & Input: Username and password \newline Output: Associated account and all its data is deleted & The user inputs their account's username and password and the system deletes the associated account and all its corresponding data\\
+         \hline 
+    \end{tabular}
+    \caption{Work Partitioning Table}
+    \label{tab:my_label}
+\end{table}
+\newpage
 
 \subsubsection{Individual Product Use Cases}
 
