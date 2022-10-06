@@ -66,6 +66,16 @@ to the template, you should explicity state what modifications were made.
 \subsection{Mandated Constraints}
 
 \subsection{Naming Conventions and Terminology}
+\begin{itemize}
+  \item Player: The user playing the game. The player or user is the participant and focus of the study.
+  \item Land: An area where the user can interact with the farm. This includes planting crops, fertilizing crops and adding buildings.
+  \item Inventory: Where the user will be able to store items.
+  \item Items: The user will be able to acquire these into their inventory, including grown crops, crop seeds, and fertilizers.
+  \item Focus groups: A set of users will be involved with discrete decision-making and another set of users will be involved with probabilistic decision-making.
+  \item Turns: these are rounds that happen per season where a decision can be made. 
+  \item Seasons: Including Winter, Spring, Summer, and Fall. The current season changes depending on the turn number, and has an effect on which crops can be grown. Each season lasts SEASON\_LENGTH turns.
+  \item Key Questions: These are the compulsory questions that will be asked to the user. The first will be whether the user wants to pay the consultant for advice. The second question will ask the user if they want to purchase insurance for crops.
+\end{itemize}
 
 \subsection{Relevant Facts and Assumptions}
 
@@ -77,12 +87,105 @@ User characteristics should go under assumptions.
 
 \subsubsection{The Context of the Work}
 
+
 \subsubsection{Work Partitioning}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{0.33\linewidth} | p{0.33\linewidth} | p{0.33\linewidth}| }
+    \hline
+         Event & Input/Output & Summary \\
+         \hline
+         User ends turn & Input: user selects end turn option & System responds and update current game state\\
+         \hline 
+         Collect user decisions & Input: all prior user decisions, users progression and focus group \newline Output: Group data based on focus group  & System provides organized data \\
+         \hline 
+          User creates account & Input: Username and password \newline Output: Associated account & The user inputs their desired username and password and the system creates an account and stores the credentials\\
+         \hline 
+         User requests to delete their data & Input: Username and password \newline Output: Associated account and all its data is deleted & The user inputs their account's username and password and the system deletes the associated account and all its corresponding data\\
+         \hline 
+    \end{tabular}
+    \caption{Work Partitioning Table}
+    \label{tab:my_label}
+\end{table}
+\newpage
 
 \subsubsection{Individual Product Use Cases}
 
 \subsection{Functional Requirements}
+\begin{enumerate}[{FR}1. ]
+  %Other
+  \item The system must allow users to create an account.\\
+  \textbf{Rationale}: The purpose of the game is to track user decisions and be able to see which participant did what decision. For this to happen, users must be associated to an account.
+  \item The system must allow the user to reset their password.\\
+  \textbf{Rationale}: It is possible a user misplaces their password and loses all their account progress. This effectively removes the participant from the study and so this must be rectified.
+  \item The system must allow users to accumulate in-game currency.\\
+  \textbf{Rationale}: In-game currency acts as a performance metric, and also helps engage the player into planning ahead for their future decisions. Optimizing what one should spend their in-game currency on is both part of the study, and the engagement of the game itself.
+  \item The system must allow the user to store their items in an inventory.
+  \textbf{Rationale}: The user must be able to view the items they currently own.
+  \item The system must verify new users as human.\\
+  \textbf{Rationale}: As anyone can make an account, the system is susceptible to related attacks. The system verifying a user as human before creating their account may slow down these attempts.
+  %Shop related
+  \item The system must allow users to purchase items from a shop.\\
+  \textbf{Rationale}: Helps engage the player with the feeling of progression and decision-making.
+  %\item The system must allow users to buy crop seeds\\
+  %\textbf{Rationale}: Helps engage the player with the feeling of progression and decision-making
+  \item The system must allow users to grow crop on owned land.\\
+  \textbf{Rationale}: Helps engage the player with the feeling of progression and decision-making.
+  \item The system must allow users to sell crop at a fluctuating price.\\
+  \textbf{Rationale}: Helps engage the player with the feeling of progression and decision-making.
+  %\item The system must allow users to buy fertilizer\\
+  %\textbf{Rationale}: Helps engage the player with the feeling of progression and decision-making
+  \item The system must allow users to use fertilizer on planted crop.\\
+  \textbf{Rationale}: Helps engage the player with the feel of progression and decision-making.
+  %Playing the game
+  \item The system must allow users to buy land.\\
+  \textbf{Rationale}: Helps engage the player with the feel of progression and decision-making.
+  \item The system must prompt users for consulting advice every CONSULTING\_INTERVAL turns.\\
+  \textbf{Rationale}: This decision is one of the two key questions the research is looking at. Whether people are willing to pay for information, and for what information (i.e deterministic or probabilistic).
+  \item The system must prompt users for insurance for planted crops.\\
+  \textbf{Rationale}: This decision is the second of the two key questions the research is looking at. Whether people are willing to pay for insurance, and in what circumstance (i.e from the start, or only after they've been affected by an insurable event).
+  \item The system must be able to log user decisions.\\
+  \textbf{Rationale}: This was a crucial requirement that was provided by Dr.Yiannakoulias who will be able to view these logs to analyze the data.
+  \item The system must be able to save user game state.\\
+  \textbf{Rationale}: This will give users the options to continue where they left off if they want to continue playing at another time.
+  \item \label{FR15} The system must allow users to delete their data.\\
+  \textbf{Rationale}: This is a requirement from the ethics board and it is mandatory that users be given this option.
+  \item The system must have a defined area of land for users to manage farm.\\
+  \textbf{Rationale}: This will provide an environment in which players can visualize and interact with their farm.
+  \item The system must allow users to place buildings and items on their land.\\
+  \textbf{Rationale}: This will give the user more variability and options in terms of how they want to build their farm.
+  \item \label{FR18} The system must present the consent form to participate in the study before starting the game.\\
+  \textbf{Rationale}: This is another requirement from both the Ethics board and Dr.Yiannakoulias, and made this a point to emphasize.
+  \item The system must be able to evaluate the total worth of a user's assets.
+  \textbf{Rationale}: Total worth of all a user's assets acts as a performance metric, and also helps engage the player by allowing them to see how much they've progressed.
+  \item The system must be able assign a user to specific focus group.\\
+  \textbf{Rationale}: This is essential for the research study as to demonstrate whether or not people prefer deterministic or probabilistic information.
+  \item The system must include random events to occur EVENT\_OCCURRENCE.\\
+  \textbf{Rationale}: Helps engage the player by needing them to plan ahead for the possible unknown.
+  \item The system must have the current season change over time.\\
+  \textbf{Rationale}: Helps engage the player as they must plan ahead for what is possible during the different seasons in terms of what to plant, and what risks there are within each season.
+\end{enumerate}
 
+\subsection{Requirements That Are Likely/Unlikely to Change}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|p{0.40\linewidth} | p{0.40\linewidth}|}
+  \hline
+       Likely & Unlikely \\
+       \hline
+       FR2, FR5, FR19, FR21 & FR1, FR3, FR4, FR6, FR7, FR8, FR9, FR10, FR11, FR12, FR13, FR14, FR15, FR16, FR17, FR18, FR20, FR22    \\
+       \hline
+  \end{tabular}
+  \caption{Likely/Unlikely to Change Table}
+  \label{tab:my_label}
+\end{table}
+\begin{itemize}
+  \item FR1: This is unlikely to change as accounts are needed to associate a specific user to their game state
+  \item FR3, FR4, FR6, FR7, FR8, FR9, FR10, F14, FR16, F17, FR21, FR22: These are unlikely to change as these are the basic core game mechanics that define the desired game loop
+  \item FR11, FR12, FR13, FR20: These are unlikely to change as they are implement the essentials behind the research study aspect
+  \item FR15, F18: This is unlikely to change because it is required for the ethics board to approve the game. The approval of the game by the ethics board is a must.
+  
+\end{itemize}
 \section{Non-functional Requirements}
 
 \subsection{Look and Feel Requirements}
