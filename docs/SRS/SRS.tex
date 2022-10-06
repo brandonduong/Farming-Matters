@@ -1,49 +1,47 @@
-\documentclass[12pt, titlepage]{article}
+\documentclass{article}
 
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=red,
-    urlcolor=blue
-}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{chngpage}
 \usepackage[round]{natbib}
 
-\title{SE 3XA3: Software Requirements Specification\\Title of Project}
+\title{Software Requirements Specification\\\progname}
 
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
-}
+\author{\authname}
 
-\date{\today}
+\date{}
 
 \input{../Comments}
+\input{../Common}
 
 \begin{document}
 
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+09/28/2022 & Namit Chopra, Brandon Duong  & Finished First\\
+ & Andrew Balmakund, Mohammad Harun &  Version\\
+ & Mihail Serafimovski & \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
 \maketitle
+
+\newpage
 
 \pagenumbering{roman}
 \tableofcontents
 \listoftables
 \listoffigures
-
-\begin{table}[bp]
-\caption{\bf Revision History}
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
-\end{table}
-
 \newpage
 
 \pagenumbering{arabic}
