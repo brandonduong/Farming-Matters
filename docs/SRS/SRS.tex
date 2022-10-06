@@ -128,7 +128,123 @@ will be a tutorial to go over the basic rules of the game if they lack sufficien
 \end{table}
 \newpage
 
-\subsubsection{Individual Product Use Cases}
+\subsubsection{Individual Product Use Cases and Undesired Event Handling}
+
+\textbf{Use case \#1:} User creates account\\
+\textbf{Primary Actor:} User\\
+\textbf{Supporting Actors:} None\\
+\textbf{Precondition:} The user has completed the consent form\\
+\textbf{Trigger:} The user is directed to the create account page\\
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item User is on the home page and selects to create account
+    \item User is on the create account page
+    \item User provides the required information
+    \item System verifies all required information has been provided
+    \item User completes human verification task
+    \item System validates human verification
+    \item System securely registers user information
+    \item User is redirected back to the Home page
+\end{enumerate}
+\textbf{Secondary Scenarios}:
+\begin{enumerate}
+    \item User fails to provide the required information: one or more fields have not been provided by the user
+    \item User fails human verification task: user has failed a human verification test which either means they entered in the wrong details or an automated script attack for account creation occurred
+
+\end{enumerate}
+\textbf{Success Postcondition:} The user has successfully created an account and account information is stored and secured in a database.
+
+
+\noindent\\
+\textbf{Use case \#2:} User signs into account\\
+\textbf{Primary Actor:} User\\
+\textbf{Supporting Actors:} None\\
+\textbf{Precondition:} The user has successfully created an account\\
+\textbf{Trigger:} The user arrives at the login page\\
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item User is on the home page and selects to login
+    \item User is on the login page
+    \item User provides the required information
+    \item System verifies all required information has been provided
+    \item User is redirected to the Home page as a logged in user
+\end{enumerate}
+\textbf{Secondary Scenarios}:
+\begin{enumerate}
+    \item Login unsuccessful: the provided login details do not match any login details in the database
+\end{enumerate}
+\textbf{Success Postcondition:} The user has successfully logged into their created account and their game state is loaded from the database. \newline
+
+\noindent\\
+\textbf{Use case \#3:} User logs out of their account\\
+\textbf{Primary Actor:} User\\
+\textbf{Supporting Actors:} None\\
+\textbf{Precondition:} The user has successfully created an account and is currently logged in\\
+\textbf{Trigger:} The user has selected an option to logout\\
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item User accesses and selects the logout option
+    \item User is presented with a confirmation page to logout
+    \item User selects logout option
+    \item System shall save all progress made in the current session and append to their overall progression that is stored in the database
+    \item User is redirected to Home page
+\end{enumerate}
+\textbf{Secondary Scenarios}:
+\begin{enumerate}
+    \item User is inactive: After INACTIVE\_TIME period, the system shall log out the user automatically. Perhaps they may have closed the tab running the web application and have not returned for a while
+\end{enumerate}
+\textbf{Success Postcondition:} The user has successfully logged out of the system and all logged data has been stored successfully. \newline
+
+
+\noindent\\
+\textbf{Use case \#4:} User retrieves forgotten password\\
+\textbf{Primary Actor:} User\\
+\textbf{Supporting Actors:} None\\
+\textbf{Precondition:} The user has successfully created an account\\
+\textbf{Trigger:} The user has selected an option to forget password\\
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item User accesses login page and selection forget password option
+    \item User enters required information to gain back access to account
+    \item System sends the users follow up details to confirm the legitimacy of their account
+    \item User is able to provide a new password
+    \item System shall update the password of the current user in the database 
+    \item User is redirected to the Home page as a logged in user
+\end{enumerate}
+\textbf{Secondary Scenarios}:
+\begin{enumerate}
+    \item System unable to verify account details: User may have entered the incorrect details needed to obtain back access to the account. They may also pretend to be someone else but is not able to gain access to the account
+\end{enumerate}
+\textbf{Success Postcondition:} The user has successfully updated their account details and is logged in. \newline
+
+\noindent\\
+\textbf{Use case \#5:} User opts out to delete their data\\
+\textbf{Primary Actor:} User\\
+\textbf{Supporting Actors:} None\\
+\textbf{Precondition:} The user has successfully created an account and is currently signed in\\
+\textbf{Trigger:} The user has selected an option to delete their data\\
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item User accesses selection to delete data
+    \item System logs the user out
+    \item System deleted all data belonging to the user
+    \item User is redirected to the Home page
+\end{enumerate}
+\textbf{Secondary Scenarios}:
+None\\
+\textbf{Success Postcondition:} The user has successfully opted out to delete their data and is no longer stored in the database. \newline
+
+
+\noindent\\
+\newpage
+\textbf{Use case\# 6:} User completes a turn\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{srs_usecase.drawio.png}
+    \caption{Use Case \#6: User completes a turn}
+    \label{fig:context_diagram}
+\end{figure}
+\newpage
 
 \subsection{Functional Requirements}
 \begin{enumerate}[{FR}1. ]
@@ -208,25 +324,91 @@ will be a tutorial to go over the basic rules of the game if they lack sufficien
 \section{Non-functional Requirements}
 
 \subsection{Look and Feel Requirements}
+\begin{enumerate}[{LF}1. ]
+    \item The menu shall be minimalistic. \\
+    \textbf{Fit Criteria}: The menu should only require the necessary elements and not overwhelm the user.
+    \item The menu and game interface shall follow a consistent theme. \\
+    \textbf{Fit Criteria}: All visual assets should include the same colors and style across all aspects of the game.  
+    \item The system must have engaging audio. \\
+    \textbf{Fit Criteria}: Survey a group of individuals and 90\% of them should be satisfied with the audio assets. 
+    \item The system must have engaging graphics.\\
+    \textbf{Fit Criteria}: Survey a group of individuals and 90\% of them should be satisfied with the graphical assets.
+    \item The system must be responsive on monitors at least MIN\_MONITOR. \\
+    \textbf{Fit Criteria}: All aspects of the system should be functioning accordingly and be responding at the resolution set to MIN\_MONITOR.
+    \item The system must have engaging gameplay. \\
+    \textbf{Fit Criteria}: Average number of turns played is MIN\_TURNS.
+    
+\end{enumerate}
 
 \subsection{Usability and Humanity Requirements}
+\begin{enumerate}[{UH}1. ]
+    \item The system must be easy to learn for people aged AGE\_GROUP. \\
+    \textbf{Fit Criteria}: Survey a group of individuals and 95\% of them should easily understand the in-game logic, understand the information provided to them and be able to interact with all the menus.
+\end{enumerate}
 
 \subsection{Performance Requirements}
+\begin{enumerate}[{PR}1. ]
+    \item The website must load within LOAD\_TIME seconds. \\
+    \textbf{Fit Criteria}: The measured time from the user sending an initial request to access the website and the website loading is less than or equal to LOAD\_TIME.
+    
+    \item The website must respond to any user interaction within RESPONSE\_TIME seconds. \\
+    \textbf{Fit Criteria}: The measured time from the user interacting with the website and the website providing the user with some response is less than or equal to RESPONSE\_TIME.
+\end{enumerate}
 
 \subsection{Operational and Environmental Requirements}
+\begin{enumerate}[{OE}1. ]
+    \item The system must be functional on modern browsers. \\
+    \textbf{Fit Criteria}: The user shall be able to run the game on different modern browsers such as Google Chrome, Firefox, Microsoft Edge.
+    
+    \item The system must be functional on any version of the browser it's used on released within the past SUPPORTED\_VERSIONS. \\
+    \textbf{Fit Criteria}: The user shall be able to run the game on any supported version of their browser of choice (so long as their browser is supported).
+\end{enumerate}
+
 
 \subsection{Maintainability and Support Requirements}
+\begin{enumerate}[{MR}1. ]
+    \label{MR1}
+    \item The system must allow assets to be replaced. \\
+    \textbf{Fit Criteria}: The development team and client shall be able to change any visual or audio assets with ease and not disrupt any part of the system.
+\end{enumerate}
 
 \subsection{Security Requirements}
-
+\begin{enumerate}[{SR}1. ]
+    \item The system must not allow automation of creating accounts. \\
+    \textbf{Fit Criteria}: There should be measures in place to prevent automated attacks. \\
+    
+\end{enumerate}
 \subsection{Cultural Requirements}
-
+N.A.
 \subsection{Legal Requirements}
+\begin{enumerate}[{LR}1. ]
+    \item The system must not keep data if a user retracts consent. \\
+    \textbf{Fit Criteria}:  Upon request to delete data, there should be no instance of the user's data in the database.
+\end{enumerate}
 
 \subsection{Health and Safety Requirements}
+N.A.\\
 
-This section is not in the original Volere template, but health and safety are
-issues that should be considered for every engineering project.
+\subsection{Requirements That Are Likely/Unlikely to Change}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{0.40\linewidth} | p{0.40\linewidth}|}
+    \hline
+         Likely & Unlikely \\
+         \hline
+         PR1, PR2, SR1 & LF1, LF2, LF3, LF4, LF5, LF6, UH1, OE1, OE2, MR1, LR1      \\
+         \hline
+    \end{tabular}
+    \caption{Likely/Unlikely to Change Table}
+    \label{tab:my_label}
+\end{table}
+\begin{itemize}
+    \item LF1, LF2, LF3, LF4, LF6: These are unlikely to change as these are needed to fully immerse the user within the game and not think about the underlying research (to ensure genuine results).
+    \item LF5, UH1, OE1, OE2: This is unlikely to change as these tackle the problem of having the application as accessible as possible.
+    \item MR1: This is unlikely to change as it allows Dr.Yiannakoulias to tweak and further improve upon the finished product.
+    \item LR1: This is unlikely to change as this is required for the ethics board to approve the finished product.
+    
+\end{itemize}
 
 \section{Traceability Matrix}
 
