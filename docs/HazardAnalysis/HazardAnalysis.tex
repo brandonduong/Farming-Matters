@@ -147,30 +147,41 @@ this potential failure mode.}
 \end{table}
 
 \section{Safety and Security Requirements}
-
 The following requirements includes requirements in the Software Specification Document. It also lists new requirements which will be added to the Software Specification Document and have been written in \textbf{bold}. 
+
 \subsection{Security Requirements}
 \begin{enumerate}[{SR}1. ]
     \item The system must not allow automation of creating accounts. 
+    \item \textbf{The system will encrypt all user passwords with a sufficient encryption algorithm.}
 \end{enumerate}
 \subsection{Access Requirements}
 \begin{enumerate}[{ACR}1. ]
-    \item test
+    \item \textbf{The frontend system shall allow access to any public user.}
+    \item \textbf {The backend system shall only allow unauthenticated access to login related functionality.}
+    \item \textbf{The backend system shall only allow access to authenticated users for all other (non-login) functionality.}
+    \item \textbf{The backend system shall allow only to up to one user to have one user logged-in session at any point and time.}
+    
 \end{enumerate}
 \subsection{Integrity Requirements}
 \begin{enumerate}[{IR}1. ]
     \item \textbf{The system will be able to handle all API requests in API\_RESPONSE\_TIME}
     \item \textbf{The system will be able to handle all database requests in DATABASE\_RESPONSE\_TIME}
+    \item \textbf{The system will be able to handle unexpected loss of connection to the server}
+    \item \textbf{The user shall agree to the terms and condition before using the application }
+    \item \textbf{The system shall warn users regarding account sharing and how it will skew the data collection for research}
 \end{enumerate}
 \subsection{Privacy Requirements}
 \begin{enumerate}[{PR}1.]
-    \item test
+    \item \textbf{The system shall delete all user data if user decides to opt out of data collection}
+    \item \textbf{The application only requires an email provided by the user}
 \end{enumerate}
 
 \subsection{Audit Requirements}
 N/A
 \subsection{Immunity Requirements}
 N/A
+
+
 \section{Roadmap}
 
 \wss{Which safety requirements will be implemented as part of the capstone timeline?
