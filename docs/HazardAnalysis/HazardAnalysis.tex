@@ -3,6 +3,13 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{adjustbox}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage{chngpage}
+\usepackage{array}
+
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -54,12 +61,25 @@ Date2 & Name(s) & Description of changes\\
 \wss{You are free to modify this template.}
 
 \section{Introduction}
+This document outlines the Hazard Analysis for the Farming Matters game. The Farming Matters game is an engaging way to collect authentic data to support the research study that focuses on whether or not people prefer probabilistic or deterministic information.
 
 \wss{You can include your definition of what a hazard is here.}
 
 \section{Scope and Purpose of Hazard Analysis}
 
 \section{System Boundaries and Components}
+The system will be divided into the following components:
+
+\begin{enumerate}
+    \item The application including both the frontend and backend consists of:
+    \begin{enumerate}
+        \item Authentication System
+        \item Backend Server
+        \item Database System
+        \item User Interface
+    \end{enumerate}
+    \item The physical setup (computer, keyboard, mouse, laptop)
+\end{enumerate}
 
 \section{Critical Assumptions}
 
@@ -74,9 +94,29 @@ this potential failure mode.}
 
 \section{Safety and Security Requirements}
 
-\wss{Newly discovered requirements.  These should also be added to the SRS.  (A
-rationale design process how and why to fake it.)}
+The following requirements includes requirements in the Software Specification Document. It also lists new requirements which will be added to the Software Specification Document and have been written in \textbf{bold}. 
+\subsection{Security Requirements}
+\begin{enumerate}[{SR}1. ]
+    \item The system must not allow automation of creating accounts. 
+\end{enumerate}
+\subsection{Access Requirements}
+\begin{enumerate}[{ACR}1. ]
+    \item test
+\end{enumerate}
+\subsection{Integrity Requirements}
+\begin{enumerate}[{IR}1. ]
+    \item \textbf{The system will be able to handle all API requests in API\_RESPONSE\_TIME}
+    \item \textbf{The system will be able to handle all database requests in DATABASE\_RESPONSE\_TIME}
+\end{enumerate}
+\subsection{Privacy Requirements}
+\begin{enumerate}[{PR}1.]
+    \item test
+\end{enumerate}
 
+\subsection{Audit Requirements}
+N/A
+\subsection{Immunity Requirements}
+N/A
 \section{Roadmap}
 
 \wss{Which safety requirements will be implemented as part of the capstone timeline?
