@@ -10,7 +10,6 @@
 \usepackage{chngpage}
 \usepackage{array}
 
-
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
     linkcolor=red,          % color of internal links (change box color with linkbordercolor)
@@ -25,8 +24,8 @@
 
 \date{}
 
-\input{../Comments}
-\input{../Common}
+\input{./Comments}
+\input{./Common}
 
 \begin{document}
 
@@ -37,15 +36,16 @@
 
 \pagenumbering{roman}
 
+
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
 \begin{tabularx}{\textwidth}{llX}
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+10/19/2022 & Namit Chopra, Brandon Duong  & Finished first \\
+ & Andrew Balmakund, Mohammad Harun & version\\
+ & Mihail Serafimovski & \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -53,19 +53,19 @@ Date2 & Name(s) & Description of changes\\
 ~\newpage
 
 \tableofcontents
-
+\listoftables
 ~\newpage
 
 \pagenumbering{arabic}
 
-\wss{You are free to modify this template.}
+%\wss{You are free to modify this template.}
 
 \section{Introduction}
-This document outlines the Hazard Analysis for the Farming Matters game. The Farming Matters game is an engaging way to collect authentic data to support the research study that focuses on whether or not people prefer probabilistic or deterministic information.
+Based on Nancy Leveson's work, a hazard is any property or condition in The Farming Matters game that fails or alters its intended function when coupled with the environment. This document outlines the Hazard Analysis for the Farming Matters game. The Farming Matters game is an engaging way to collect authentic data to support the research study that focuses on whether or not people prefer probabilistic or deterministic information.
 
-\wss{You can include your definition of what a hazard is here.}
 
 \section{Scope and Purpose of Hazard Analysis}
+The scope of this document is to provide an analysis regarding hazards of the different system boundaries and components, how to mitigate each hazard and provide safety and security requirements.
 
 \section{System Boundaries and Components}
 The system will be divided into the following components:
@@ -81,15 +81,12 @@ The system will be divided into the following components:
     \item The physical setup (computer, keyboard, mouse, laptop)
 \end{enumerate}
 
-\section{Critical Assumptions}
+The authentication system component is responsible for allowing users to create an account and log in as well as allowing existing users to log in. The backend server component is responsible for handling all requests regarding the login system and database system as well as responding to these requests. The database system component is responsible for the handling of user data.
 
-\wss{These assumptions that are made about the software or system.  You should
-minimize the number of assumptions that remove potential hazards.  For instance,
-you could assume a part will never fail, but it is generally better to include
-this potential failure mode.}
+\section{Critical Assumptions}
+There are no critical assumptions. 
 
 \section{Failure Mode and Effect Analysis}
-
 
 %\wss{Include your FMEA table here}
 \begin{table}[H]
@@ -182,9 +179,52 @@ N/A
 N/A
 
 
-\section{Roadmap}
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+\section{Roadmap}
+\begin{table}[H]
+\renewcommand{\arraystretch}{1.75}
+\begin{adjustwidth}{-1.6in}{-1in}
+\caption{\bf Roadmap Table}
+\centering
+\begin{tabular}{|l|l|p{0.55\linewidth}|}
+\hline
+\textbf{Timeline}                & \textbf{Requirements} & \textbf{Rationale}                                                                                                                                                                                                              \\ \hline
+\multirow{2}{*}{POC}             & ACR1                  & In order to demonstrate the POC, the frontend must be accessible to an unauthenticated user on a device running the POC code locally                                                                                            \\ \cline{2-3} 
+                                 & IR1                   & Backend functionality will be needed for the POC, so all API requests needed for the POC should be handled properly                                                                                                             \\ \hline
+\multirow{9}{*}{End of Capstone} & SR1                   & \multirow{2}{\linewidth}{These are needed to prevent skewing of the research data obtained in the project, as discussed with the project supervisor.}                                                                                    \\ \cline{2-2}
+                                 &IR5                   &                                                                                                                                                                                                                              \\ \cline{2-3}
+                                 & SR2                   & \multirow{3}{\linewidth}{A login system is needed as part of the final project in order to save user data, among other things. This includes proper encryption for passwords and backend authentication-based access.}                   \\ \cline{2-2}
+                                 & ACR2                  &                                                                                                                                                                                                                                 \\ \cline{2-2}
+                                 & ACR3                  &                                                                                                                                                                                                                                 \\ \cline{2-3} 
+                                 & IR2                   & Database functionality will be expected in the final project, therefore all database requests should be handled properly                                                                                                        \\ \cline{2-3}
+                                 & IR4                   & \multirow{2}{\linewidth}{These requirements must be fulfilled in order to gain approval from the Ethics board. Users must accept some terms and must be able to opt-out of data collection at any time.} \\ \cline{2-2}
+                                 & PR1                   &                                                                                                                                                                                                                                 \\ \cline{2-3} 
+                                 & PR2                   & In order to get approval from the Ethics board as fast as possible, the final project should collect minimal data required to make an account.                                                                                  \\ \hline
+\multirow{2}{*}{Future}          & IR3                   & To handle the loss of user connection, some type of autosave will have to be implemented. This is not part of the scope of the final project, but it is a valid concern, so it will be considered in the future.                    \\ \cline{2-3} 
+                                 & AUR1                  & Storing gameplay statistics further than user decisions would be useful, but is not part of the data needed for the core project and may complicate Ethics board approval. Therefore it will be considered in the future.      \\ \hline
+\end{tabular}
+\end{adjustwidth}
+\end{table}
+
+\section{Appendix}
+\subsection{Symbolic Parameter Table}
+\begin{table}[H]
+\begin{adjustwidth}{-1in}{-0.5in}
+\caption{\bf Symbolic Parameter Table}
+\begin{tabular}{|l|p{0.5\linewidth}|l|}
+\hline
+\multicolumn{1}{|l}{\bfseries Symbolic Parameter} & \multicolumn{1}{|l|}{\bfseries Description} & \multicolumn{1}{l|}{\bfseries Value}\\
+\hline
+API\_RESPONSE\_TIME & The maximum amount of time allowed for the system to respond back to the API request & 0.5 seconds\\
+\hline
+DATABASE\_RESPONSE\_TIME & The maximum amount of time allowed for the system to respond back to the database request & 0.25 seconds\\
+\hline
+
+\end{tabular}
+\end{adjustwidth}
+\end{table}
+
+
+\newpage
 
 \end{document}
