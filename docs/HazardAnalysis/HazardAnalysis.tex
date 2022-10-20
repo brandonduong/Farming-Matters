@@ -116,6 +116,36 @@ this potential failure mode.}
     \label{tab:my_label}
 \end{table}
 
+\newpage 
+\begin{table}[H]
+    \begin{adjustbox}{width=\textwidth}
+    \centering
+
+    \begin{tabular}{|p{0.20\linewidth} | p{0.20\linewidth} | p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.05\linewidth}|  p{0.07\linewidth}| }
+    \hline
+         \textbf{Design Functions} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} & \textbf{Ref} \\
+         
+        \hline
+        
+         Internet Connectivity 
+         
+         %&Cannot connect to the Internet
+         %& User will not be able to access game & Hardware is having connectivity problems & Troubleshoot connectivity issues or change to hardware that has connection to the internet 
+         %& test & H3-1\\
+         
+          & Loses internet connection during gameplay  & User loses all progress made during the current session prior to losing internet connection & Hardware is having connectivity problems & To save current progress, wait till internet access has been retrieved in order for the system to perform a automatic save. Otherwise, the game will resume at the most recent saved progress  & IR3 & H3-2\\
+         \hline
+        General & Host computer, Web browser or the tab crashes & User loses all progress made during the current session prior to closing application & Not enough computer resources available, significant host operating system crash, accidental close of web browser or tab \newline & Close unused applications and other web browser tabs that are unused on a host computer
+        & IR1 & H4-1\\
+        
+        & Game is slow to respond to user input & User is effectively unable to play the game. & User's hardware is insufficient to run the game & Provide a specifications guide in the to inform users what minimum specifications are required to run the game & IR1 & H4-2\\
+        
+         \hline
+    \end{tabular}
+    \end{adjustbox}
+    \label{tab:my_label}
+\end{table}
+
 \section{Safety and Security Requirements}
 
 The following requirements includes requirements in the Software Specification Document. It also lists new requirements which will be added to the Software Specification Document and have been written in \textbf{bold}. 
