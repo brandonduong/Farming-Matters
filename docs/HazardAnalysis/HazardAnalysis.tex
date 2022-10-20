@@ -90,7 +90,31 @@ this potential failure mode.}
 
 \section{Failure Mode and Effect Analysis}
 
-\wss{Include your FMEA table here}
+
+%\wss{Include your FMEA table here}
+\begin{table}[H]
+    \caption{\bf FMEA Table}
+    \begin{adjustbox}{width=\textwidth}
+    \centering
+    
+
+    \begin{tabular}{|p{0.20\linewidth} | p{0.20\linewidth} | p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.07\linewidth}|  p{0.07\linewidth}| }
+    \hline
+         \textbf{Design Functions} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} & \textbf{Ref} \\
+         \hline
+         Database & Server can not fulfill all user requests & Can't store all user decisions, losing data necessary for the underlying research study & Too many people playing and making API requests at the same time & Ensure a queue-login system  is enforced, only allow a max amount of users to play the game\newline   & IR1 & H1-1\\
+          & Database can not store any more data & Can not store any user decisions, losing data necessary for the underlying research study & Storage of database is full & Admin's can download all data (user decisions) from the database and delete the data on the database afterwards, hence creating additional storage. Admins could also increase database storage capacity   & IR2 & H1-2\\
+          \hline
+         Authentication & Unauthorized user is able to log into the game & Logged player decisions cannot be traced to an account/user \newline & Database authentication issue & Ensure only authorized user decisions are logged & ACR2, ACR3 & H2-1\\
+         & Bots are able to play the game & Logged decisions are inauthentic and detrimental to the underlying research\newline & Attacker develops script to automate account creation and play game &  Ensure account creation includes captcha & SR1 & H2-2\\
+         & Account sharing & Logged decisions do not reflect decision-making of one person and are detrimental to the underlying research\newline & The user shares their account login information with their peers & The user must accept the guidelines and rules before playing the game & IR4, IR5 & H2-3\\
+         
+           & User opening multiple sessions & Logged decisions from current and previous sessions may be overwritten and thus lose data & The user logs in multiple times on the same device or on multiple devices & The user must log out before creating a new session or the system will automatically log them out of the old sessions in order to create a new session & ACR4 & H2-4\\
+         \hline
+    \end{tabular}
+    \end{adjustbox}
+    \label{tab:my_label}
+\end{table}
 
 \section{Safety and Security Requirements}
 
