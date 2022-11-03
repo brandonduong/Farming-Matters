@@ -44,28 +44,11 @@
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
+%\wss{Remove this section if it isn't needed}
 
 \listoffigures
-\wss{Remove this section if it isn't needed}
+%\wss{Remove this section if it isn't needed}
 
-\newpage
-
-\section{Symbols, Abbreviations and Acronyms}
-
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
-
-\wss{symbols, abbreviations or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
-
-\wss{Remove this section if it isn't needed}
 
 \newpage
 
@@ -83,7 +66,7 @@ lab experiments allowing users to make genuine decisions. The game decisions mad
 \subsection{Objectives}
 
 \begin{itemize}
-    \item Build confidence in the software correctness to match with game play consistency 
+    \item Build confidence in the software's correctness to match the gameplay consistency 
     \item Demonstrate suitable usability for users playing the game and data collection for research
     \item To assure the system has met the requirements provided in the Software Requirement Specification (SRS)
     \item To assure potential hazards are accounted for
@@ -110,7 +93,7 @@ The project consists of various other documentation that contain contents discus
 % \citet{SRS}
 
 \section{Plan}
-This section highlights and outlines the plans for the validation and verification of the software requirements, design verification, as well as this document. 
+This section highlights and outlines the plans for the validation and verification of the software requirements, design verification, as well as this document. The section also discusses implementing the verification plan given in this document, automated testing and verification tools, as well as the validation plan.
 
 \subsection{Verification and Validation Team}
 
@@ -154,17 +137,14 @@ Due to the nature of the Verification and Validation plan, we elected to use oth
 
 \subsection{Implementation Verification Plan}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
-
-\wss{In this section you would also give any details of any plans for static verification of
-  the implementation.  Potential techniques include code walkthroughs, code
-  inspection, static analyzers, etc.}
-  Implementation verification will be done using the dynamic and static tests outlined in this document. Namely, they consist of the tests for functional requirements in section 5.1 and the tests for nonfunctional requirements in section 5.2. In future revisions of this document, unit tests from section 6 will also be used for implementation verification
+  Implementation verification will be done using the dynamic and static tests outlined in this document. Namely, they consist of the tests for functional requirements in \hyperref[s5.1]{section 4.1} and the tests for nonfunctional requirements in \hyperref[s5.2]{section 4.2}. In future revisions of this document, unit tests from section 6 will also be used for implementation verification.
   
-  Implementation verification will also be carried out through static analyzers, automated 
+  Implementation verification will also be carried out through code reviews. When a group member makes a pull request to the GitHub repository, another member will have to approve it before it can be merged to the main (stable) branch.
+  
+  Finally, implementation verification will be carried out through a static analyzer. For now, this will just consist of running the linter used for the project (see \hyperref[s4.6]{section 3.6}). This can be set up either via GitHub Actions, or since the team size is small it may cost less time to simply require that all devs run the linter on their pull requests before opening them.
 
 \subsection{Automated Testing and Verification Tools}
+\label{s4.6}
 
 \begin{itemize}
 \item For front-end testing, we will use \href{https://jestjs.io/}{Jest}. For back-end, we will use \href{https://mochajs.org/}{Mocha}.
@@ -202,6 +182,7 @@ Another method of validating the software will be review sessions with our prima
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
+\label{s5.1}
 
 % \wss{Subsets of the tests may be in related, so this section is divided into
 %   different areas.  If there are no identifiable subsets for the tests, this
@@ -394,6 +375,7 @@ Control: Automatic
 
 \item {\textbf{Name:} Successful second or more item purchase of the same item\\} % FR 3, 6
 \textbf{Id:} Test-GM3 \label{Test-GM3}\\
+
 \textbf{Control:} Automatic
 
 \textbf{Initial State:} User is logged in and in the shop. User has enough in-game currency to purchase an item and already has the item in their inventory
@@ -604,8 +586,7 @@ Control: Automatic
 
 \textbf{How test will be performed:} Manual testing of playing the overall game and ensuring the consultant information is either deterministic or probabilistic on average 50\% of the time for each
 
-\item{\textbf{Name:} Successful prompt for insurance upon purchasing a crop \\} % FR 12 FR 20 <- Confirm insurance can only be purchased in shop
-
+\item{\textbf{Name:} Successful prompt for insurance upon purchasing a crop\\} % FR 12 FR 20 <- Confirm insurance can only be purchased in shop
 \textbf{Id:} Test-GM17 \label{Test-GM17}\\
 
 \textbf{Control:} Manual 
@@ -665,7 +646,7 @@ Control: Automatic
 
 \textbf{How the test will be performed:} Manual test by playing the game for some time and visually checking whether the season is changing or remains constant.
 
-\item{Name: Item successfully added to inventory \\} % FR 4 
+\item{\textbf{Name:} Item successfully added to inventory \\} % FR 4 
 \textbf{Id:} test-GM21 \label{Test-GM21}\\
 
 \textbf{Control:} Automatic
@@ -702,7 +683,7 @@ The database testing deals with the test cases related that relate to the game. 
 
 % Not game mechanics
 \item{\textbf{Name:} Successful saving of game state\\} % FR 14
-Id: Test-DB2    \label{Test-DB2}\\
+\textbf{Id:} Test-DB2    \label{Test-DB2}\\
 \textbf{Control:} Manual
 
 \textbf{Initial State:} User is logged in and makes a turn to change the game state.
@@ -752,6 +733,7 @@ The Pre-game testing deals with the test cases related that relate to the user b
 
 \end{enumerate}
 \subsection{Tests for Nonfunctional Requirements}
+\label{s5.2}
 
 % \wss{The nonfunctional requirements for accuracy will likely just reference the
 %   appropriate functional tests from above.  The test cases should mention
@@ -804,7 +786,7 @@ Area of Testing:
 \textbf{How test will be performed:} The test will be performed manually with the tester playing one season at different SCREEN\_RESOLUTION in which they are to navigate to different screens and access different interface features.
 
 \item{\textbf{Name: }Testing User Engagement \\}\label{Test-LF3}
-\textbf{Id: }Test-LF3
+\textbf{Id: }Test-LF3\\
 
 \textbf{Type:} Non-functional, Dynamic, Automated
 					
@@ -867,8 +849,9 @@ Area of Testing:
     \textbf{How test will be performed:} The team will use a performance testing tool of choice to measure the response times of different decisions within the game.
 
 
-\item{Test for performance on using different image assets \\}\label{Test-P3}
+\item{\textbf{Name:} Test for performance on using different image assets \\}\label{Test-P3}
 \textbf{Id: }Test-P3\\
+
 \textbf{Type:} Automated, Dynamic
 					
 \textbf{Initial State:} The user is logged into the game
@@ -885,8 +868,9 @@ Area of Testing:
     %%% Double check that we can involve multiple system/unit test in 1 test to test the whole functionality of the system through automated testing
     %%% If not, just make this manual testing
     \item{\textbf{Name: }Testing if system can run on different browsers\\} \label{Test-OE1}
-    \textbf{Id: }Test-OE1
-   \textbf{ Type:} Non-functional, Automated, Dynamic
+    \textbf{Id: }Test-OE1\\
+    
+   \textbf{Type:} Non-functional, Automated, Dynamic
     					
     \textbf{Initial State:} The user is at home page
     					
@@ -897,7 +881,7 @@ Area of Testing:
    \textbf{How test will be performed: }The system will be tested with various features of the system in order to determine the system is working correctly on different modern web browsers. This will ensure the system can be supported by that specific web browser.
     
     \item{\textbf{Name: }Test for all working versions of a web browser up to supported working version \\} \label{Test-OE2}
-    \textbf{Id: }Test-OE2
+    \textbf{Id: }Test-OE2\\
     
     \textbf{Type:} Non-functional, Automated, Dynamic
     					
@@ -913,7 +897,7 @@ Area of Testing:
 \subsubsection{Maintainability and Support Requirements}
 \begin{enumerate}
 \item{\textbf{Name:} Testing audio change in current game session and its affects\\}\label{Test-MS1}
-\textbf{Id:} Test-MS1
+\textbf{Id:} Test-MS1\\
 
 \textbf{Type:} Non-functional, Manual, Dynamic
 					
@@ -931,7 +915,7 @@ Area of Testing:
 \subsubsection{Security}
 \begin{enumerate}
     \item{\textbf{Name:} Test for exploits of current technology used in the system\\} \label{Test-SR1}
-   \textbf{ Id: }Test-SR1
+   \textbf{Id: }Test-SR1\\
    
     \textbf{Type:} Non-functional, Manual, Dynamic
     					
@@ -944,7 +928,7 @@ Area of Testing:
     \textbf{How test will be performed:} Use common exploit vulnerabilities with the current versions or past versions of the technology used within the system that can lead to automated attacks. This will be used on a separate test server to avoid any complications with the development server.
     
     \item{\textbf{Name:} Test for basic cross site scripting (XSS) to by pass login screen\\} \label{Test-SR2}
-    \textbf{Id:} Test-SR2
+    \textbf{Id:} Test-SR2\\
     
     \textbf{Type:} Non-functional, Manual, Dynamic
     					
@@ -969,7 +953,7 @@ Area of Testing:
     % \textbf{How test will be performed:} Logging on multiple instances on the same web browser, opening multiple instances on the different browsers on the same device, opening multiple instances on different devices and on different browsers.
     
     \item{\textbf{Name:} Test to see if plain text of password exist in database\\} \label{Test-SR3}
-    \textbf{Id:} Test-SR3
+    \textbf{Id:} Test-SR3\\
     
     \textbf{Type:} Non-functional, Manual, Dynamic
     					
@@ -985,7 +969,7 @@ Area of Testing:
 \subsubsection{Access}
 \begin{enumerate}
     \item{\textbf{Name:} Test for accessing the system on different internet accesses (i.e public and private wifi)\\} \label{Test-ACR1}
-    \textbf{Id:} Test-ACR1
+    \textbf{Id:} Test-ACR1\\
     
     \textbf{Type:} Non-functional, manual, Dynamic
     					
@@ -998,7 +982,7 @@ Area of Testing:
     \textbf{How test will be performed:} The system will be opened on multiple systems in multiple locations (i.e public, private internet access and check to see if the system is able to be accessed by the user. However, only one user session is active at a time.
     
     \item{\textbf{Name:} Test to see if only login functionality is only provided when user is not logged in\\} \label{Test-ACR2}
-    \textbf{Id:} Test-ACR2
+    \textbf{Id:} Test-ACR2\\
     
     \textbf{Type:} Non-functional, manual, Dynamic
     					
@@ -1011,7 +995,7 @@ Area of Testing:
     \textbf{How test will be performed:} The system checked to see which request are provided when presented at the login screen when the user is not signed in. There will be checks to see if any game related logic is stored on the user's client side to see if they have access to functionality they should not be having access to while not signed in. 
     
     \item{\textbf{Name:} Test to see if only in game functionality is provided when user is logged in (i.e functionality for logging should not be available)\\} \label{Test-ACR3}
-    \textbf{Id: }Test-ACR3
+    \textbf{Id: }Test-ACR3\\
     
     \textbf{Type:} Non-functional, manual, Dynamic
     					
@@ -1024,7 +1008,7 @@ Area of Testing:
     \textbf{How test will be performed:} The system checked to see which request are provided after the user is logged in and at the game page. There will be checks to see if all game related logic is stored on the user's client side after they are logged in and playing the game. There should be no functionality related to the login system 
     
     \item{\textbf{Name:} Test to see if only one user session is activated each time a new log in appears\\} \label{Test-ACR4}
-    \textbf{Id: }Test-ACR4
+    \textbf{Id: }Test-ACR4\\
     
     \textbf{Type:} Non-functional, manual, Dynamic
     					
@@ -1042,6 +1026,7 @@ Area of Testing:
 \begin{enumerate}
     \item{\textbf{Name:} Testing API Response Time \\} \label{Test-IR1}
     \textbf{Id:} IR1 \\
+    
     \textbf{Type:} Non-functional, Automatic, Dynamic
     					
     \textbf{Initial State:} The user is logged in
@@ -1066,7 +1051,7 @@ Area of Testing:
     \textbf{How test will be performed:} The database will receive all types of input requests provided by the system and each one takes at most DATABASE\_RESPONSE\_TIME
     
     \item{\textbf{Name:} Testing if progress is saved when connection is lost \\} \label{Test-IR3}
-    \textbf{Id:} IR3 
+    \textbf{Id:} IR3 \\
     
     \textbf{Type:} Non-functional, Manual, Dynamic
     					
