@@ -110,9 +110,7 @@ The project consists of various other documentation that contain contents discus
 % \citet{SRS}
 
 \section{Plan}
-This section highlights and outlines the plans 
-\wss{Introduce this section.   You can provide a roadmap of the sections to
-  come.}
+This section highlights and outlines the plans for the validation and verification of the software requirements, design verification, as well as this document. 
 
 \subsection{Verification and Validation Team}
 
@@ -162,6 +160,9 @@ Due to the nature of the Verification and Validation plan, we elected to use oth
 \wss{In this section you would also give any details of any plans for static verification of
   the implementation.  Potential techniques include code walkthroughs, code
   inspection, static analyzers, etc.}
+  Implementation verification will be done using the dynamic and static tests outlined in this document. Namely, they consist of the tests for functional requirements in section 5.1 and the tests for nonfunctional requirements in section 5.2. In future revisions of this document, unit tests from section 6 will also be used for implementation verification
+  
+  Implementation verification will also be carried out through static analyzers, automated 
 
 \subsection{Automated Testing and Verification Tools}
 
@@ -196,7 +197,7 @@ Due to the nature of the Verification and Validation plan, we elected to use oth
   One of the central purposes of this project is to gather research data through a user's gameplay. The supervisor, Prof. Niko Yiannakoulias, has done research before on the same topic, but through traditional survey methods instead of a game. The data obtained from his previous research will be important to validate the software, as it will help show if the software fulfilled its purpose of generating reliable data.
   \\ 
 
-Another method of validating the software will be review sessions with our primary stakeholder, the supervisor (Prof. Niko Yiannakoulias). We have a weekly meeting cadence set up with him and we can use these to iteratively validate the software as we go through the development process as opposed to validating it just once. In the beginning, it will be be
+Another method of validating the software will be review sessions with our primary stakeholder, the supervisor (Prof. Niko Yiannakoulias). We have a weekly meeting cadence set up with him and we can use these to iteratively validate the software as we go through the development process as opposed to validating it just once. In the beginning, it will be best to keep these review sessions less formal but as the software gets closer to the finished product, the review sessions will become formal in nature and the group will implement task based inspection.
 
 \section{System Test Description}
 	
@@ -761,8 +762,8 @@ The Pre-game testing deals with the test cases related that relate to the user b
 %   survey.  The survey will be in the Appendix.}
 
 % \wss{Static tests, review, inspections, and walkthroughs, will not follow the
-% format for the tests givrn below.}
-The non-functional system requirements that require non-functional testing. These tests can be broken down into different subsections that cover the areas of testing. These subsections include: Client Side \& Server Side Performance Testing, Security \& Data Integrity Testing, Look and Feel and Usability
+% format for the tests given below.}
+The non-functional system requirements that require non-functional testing. These tests can be broken down into different subsections that cover the areas of testing. These subsections for the non-functional tests include: Look and Feel, Usability and Humanity, Performance, Operational and Environmental, Maintainability and Support Requirements, Security, Access and Integrity.
 Area of Testing:
 \begin{itemize}
     \item Client Side \& Server Side Performance Testing
@@ -1326,14 +1327,16 @@ SUPPORTED\_VERSION & The oldest supported version of browsers & 1 Year\\
 \multicolumn{7}{|l|}{The following survey will be completed upon playing the game after 20 minutes}                                                                           \\ \hline
 \multicolumn{1}{|l|}{Design Minimalistic}    & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = too much clutter of elements, 5 = no clutter and minimal feel{]}}                                   \\ \hline
-\multicolumn{1}{|l|}{Consistent Color Theme} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
+\multicolumn{1}{|l|}{Consistent Color Theme} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5\\ \hline
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = inconsistent color theme, 5 = consistent color theme{]}}                                            \\ \hline
 \multicolumn{1}{|l|}{Engaging Audio}         & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = audio is terrible to listen to, 5 = audio is enjoyable to listen to{]}}                             \\ \hline
 \multicolumn{1}{|l|}{Engaging Graphics}      & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = graphics are not pleasing, 5 = graphics are pleasing and comfortable{]}}                            \\ \hline
-\multicolumn{1}{|l|}{Age Graphics}      & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
-\multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = graphics are not pleasing, 5 = graphics are pleasing and comfortable{]}}                            \\ \hline
+\multicolumn{1}{|l|}{Age Group}      & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} &  \\ \hline
+\multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = age less than 18, 1 = age is 18 or above{]}}                            \\ \hline
+\multicolumn{1}{|l|}{Easy to understand}      & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
+\multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = hard to understand, 5 = easy enough to understand{]}}                            \\ \hline
 \end{tabular}}
 \end{table}
 
