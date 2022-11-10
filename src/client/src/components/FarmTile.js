@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react'
+import { Html } from '@react-three/drei'
+import FarmTilePopup from './FarmTilePopup'
 
 function FarmTile(props) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -10,6 +12,7 @@ function FarmTile(props) {
   function onClick() {
     click(!clicked);
     console.log(`clicked ${props.x} ${props.z}`)
+    props.setClickedTile([props.x, props.z])
   }
 
   return (
@@ -20,6 +23,11 @@ function FarmTile(props) {
     onPointerOut={(event) => hover(false)}>
     <planeGeometry args={[1, 1]} />
     <meshStandardMaterial color={hovered ? "darkgreen" : "green"} />
+    <Html center>
+      {props.clickedTile && props.clickedTile[0] === props.x && props.clickedTile[1] === props.z && 
+        <FarmTilePopup/>
+      }
+    </Html>
   </mesh>
   )
 }
