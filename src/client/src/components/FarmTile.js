@@ -9,6 +9,10 @@ function FarmTile(props) {
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
 
+  const [plantedSeed, setPlantedSeed] = useState(0) // 0 if nothing is planted
+  const seedColors = ["green", "#dbd470", "#be71c7", "#dda6e3", "#291eeb", "red"]
+  const seedHoverColors = ["darkgreen", "#a8a032", "#93489c", "#89668c", "#2a22bd", "darkred"]
+
   function onClick() {
     click(!clicked);
     console.log(`clicked ${props.x} ${props.z}`)
@@ -22,10 +26,10 @@ function FarmTile(props) {
     onPointerOver={(event) => hover(true)}
     onPointerOut={(event) => hover(false)}>
     <planeGeometry args={[1, 1]} />
-    <meshStandardMaterial color={hovered ? "darkgreen" : "green"} />
+    <meshStandardMaterial color={hovered ? seedHoverColors[plantedSeed] : seedColors[plantedSeed]} />
     <Html center>
       {props.clickedTile && props.clickedTile[0] === props.x && props.clickedTile[1] === props.z && 
-        <FarmTilePopup/>
+        <FarmTilePopup plantedSeed={plantedSeed} setPlantedSeed={setPlantedSeed} setClickedTile={props.setClickedTile}/>
       }
     </Html>
   </mesh>
