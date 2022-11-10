@@ -1,5 +1,4 @@
 import './css/App.css';
-import Box from './components/box.js'
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei'
 import FarmGrid from './components/FarmGrid.js';
