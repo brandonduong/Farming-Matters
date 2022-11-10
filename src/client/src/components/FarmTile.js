@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
-import FarmTile from './FarmTile'
 
-function FarmGrid(props) {
+function FarmTile(props) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef()
   // Hold state for hovered and clicked events
@@ -10,23 +8,17 @@ function FarmGrid(props) {
   const [clicked, click] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
   // Return the view, these are regular Threejs elements expressed in JSX
-const gridTiles = [];
-for (let i = -4; i < 6; i++) {
-  for (let o = -4; o < 6; o++) {
-  gridTiles.push(<FarmTile x={i} z={o}/>)
-  }
-}
 
   return (
-    <mesh
-      {...props}
-      ref={ref}>
-      <gridHelper args={[10, 10]} colorGrid={"blue"}/>
-      
-      {gridTiles}
-      <meshStandardMaterial />
-    </mesh>
+    <mesh rotation={[-Math.PI / 2, 0, 0]}
+    position={[props.x - 0.5, -0.01, props.z - 0.5]}
+    onClick={(event) => click(!clicked)}
+    onPointerOver={(event) => hover(true)}
+    onPointerOut={(event) => hover(false)}>
+    <planeGeometry args={[1, 1]} />
+    <meshStandardMaterial color={hovered ? "darkgreen" : "green"} />
+  </mesh>
   )
 }
 
-export default FarmGrid;
+export default FarmTile;
