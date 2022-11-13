@@ -43,3 +43,43 @@
     transform: rotate(360deg);
   }
 }
+
+.avatar-grid{
+    position: relative;
+    top: -50%;
+    display: grid;
+    grid-template-columns: 2fr;
+    grid-template-rows: auto;
+
+    width: 75px;
+    height: 200px;
+    
+    background-color: #ff0000;
+    border: 1px solid #000;
+    border-radius: 25px;
+}
+
+.avatar{
+    width: 50px;
+    height: 50px;
+    
+    padding: 5px;
+   
+    margin: auto auto;
+    border: 1px solid #000;
+    border-radius: 100%;
+}
+
+.avatar-0{
+    background: url('./img/icons8-administrator-94.png');
+    background-size: 50px 50px;
+    background-color: #fff;
+}
+
+.avatar-1{
+    background: url('./img/icons8-account-96.png');
+    background-size: 50px 50px;
+    background-color: #fff;
+}
+
+

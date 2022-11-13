@@ -2,7 +2,7 @@ import './css/App.css';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei'
 import FarmGrid from './components/FarmGrid.js';
-
+import Consultant from './components/Consultant.js';
 function App() {
 
   return (
@@ -15,7 +15,9 @@ function App() {
           <pointLight position={[-10, -10, -10]} />
           <FarmGrid position={[0, 0, 0]} />
           <OrbitControls target={[0, 0, 0]} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2} maxDistance={10} enablePan={false}/>
-        </Canvas>
+      </Canvas>
+
+      <Consultant />
       </div>
     </div>
   );
