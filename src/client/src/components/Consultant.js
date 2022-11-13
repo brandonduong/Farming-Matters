@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+import ConsultantDialog from './ConsultantDialog.js';
 
 function Consultant(props) {
-    const [isOpened, setIsOpen] = useState(null);
-    const [avatar, setSelectedAvatar] = useState(0);
-    
+    let [isOpened, setIsOpen] = useState(false);
+    let [avatar, setSelectedAvatar] = useState(-1);
+    const [decisionType, setDecisionType] = useState(0); 
     function onClick(avatarID){
+        avatar = avatarID;
+        console.log(avatar);
         setIsOpen(!isOpened);
         console.log(`Consultant opened, ID=${avatarID}`);
+        setSelectedAvatar(avatarID);
 
     }
     const avatarButtons = [];
@@ -17,11 +21,20 @@ function Consultant(props) {
             </button>
         )
     }
-    return (
-        <div className="avatar-grid">
-            { avatarButtons}
-        </div>
-    )
+return (
+    <div className="avatar-overlay">
+            <div className="avatar-grid">
+                { avatarButtons}
+                           </div>
+                { isOpened ? 
+                    <ConsultantDialog avatar= {avatar} decisionType={decisionType}/> : 
+
+                    <div> </div> 
+                
+                }
+
+            </div>
+        )
 }
 
 export default Consultant;

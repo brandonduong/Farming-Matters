@@ -44,9 +44,12 @@
   }
 }
 
+.avatar-overlay{
+    display: grid;
+    position:relative;
+    top: -60%;
+}
 .avatar-grid{
-    position: relative;
-    top: -50%;
     display: grid;
     grid-template-columns: 2fr;
     grid-template-rows: auto;
@@ -81,5 +84,44 @@
     background-size: 50px 50px;
     background-color: #fff;
 }
+
+.dialog{
+    display: grid;
+     position: relative;
+    top: -80%;
+
+    grid-template-columns: auto;
+    grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr; /* picture, name, character description, dialog */
+    
+    width: 50%;
+    height: 400px;
+
+    margin: auto auto;
+   
+    background-color: #00aaaa;
+    border: 1px solid #000;
+    border-radius: 25px;
+
+
+}
+
+.dialog > h1 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.dialog > h2 {
+    font-size: 16px;
+    color: #444444;
+    margin: 0;
+    padding: 0;
+}
+
+.dialog > p {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+}
+
 
 
