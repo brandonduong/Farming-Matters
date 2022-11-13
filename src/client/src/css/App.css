@@ -48,6 +48,14 @@
     display: grid;
     position:relative;
     top: -60%;
+    width: 15%;
+}
+
+.avatar-overlay-dialog{
+    display: grid;
+    position:relative;
+    top: -60%;
+    width: 100%
 }
 .avatar-grid{
     display: grid;
@@ -100,8 +108,7 @@
    
     background-color: #00aaaa;
     border: 1px solid #000;
-    border-radius: 25px;
-
+    border-radius: 50px 50px 50px 0px;
 
 }
 

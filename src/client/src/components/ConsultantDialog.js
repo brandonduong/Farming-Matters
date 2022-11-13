@@ -38,9 +38,9 @@ function ConsultantDialog(props) {
         //DETERMINISTIC decision
         else{
             if (randomNum > 0.5){
-                return true;
+                return "will happen";
             }else{
-                return false;
+                return "will not happen";
             }
         }
     }
@@ -48,9 +48,9 @@ function ConsultantDialog(props) {
 
     const statistic = statisticGenerator();
     const consultantDialog = [
-        `The weather is looking rough this season, it is said that ${statistic}% will happen`,
-        `The market value of said crop is to drop by ${statistic}%`,
-        `The market value of said crop is to increase by ${statistic}%`,
+        `The weather is looking rough this season, it is said that ${props.decisionType == 0 ? statistic + "% will happen": statistic }`,
+        `The market value of said crop is to drop by  ${ props.decisionType == 0 ? statistic + "% will happen": statistic}`,
+        `The market value of said crop is to increase by ${props.decisionType == 0 ? (statistic + "% will happen") : statistic}`
      ];
 
 
@@ -62,9 +62,9 @@ function ConsultantDialog(props) {
                <p>
                    {props.avatar == 0 ? 
 
-                   consultantDialog[Math.round(0 + Math.random() * ConsultantDialog.length)] :
+                   consultantDialog[Math.round(0 + Math.random() * consultantDialog.length - 1)] :
                    
-                   randomDialog[Math.round(0 + Math.random() * randomDialog.length)] 
+                   randomDialog[Math.round(0 + Math.random() * randomDialog.length - 1)] 
                    }
                 </p>
                

@@ -22,7 +22,7 @@ function Consultant(props) {
         )
     }
 return (
-    <div className="avatar-overlay">
+    <div className={isOpened  ? "avatar-overlay" + "-dialog" : "avatar-overlay"  } >
             <div className="avatar-grid">
                 { avatarButtons}
                            </div>
