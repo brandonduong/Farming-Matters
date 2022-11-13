@@ -17,6 +17,7 @@ function App() {
           <OrbitControls target={[0, 0, 0]} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2} maxDistance={10} enablePan={false}/>
         </Canvas>
       </div>
+      <button className='inventory-button'>Inventory</button>
     </div>
   );
 }

@@ -7,6 +7,7 @@
   width: 75%;
   height: 75vh;
   margin: auto;
+  padding-bottom: 50px;
 }
 
 .App-logo {
@@ -42,4 +43,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.inventory-button {
+  color: white;
+  background-color: green;
+  height: 50px;
+  width: 100px;
 }
