@@ -3,6 +3,21 @@
   min-height: 100vh;
 }
 
+.tile-popup {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.65);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.tile-popup-info {
+  display: flex;
+}
+
+.tile-popup-info-item {
+  margin-right: 1rem;
+}
+
 .canvas-container {
   width: 75%;
   height: 75vh;

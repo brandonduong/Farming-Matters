@@ -57,7 +57,7 @@ function FarmTile(props) {
     <meshStandardMaterial color={hovered ? seedHoverColors[plantedSeed] : seedColors[plantedSeed]} />
     <Html center>
       {props.clickedTile && props.clickedTile[0] === props.x && props.clickedTile[1] === props.z && 
-        <FarmTilePopup plantedSeed={plantedSeed} setPlantedSeed={setPlantedSeed} setClickedTile={props.setClickedTile}/>
+        <FarmTilePopup plantedSeed={plantedSeed} setPlantedSeed={setPlantedSeed} setClickedTile={props.setClickedTile} turn={props.turn} turnPlanted={turnPlanted} growthLength={seedGrowthLengths[plantedSeed]}/>
       }
     </Html>
   </mesh>
