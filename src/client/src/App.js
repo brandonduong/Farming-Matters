@@ -1,4 +1,5 @@
 import './css/App.css';
+import './css/Inventory.css'
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei'
 import FarmGrid from './components/FarmGrid.js';
@@ -18,9 +19,8 @@ function App() {
           <FarmGrid position={[0, 0, 0]} />
           <OrbitControls target={[0, 0, 0]} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2} maxDistance={10} enablePan={false}/>
         </Canvas>
+        <Inventory className='inventory'></Inventory>
       </div>
-      <button className='inventory-button '>Inventory</button>
-      <Inventory></Inventory>
     </div>
   );
 }

@@ -1,0 +1,33 @@
+.inventory {
+    
+    
+    background-color: red;
+
+}
+
+.inventory-box {
+    display: grid;
+    position: relative;
+    top: -90%;
+    margin-left: 15%;
+    width: 75%;
+    display: grid;
+    height: 75%;
+    background-color: green;
+    align-items: start;
+    justify-items: center;
+}
+
+.inventory-button {
+    color: white;
+    background-color: green;
+    height: 50px;
+    width: 100px;
+  }
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+  
