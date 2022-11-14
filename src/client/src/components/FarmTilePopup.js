@@ -7,7 +7,7 @@ function FarmTilePopup(props) {
   }
 
   const plantButtons = []
-  for (let i = 0; i < 6; i++) {
+  for (let i = 1; i < 6; i++) {
     plantButtons.push(
       <button type="button" onClick={()=>onClick(i)} key={"plant"+i}>
         Seed {i}

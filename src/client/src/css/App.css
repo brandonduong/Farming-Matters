@@ -9,6 +9,27 @@
   margin: auto;
 }
 
+.info-header {
+  display: flex;
+  justify-content: center;
+}
+
+.info-header-item {
+  width: 15%;
+}
+
+.end-turn {
+  margin-left: 1rem;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -39,6 +60,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
