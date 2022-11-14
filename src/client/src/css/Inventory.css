@@ -27,7 +27,15 @@
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: auto;
 }
   
+.row{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+}
