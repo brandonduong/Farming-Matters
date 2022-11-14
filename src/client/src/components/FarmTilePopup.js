@@ -1,9 +1,16 @@
 import React from 'react'
+import { logData } from '../utils/logData'
 
 function FarmTilePopup(props) {
   function onClick(seedNum) {
     props.setPlantedSeed(seedNum)
     props.setClickedTile(null)
+
+    //Log data to server
+    logData({
+      action: "Seed planted", 
+      seedNum: seedNum
+  })
   }
 
   const plantButtons = []

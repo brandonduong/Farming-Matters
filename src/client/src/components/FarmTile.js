@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Html } from '@react-three/drei'
 import FarmTilePopup from './FarmTilePopup'
+import { logData } from '../utils/logData'
 
 function FarmTile(props) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -17,6 +18,13 @@ function FarmTile(props) {
     click(!clicked);
     console.log(`clicked ${props.x} ${props.z}`)
     props.setClickedTile([props.x, props.z])
+
+    //Log data to the server
+    logData({
+        action: "Tile clicked", 
+        x: props.x, 
+        z: props.z
+    })
   }
 
   return (
