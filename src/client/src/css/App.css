@@ -81,6 +81,10 @@
     border-radius: 100%;
 }
 
+.avatar-mini-name{
+  font-size: 18px;
+  font-weight: bold;
+}
 .avatar-0{
     background: url('./img/icons8-administrator-94.png');
     background-size: 50px 50px;

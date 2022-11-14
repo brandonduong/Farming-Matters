@@ -14,11 +14,19 @@ function Consultant(props) {
 
     }
     const avatarButtons = [];
+
+    //Find out a way to communicate methods from child component
+    const avatarNames = [
+        ["Jerry", "the Consultant"],
+        ["Bob", "the tools smith"]
+    ]; 
     for (let i = 0; i < 2; i++){
         avatarButtons.push(
+            <div>
             <button type="button" className={"avatar avatar-" + i} onClick={() => onClick(i)}>
-                 
             </button>
+            <div className="avatar-mini-name">{avatarNames[i][0]}</div>
+            </div>
         )
     }
 return (
@@ -27,7 +35,7 @@ return (
                 { avatarButtons}
                            </div>
                 { isOpened ? 
-                    <ConsultantDialog avatar= {avatar} decisionType={decisionType}/> : 
+                    <ConsultantDialog avatar= {avatar} decisionType={decisionType} /> : 
 
                     <div> </div> 
                 

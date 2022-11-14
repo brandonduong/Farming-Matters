@@ -10,8 +10,8 @@ import React from 'react'
 // - Blur out background
 function ConsultantDialog(props) {
     const avatarNames = [
-        "Jerry, the Consultant",
-        "Bob, the tools smith"
+        ["Jerry", "the Consultant"],
+        ["Bob", "the tools smith"]
     ];
     const avatarDescription = [
         "Hello there local farmer, I am a consultant and here to provide you with information regarding anything relating to the farm",
@@ -53,11 +53,17 @@ function ConsultantDialog(props) {
         `The market value of said crop is to increase by ${props.decisionType == 0 ? (statistic + "% will happen") : statistic}`
      ];
 
+    function getNames(){
+        let names = [];
+        for (let i = 0;i < avatarNames.length; i ++){
+            names.push(avatarNames[i][0]);
+        }
+    }
 
        return (
            <div className="dialog">
                <div className={"avatar avatar-" + props.avatar}> </div>
-               <h1> {avatarNames[props.avatar]} </h1> 
+               <h1> {avatarNames[props.avatar][0] +" "+ avatarNames[props.avatar][1]} </h1> 
                <h2> {avatarDescription[props.avatar]} </h2>
                <p>
                    {props.avatar == 0 ? 
