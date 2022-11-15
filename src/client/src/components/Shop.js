@@ -67,7 +67,7 @@ const Shop = () => {
                 {shop_items_list.map((item) => (
                   <ShopItem
                     id={item.id}
-                    img={item.image}
+                    image={item.image}
                     name={item.name}
                     price={item.price}
                   ></ShopItem>

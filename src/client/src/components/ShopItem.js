@@ -1,10 +1,12 @@
 import React from "react";
 
-const ShopItem = ({ id, img, name, price }) => {
+const ShopItem = (props) => {
   return (
-    <div className="shop-item" key={id}>
-      <img src={img} alt="crops" className="item-image" key={id + 10}></img>
-      <p style={{ color: "white", margin: "5px" }}>{name + " - $" + price}</p>
+    <div className="shop-item" key={props.id}>
+      <img src={props.image} alt="crops" className="item-image"></img>
+      <p style={{ color: "white", margin: "5px" }}>
+        {props.name + " - $" + props.price}
+      </p>
       <label htmlFor="quantity" style={{ color: "white" }}>
         Quantity:
       </label>
