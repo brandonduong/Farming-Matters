@@ -48,8 +48,8 @@
 
 .avatar-overlay{
     display: grid;
-    position:relative;
-    top: -100%;
+    position:absolute;
+    top: 15%;
     width: 15%;
 }
 
@@ -71,7 +71,8 @@
     background-color: rgb(30, 194, 0.75);
     border: 1px solid #000;
     border-radius: 25px;
-    margin-left: 15%;
+    margin-left: 0%;
+    margin-top:15%;
 }
 
 .avatar{
@@ -128,7 +129,7 @@
 .dialog{
     display: grid;
     position: relative;
-    top: -40%;
+    top: -90%;
 
     grid-template-columns: auto;
     grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr; /* picture, name, character description, dialog */
