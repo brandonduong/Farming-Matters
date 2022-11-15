@@ -1,8 +1,10 @@
 import "./css/App.css";
+import "./css/Inventory.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import FarmGrid from "./components/FarmGrid.js";
 import Shop from "./components/Shop";
+import Inventory from "./components/Inventory";
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
             enablePan={false}
           />
         </Canvas>
+        <Inventory className="inventory"></Inventory>
       </div>
       <Shop></Shop>
     </div>

@@ -1,0 +1,85 @@
+.inventory {
+    margin-top: 20px;
+}
+
+.inventory-box {
+    display: grid;
+    position: relative;
+    top: -90%;
+    margin-left: 15%;
+    width: 75%;
+    display: grid;
+    height: 75%;
+    background-color: rgb(30, 194, 30);
+    align-items: start;
+    justify-items: center;
+    border-radius: 30px;
+}
+
+.inventory-button {
+    color: white;
+    background-color: rgb(30, 194, 30);
+    border-radius: 10px;
+    height: 40px;
+    width: 100px;
+    margin-left: 700px;
+  }
+
+.grid {
+    display: grid;
+    grid-template-rows: auto;
+    row-gap: 200px;
+    /* column-gap: 100px; */
+}
+  
+.row{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 10px;
+    margin-top: 20px;
+}
+
+img {
+    height: 100px;
+    width: 100px;
+}
+
+.item {
+    height: 150px;
+    width: 150px;
+    /* background-color: cyan; */
+    border: 1px solid white;
+    border-radius: 10px;
+
+}
+
+.close-inventory-button {
+    color: white;
+    background-color: red;
+    height: 40px;
+    width: 100px;
+    position: relative;
+    top: -10%;
+    margin-top: 35px;
+    border-radius: 10px;
+}
+
+p{
+    background-color: white;
+    margin-left: 10px;
+}
+
+.item-info{
+    display: inline-flex;
+    align-items: baseline;
+    align-content: stretch;
+    flex-direction: row;
+}
+
+#inventory-title{
+    color: white;
+}
+
+.quantity-title{
+    color: white;
+}
