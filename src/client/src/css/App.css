@@ -107,6 +107,13 @@
     margin: 15px auto;
 }
 
+.avatar-2{
+  background: url('./img/icons8-user-female-skin-type-4-80.png');
+  background-size: 50px 50px;
+  background-color: #fff;
+  margin: 15px auto;
+}
+
 .dialog-background{
   position: absolute;
   top: 0px;

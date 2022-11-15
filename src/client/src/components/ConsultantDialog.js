@@ -21,7 +21,8 @@ function ConsultantDialog(props) {
     // Description entries corresponds to the entries in the avatar names to describe the role of each avatar
     const avatarDescription = [
         "Hello there local farmer, I am a consultant and here to provide you with information regarding anything relating to the farm",
-        "Hey there neighbour, I am a local tools smith if you needed any tools I can provide with to you. Just give me a call anytime you need a tool" 
+        "Hey there neighbour, I am a local tools smith if you needed any tools I can provide with to you. Just give me a call anytime you need a tool", 
+        "Howdy farmer, I am a local weather woman. Here to provide any updates about current weather for today!"
     ];
 
    
