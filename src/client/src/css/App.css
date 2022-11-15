@@ -47,27 +47,29 @@
 .avatar-overlay{
     display: grid;
     position:relative;
-    top: -60%;
+    top: -100%;
     width: 15%;
 }
 
 .avatar-overlay-dialog{
     display: grid;
     position:relative;
-    top: -60%;
+    top: 0%;
     width: 100%
 }
+
 .avatar-grid{
     display: grid;
     grid-template-columns: 2fr;
     grid-template-rows: auto;
 
     width: 75px;
-    height: 200px;
+    height: 350px;
     
-    background-color: #ff0000;
+    background-color: rgb(30, 194, 0.75);
     border: 1px solid #000;
     border-radius: 25px;
+    margin-left: 15%;
 }
 
 .avatar{
@@ -76,12 +78,17 @@
     
     padding: 5px;
    
-    margin: auto auto;
+    margin: 15% auto;
     border: 1px solid #000;
     border-radius: 100%;
     
 }
 
+.avatar-selected{
+  background-color: rgb(0,0,0, 0.4);
+  z-index: 1;
+  border-radius: 25px;
+}
 .avatar-mini-name{
   font-size: 18px;
   font-weight: bold;
@@ -90,18 +97,29 @@
     background: url('./img/icons8-administrator-94.png');
     background-size: 50px 50px;
     background-color: #fff;
+    margin: 15px auto;
 }
 
 .avatar-1{
     background: url('./img/icons8-account-96.png');
     background-size: 50px 50px;
     background-color: #fff;
+    margin: 15px auto;
+}
+
+.dialog-background{
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  background-color: rgba(0, 0, 0, 0.632);
+  height: 100vh;
+  width: 100vw;
 }
 
 .dialog{
     display: grid;
-     position: relative;
-    top: -80%;
+    position: relative;
+    top: -40%;
 
     grid-template-columns: auto;
     grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr; /* picture, name, character description, dialog */
@@ -111,7 +129,7 @@
 
     margin: auto auto;
    
-    background-color: #00aaaa;
+    background-color: rgb(30, 194, 30);;
     border: 1px solid #000;
     border-radius: 50px 50px 50px 0px;
 

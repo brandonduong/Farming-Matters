@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { ref, useState } from 'react'
 import ConsultantDialog from './ConsultantDialog.js';
 
 function Consultant(props) {
     let [isOpened, setIsOpen] = useState(false);
     let [avatar, setSelectedAvatar] = useState(-1);
     let decisionType = props.decisionType; 
+    const selectedAvatar="background-color: rgb(30, 194, 0.75, 0.2)";
     console.log("USER DECISION TYPE IS, " + decisionType);
     function onClick(avatarID){
         avatar = avatarID;
@@ -19,11 +20,13 @@ function Consultant(props) {
     //Find out a way to communicate methods from child component
     const avatarNames = [
         ["Jerry", "the Consultant"],
-        ["Bob", "the tools smith"]
-    ]; 
-    for (let i = 0; i < 2; i++){
+        ["Bob", "the tools smith"],
+        ["Alice", "the weather woman"]
+    ];
+
+    for (let i = 0; i < avatarNames.length; i++){
         avatarButtons.push(
-            <div>
+            <div className={i == avatar ? "avatar-selected" : ""}>
             <button type="button" className={"avatar avatar-" + i} onClick={() => onClick(i)}>
             </button>
             <div className="avatar-mini-name">{avatarNames[i][0]}</div>
@@ -31,10 +34,10 @@ function Consultant(props) {
         )
     }
 return (
-    <div className={isOpened  ? "avatar-overlay" + "-dialog" : "avatar-overlay"  } >
+    <div className={isOpened  ? "avatar-overlay" + "-dialog dialog-background" : "avatar-overlay"  } >
             <div className="avatar-grid">
                 { avatarButtons}
-                           </div>
+            </div>
                 { isOpened ? 
                     <ConsultantDialog avatar= {avatar} decisionType={decisionType} /> : 
 

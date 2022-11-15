@@ -14,7 +14,8 @@ function ConsultantDialog(props) {
     // Names of each avatar/character
     const avatarNames = [
         ["Jerry", "the Consultant"],
-        ["Bob", "the tools smith"]
+        ["Bob", "the tools smith"],
+        ["Alice", "the weather woman"]
     ];
 
     // Description entries corresponds to the entries in the avatar names to describe the role of each avatar
@@ -25,9 +26,9 @@ function ConsultantDialog(props) {
 
    
     const randomDialog = [
-        "What a good day today huh?",
-        "RANDOM 2", 
-        "RANDOM 3",
+        "Today is a beautiful day!",
+        "How are your crops going?", 
+        "I got a big shipment of equipment coming in, hope they are worth the price!",
     ];
 
     // Return the statistic value that is dependent on which type decision are prompted to the user
