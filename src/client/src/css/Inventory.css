@@ -1,8 +1,5 @@
 .inventory {
-    
-    
-    background-color: red;
-
+    margin-top: 20px;
 }
 
 .inventory-box {
@@ -28,14 +25,47 @@
 .grid {
     display: grid;
     grid-template-rows: auto;
+    row-gap: 200px;
+    /* column-gap: 100px; */
 }
   
 .row{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 10px;
+    margin-top: 20px;
 }
 
 img {
+    height: 100px;
+    width: 100px;
+}
+
+.item {
     height: 150px;
     width: 150px;
+    background-color: cyan;
+
+}
+
+.close-inventory-button {
+    color: white;
+    background-color: red;
+    height: 50px;
+    width: 100px;
+    position: relative;
+    top: -10%;
+    margin-top: 35px;
+}
+
+p{
+    background-color: white;
+    margin-left: 10px;
+}
+
+.item-info{
+    display: inline-flex;
+    align-items: baseline;
+    align-content: stretch;
+    flex-direction: row;
 }
