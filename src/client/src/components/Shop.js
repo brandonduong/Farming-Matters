@@ -66,6 +66,7 @@ const Shop = () => {
               <div className="shop-items">
                 {shop_items_list.map((item) => (
                   <ShopItem
+                    key={item.id}
                     id={item.id}
                     image={item.image}
                     name={item.name}

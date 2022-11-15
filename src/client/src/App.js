@@ -9,7 +9,7 @@ import Inventory from "./components/Inventory";
 function App() {
   return (
     <div className="App">
-      Text Here
+      Farming Matters
       <div className="canvas-container">
         <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
           <ambientLight intensity={0.5} />
@@ -24,8 +24,8 @@ function App() {
             enablePan={false}
           />
         </Canvas>
-        <Inventory className="inventory"></Inventory>
       </div>
+      <Inventory></Inventory>
       <Shop></Shop>
     </div>
   );
