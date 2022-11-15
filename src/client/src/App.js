@@ -1,10 +1,10 @@
-import './css/App.css';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei'
-import FarmGrid from './components/FarmGrid.js';
+import "./css/App.css";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import FarmGrid from "./components/FarmGrid.js";
+import Shop from "./components/Shop";
 
 function App() {
-
   return (
     <div className="App">
       Text Here
@@ -14,9 +14,16 @@ function App() {
           <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
           <pointLight position={[-10, -10, -10]} />
           <FarmGrid position={[0, 0, 0]} />
-          <OrbitControls target={[0, 0, 0]} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2} maxDistance={10} enablePan={false}/>
+          <OrbitControls
+            target={[0, 0, 0]}
+            minPolarAngle={Math.PI / 4}
+            maxPolarAngle={Math.PI / 2}
+            maxDistance={10}
+            enablePan={false}
+          />
         </Canvas>
       </div>
+      <Shop></Shop>
     </div>
   );
 }
