@@ -3,19 +3,23 @@ import React from 'react'
 
 //TODO:
 // - Add DETERMINISTIC or PROBABILISTIC RANDOMNESS
-// - Make separate txt files or javascript files to these descriptions elsewhere
+// - Make separate txt files or javascript files to these descriptions elsewhere (making avatarNames and avatarDescrption into objects)
 // - Add placeholders for string to add in DETERMINISTIC or PROBABILISTIC values
 // - Make dialog hidden so players can click tiles in the middle of the board
 // - Add button to close dialog window
 // - Blur out background
+// - Add a state variable to the consultant dialog to only generate a new number if the current round has changed
+
 function ConsultantDialog(props) {
+    // Names of each avatar/character
     const avatarNames = [
         ["Jerry", "the Consultant"],
         ["Bob", "the tools smith"]
     ];
+
+    // Description entries corresponds to the entries in the avatar names to describe the role of each avatar
     const avatarDescription = [
         "Hello there local farmer, I am a consultant and here to provide you with information regarding anything relating to the farm",
-
         "Hey there neighbour, I am a local tools smith if you needed any tools I can provide with to you. Just give me a call anytime you need a tool" 
     ];
 
@@ -26,6 +30,9 @@ function ConsultantDialog(props) {
         "RANDOM 3",
     ];
 
+    // Return the statistic value that is dependent on which type decision are prompted to the user
+    // decisionType = 0 = Probablistic decision (% chance)
+    // decisionType = 1 = Determinisitic decision (yes or no, will or will not happen, etc.)
     function statisticGenerator(){
         const randomNum = Math.random(); //0 ... 1 real number
         const minThreshold = 0.80; //going to happen
@@ -33,7 +40,7 @@ function ConsultantDialog(props) {
         console.log(props);
         //PROBABILISTIC decision
         if (props.decisionType == 0){
-            return (randomNum*100).toFixed(2); //round to 2 decimal places (i.e 23.4924 => 23.49)
+            return (randomNum*100).toFixed(2) + "% will happen"; //round to 2 decimal places (i.e 23.4924 => 23.49)
         }
         //DETERMINISTIC decision
         else{
@@ -47,12 +54,14 @@ function ConsultantDialog(props) {
 
 
     const statistic = statisticGenerator();
+
     const consultantDialog = [
-        `The weather is looking rough this season, it is said that ${props.decisionType == 0 ? statistic + "% will happen": statistic }`,
-        `The market value of said crop is to drop by  ${ props.decisionType == 0 ? statistic + "% will happen": statistic}`,
-        `The market value of said crop is to increase by ${props.decisionType == 0 ? (statistic + "% will happen") : statistic}`
+        `The weather is looking rough this season, it is said that ${statistic}`,
+        `The market value of said crop is to drop by  ${statistic}`,
+        `The market value of said crop is to increase by ${statistic}`
      ];
 
+     // Return an array of names for all avatars/characters
     function getNames(){
         let names = [];
         for (let i = 0;i < avatarNames.length; i ++){
@@ -60,17 +69,19 @@ function ConsultantDialog(props) {
         }
     }
 
+    const randNum = (array)=> Math.round(0 + Math.random() * (array.length - 1)); //[0 ... array.length - 1]
+    //console.log(randNum);
        return (
            <div className="dialog">
                <div className={"avatar avatar-" + props.avatar}> </div>
-               <h1> {avatarNames[props.avatar][0] +" "+ avatarNames[props.avatar][1]} </h1> 
-               <h2> {avatarDescription[props.avatar]} </h2>
+               <h1> { avatarNames[props.avatar][0] +" "+ avatarNames[props.avatar][1] } </h1> 
+               <h2> { avatarDescription[props.avatar] } </h2>
                <p>
                    {props.avatar == 0 ? 
 
-                   consultantDialog[Math.round(0 + Math.random() * consultantDialog.length - 1)] :
+                   consultantDialog[randNum(consultantDialog)] :
                    
-                   randomDialog[Math.round(0 + Math.random() * randomDialog.length - 1)] 
+                   randomDialog[randNum(randomDialog)] 
                    }
                 </p>
                

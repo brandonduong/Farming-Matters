@@ -4,13 +4,14 @@ import ConsultantDialog from './ConsultantDialog.js';
 function Consultant(props) {
     let [isOpened, setIsOpen] = useState(false);
     let [avatar, setSelectedAvatar] = useState(-1);
-    const [decisionType, setDecisionType] = useState(0); 
+    let decisionType = props.decisionType; 
+    console.log("USER DECISION TYPE IS, " + decisionType);
     function onClick(avatarID){
         avatar = avatarID;
         console.log(avatar);
         setIsOpen(!isOpened);
         console.log(`Consultant opened, ID=${avatarID}`);
-        setSelectedAvatar(avatarID);
+        setSelectedAvatar(avatar);
 
     }
     const avatarButtons = [];
