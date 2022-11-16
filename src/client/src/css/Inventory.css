@@ -1,0 +1,87 @@
+.inventory {
+  position: absolute;
+  top: 0px;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.632);
+}
+
+.inventory-box {
+  position: relative;
+  background-color: rgb(30, 194, 30);
+  color: green;
+  height: 70%;
+  width: 60%;
+  top: 15%;
+  margin: auto;
+  border-radius: 30px;
+}
+
+.center {
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-size: xx-large;
+}
+
+.inventory-button {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgb(30, 194, 30);
+  color: white;
+  font-size: large;
+  z-index: 10;
+  position: absolute;
+  bottom: 50px;
+  right: 200px;
+}
+
+.inventory-button:hover {
+  border: 1px solid white;
+  background-color: rgb(64, 130, 42);
+}
+
+.grid {
+  height: 80%;
+  width: 95%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+img {
+  width: 80px;
+  border: 1px solid white;
+  border-radius: 60px;
+  padding: 5px;
+  margin-top: 25px;
+}
+
+.item {
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 15px;
+  justify-content: center;
+}
+
+.item-info {
+  color: white;
+  font-size: larger;
+}
+
+#inventory-title {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.quantity-title {
+  color: white;
+  margin-bottom: 0px;
+}
+
+.quantity {
+  margin-top: 0px;
+}
