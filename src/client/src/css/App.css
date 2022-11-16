@@ -3,11 +3,47 @@
   min-height: 100vh;
 }
 
+.tile-popup {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.65);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.tile-popup-info {
+  display: flex;
+}
+
+.tile-popup-info-item {
+  margin-right: 1rem;
+}
+
 .canvas-container {
   width: 75%;
   height: 75vh;
   margin: auto;
   padding-bottom: 50px;
+}
+
+.info-header {
+  display: flex;
+  justify-content: center;
+}
+
+.info-header-item {
+  width: 15%;
+}
+
+.end-turn {
+  margin-left: 1rem;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
 }
 
 .App-logo {
@@ -40,84 +76,86 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-
-.avatar-overlay{
-    display: grid;
-    position:absolute;
-    top: 15%;
-    width: 15%;
+.avatar-overlay {
+  display: grid;
+  position: absolute;
+  top: 15%;
+  width: 15%;
 }
 
-.avatar-overlay-dialog{
-    display: grid;
-    position:relative;
-    top: 0%;
-    width: 100%
+.avatar-overlay-dialog {
+  display: grid;
+  position: relative;
+  top: 0%;
+  width: 100%
 }
 
-.avatar-grid{
-    display: grid;
-    grid-template-columns: 2fr;
-    grid-template-rows: auto;
+.avatar-grid {
+  display: grid;
+  grid-template-columns: 2fr;
+  grid-template-rows: auto;
 
-    width: 75px;
-    height: 350px;
-    
-    background-color: rgb(30, 194, 0.75);
-    border: 1px solid #000;
-    border-radius: 25px;
-    margin-left: 0%;
-    margin-top:15%;
+  width: 75px;
+  height: 350px;
+
+  background-color: rgb(30, 194, 0.75);
+  border: 1px solid #000;
+  border-radius: 25px;
+  margin-left: 0%;
+  margin-top: 15%;
 }
 
-.avatar{
-    width: 50px;
-    height: 50px;
-    
-    padding: 5px;
-   
-    margin: 15% auto;
-    border: 1px solid #000;
-    border-radius: 100%;
-    
+.avatar {
+  width: 50px;
+  height: 50px;
+
+  padding: 5px;
+
+  margin: 15% auto;
+  border: 1px solid #000;
+  border-radius: 100%;
+
 }
 
-.avatar-selected{
-  background-color: rgb(0,0,0, 0.4);
+.avatar-selected {
+  background-color: rgb(0, 0, 0, 0.4);
   z-index: 1;
   border-radius: 25px;
 }
-.avatar-mini-name{
+
+.avatar-mini-name {
   font-size: 18px;
   font-weight: bold;
 }
-.avatar-0{
-    background: url('./img/icons8-administrator-94.png');
-    background-size: 50px 50px;
-    background-color: #fff;
-    margin: 15px auto;
+
+.avatar-0 {
+  background: url('./img/icons8-administrator-94.png');
+  background-size: 50px 50px;
+  background-color: #fff;
+  margin: 15px auto;
 }
 
-.avatar-1{
-    background: url('./img/icons8-account-96.png');
-    background-size: 50px 50px;
-    background-color: #fff;
-    margin: 15px auto;
+.avatar-1 {
+  background: url('./img/icons8-account-96.png');
+  background-size: 50px 50px;
+  background-color: #fff;
+  margin: 15px auto;
 }
 
-.avatar-2{
+.avatar-2 {
   background: url('./img/icons8-user-female-skin-type-4-80.png');
   background-size: 50px 50px;
   background-color: #fff;
   margin: 15px auto;
 }
 
-.dialog-background{
+.dialog-background {
   position: absolute;
   top: 0px;
   left: 0%;
@@ -126,41 +164,43 @@
   width: 100vw;
 }
 
-.dialog{
-    display: grid;
-    position: relative;
-    top: -90%;
+.dialog {
+  display: grid;
+  position: relative;
+  top: -90%;
 
-    grid-template-columns: auto;
-    grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr; /* picture, name, character description, dialog */
-    
-    width: 50%;
-    height: 400px;
+  grid-template-columns: auto;
+  grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr;
+  /* picture, name, character description, dialog */
 
-    margin: auto auto;
-   
-    background-color: rgb(30, 194, 30);;
-    border: 1px solid #000;
-    border-radius: 50px 50px 50px 0px;
+  width: 50%;
+  height: 400px;
+
+  margin: auto auto;
+
+  background-color: rgb(30, 194, 30);
+  ;
+  border: 1px solid #000;
+  border-radius: 50px 50px 50px 0px;
 
 }
 
-.dialog > h1 {
-    font-size: 32px;
-    margin: 0;
+.dialog>h1 {
+  font-size: 32px;
+  margin: 0;
 }
 
-.dialog > h2 {
-    font-size: 16px;
-    color: #444444;
-    margin: 0;
-    padding: 0;
+.dialog>h2 {
+  font-size: 16px;
+  color: #444444;
+  margin: 0;
+  padding: 0;
 }
 
-.dialog > p {
-    font-size: 24px;
-    margin: 0;
-    padding: 0;
+.dialog>p {
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
 }
 
 .shop-button {
@@ -241,4 +281,3 @@
   padding: 5px;
   margin-top: 25px;
 }
-
