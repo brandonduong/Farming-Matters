@@ -7,7 +7,7 @@ app.use(express.json())
 
 app.post('/', (req, res) => {
     console.log(req.body);
-    res.status(200).send()
+    res.status(200).send();
 });
 
 app.listen(PORT, () => {
