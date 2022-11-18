@@ -8,11 +8,12 @@ function FarmTilePopup(props) {
 
   function harvestPlant() {
     props.setPlantedSeed(0)
+    props.setMoney(props.money + props.plants[props.plantedSeed].harvestValue)
     props.setClickedTile(null)
   }
 
   const plantButtons = []
-  for (let i = 1; i < 6; i++) {
+  for (let i = 1; i < props.plants.length; i++) {
     plantButtons.push(
       <button type="button" onClick={()=>onClick(i)} key={"plant"+i}>
         Seed {i}
@@ -30,10 +31,10 @@ function FarmTilePopup(props) {
             Turn Planted: {props.turnPlanted}
           </div>
           <div className="tile-popup-info-item">
-            Turn Complete: {props.turnPlanted + props.growthLength}
+            Turn Complete: {props.turnPlanted + props.plants[props.plantedSeed].growthLength}
           </div>
           {
-            props.turn - props.turnPlanted >= props.growthLength &&
+            props.turn - props.turnPlanted >= props.plants[props.plantedSeed].growthLength &&
               <button type="button" onClick={()=>harvestPlant()}>
                 Harvest Plant
               </button>

@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ShopItem = (props) => {
+  const [quantity, setQuantity] = useState(0)
+  function buy() {
+    props.setMoney(props.money - (quantity * props.price))
+    setQuantity(0)
+  }
+
   return (
     <div className="shop-item" key={props.id}>
       <img src={props.image} alt="crops" className="item-image"></img>
@@ -17,8 +23,10 @@ const ShopItem = (props) => {
         min="1"
         max="5"
         style={{ width: "15%", margin: "0px 2%" }}
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
       ></input>
-      <button>Buy</button>
+      <button onClick={() => buy()}>Buy</button>
     </div>
   );
 };
