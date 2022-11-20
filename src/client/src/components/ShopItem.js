@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 
 const ShopItem = (props) => {
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(0);
   function buy() {
-    props.setMoney(props.money - (quantity * props.price))
-    setQuantity(0)
+    if (quantity * props.price <= props.money) {
+      props.setMoney(props.money - quantity * props.price);
+      setQuantity(0);
+    } else {
+      console.log("Not enough money to buy crop");
+    }
   }
 
   return (
@@ -19,7 +23,6 @@ const ShopItem = (props) => {
       <input
         type="number"
         name="quantity"
-        defaultValue="1"
         min="1"
         max="5"
         style={{ width: "15%", margin: "0px 2%" }}
