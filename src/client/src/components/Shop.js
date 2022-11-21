@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
 
-const Shop = () => {
+const Shop = (props) => {
   const [showMenu, setShowMenu] = useState(false);
 
   let displayShop = () => {
@@ -71,6 +71,8 @@ const Shop = () => {
                     image={item.image}
                     name={item.name}
                     price={item.price}
+                    money={props.money}
+                    setMoney={props.setMoney}
                   ></ShopItem>
                 ))}
               </div>

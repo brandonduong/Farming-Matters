@@ -28,7 +28,7 @@ function App() {
           <ambientLight intensity={0.5} />
           <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
           <pointLight position={[-10, -10, -10]} />
-          <FarmGrid position={[0, 0, 0]} turn={turn} />
+          <FarmGrid position={[0, 0, 0]} turn={turn} money={money} setMoney={setMoney} />
           <OrbitControls
             target={[0, 0, 0]}
             minPolarAngle={Math.PI / 4}
@@ -41,7 +41,7 @@ function App() {
       </div>
       <Consultant decisionType = {decisionType} />
       <Inventory></Inventory>
-      <Shop></Shop>
+      <Shop money={money} setMoney={setMoney}></Shop>
       
     </div>
   );

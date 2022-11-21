@@ -7,7 +7,7 @@ function FarmGrid(props) {
   const gridTiles = [];
   for (let i = -4; i < 6; i++) {
     for (let o = -4; o < 6; o++) {
-    gridTiles.push(<FarmTile x={i} z={o} key={"tile" + i + o} clickedTile={clickedTile} setClickedTile={setClickedTile} turn={props.turn}/>)
+    gridTiles.push(<FarmTile x={i} z={o} key={"tile" + i + o} clickedTile={clickedTile} setClickedTile={setClickedTile} turn={props.turn} money={props.money} setMoney={props.setMoney}/>)
     }
   }
 
@@ -18,7 +18,7 @@ function FarmGrid(props) {
       
       {gridTiles}
       <mesh position={[0,-5.02,0]}>
-        <boxGeometry args={[10,10,10]} />
+        <boxGeometry args={[500,10,500]} />
         <meshStandardMaterial color={'green'} />
       </mesh>
       <meshStandardMaterial />
