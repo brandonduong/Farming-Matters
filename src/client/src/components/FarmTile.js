@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Html } from '@react-three/drei'
 import FarmTilePopup from './FarmTilePopup'
 import { logData } from '../utils/logData'
+import { TestModel } from './models/TestModel'
 
 function FarmTile(props) {
   // Hold state for hovered and clicked events
@@ -102,6 +103,10 @@ function FarmTile(props) {
     onPointerOut={() => hover(false)}>
     <planeGeometry args={[1, 1]} />
     <meshStandardMaterial color={hovered ? plants[plantedSeed].hoverColor : plants[plantedSeed].color} />
+    
+    {/* Using the model component */}
+    {plantedSeed == 1 && <TestModel />}
+
     <Html center>
       {props.clickedTile && props.clickedTile[0] === props.x && props.clickedTile[1] === props.z && 
         <FarmTilePopup plantedSeed={plantedSeed} setPlantedSeed={setPlantedSeed} setClickedTile={props.setClickedTile} turn={props.turn} turnPlanted={turnPlanted} plants={plants} money={props.money} setMoney={props.setMoney}/>
