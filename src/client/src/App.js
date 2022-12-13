@@ -2,23 +2,25 @@ import "./css/App.css";
 import "./css/Inventory.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import FarmGrid from "./components/FarmGrid.js";
+import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
 import Inventory from "./components/Inventory";
-import Consultant from './components/Consultant.js';
-import InfoHeader from './components/InfoHeader.js';
+import Consultant from './components/Consultant';
+import InfoHeader from './components/InfoHeader';
 import React, { useState } from 'react';
 
-function App() {
+const App = () => {
+  // TODO: Implement state for user, inventory, money, etc...
+  // Can use react contexts or maybe redux or something like that
   const [user, setUser] = useState("Brandon");
   const [money, setMoney] = useState(0);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
 
-    let [decisionType, setDecisionType] = useState(0);
+    const [decisionType, setDecisionType] = useState(0);
 
 
-    decisionType = Math.round(Math.random()); //assigning a random user decision type per refresh of the webpage
+    setDecisionType(Math.round(Math.random())); //assigning a random user decision type per refresh of the webpage
 
   return (
     <div className="App">

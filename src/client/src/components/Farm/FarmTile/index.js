@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Html } from '@react-three/drei'
 import FarmTilePopup from './FarmTilePopup'
-import { logData } from '../utils/logData'
-import { TestModel } from './models/TestModel'
+import { logData } from '../../../utils/logData'
+import { TestModel } from '../../Models/TestModel'
 
 function FarmTile(props) {
   // Hold state for hovered and clicked events
