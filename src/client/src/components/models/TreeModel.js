@@ -1,7 +1,7 @@
 import React from "react";
 import { useModels } from "./hooks"
 
-export function TestModel(props) {
+export function TreeModel(props) {
     const { tree } = useModels();
     
     return (

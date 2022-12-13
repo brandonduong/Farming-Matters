@@ -1,6 +1,7 @@
 import React from 'react'
 
-function FarmTilePopup(props) {
+//TODO: Make popup go away on blur
+const FarmTilePopup = (props) => {
   function onClick(seedNum) {
     props.setPlantedSeed(seedNum)
     props.setClickedTile(null)
