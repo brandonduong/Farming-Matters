@@ -3,10 +3,10 @@ import { useState } from "react";
 import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
 
-const Shop = (props) => {
+const Shop = ({money, setMoney}) => {
   const [showMenu, setShowMenu] = useState(false);
 
-  let displayShop = () => {
+  const displayShop = () => {
     setShowMenu(!showMenu);
   };
   
@@ -28,9 +28,9 @@ const Shop = (props) => {
                     image={item.image}
                     name={item.name}
                     price={item.price}
-                    money={props.money}
-                    setMoney={props.setMoney}
-                  ></ShopItem>
+                    money={money}
+                    setMoney={setMoney}
+                  />
                 ))}
               </div>
             </div>

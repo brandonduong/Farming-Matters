@@ -1,14 +1,12 @@
 import React from "react";
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { useLoader } from "@react-three/fiber";
+import { useModels } from "./hooks"
 
 export function TestModel(props) {
-
-    // Use the path to the .glb file. Note that the path starts at the 'public' folder.
-    const gltf = useLoader(GLTFLoader, '3dmodels/oak_tree_lowpoly.glb');
+    const { tree } = useModels();
+    
     return (
         <primitive 
-            object={gltf.scene.clone()} 
+            object={tree.scene.clone()} 
             {...props} 
             scale={0.3}
             rotation-x={Math.PI/2}

@@ -7,7 +7,8 @@ import Shop from "./components/Shop";
 import Inventory from "./components/Inventory";
 import Consultant from './components/Consultant';
 import InfoHeader from './components/InfoHeader';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { ModelProvider } from "./components/Models/ModelContext";
 
 const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
@@ -19,8 +20,11 @@ const App = () => {
 
     const [decisionType, setDecisionType] = useState(0);
 
-
-    setDecisionType(Math.round(Math.random())); //assigning a random user decision type per refresh of the webpage
+    // This useEffect hook performs all operations needed on page load
+    useEffect(() => {
+      setDecisionType(Math.round(Math.random()));
+    }, [])
+    ; 
 
   return (
     <div className="App">
@@ -30,7 +34,11 @@ const App = () => {
           <ambientLight intensity={1} />
           <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
           <pointLight position={[-10, -10, -10]} />
-          <FarmGrid position={[0, 0, 0]} turn={turn} money={money} setMoney={setMoney} />
+          
+          <ModelProvider>
+            <FarmGrid position={[0, 0, 0]} turn={turn} money={money} setMoney={setMoney} />
+          </ModelProvider>
+
           <OrbitControls
             target={[0, 0, 0]}
             minPolarAngle={Math.PI / 4}
@@ -42,7 +50,7 @@ const App = () => {
 
       </div>
       <Consultant decisionType = {decisionType} />
-      <Inventory></Inventory>
+      <Inventory />
       <Shop money={money} setMoney={setMoney}></Shop>
       
     </div>
