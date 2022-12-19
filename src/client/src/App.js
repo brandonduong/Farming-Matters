@@ -8,20 +8,30 @@ import Inventory from "./components/Inventory";
 import Consultant from './components/Consultant.js';
 import InfoHeader from './components/InfoHeader.js';
 import React, { useState } from 'react';
+import { io } from 'socket.io-client';
+
+const socket = io();
 
 function App() {
   const [user, setUser] = useState("Brandon");
   const [money, setMoney] = useState(0);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
+  
+  //TODO move socket logic to context
+  const [isDenied, setIsDenied] = useState(false);
 
-    let [decisionType, setDecisionType] = useState(0);
+  socket.on('deny', () => {
+    setIsDenied(true)
+  })
 
+  let [decisionType, setDecisionType] = useState(0);
 
-    decisionType = Math.round(Math.random()); //assigning a random user decision type per refresh of the webpage
+  decisionType = Math.round(Math.random()); //assigning a random user decision type per refresh of the webpage
 
   return (
     <div className="App">
+      {isDenied && <h1>Denied!</h1>} 
       <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
       <div className="canvas-container">
         <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
