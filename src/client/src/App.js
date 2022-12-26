@@ -10,6 +10,7 @@ import InfoHeader from './components/InfoHeader.js';
 import React, { useState } from 'react';
 import { io } from 'socket.io-client';
 
+// Initialize the websocket on the client side
 const socket = io();
 
 function App() {
@@ -20,7 +21,6 @@ function App() {
   
   //TODO move socket logic to context
   const [isDenied, setIsDenied] = useState(false);
-
   socket.on('deny', () => {
     setIsDenied(true)
   })
