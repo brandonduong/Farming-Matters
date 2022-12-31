@@ -1,4 +1,4 @@
-const { redis } = require("../Redis")
+const { redis } = require("../redis")
 
 const allowSingleSession = async (socket) => {
     const userID = '123'; // client should send userID once user is authenticated. See https://socket.io/docs/v4/middlewares/#sending-credentials
