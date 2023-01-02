@@ -7,5 +7,5 @@ export async function logData(action, data) {
             body: JSON.stringify({action, ...data})
         }
 
-    await fetch('/', requestOptions)
+    await fetch('/private/actions', requestOptions)
 }

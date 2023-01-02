@@ -1,15 +1,13 @@
-const { initializeApp } = require('firebase/app');
+var admin = require("firebase-admin");
+const { initializeApp } = require('firebase-admin/app');
+const { getAuth } = require("firebase-admin/auth");
 
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_APIKEY,
-  authDomain: process.env.FIREBASE_AUTHDOMAIN,
-  projectId: process.env.FIREBASE_PROJECTID,
-  storageBucket: process.env.FIREBASE_STORAGEBUCKET,
-  messagingSenderId: process.env.FIREBASE_SENDERID,
-  appId: process.env.FIREBASE_APPID
-};
+var serviceAccount = require("../secrets/farming-matters-e8dee-firebase-adminsdk-m7oir-862d2d0f84.json");
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = firebaseApp.auth();
+initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
-module.exports = { firebaseApp, auth }
+const auth = getAuth();
+
+module.exports = { auth }
