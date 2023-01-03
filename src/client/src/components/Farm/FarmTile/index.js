@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Html } from '@react-three/drei';
 import FarmTilePopup from './FarmTilePopup';
 import { logData } from '../../../utils/logData';
-import { TreeModel } from '../../Models/TreeModel';
+import { TreeModel } from '../../models/TreeModel';
 import { plants } from "./constants";
 
 const FarmTile = (props) => {

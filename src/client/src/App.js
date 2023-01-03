@@ -8,7 +8,7 @@ import Inventory from "./components/Inventory";
 import Consultant from './components/Consultant';
 import InfoHeader from './components/InfoHeader';
 import React, { useEffect, useState } from 'react';
-import { ModelProvider } from "./components/Models/ModelContext";
+import { ModelProvider } from "./components/models/ModelContext";
 
 const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
