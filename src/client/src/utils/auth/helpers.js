@@ -2,28 +2,32 @@ import { auth } from "../firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
 
-export const signIn = (setAuthStatus, setAuthError, email, password) => { 
+export const signIn = (setIsLoggedIn, setAuthError, email, password) => { 
     signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-        setAuthStatus('authorized');
+    .then((userCredential) => {
+        setUser(userCredential.user)
+        setIsLoggedIn(true);
     }).catch((err) => {
         setAuthError(err);
+        setIsLoggedIn(false)
     })
 }
 
-export const signOut = (setAuthStatus, setAuthError) => {
+export const signOut = (setIsLoggedIn, setAuthError) => {
     auth.signOut().then(() => {
-        setAuthStatus('unauthorized');
+        setIsLoggedIn(false);
     }).catch((err) => {
         setAuthError(err);
     })
 }
 
 export const createAccount = (setAuthStatus, setAuthError, email, password) => {
-    createAccountWithEmailAndPassword(auth, email, password)
-    .then(() => {
-        setAuthStatus('authorized');
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        setUser(userCredential.user);
+        setIsLoggedIn(true);
     }).catch((err) => {
         setAuthError(err);
+        setIsLoggedIn(false);
     })
 }

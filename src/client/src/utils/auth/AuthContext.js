@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from "firebase/auth";
 import React, { createContext, useState } from "react";
 import { auth } from "../firebase";
 import { signIn, signOut, createAccount } from "./helpers";
@@ -5,27 +6,30 @@ import { signIn, signOut, createAccount } from "./helpers";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-    const [authStatus, setAuthStatus] = useState('unauthorized');
     const [authError, setAuthError] = useState(null);
+    const [user, setUser] = useState(auth.currentUser);
+    const [isLoggedIn, setIsLoggedIn] = useState(Boolean(auth.currentUser));
 
-    const signInHandler = (email, password) => signIn(setAuthStatus, setAuthError, email, password);
-    const signOutHandler = () => signOut(setAuthStatus, setAuthError);
-    const createAccountHandler = (email, password) => createAccount(setAuthStatus, setAuthError, email, password)
+    const signInHandler = (email, password) => signIn(setIsLoggedIn, setAuthError, email, password);
+    const signOutHandler = () => signOut(setIsLoggedIn, setAuthError);
+    const createAccountHandler = (email, password) => createAccount(setIsLoggedIn, setAuthError, email, password)
 
-    const user = auth.currentUser;
-
-    if (user) {
+    onAuthStateChanged(auth, (user) => {
+      console.log(`auth state changed. New user: ${user}`)
+      if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        const isLoggedIn = true;
+        setUser(user)
+        setIsLoggedIn(true);
       } else {
         // No user is signed in.
+        setIsLoggedIn(false);
       }
+    });
 
     const value = { 
-        uid, 
-        isLoggedIn: authStatus === 'authorized' ? true : false, 
+        user, 
+        isLoggedIn, 
         error: authError,
         signInHandler, 
         signOutHandler,

@@ -9,6 +9,7 @@ import Consultant from './components/Consultant.js';
 import InfoHeader from './components/InfoHeader.js';
 import React, { useState } from 'react';
 import { io } from 'socket.io-client';
+import { useAuth } from "./utils/auth/hooks";
 
 // Initialize the websocket on the client side
 const socket = io();
@@ -19,6 +20,8 @@ function App() {
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
 
+  const { user: userTest, isLoggedIn, error, signInHandler, signOutHandler, createAccountHandler } = useAuth();
+  console.log(signInHandler("email@email.com", "password123"))
   //TODO move socket logic to context
   const [isDenied, setIsDenied] = useState(false);
   socket.on('deny', () => {
