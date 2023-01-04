@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef, useEffect} from 'react'
 
 
 //TODO:
@@ -71,6 +71,7 @@ function ConsultantDialog(props) {
         }
     }
 
+  
     const randNum = (array)=> Math.round(0 + Math.random() * (array.length - 1)); //[0 ... array.length - 1]
     //console.log(randNum);
        return (
@@ -87,6 +88,7 @@ function ConsultantDialog(props) {
                    }
                 </p>
                
+               <button onClick={props.handler}>Close</button>
                     
               
         </div>

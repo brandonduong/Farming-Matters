@@ -7,13 +7,19 @@ function Consultant(props) {
     let decisionType = props.decisionType; 
     const selectedAvatar="background-color: rgb(30, 194, 0.75, 0.2)";
     console.log("USER DECISION TYPE IS, " + decisionType);
-    function onClick(avatarID){
+
+    function onAvatarClick(avatarID){
         avatar = avatarID;
         console.log(avatar);
         setIsOpen(!isOpened);
         console.log(`Consultant opened, ID=${avatarID}`);
         setSelectedAvatar(avatar);
 
+    }
+
+    function onExitClick(){
+        setIsOpen(!isOpened);
+        setSelectedAvatar(-1);
     }
     const avatarButtons = [];
 
@@ -27,9 +33,8 @@ function Consultant(props) {
     for (let i = 0; i < avatarNames.length; i++){
         avatarButtons.push(
             <div className={i == avatar ? "avatar-selected" : ""}>
-            <button type="button" className={"avatar avatar-" + i} onClick={() => onClick(i)}>
-            </button>
-            <div className="avatar-mini-name">{avatarNames[i][0]}</div>
+                <button type="button" className={"avatar avatar-" + i} onClick={() => onAvatarClick(i)}></button>
+                <div className="avatar-mini-name">{avatarNames[i][0]}</div>
             </div>
         )
     }
@@ -39,10 +44,9 @@ return (
                 { avatarButtons}
             </div>
                 { isOpened ? 
-                    <ConsultantDialog avatar= {avatar} decisionType={decisionType} /> : 
-
-                    <div> </div> 
-                
+                    <ConsultantDialog avatar= {avatar} decisionType={decisionType} handler={onExitClick} /> 
+                    : 
+                    <div></div> 
                 }
 
             </div>
