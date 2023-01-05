@@ -1,6 +1,9 @@
 import React, { ref, useState } from 'react'
 import ConsultantDialog from './ConsultantDialog.js';
 
+// TODO: - possibly rename this react component to be "Avatar" and let 
+//         consultant be a constant variable referring to the first array 
+//         in avatarNames
 function Consultant(props) {
     let [isOpened, setIsOpen] = useState(false);
     let [avatar, setSelectedAvatar] = useState(-1);
@@ -30,9 +33,10 @@ function Consultant(props) {
         ["Alice", "the weather woman"]
     ];
 
+
     for (let i = 0; i < avatarNames.length; i++){
         avatarButtons.push(
-            <div className={i == avatar ? "avatar-selected" : ""}>
+            <div className={i == avatar ? "avatar-selected avatar-item-" + i : "avatar-item-" + i}>
                 <button type="button" className={"avatar avatar-" + i} onClick={() => onAvatarClick(i)}></button>
                 <div className="avatar-mini-name">{avatarNames[i][0]}</div>
             </div>
@@ -40,8 +44,11 @@ function Consultant(props) {
     }
 return (
     <div className={isOpened  ? "avatar-overlay" + "-dialog dialog-background" : "avatar-overlay"  } >
-            <div className="avatar-grid">
-                { avatarButtons}
+            
+            <div className="general-avatar" style={isOpened ? {  visibility: "hidden"}: {  visibility: "visible"}} >
+                <div className="avatar-grid">
+                    { avatarButtons}
+                </div>
             </div>
                 { isOpened ? 
                     <ConsultantDialog avatar= {avatar} decisionType={decisionType} handler={onExitClick} /> 
@@ -50,6 +57,7 @@ return (
                 }
 
             </div>
+            
         )
 }
 
