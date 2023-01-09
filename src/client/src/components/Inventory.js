@@ -1,7 +1,7 @@
 import "../css/Inventory.css";
 import React, { useState } from "react";
 
-function Inventory() {
+function Inventory() { 
   let [isInventoryOpen, setIsInventoryOpen] = useState(false);
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
