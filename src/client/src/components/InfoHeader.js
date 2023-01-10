@@ -1,4 +1,4 @@
-function InfoHeader(props) {
+const InfoHeader = (props) => {
   const SEASONS = ["Winter", "Spring", "Summer", "Fall"]
 
   function endTurn() {
