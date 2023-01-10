@@ -12,7 +12,7 @@ const ShopItem = (props) => {
   }
 
   return (
-    <div className="shop-item" key={props.id}>
+    <div className="shop-item" key={props.id }>
       <img src={props.image} alt="crops" className="item-image"></img>
       <p style={{ color: "white", margin: "5px" }}>
         {props.name + " - $" + props.price}
@@ -25,7 +25,7 @@ const ShopItem = (props) => {
         name="quantity"
         min="1"
         max="5"
-        style={{ width: "15%", margin: "0px 2%" }}
+        style={{ width: "15%", margin: "0px 2%"}}
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
       ></input>
