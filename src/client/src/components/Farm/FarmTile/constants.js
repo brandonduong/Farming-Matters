@@ -6,7 +6,7 @@ export const plants = [
       growthLength: 0, // Max growth length is 1 whole season (3 turns)
       color: "yellow",
       hoverColor: "#B8860B",
-      season: "summer"
+      season: "summer",
     },
     {
       id: 1,
