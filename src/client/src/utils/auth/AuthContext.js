@@ -6,15 +6,15 @@ import { signIn, signOut, createAccount } from "./helpers";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-    const [authError, setAuthError] = useState(null);
+    const [authError, setAuthError] = useState();
     const [user, setUser] = useState(auth.currentUser);
     const [isLoggedIn, setIsLoggedIn] = useState(Boolean(auth.currentUser));
 
-    const signInHandler = (email, password) => signIn(setIsLoggedIn, setAuthError, email, password);
-    const signOutHandler = () => signOut(setIsLoggedIn, setAuthError);
-    const createAccountHandler = (email, password) => createAccount(setIsLoggedIn, setAuthError, email, password)
+    const signInHandler = async (email, password) => await signIn(setUser, setIsLoggedIn, setAuthError, email, password);
+    const signOutHandler = () => signOut(setUser, setIsLoggedIn, setAuthError);
+    const createAccountHandler = (email, password) => createAccount(setUser, setIsLoggedIn, setAuthError, email, password)
 
-    onAuthStateChanged(auth, (user) => {
+    /*onAuthStateChanged(auth, (user) => {
       console.log(`auth state changed. New user: ${user}`)
       if (user) {
         // User is signed in, see docs for a list of available properties
@@ -25,7 +25,7 @@ export const AuthProvider = ({children}) => {
         // No user is signed in.
         setIsLoggedIn(false);
       }
-    });
+    });*/
 
     const value = { 
         user, 

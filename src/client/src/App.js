@@ -7,9 +7,12 @@ import Shop from "./components/Shop";
 import Inventory from "./components/Inventory";
 import Consultant from './components/Consultant.js';
 import InfoHeader from './components/InfoHeader.js';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { useAuth } from "./utils/auth/hooks";
+import { LoginPage } from "./components/LoginPage";
+import { Route, Routes } from "react-router-dom";
+import { PrivateRoute } from "./utils/auth/PrivateRoute";
 
 // Initialize the websocket on the client side
 const socket = io();
@@ -21,12 +24,14 @@ function App() {
   const [turn, setTurn] = useState(1);
 
   const { user: userTest, isLoggedIn, error, signInHandler, signOutHandler, createAccountHandler } = useAuth();
-  console.log(signInHandler("email@email.com", "password123"))
+
   //TODO move socket logic to context
   const [isDenied, setIsDenied] = useState(false);
   socket.on('deny', () => {
     setIsDenied(true)
   })
+  
+  useEffect(() => console.log(userTest), [userTest])
 
   let [decisionType, setDecisionType] = useState(0);
 
@@ -34,8 +39,20 @@ function App() {
 
   return (
     <div className="App">
+      <Routes>
+        <Route index element={<LoginPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="denied" element={<h1>Denied!</h1>} />
+        <Route path="play" element={
+          <PrivateRoute>
+            <Game/>
+          </PrivateRoute>
+        } 
+        />
+      </Routes> 
       {isDenied && <h1>Denied!</h1>} 
-      {/*isLoggedIn ? <h1>Logged In</h1> : <h1>Logged Out</h1>*/}
+      {isLoggedIn ? <h1>Logged In</h1> : <h1>Logged Out</h1>}
+      <LoginPage />
       <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
       <div className="canvas-container">
         <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>

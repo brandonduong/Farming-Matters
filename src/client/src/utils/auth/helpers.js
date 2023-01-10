@@ -2,26 +2,31 @@ import { auth } from "../firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
 
-export const signIn = (setIsLoggedIn, setAuthError, email, password) => { 
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        setUser(userCredential.user)
+export const signIn = async (setUser, setIsLoggedIn, setAuthError, email, password) => { 
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password)
+        setUser(userCredential.user);
         setIsLoggedIn(true);
-    }).catch((err) => {
+        
+        return { userCredential, error: null }
+    } catch(err) {
         setAuthError(err);
-        setIsLoggedIn(false)
-    })
+        setIsLoggedIn(false);
+        
+        return { userCredential: null, error: err };
+    }
 }
 
-export const signOut = (setIsLoggedIn, setAuthError) => {
+export const signOut = (setUser, setIsLoggedIn, setAuthError) => {
     auth.signOut().then(() => {
+        setUser(null);
         setIsLoggedIn(false);
     }).catch((err) => {
         setAuthError(err);
     })
 }
 
-export const createAccount = (setAuthStatus, setAuthError, email, password) => {
+export const createAccount = (setUser, setIsLoggedIn, setAuthError, email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         setUser(userCredential.user);
