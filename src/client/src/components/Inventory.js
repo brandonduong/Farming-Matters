@@ -4,6 +4,10 @@ import React, { useState } from "react";
 //TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
 function Inventory() {
   let [isInventoryOpen, setIsInventoryOpen] = useState(false);
+  const { inventory } = React.useContext(globalInventoryContext);
+  for (i = 0; i < plants.length; i++){
+    inventory[plants[i]] = 0;
+  }
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
   }

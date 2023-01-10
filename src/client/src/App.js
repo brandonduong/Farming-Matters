@@ -10,6 +10,9 @@ import InfoHeader from './components/InfoHeader';
 import React, { useEffect, useState } from 'react';
 import { ModelProvider } from "./components/models/ModelContext";
 
+const inventory = {};
+const globalInventoryContext = React.createContext(inventory);
+
 const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
@@ -50,8 +53,10 @@ const App = () => {
 
       </div>
       <Consultant decisionType = {decisionType} />
-      <Inventory />
-      <Shop money={money} setMoney={setMoney}></Shop>
+      <globalInventoryContext.Provider value={inventory}>
+        <Inventory />
+        <Shop money={money} setMoney={setMoney}></Shop>
+      </globalInventoryContext.Provider>
       
     </div>
   );

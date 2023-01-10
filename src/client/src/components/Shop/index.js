@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
+import { plants } from "./components/Shop/ShopItem";
 
 const Shop = ({money, setMoney}) => {
   const [showMenu, setShowMenu] = useState(false);
