@@ -2,22 +2,25 @@ import "./css/App.css";
 import "./css/Inventory.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import FarmGrid from "./components/FarmGrid.js";
+import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
 import Inventory from "./components/Inventory";
-import Consultant from './components/Consultant.js';
-import InfoHeader from './components/InfoHeader.js';
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { useAuth } from "./utils/auth/hooks";
 import { LoginPage } from "./components/LoginPage";
 import { Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "./utils/auth/PrivateRoute";
+import Consultant from './components/Consultant';
+import InfoHeader from './components/InfoHeader';
+import { ModelProvider } from "./components/models/ModelContext";
 
 // Initialize the websocket on the client side
 const socket = io();
 
-function App() {
+const App = () => {
+  // TODO: Implement state for user, inventory, money, etc...
+  // Can use react contexts or maybe redux or something like that
   const [user, setUser] = useState("Brandon");
   const [money, setMoney] = useState(0);
   const [season, setSeason] = useState("Fall");
@@ -33,9 +36,13 @@ function App() {
   
   useEffect(() => console.log(userTest), [userTest])
 
-  let [decisionType, setDecisionType] = useState(0);
-
-  decisionType = Math.round(Math.random()); //assigning a random user decision type per refresh of the webpage
+  
+  const [decisionType, setDecisionType] = useState(0);
+  // This useEffect hook performs all operations needed on page load
+  useEffect(() => {
+    setDecisionType(Math.round(Math.random()));
+  }, [])
+  ; 
 
   return (
     <div className="App">
@@ -56,10 +63,14 @@ function App() {
       <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
       <div className="canvas-container">
         <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={1} />
           <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
           <pointLight position={[-10, -10, -10]} />
-          <FarmGrid position={[0, 0, 0]} turn={turn} money={money} setMoney={setMoney} />
+          
+          <ModelProvider>
+            <FarmGrid position={[0, 0, 0]} turn={turn} money={money} setMoney={setMoney} />
+          </ModelProvider>
+
           <OrbitControls
             target={[0, 0, 0]}
             minPolarAngle={Math.PI / 4}
@@ -71,7 +82,7 @@ function App() {
 
       </div>
       <Consultant decisionType = {decisionType} />
-      <Inventory></Inventory>
+      <Inventory />
       <Shop money={money} setMoney={setMoney}></Shop>
       
     </div>
