@@ -1,5 +1,5 @@
 import React, { ref, useState } from 'react'
-import ConsultantDialog from './ConsultantDialog.js';
+import ConsultantDialog from './AvatarDialog.js';
 
 const Consultant = (props) => {
     let [isOpened, setIsOpen] = useState(false);

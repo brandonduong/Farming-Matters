@@ -5,7 +5,7 @@ import { OrbitControls } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
 import Inventory from "./components/Inventory";
-import Consultant from './components/Consultant';
+import AvatarMenu from './components/Avatar/AvatarMenu';
 import InfoHeader from './components/InfoHeader';
 import React, { useEffect, useState } from 'react';
 import { ModelProvider } from "./components/models/ModelContext";
@@ -49,7 +49,7 @@ const App = () => {
         </Canvas>
 
       </div>
-      <Consultant decisionType = {decisionType} />
+      <AvatarMenu decisionType = {decisionType} />
       <Inventory />
       <Shop money={money} setMoney={setMoney}></Shop>
       
