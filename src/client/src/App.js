@@ -4,14 +4,17 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
-import Inventory from "./components/Inventory";
+import InventoryRender from "./components/InventoryRender";
 import Consultant from './components/Consultant';
 import InfoHeader from './components/InfoHeader';
 import React, { useEffect, useState } from 'react';
 import { ModelProvider } from "./components/models/ModelContext";
+import {plants} from "./components/Farm/FarmTile/constants"
 
-const inventory = {};
-const globalInventoryContext = React.createContext(inventory);
+const globalInventoryState = {
+  inventory: {}
+};
+export const {globalInventoryContext} = React.createContext(globalInventoryState);
 
 const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
@@ -20,6 +23,18 @@ const App = () => {
   const [money, setMoney] = useState(0);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
+  const [inventoryState, setInventoryState] = useState(globalInventoryContext);
+  const { inventory } = React.useContext(globalInventoryContext);
+
+  // constructor for inventory
+  for (let i = 0; i < plants.length; i++){
+    inventory[plants[i]] = 0;
+  }
+  useEffect( () => {
+    setInventoryState({
+      inventory: inventory
+    })
+  })
 
     const [decisionType, setDecisionType] = useState(0);
 
@@ -53,8 +68,8 @@ const App = () => {
 
       </div>
       <Consultant decisionType = {decisionType} />
-      <globalInventoryContext.Provider value={inventory}>
-        <Inventory />
+      <globalInventoryContext.Provider value={{inventoryState,setInventoryState}}>
+        <InventoryRender />
         <Shop money={money} setMoney={setMoney}></Shop>
       </globalInventoryContext.Provider>
       

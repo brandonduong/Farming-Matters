@@ -2,10 +2,12 @@ import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
-import { plants } from "./components/Shop/ShopItem";
+import {globalInventoryContext} from "../../App";
+
 
 const Shop = ({money, setMoney}) => {
   const [showMenu, setShowMenu] = useState(false);
+  const { inventory } = React.useContext(globalInventoryContext);
 
   const displayShop = () => {
     setShowMenu(!showMenu);
