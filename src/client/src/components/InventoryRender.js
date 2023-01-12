@@ -22,7 +22,7 @@ function InventoryRender() {
       <div className="item">
       <img src={shopItemsList[i].image} alt="item-pic" />
       <div className="item-info">
-        <h2>{itemList[i]}</h2>
+        <h4>{itemList[i]}</h4>
         <h4 className="quantity-title">Quantity:</h4>
         <p className="quantity">{getItemCount(inventoryState,itemList[i])}</p>
       </div>

@@ -73,6 +73,7 @@ img {
 .item-info {
   color: white;
   font-size: larger;
+  margin-top: -5%;
 }
 
 #inventory-title {
@@ -82,9 +83,9 @@ img {
 
 .quantity-title {
   color: white;
-  margin-bottom: 0px;
+  margin-top: -5%;
 }
 
 .quantity {
-  margin-top: 0px;
+  margin-top: -10%;
 }
