@@ -1,5 +1,4 @@
 import React from 'react'
-import { globalAvatarContext } from './AvatarMenu';
 //TODO:
 // - Add DETERMINISTIC or PROBABILISTIC RANDOMNESS
 // - Make separate txt files or javascript files to these descriptions elsewhere (making avatarNames and avatarDescrption into objects)
@@ -10,20 +9,17 @@ import { globalAvatarContext } from './AvatarMenu';
 // - Add a state variable to the consultant dialog to only generate a new number if the current round has changed
 
 const AvatarDialog = (props) =>{
-        const { avatarState } = React.useContext(globalAvatarContext);
         return (
            <div className="dialog">
-               <div className={"avatar avatar-" + avatarState.avatarID}> </div>
-               <h1> { avatarState.name +" "+ avatarState.role} </h1> 
-               <h2> { avatarState.description } </h2>
+               <div className={"avatar avatar-" + props.getId()}> </div>
+               <h1> { props.getName() +" "+ props.getRole()} </h1> 
+               <h2> { props.getDescription() } </h2>
                <p>
-                   {avatarState.statement}
+                   {props.generateStatement()}
                 
                 </p>
                 
                 <button onClick={props.onExit}>Close</button>
-                    
-              
         </div>
     )
 }

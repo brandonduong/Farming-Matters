@@ -1,19 +1,9 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React from 'react'
 import AvatarDialog from './AvatarDialog';
 import {consultantDialog} from './constants'
-import { globalAvatarContext } from './AvatarMenu';
-import { avatarNames, avatarDescription  } from './constants';
+
 const Consultant = (props) =>{
-    // const [name, setName] = useState(props.getName);
-    // const [role, setRole] = useState(props.getRole)
-    // const [description, setDescription] = useState(props.getDescription);
-    // const [img, setImg] = useState(props.getImg);
-    // const [avatarType, setType] = useState(props.getAvatarType);
-    // const [statement, setStatement] = useState(props.getStatement);
 
-    const { avatarState, setAvatarState } = React.useContext(globalAvatarContext);
-
-   
     function statisticGenerator(){
         const randomNum = Math.random(); //0 ... 1 real number
         const minThreshold = 0.80; //going to happen
@@ -44,24 +34,11 @@ const Consultant = (props) =>{
        return consultantDialog[randNum] + statistic;
 
     }
-    const avatarID = props.avatarID;
-    useEffect( () => {
-        setAvatarState({
-            avatarID: avatarID,
-            name: avatarNames[avatarID][0],
-            role: avatarNames[avatarID][1],
-            description: avatarDescription[avatarID],
-            type: 0,
-            statement: generateStatement(),
-        })
-    }, []);
-    
-    
-    
+
     return (
         <div>
             {
-                <AvatarDialog onExit={props.onExit} />
+                <AvatarDialog generateStatement={generateStatement} {...props}/>
             }
     </div>
     );

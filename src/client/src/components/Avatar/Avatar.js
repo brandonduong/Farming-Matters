@@ -3,44 +3,63 @@ import Consultant from './Consultant';
 import Insurance from './Insurance';
 import OtherAvatar from './OtherAvatar'
 import AvatarDialog from './AvatarDialog'
-import {globalAvatarContext} from './AvatarMenu';
+import { avatarNames, avatarDescription  } from './constants';
 
-// FIND A FIX TO DEFINE useEffect here for only declaring everything else but the statement, 
-// and statement in the Consultant and OtherAvatar will use another useEffect to modify
 const Avatar = (props) =>{
-    // const [name, setName] = useState(null);
-    // const [role, setRole] = useState(null);
-    // const [description, setDescription] = useState(null);
-    // const [statement, setStatement] = useState(null);
-    // const [avatarType, setType] = useState(props.getAvatarType);
+    const [id, setId] = useState(props.avatarID);
+    const [name, setName] = useState(avatarNames[props.avatarID][0]);
+    const [role, setRole] = useState(avatarNames[props.avatarID][1]);
+    const [description, setDescription] = useState(avatarDescription[props.avatarID]);
+    const [statement, setStatement] = useState("");
+    const [avatarType, setAvatarType] = useState(props.getAvatarType);
 
-    const { avatarState, setAvatarState } = React.useContext(globalAvatarContext);
-   
-    
-    // function getName(){
-    //     return name;
-    // }
-
-    // function getRole(){
-    //     return role;
-    // }
-    // function getDescription(){
-    //     return description;
-    // }
-
-    // function getStatement(){
-    //     return statement;
-    // }
-
-    // function getAvatarType(){
-    //     return type;
-    // }
-
+    function getId(){
+        return id;
+    }
+    function getName(){
+        return name;
+    }
+    function getRole(){
+        return role;
+    }
+    function getDescription(){
+        return description;
+    }
+    function getStatement(){
+        return statement;
+    }
+    function getAvatarType(){
+        return avatarType;
+    }
     return (
         <div>
             {
-                props.avatarID === 0 ? (<Consultant avatarID={props.avatarID} decisionType={props.decisionType} onExit={props.onExit} />) :
-                                        (<OtherAvatar avatarID={props.avatarID} onExit={props.onExit} />)
+                props.avatarID === 0 ? (<Consultant getId={getId}
+                                                    setId={setId}
+                                                    getName={getName}
+                                                    setName={setName}
+                                                    getRole={getRole}
+                                                    setRole={setRole}
+                                                    getDescription={getDescription}
+                                                    setDescription={setDescription}
+                                                    getStatement={getStatement}
+                                                    setStatement={setStatement}
+                                                    getAvatarType={getAvatarType}
+                                                    setAvatarType={setAvatarType}
+                                                    {...props} />) :
+                                    (<OtherAvatar   getId={getId}
+                                                    setId={setId} 
+                                                    getName={getName}
+                                                    setName={setName}
+                                                    getRole={getRole}
+                                                    setRole={setRole}
+                                                    getDescription={getDescription}
+                                                    setDescription={setDescription}
+                                                    getStatement={getStatement}
+                                                    setStatement={setStatement}
+                                                    getAvatarType={getAvatarType}
+                                                    setAvatarType={setAvatarType}
+                                                    {...props} />)
             }
         </div>
     );

@@ -1,27 +1,14 @@
-import React, { ref, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Avatar from './Avatar'
 import { avatarNames } from './constants.js';
 
 // TODO: - Once the general Game loader component is done, generate this
 //         component
 
-let globalAvatarState = {
-    avatarID: -1,
-    name: "",
-    description: "",
-    statement: "",
-    type: -1,
-    onOpen: false
-
-};
-  
-export const globalAvatarContext = React.createContext();
-
 const AvatarMenu = (props) =>{
     let [isOpened, setIsOpen] = useState(false); // Redudant, just check to see if avatar >=0
     let [selectedAvatar, setSelectedAvatar] = useState(-1);
-    const [avatarState, setAvatarState] = useState(globalAvatarState);
- 
+
     function onAvatarClick(avatarID){
         selectedAvatar = avatarID;
         setIsOpen(!isOpened);
@@ -29,13 +16,11 @@ const AvatarMenu = (props) =>{
         setSelectedAvatar(selectedAvatar);
 
     }
-
     function onExitClick(){
         setIsOpen(!isOpened);
         setSelectedAvatar(-1);
     }
 
-    
     const avatarButtons = [];
     for (let i = 0; i < avatarNames.length; i++){
         avatarButtons.push(
@@ -47,18 +32,16 @@ const AvatarMenu = (props) =>{
     }
 return (
     <div className={isOpened  ? "avatar-overlay" + "-dialog dialog-background" : "avatar-overlay"  } >
-            
             <div className="general-avatar" style={isOpened ? {  visibility: "hidden"}: {  visibility: "visible"}} >
                 <div className="avatar-grid">
                     { avatarButtons}
                 </div>
             </div>
                 { isOpened ? 
-                    <globalAvatarContext.Provider value={{avatarState, setAvatarState}}>
                         <Avatar avatarID={selectedAvatar} 
                                 decisionType={props.decisionType} 
+                                isOpened={isOpened}
                                 onExit={onExitClick} /> 
-                    </globalAvatarContext.Provider>
                     : 
                     <div></div> 
                 }
