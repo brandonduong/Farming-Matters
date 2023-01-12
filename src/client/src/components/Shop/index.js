@@ -7,7 +7,7 @@ import {globalInventoryContext} from "../../App";
 
 const Shop = ({money, setMoney}) => {
   const [showMenu, setShowMenu] = useState(false);
-  const { inventory } = React.useContext(globalInventoryContext);
+  
 
   const displayShop = () => {
     setShowMenu(!showMenu);

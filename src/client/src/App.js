@@ -11,16 +11,14 @@ import React, { useEffect, useState } from 'react';
 import { ModelProvider } from "./components/models/ModelContext";
 import {plants} from "./components/Farm/FarmTile/constants"
 
-const globalInventoryState = {
-  inventory: {}
-};
+const globalInventoryState = {};
 export const globalInventoryContext = React.createContext();
 
 const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
   const [user, setUser] = useState("Brandon");
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState(1000); //starting with $1000
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
@@ -33,9 +31,9 @@ const App = () => {
     getNames[currentName]=0;    
   }
   useEffect( () => {
-    setInventoryState({
-      inventory: getNames
-    })
+    setInventoryState(
+      getNames
+    )
   },[]);
    
 

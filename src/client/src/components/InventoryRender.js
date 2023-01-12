@@ -15,7 +15,7 @@ function InventoryRender() {
     setIsInventoryOpen(!isInventoryOpen);
   }
   let currentItemRender = []
-  let itemList = getItems(inventoryState.inventory);
+  let itemList = getItems(inventoryState);
   for (let i = 0; i < itemList.length; i++){
 
     currentItemRender.push(    
@@ -24,7 +24,7 @@ function InventoryRender() {
       <div className="item-info">
         <h2>{itemList[i]}</h2>
         <h4 className="quantity-title">Quantity:</h4>
-        <p className="quantity">{getItemCount(inventoryState.inventory,itemList[i])}</p>
+        <p className="quantity">{getItemCount(inventoryState,itemList[i])}</p>
       </div>
       </div>
     )

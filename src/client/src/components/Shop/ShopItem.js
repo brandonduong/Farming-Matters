@@ -1,11 +1,17 @@
 import React, { useState } from "react";
+import {globalInventoryContext} from "../../App";
+import { addItem, removeItem } from "../Inventory";
 
 const ShopItem = (props) => {
   const [quantity, setQuantity] = useState(0);
+  const { inventoryState, setInvetoryState } = React.useContext(globalInventoryContext);
+
   function buy() {
     if (quantity * props.price <= props.money) {
       props.setMoney(props.money - quantity * props.price);
       setQuantity(0);
+      addItem(inventoryState, props.name, quantity);
+      console.log(inventoryState);
     } else {
       console.log("Not enough money to buy crop");
     }

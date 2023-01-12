@@ -46,7 +46,7 @@ export const plants = [
     },
     {
       id: 5,
-      name: "Carrots",
+      name: "Carrot",
       harvestValue: 225,
       growthLength: 2,
       color: "#FFA07A",
