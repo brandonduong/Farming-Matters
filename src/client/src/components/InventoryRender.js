@@ -2,7 +2,7 @@ import "../css/Inventory.css";
 import React, { useState } from "react";
 import { getItemCount, getItems } from "./Inventory";
 import { globalInventoryContext } from "../App";
-
+import { shopItemsList} from "./Shop/constants";
 
 
 //TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
@@ -20,7 +20,7 @@ function InventoryRender() {
 
     currentItemRender.push(    
       <div className="item">
-      {/* <img src={require("../assets/CropIcons/mushroom.png")} alt="mushroom" /> */}
+      <img src={shopItemsList[i].image} alt="item-pic" />
       <div className="item-info">
         <h2>{itemList[i]}</h2>
         <h4 className="quantity-title">Quantity:</h4>

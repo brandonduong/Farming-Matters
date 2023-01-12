@@ -10,12 +10,12 @@
   position: relative;
   background-color: rgb(30, 194, 30);
   color: green;
-  /* height: 70%; */
+  padding-bottom: 10px;
+  height: 70%;
   width: 60%;
-  top: 10%;
+  top: 15%;
   margin: auto;
   border-radius: 30px;
-  padding-bottom: 10px;
 }
 
 .center {
@@ -51,10 +51,12 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+  overflow-y: scroll;
 }
 
 img {
   width: 80px;
+  height: 80px; 
   border: 1px solid white;
   border-radius: 60px;
   padding: 5px;

@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
-import {globalInventoryContext} from "../../App";
 
 
 const Shop = ({money, setMoney}) => {
