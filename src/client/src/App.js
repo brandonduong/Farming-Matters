@@ -14,7 +14,7 @@ import {plants} from "./components/Farm/FarmTile/constants"
 const globalInventoryState = {
   inventory: {}
 };
-export const {globalInventoryContext} = React.createContext(globalInventoryState);
+export const globalInventoryContext = React.createContext();
 
 const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
@@ -23,18 +23,22 @@ const App = () => {
   const [money, setMoney] = useState(0);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
-  const [inventoryState, setInventoryState] = useState(globalInventoryContext);
-  const { inventory } = React.useContext(globalInventoryContext);
+  const [inventoryState, setInventoryState] = useState(globalInventoryState);
+
 
   // constructor for inventory
+  let getNames = {};
   for (let i = 0; i < plants.length; i++){
-    inventory[plants[i]] = 0;
+    let currentName = plants[i].name;
+    getNames[currentName]=0;    
   }
   useEffect( () => {
     setInventoryState({
-      inventory: inventory
+      inventory: getNames
     })
-  })
+  },[]);
+   
+
 
     const [decisionType, setDecisionType] = useState(0);
 

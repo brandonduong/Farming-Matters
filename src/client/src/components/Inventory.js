@@ -2,11 +2,11 @@
 //TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
 
 export function getItems(inventory){ 
-  console.log(inventory);
   return Object.keys(inventory);
 }
 
 export function getItemCount(inventory,item){
+  console.log(inventory[item]);
   return inventory[item];
 }
 
