@@ -28,7 +28,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
       <div className="canvas-container">
         <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
           <ambientLight intensity={1} />
@@ -49,6 +48,7 @@ const App = () => {
         </Canvas>
 
       </div>
+      <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
       <Consultant decisionType = {decisionType} />
       <Inventory />
       <Shop money={money} setMoney={setMoney}></Shop>
