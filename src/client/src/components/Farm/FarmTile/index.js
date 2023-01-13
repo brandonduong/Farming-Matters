@@ -4,9 +4,12 @@ import FarmTilePopup from './FarmTilePopup';
 import { logData } from '../../../utils/logData';
 import { TreeModel } from '../../models/TreeModel';
 import { plants } from "./constants";
+import { BeetModel } from '../../models/BeetModel';
+import { CarrotModel } from '../../models/CarrotModel';
 
 const FarmTile = (props) => {
   // Hold state for hovered and clicked events
+  const position = [props.x - 0.5, -0.01, props.z - 0.5];
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
 
@@ -46,17 +49,32 @@ const FarmTile = (props) => {
     }
   }, [props.turn])
 
-  const position = [props.x - 0.5, -0.01, props.z - 0.5];
-
-  return (
-    <>
-      {/* Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable */}
-      <TreeModel 
+  const models = <>
+    {/* Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable */}
+    <TreeModel 
         position={position}
         rotation={[0, -Math.PI/2, Math.PI/2]}
         visible={plantedSeed === 1}
       />
 
+      <CarrotModel
+        position={position}
+        rotation={[0, -Math.PI/2, Math.PI/2]}
+        visible={plantedSeed === 2}
+        stage={props.turn - turnPlanted}
+      />
+
+      <BeetModel 
+        position={position}
+        rotation={[0, -Math.PI/2, Math.PI/2]}
+        visible={plantedSeed === 9}
+        stage={props.turn - turnPlanted}
+      />
+  </>
+
+  return (
+    <>
+      {models}
       <mesh rotation={[-Math.PI / 2, 0, 0]}
         position={position}
         onClick={() => {onClick()}}
@@ -65,7 +83,7 @@ const FarmTile = (props) => {
       >
 
       <planeGeometry args={[1, 1]} />
-      <meshStandardMaterial color={hovered ? plants[plantedSeed].hoverColor : plants[plantedSeed].color} />
+      <meshStandardMaterial color={hovered ? "darkgreen" : "green"} />
 
       <Html center>
         {props.clickedTile && props.clickedTile[0] === props.x && props.clickedTile[1] === props.z && 
@@ -75,9 +93,6 @@ const FarmTile = (props) => {
             setClickedTile={props.setClickedTile} 
             turn={props.turn} 
             turnPlanted={turnPlanted} 
-            plants={plants} 
-            money={props.money} 
-            setMoney={props.setMoney}
           />
         }
       </Html>
