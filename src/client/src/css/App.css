@@ -29,6 +29,7 @@
   top: 0%;
   width: 100%;
   font-size: calc(1rem + 0.5vw);
+  font-weight: bold;
   display: flex;
   justify-content: center;
 }

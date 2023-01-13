@@ -35,13 +35,31 @@ const App = () => {
           <pointLight position={[-10, -10, -10]} />
           
           <ModelProvider>
+            {/* Blue sky */}
+            <mesh position={[200,50,0]}>
+              <boxGeometry args={[1,100,500]} />
+              <meshStandardMaterial color={'rgb(90, 150, 147)'} />
+            </mesh>
+            <mesh position={[0,50,200]}>
+              <boxGeometry args={[500,100,1]} />
+              <meshStandardMaterial color={'rgb(90, 150, 147)'} />
+            </mesh>
+            <mesh position={[-200,50,0]}>
+              <boxGeometry args={[1,100,500]} />
+              <meshStandardMaterial color={'rgb(90, 150, 147)'} />
+            </mesh>\
+            <mesh position={[0,50,-200]}>
+              <boxGeometry args={[500,100,1]} />
+              <meshStandardMaterial color={'rgb(90, 150, 147)'} />
+            </mesh>
+
+
             <FarmGrid position={[0, 0, 0]} turn={turn} money={money} setMoney={setMoney} />
           </ModelProvider>
 
           <OrbitControls
             target={[0, 0, 0]}
-            minPolarAngle={Math.PI / 4}
-            maxPolarAngle={Math.PI / 2}
+            maxPolarAngle={Math.PI / 2.5}
             maxDistance={10}
             enablePan={false}
           />

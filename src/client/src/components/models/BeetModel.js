@@ -25,7 +25,7 @@ export function BeetModel(props) {
         <primitive 
             object={getModel()} 
             {...props} 
-            scale={0.025}
+            scale={0.02}
             rotation-x={Math.PI/2}
         />
     );
