@@ -7,7 +7,7 @@ export const plants = [
     // Spring
     {
       id: 1,
-      name: "Plant 1",
+      name: "Rice",
       growthLength: 1,
     },
     {
@@ -17,34 +17,34 @@ export const plants = [
     },
     {
       id: 3,
-      name: "Plant 3",
+      name: "Orange",
       growthLength: 3,
     },
     // Summer
     {
       id: 4,
-      name: "Plant 4",
+      name: "Lettuce",
       growthLength: 1,
     },
     {
       id: 5,
-      name: "Plant 5",
+      name: "Tomato",
       growthLength: 2,
     },
     {
       id: 6,
-      name: "Plant 6",
+      name: "Watermelon",
       growthLength: 3,
     },
     // Fall
     {
       id: 7,
-      name: "Plant 7",
+      name: "Wheat",
       growthLength: 1,
     },
     {
       id: 8,
-      name: "Plant 8",
+      name: "Pumpkin",
       growthLength: 2,
     },
     {
