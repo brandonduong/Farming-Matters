@@ -4,7 +4,7 @@ import FarmTilePopup from './FarmTilePopup';
 import { logData } from '../../../utils/logData';
 import { TreeModel } from '../../models/TreeModel';
 import { plants } from "./constants";
-import { BeetModel } from '../../models/BeetModel';
+import { BeetModel } from '../../models/Beet/BeetModel';
 import { CarrotModel } from '../../models/CarrotModel';
 
 const FarmTile = (props) => {
@@ -66,7 +66,6 @@ const FarmTile = (props) => {
 
       <BeetModel 
         position={position}
-        rotation={[0, -Math.PI/2, Math.PI/2]}
         visible={plantedSeed === 9}
         stage={props.turn - turnPlanted}
       />
