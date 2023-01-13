@@ -1,7 +1,7 @@
 import "./css/App.css";
 import "./css/Inventory.css";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Sky } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
 import Inventory from "./components/Inventory";
@@ -36,22 +36,7 @@ const App = () => {
           
           <ModelProvider>
             {/* Blue sky */}
-            <mesh position={[200,50,0]}>
-              <boxGeometry args={[1,100,500]} />
-              <meshStandardMaterial color={'rgb(90, 150, 147)'} />
-            </mesh>
-            <mesh position={[0,50,200]}>
-              <boxGeometry args={[500,100,1]} />
-              <meshStandardMaterial color={'rgb(90, 150, 147)'} />
-            </mesh>
-            <mesh position={[-200,50,0]}>
-              <boxGeometry args={[1,100,500]} />
-              <meshStandardMaterial color={'rgb(90, 150, 147)'} />
-            </mesh>\
-            <mesh position={[0,50,-200]}>
-              <boxGeometry args={[500,100,1]} />
-              <meshStandardMaterial color={'rgb(90, 150, 147)'} />
-            </mesh>
+            <Sky distance={50} sunPosition={[10, 12, 0]}/>
 
 
             <FarmGrid position={[0, 0, 0]} turn={turn} money={money} setMoney={setMoney} />

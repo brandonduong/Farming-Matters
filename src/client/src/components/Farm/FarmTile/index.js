@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Html } from '@react-three/drei';
+import { Html, Sparkles } from '@react-three/drei';
 import FarmTilePopup from './FarmTilePopup';
 import { logData } from '../../../utils/logData';
 import { TreeModel } from '../../models/TreeModel';
@@ -74,6 +74,7 @@ const FarmTile = (props) => {
   return (
     <>
       {models}
+      {plantedSeed && props.turn - turnPlanted >= plants[plantedSeed].growthLength && <Sparkles size={3} position={position} scale={0.75}/>}
       <mesh rotation={[-Math.PI / 2, 0, 0]}
         position={position}
         onClick={() => {onClick()}}
