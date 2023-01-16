@@ -1,3 +1,5 @@
+import { SignOutButton } from "./SignOutButton"
+
 const InfoHeader = (props) => {
   const SEASONS = ["Winter", "Spring", "Summer", "Fall"]
 
@@ -15,6 +17,7 @@ const InfoHeader = (props) => {
       <div className="username info-header-item align-left">User: {props.user}</div>
       <div className="money info-header-item align-left">Money: ${props.money}</div>
       <div className="season info-header-item align-right">Season: {props.season}</div>
+      <SignOutButton />
       <div className="turn info-header-item align-right">Turn: {props.turn}
         <button className="end-turn" type="button" onClick={()=>endTurn()}>
           End Turn

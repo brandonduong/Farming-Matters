@@ -2,6 +2,7 @@ const express = require("express");
 const http = require('http');
 const { Server } = require("socket.io");
 const { allowSingleSession } = require("./socket/allowSingleSession");
+const { auth } = require("./firebase");
 
 const PORT = process.env.PORT || 5001;
 
@@ -11,15 +12,19 @@ const io = new Server(server);
 
 app.use(express.json())
 
-let authorized = true;
-
 /* Auth */
 function checkAuth(req, res, next) {
-  if (authorized) {
-    next();
+  if (req.headers.authtoken) {
+    auth.verifyIdToken(req.headers.authtoken)
+      .then(() => {
+        // Request is verified
+        next();
+      }).catch((error) => {
+        res.status(403).send('Unauthorized');
+      });
+
   } else {
-    res.status(403).send('Unauthorized!')
-    return
+    res.status(403).send('Unauthorized')
   }
 }
 
@@ -40,8 +45,9 @@ app.post('/private/actions', (req, res) => {
 
 // Contains logic for validating that a user only has a single session
 // TODO: emit event from client on login containing userID, trigger function on login event
+var allClients = new Map();
 io.on('connection', (socket) => {
-  allowSingleSession(socket)
+  allowSingleSession(socket, allClients);
 });
 
 server.listen(PORT, () => {

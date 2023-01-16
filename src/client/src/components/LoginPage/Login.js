@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "../../utils/auth/hooks";
-import "./Login.css";
+import "../../css/Login.css";
+import { useNavigate } from "react-router-dom";
+import { handleError } from "./helpers";
 
 export const Login = () => {
-    const { signInHandler } = useAuth();
+    const { signInHandler, socket } = useAuth();
     const [errorMessage, setErrorMessage] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,43 +23,24 @@ export const Login = () => {
           return;
         } 
         
-        const { error } = await signInHandler(email, password)
+        const { userCredential, error } = await signInHandler(email, password)
         
-        if (error?.code === 'auth/user-not-found' || error?.code === 'auth/wrong-password') {
-          setErrorMessage('Username or password is incorrect.');
-          return;
+        handleError(error, setErrorMessage);
 
-        } else if (error?.code === 'auth/wrong-password') {
-          setErrorMessage('Email already in use.');
-          return;
+        if (!error) {
+          // Logged in succesfully
+          e.target.email.value = "";
+          e.target.password.value = "";
 
-        } else if (error?.code === 'auth/email-already-exists') {
-          setErrorMessage('Email already in use.');
-          return;
-
-        } else if (error?.code === 'auth/invalid-email') {
-          setErrorMessage('Email is invalid.');
-          return;
-
-        } else if (error?.code === 'auth/invalid-password') {
-          setErrorMessage('Password is invalid. Passwords must be at least 6 characters long.');
-          return;
-
-        } else if (error) {
-          setErrorMessage(error.message);
-          return;
+          socket.emit('login', userCredential.user.uid);
+          navigate('/play');
         }
-
-        // Logged in succesfully
-        e.target.email.value = "";
-        e.target.password.value = "";
-        setErrorMessage(null);
       };
 
     return (
       <div className="login-container">
         <h1 className="title">Login</h1>
-        <div className="error">{errorMessage}</div>
+        {errorMessage && <div className="error">{errorMessage}</div>}
         <form className="form" onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="email">Email</label>
@@ -66,7 +50,7 @@ export const Login = () => {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" />
           </div>
-          <button className="primary">Login</button>
+          <button className="primary login-button">Login</button>
         </form>
       </div>
     );

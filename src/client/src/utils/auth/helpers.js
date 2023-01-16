@@ -1,18 +1,24 @@
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, } from "firebase/auth";
 
+const handleError = (error, setIsLoggedIn, setAuthError) => {
+    setAuthError(error);
+    setIsLoggedIn(false);
+}
+
+const handleSuccess = (userCredential, setIsLoggedIn, setUser) => {
+    setUser(userCredential.user);
+    setIsLoggedIn(true);
+}
 
 export const signIn = async (setUser, setIsLoggedIn, setAuthError, email, password) => { 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password)
-        setUser(userCredential.user);
-        setIsLoggedIn(true);
+        handleSuccess(userCredential, setIsLoggedIn, setUser);
         
         return { userCredential, error: null }
     } catch(err) {
-        setAuthError(err);
-        setIsLoggedIn(false);
-        
+        handleError(err, setIsLoggedIn, setAuthError);
         return { userCredential: null, error: err };
     }
 }
@@ -26,13 +32,16 @@ export const signOut = (setUser, setIsLoggedIn, setAuthError) => {
     })
 }
 
-export const createAccount = (setUser, setIsLoggedIn, setAuthError, email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        setUser(userCredential.user);
-        setIsLoggedIn(true);
-    }).catch((err) => {
-        setAuthError(err);
-        setIsLoggedIn(false);
-    })
+export const createAccount = async (setUser, setIsLoggedIn, setAuthError, displayName, email, password) => {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName });
+        
+        handleSuccess(userCredential, setIsLoggedIn, setUser);
+        return { userCredential, error: null }
+
+    } catch (err) {
+        handleError(err,setIsLoggedIn,setAuthError);
+        return { userCredential: null, error: err };
+    }
 }

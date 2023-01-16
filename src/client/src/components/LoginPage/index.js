@@ -1,14 +1,9 @@
-import { SignOutButton } from "./SignOutButton";
 import { CreateAccount } from "./CreateAccount";
 import { Login } from "./Login";
 
-export const LoginPage = () => {
-    
-    return (
-        <>
+export const LoginPage = () => 
+        <div style={{display: "flex", alignItems: "center", justifyContent: "center", marginTop: "50px"}}>
             <Login />
-            <SignOutButton />
             <CreateAccount />
-        </>
-    );
-}
+        </div>
+

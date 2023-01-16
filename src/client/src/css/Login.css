@@ -1,6 +1,6 @@
 
   .login-container {
-    width: 50%;
+    width: 37%;
     max-width: 800px;
     display: flex;
     flex-direction: column;
@@ -62,7 +62,7 @@
     font-size: 16px;
   }
   
-  button {
+  .login-button {
     border-radius: 5px;
     border: none;
     color: #fff;
@@ -77,16 +77,16 @@
     transition: background 0.3s;
     width: 80%;
   }
-  button.primary {
+  .login-button.primary {
     background: #f58733;
   }
-  button.primary:hover {
+  .login-button.primary:hover {
     background: #ea6c0b;
   }
-  button.secondary {
-    background: #c1d7aa;
+  .login-button.secondary {
+    background: #acdd79;
   }
-  button.secondary:hover {
+  .login-button.secondary:hover {
     background: #a8c787;
   }
   
