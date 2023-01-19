@@ -1,5 +1,5 @@
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const handleError = (error, setIsLoggedIn, setAuthError) => {
     setAuthError(error);
