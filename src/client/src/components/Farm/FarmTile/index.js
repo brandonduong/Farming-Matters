@@ -23,7 +23,8 @@ const FarmTile = (props) => {
   const [plantedSeed, setPlantedSeed] = useState(0); // 0 if nothing is planted
   const [turnPlanted, setTurnPlanted] = useState(null); // null if nothing is planted
 
-  function onClick() {
+  function onClick(e) {
+    e.stopPropagation();
     click(!clicked);
     console.log(`clicked ${props.x} ${props.z}`);
     props.setClickedTile([props.x, props.z]);
@@ -134,11 +135,12 @@ const FarmTile = (props) => {
         props.turn - turnPlanted >= plants[plantedSeed].growthLength && (
           <Sparkles size={3} position={position} scale={0.75} />
         )}
+
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={position}
-        onClick={() => {
-          onClick();
+        onClick={(e) => {
+          onClick(e);
         }}
         onPointerOver={() => hover(true)}
         onPointerOut={() => hover(false)}
