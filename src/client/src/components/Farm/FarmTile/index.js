@@ -1,104 +1,117 @@
-import React, { useEffect, useState } from 'react';
-import { Html, Sparkles } from '@react-three/drei';
-import FarmTilePopup from './FarmTilePopup';
-import { logData } from '../../../utils/logData';
-import { TreeModel } from '../../models/TreeModel';
+import React, { useEffect, useState } from "react";
+import { Html, Sparkles } from "@react-three/drei";
+import FarmTilePopup from "./FarmTilePopup";
+import { logData } from "../../../utils/logData";
+import { TreeModel } from "../../models/TreeModel";
 import { plants } from "./constants";
-import { BeetModel } from '../../models/Beet/BeetModel';
-import { CarrotModel } from '../../models/CarrotModel';
+import { BeetModel } from "../../models/BeetModel";
+import { CarrotModel } from "../../models/CarrotModel";
 
 const FarmTile = (props) => {
   // Hold state for hovered and clicked events
   const position = [props.x - 0.5, -0.01, props.z - 0.5];
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
+  const [hovered, hover] = useState(false);
+  const [clicked, click] = useState(false);
 
-  const [plantedSeed, setPlantedSeed] = useState(0) // 0 if nothing is planted
-  const [turnPlanted, setTurnPlanted] = useState(null) // null if nothing is planted
+  const [plantedSeed, setPlantedSeed] = useState(0); // 0 if nothing is planted
+  const [turnPlanted, setTurnPlanted] = useState(null); // null if nothing is planted
 
   function onClick() {
     click(!clicked);
-    console.log(`clicked ${props.x} ${props.z}`)
-    props.setClickedTile([props.x, props.z])
+    console.log(`clicked ${props.x} ${props.z}`);
+    props.setClickedTile([props.x, props.z]);
 
     //Log data to the server
-    logData("Tile clicked", { 
-        x: props.x, 
-        z: props.z
-    })
+    logData("Tile clicked", {
+      x: props.x,
+      z: props.z,
+    });
   }
 
   // Log when a seed is planted
-  useEffect(() => { 
+  useEffect(() => {
     if (plantedSeed !== 0) {
-      setTurnPlanted(props.turn)
+      setTurnPlanted(props.turn);
 
-      logData("Seed planted", { 
-        x: props.x, 
+      logData("Seed planted", {
+        x: props.x,
         z: props.z,
         seedNum: plantedSeed,
         turnPlanted: props.turn,
-      })
+      });
     }
-  }, [plantedSeed])
+  }, [plantedSeed]);
 
   // Check whenever turn is ended
   useEffect(() => {
-    if (turnPlanted && props.turn - turnPlanted >= plants[plantedSeed].growthLength) {
-      console.log(`Plant at (${props.x}, ${props.z}) is done growing`)
+    if (
+      turnPlanted &&
+      props.turn - turnPlanted >= plants[plantedSeed].growthLength
+    ) {
+      console.log(`Plant at (${props.x}, ${props.z}) is done growing`);
     }
-  }, [props.turn])
+  }, [props.turn]);
 
-  const models = <>
-    {/* Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable */}
-    <TreeModel 
+  const models = (
+    <>
+      {/* Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable */}
+      <TreeModel
         position={position}
-        rotation={[0, -Math.PI/2, Math.PI/2]}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 1}
       />
 
       <CarrotModel
         position={position}
-        rotation={[0, -Math.PI/2, Math.PI/2]}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 2}
         stage={props.turn - turnPlanted}
       />
 
-      <BeetModel 
+      <BeetModel
         position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 9}
         stage={props.turn - turnPlanted}
       />
-  </>
+    </>
+  );
 
   return (
     <>
       {models}
-      {plantedSeed && props.turn - turnPlanted >= plants[plantedSeed].growthLength && <Sparkles size={3} position={position} scale={0.75}/>}
-      <mesh rotation={[-Math.PI / 2, 0, 0]}
+      {plantedSeed &&
+        props.turn - turnPlanted >= plants[plantedSeed].growthLength && (
+          <Sparkles size={3} position={position} scale={0.75} />
+        )}
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
         position={position}
-        onClick={() => {onClick()}}
+        onClick={() => {
+          onClick();
+        }}
         onPointerOver={() => hover(true)}
         onPointerOut={() => hover(false)}
       >
+        <planeGeometry args={[1, 1]} />
+        <meshStandardMaterial color={hovered ? "darkgreen" : "green"} />
 
-      <planeGeometry args={[1, 1]} />
-      <meshStandardMaterial color={hovered ? "darkgreen" : "green"} />
-
-      <Html center>
-        {props.clickedTile && props.clickedTile[0] === props.x && props.clickedTile[1] === props.z && 
-          <FarmTilePopup 
-            plantedSeed={plantedSeed} 
-            setPlantedSeed={setPlantedSeed} 
-            setClickedTile={props.setClickedTile} 
-            turn={props.turn} 
-            turnPlanted={turnPlanted} 
-          />
-        }
-      </Html>
-    </mesh>
-  </>
-  )
-}
+        <Html center>
+          {props.clickedTile &&
+            props.clickedTile[0] === props.x &&
+            props.clickedTile[1] === props.z && (
+              <FarmTilePopup
+                plantedSeed={plantedSeed}
+                setPlantedSeed={setPlantedSeed}
+                setClickedTile={props.setClickedTile}
+                turn={props.turn}
+                turnPlanted={turnPlanted}
+              />
+            )}
+        </Html>
+      </mesh>
+    </>
+  );
+};
 
 export default FarmTile;
