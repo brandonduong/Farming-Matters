@@ -6,6 +6,13 @@ import { TreeModel } from "../../models/TreeModel";
 import { plants } from "./constants";
 import { BeetModel } from "../../models/BeetModel";
 import { CarrotModel } from "../../models/CarrotModel";
+import { RiceModel } from "../../models/RiceModel";
+import { OrangeModel } from "../../models/OrangeModel";
+import { LettuceModel } from "../../models/LettuceModel";
+import { TomatoModel } from "../../models/TomatoModel";
+import { WatermelonModel } from "../../models/WatermelonModel";
+import { WheatModel } from "../../models/WheatModel";
+import { PumpkinModel } from "../../models/PumpkinModel";
 
 const FarmTile = (props) => {
   // Hold state for hovered and clicked events
@@ -55,16 +62,59 @@ const FarmTile = (props) => {
   const models = (
     <>
       {/* Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable */}
-      <TreeModel
+      <RiceModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 1}
+        stage={props.turn - turnPlanted}
       />
 
       <CarrotModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 2}
+        stage={props.turn - turnPlanted}
+      />
+
+      <OrangeModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 3}
+        stage={props.turn - turnPlanted}
+      />
+
+      <LettuceModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 4}
+        stage={props.turn - turnPlanted}
+      />
+
+      <TomatoModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 5}
+        stage={props.turn - turnPlanted}
+      />
+
+      <WatermelonModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 6}
+        stage={props.turn - turnPlanted}
+      />
+
+      <WheatModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 7}
+        stage={props.turn - turnPlanted}
+      />
+
+      <PumpkinModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 8}
         stage={props.turn - turnPlanted}
       />
 
