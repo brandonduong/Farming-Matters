@@ -9,6 +9,12 @@ import React from 'react'
 // - Add a state variable to the consultant dialog to only generate a new number if the current round has changed
 
 const AvatarDialog = (props) =>{
+    let id = props.getId();
+    let name = props.getName();
+    let role= props.getRole();
+    let description = props.getDescription();
+    let statement = props.generateStatement();
+    
         return (
            <div className="dialog">
                <div className={"avatar avatar-" + props.getId()}> </div>
