@@ -1,15 +1,18 @@
 import React, { ref, useState } from 'react'
 import ConsultantDialog from './AvatarDialog.js';
 
-const Consultant = (props) => {
+// TODO: - possibly rename this react component to be "Avatar" and let 
+//         consultant be a constant variable referring to the first array 
+//         in avatarNames
+function Consultant(props) {
     let [isOpened, setIsOpen] = useState(false);
     let [avatar, setSelectedAvatar] = useState(-1);
     let decisionType = props.decisionType; 
     
     const selectedAvatar = "background-color: rgb(30, 194, 0.75, 0.2)";
     console.log("USER DECISION TYPE IS, " + decisionType);
-    
-    const onClick = (avatarID) => {
+
+    function onAvatarClick(avatarID){
         avatar = avatarID;
         console.log(avatar);
         setIsOpen(!isOpened);
@@ -17,6 +20,10 @@ const Consultant = (props) => {
         setSelectedAvatar(avatar);
     }
 
+    function onExitClick(){
+        setIsOpen(!isOpened);
+        setSelectedAvatar(-1);
+    }
     const avatarButtons = [];
 
     //Find out a way to communicate methods from child component
@@ -26,25 +33,31 @@ const Consultant = (props) => {
         ["Alice", "the weather woman"]
     ];
 
+
     for (let i = 0; i < avatarNames.length; i++){
         avatarButtons.push(
-            <div className={i == avatar ? "avatar-selected" : ""}>
-                <button type="button" className={"avatar avatar-" + i} onClick={() => onClick(i)}></button>
+            <div className={i == avatar ? "avatar-selected avatar-item-" + i : "avatar-item-" + i}>
+                <button type="button" className={"avatar avatar-" + i} onClick={() => onAvatarClick(i)}></button>
                 <div className="avatar-mini-name">{avatarNames[i][0]}</div>
             </div>
         )
     }
 return (
     <div className={isOpened  ? "avatar-overlay" + "-dialog dialog-background" : "avatar-overlay"  } >
-            <div className="avatar-grid">
-                {avatarButtons}
+            
+            <div className="general-avatar" style={isOpened ? {  visibility: "hidden"}: {  visibility: "visible"}} >
+                <div className="avatar-grid">
+                    { avatarButtons}
+                </div>
             </div>
                 { isOpened ? 
-                    <ConsultantDialog avatar= {avatar} decisionType={decisionType} /> : 
+                    <ConsultantDialog avatar= {avatar} decisionType={decisionType} handler={onExitClick} /> 
+                    : 
                     <div></div> 
                 }
 
             </div>
+            
         )
 }
 

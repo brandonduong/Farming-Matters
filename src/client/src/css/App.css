@@ -109,6 +109,14 @@
   border-radius: 25px;
   margin-left: 0%;
   margin-top: 15%;
+
+  opacity: 0; /* here */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+  transition: all 0.1s ease-in; /* here */
+  transform: translateY(-50px);
+
 }
 
 .avatar {
@@ -134,11 +142,59 @@
   font-weight: bold;
 }
 
+.general-avatar{
+  background: url('./img/general-avatar.png');
+  background-color: #fff;
+  margin: 15px auto;
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  background-size: contain;
+  border: 1px solid #000;
+  border-radius: 100%;
+  
+}
+
+.general-avatar:hover .avatar-grid {
+    transform: translateY(0); /* here */
+    opacity: 1; /* here */
+    cursor: auto;
+  }
+  
+
+  @keyframes rotateY {
+    0% {
+      opacity: 0;
+      transform: rotateY(-180deg);
+    }
+    50% {
+      transform: rotateY(-90deg);
+    }
+    100% {
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
+  }
+  
+.avatar-item-0{
+  transform-origin: top center;
+  animation: rotateY 1000ms 400ms ease-in-out forwards
+}
+.avatar-item-1{
+  transform-origin: top center;
+  animation: rotateY 1500ms 460ms ease-in-out forwards
+}
+.avatar-item-2{
+  transform-origin: top center;
+  animation: rotateY 2000ms 520ms ease-in-out forwards
+}
+
 .avatar-0 {
   background: url('./img/icons8-administrator-94.png');
   background-size: 50px 50px;
   background-color: #fff;
   margin: 15px auto;
+
 }
 
 .avatar-1 {
@@ -146,6 +202,7 @@
   background-size: 50px 50px;
   background-color: #fff;
   margin: 15px auto;
+
 }
 
 .avatar-2 {
@@ -153,6 +210,7 @@
   background-size: 50px 50px;
   background-color: #fff;
   margin: 15px auto;
+
 }
 
 .dialog-background {
@@ -167,10 +225,10 @@
 .dialog {
   display: grid;
   position: relative;
-  top: -90%;
+  top: -50%;
 
   grid-template-columns: auto;
-  grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr;
+  grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr;
   /* picture, name, character description, dialog */
 
   width: 50%;
@@ -184,6 +242,7 @@
   border-radius: 50px 50px 50px 0px;
 
 }
+
 
 .dialog>h1 {
   font-size: 32px;
@@ -201,6 +260,25 @@
   font-size: 24px;
   margin: 0;
   padding: 0;
+}
+
+.dialog>button{
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 2px;
+  background-color: rgb(219, 28, 28);
+  color: white;
+  font-size: large;
+  width:15%;
+  height:60%;
+  align-self: end;
+  justify-self: start;
+  margin: 10px;
+}
+
+.dialog>button:hover {
+  border: 1px solid white;
+  background-color: rgb(109, 5, 5);
 }
 
 .shop-button {
