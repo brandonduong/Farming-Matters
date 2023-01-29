@@ -7,7 +7,12 @@ import { avatarNames } from './constants.js';
 
 const AvatarMenu = (props) =>{
     let [isOpened, setIsOpen] = useState(false); // Redudant, just check to see if avatar >=0
+    let [isMenuOpened, setMenuOpened] = useState(false);
     let [selectedAvatar, setSelectedAvatar] = useState(-1);
+
+    function onMenuAccess(){
+        setMenuOpened(!isMenuOpened);
+    }
 
     function onAvatarClick(avatarID){
         selectedAvatar = avatarID;
@@ -32,16 +37,22 @@ const AvatarMenu = (props) =>{
     }
 return (
     <div className={isOpened  ? "avatar-overlay" + "-dialog dialog-background" : "avatar-overlay"  } >
-            <div className="general-avatar" style={isOpened ? {  visibility: "hidden"}: {  visibility: "visible"}} >
-                <div className="avatar-grid">
-                    { avatarButtons}
-                </div>
-            </div>
+          
+                <button type="button" className="general-avatar" onClick={()=> onMenuAccess()} style={isOpened ? {  visibility: "hidden"}: {  visibility: "visible"}}>
+                {isMenuOpened ? 
+                    <div className="avatar-grid">
+                        {avatarButtons }
+                    </div>
+                    : 
+                    <div></div>
+                }
+                </button>
+            
                 { isOpened ? 
                         <Avatar avatarID={selectedAvatar} 
-                                decisionType={props.decisionType} 
                                 isOpened={isOpened}
-                                onExit={onExitClick} /> 
+                                onExit={onExitClick}
+                                {...props} /> 
                     : 
                     <div></div> 
                 }

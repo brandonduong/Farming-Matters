@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import AvatarDialog from './AvatarDialog';
 import {consultantDialog} from './constants'
+import { useEffect } from 'react';
 
 const Consultant = (props) =>{
-
+    const defaultPrice = 150; //$150
+    let [consultantPrice, setConsultantPrice] = useState(defaultPrice);
+    let [hasAccessTo, setAccessTo] = useState(false);
+    
     function statisticGenerator(){
         const randomNum = Math.random(); //0 ... 1 real number
         const minThreshold = 0.80; //going to happen
@@ -22,6 +26,26 @@ const Consultant = (props) =>{
         }
     }
 
+    function hasAccessToConsultant(){
+         return hasAccessTo;
+    }
+
+    function canPurchaseConsultant(){
+        if (props.money < consultantPrice){
+            return false;
+        }
+        return true;
+    }
+
+    function purchaseConsultant(){
+        if (!canPurchaseConsultant()){
+            return;
+        }
+        const currentMoney = props.money;
+        props.setMoney(currentMoney - consultantPrice);
+        setAccessTo(true);
+    }
+    
     function generateStatement(){
         const statistic = statisticGenerator();
         const randNum = Math.round(0 + Math.random() * (consultantDialog.length - 1)); //[0 ... array.length - 1]
@@ -37,8 +61,11 @@ const Consultant = (props) =>{
 
     return (
         <div>
-            {
+            { this.hasAccessToConsultant() ? 
                 <AvatarDialog generateStatement={generateStatement} {...props}/>
+
+                :
+                <div></div>
             }
     </div>
     );

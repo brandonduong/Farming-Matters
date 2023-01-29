@@ -49,7 +49,7 @@ const App = () => {
         </Canvas>
 
       </div>
-      <AvatarMenu decisionType = {decisionType} />
+      <AvatarMenu money={money} setMoney={setMoney} decisionType = {decisionType} />
       <Inventory />
       <Shop money={money} setMoney={setMoney}></Shop>
       

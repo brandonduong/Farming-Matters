@@ -15,17 +15,44 @@ const AvatarDialog = (props) =>{
     let description = props.getDescription();
     let statement = props.generateStatement();
     
+    function purchaseConsultant(purchasePrice){
+            return (
+                <div className="purchase-Consultant">
+                    <h3>Price: $ + {purchasePrice} </h3>
+                    <p>By purchasing advice from the consultant ...</p>
+                    <div className="purchase-tip">
+                        <button type="button" onClick={() => props.purchaseConsultant()} disabled={props.canPurchaseConsultant()}>Purchase</button>
+
+                    </div>
+                   
+
+                </div>
+            );
+    }
+
+    function generalDialog(){
+       return ( 
+                <div className="dialog">
+                    <div className={"avatar avatar-" + props.getId()}> </div>
+                    <h1> { props.getName() +" "+ props.getRole()} </h1> 
+                    <h2> { props.getDescription() } </h2>
+                    <p>
+                        {props.generateStatement()}
+                    
+                    </p>
+                    
+                    <button onClick={props.onExit}>Close</button>
+                </div>
+            )
+    }
         return (
-           <div className="dialog">
-               <div className={"avatar avatar-" + props.getId()}> </div>
-               <h1> { props.getName() +" "+ props.getRole()} </h1> 
-               <h2> { props.getDescription() } </h2>
-               <p>
-                   {props.generateStatement()}
-                
-                </p>
-                
-                <button onClick={props.onExit}>Close</button>
+            <div>
+
+            {
+                generalDialog()
+            }
+           
+           
         </div>
     )
 }

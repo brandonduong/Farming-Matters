@@ -154,8 +154,7 @@
   border-radius: 100%;
   
 }
-
-.general-avatar:hover .avatar-grid {
+ .avatar-grid {
     transform: translateY(0); /* here */
     opacity: 1; /* here */
     cursor: auto;
