@@ -114,7 +114,7 @@
   background-color: #f9f9f9;
   min-width: 160px;
   z-index: 1;
-  transition: all 0.1s ease-in; /* here */
+  transition: all 0.05s ease-in; /* here */
   transform: translateY(-50px);
 
 }

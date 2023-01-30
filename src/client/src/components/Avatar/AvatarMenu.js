@@ -38,15 +38,19 @@ const AvatarMenu = (props) =>{
 return (
     <div className={isOpened  ? "avatar-overlay" + "-dialog dialog-background" : "avatar-overlay"  } >
           
-                <button type="button" className="general-avatar" onClick={()=> onMenuAccess()} style={isOpened ? {  visibility: "hidden"}: {  visibility: "visible"}}>
+          {(!isMenuOpened && !isOpened) && 
+          <button type="button" className="general-avatar" onClick={()=> onMenuAccess()} >  </button> }
+                
                 {isMenuOpened ? 
-                    <div className="avatar-grid">
-                        {avatarButtons }
-                    </div>
+                    <button className="avatar-menu" onClick={()=> onMenuAccess()} style={isOpened? {  visibility: "hidden"}: {  visibility: "visible"}}>
+                        <div className="avatar-grid">
+                            {avatarButtons}
+                        </div>
+                    </button>
                     : 
                     <div></div>
                 }
-                </button>
+              
             
                 { isOpened ? 
                         <Avatar avatarID={selectedAvatar} 

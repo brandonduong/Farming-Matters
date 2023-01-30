@@ -1,6 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Consultant from './Consultant';
-import Insurance from './Insurance';
 import OtherAvatar from './OtherAvatar'
 import AvatarDialog from './AvatarDialog'
 import { avatarNames, avatarDescription  } from './constants';

@@ -10,15 +10,12 @@ const OtherAvatar = (props) =>{
         //add condition to check if advice has been purchased and prevent 
         //generating new advice per season.
         console.log(generalDialog[randNum]);
-        return generalDialog[randNum]
-    
+        return generalDialog[randNum];
     }
     return (
         <div>
             {
                 <AvatarDialog generateStatement={generateStatement} {...props}/>
-                                
-               
             }
     </div>
     );

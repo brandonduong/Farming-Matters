@@ -17,15 +17,15 @@ const AvatarDialog = (props) =>{
     
     function purchaseConsultant(purchasePrice){
             return (
-                <div className="purchase-Consultant">
-                    <h3>Price: $ + {purchasePrice} </h3>
-                    <p>By purchasing advice from the consultant ...</p>
-                    <div className="purchase-tip">
-                        <button type="button" onClick={() => props.purchaseConsultant()} disabled={props.canPurchaseConsultant()}>Purchase</button>
-
+                <div className="dialog">
+                    <div className="purchase-Consultant">
+                        <h3>Price: $ + {purchasePrice} </h3>
+                        <p>By purchasing advice from the consultant ...</p>
+                        <div className="purchase-tip">
+                            <button type="button" onClick={() => props.purchaseConsultant()} disabled={!props.canPurchaseConsultant()}>Purchase</button>
+                            <button onClick={() => props.onExit()}>Close</button>
+                        </div>
                     </div>
-                   
-
                 </div>
             );
     }
@@ -38,17 +38,17 @@ const AvatarDialog = (props) =>{
                     <h2> { props.getDescription() } </h2>
                     <p>
                         {props.generateStatement()}
-                    
                     </p>
-                    
-                    <button onClick={props.onExit}>Close</button>
+                    <button onClick={() => props.onExit()}>Close</button>
                 </div>
             )
     }
         return (
             <div>
 
-            {
+            { props.isConsultant && !props.getAccessToConsultant()  ?
+                purchaseConsultant(props.consultantPrice)
+                :
                 generalDialog()
             }
            

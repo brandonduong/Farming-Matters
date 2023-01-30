@@ -5,8 +5,11 @@ import { useEffect } from 'react';
 
 const Consultant = (props) =>{
     const defaultPrice = 150; //$150
-    let [consultantPrice, setConsultantPrice] = useState(defaultPrice);
-    let [hasAccessTo, setAccessTo] = useState(false);
+    const [consultantPrice, setConsultantPrice] = useState(defaultPrice);
+    let consultantAccess = props.accessToConsultant;
+    
+    //Moved to GameController
+    //let [accessToConsultant, setAccessToConsultant] = useState(false);
     
     function statisticGenerator(){
         const randomNum = Math.random(); //0 ... 1 real number
@@ -26,8 +29,8 @@ const Consultant = (props) =>{
         }
     }
 
-    function hasAccessToConsultant(){
-         return hasAccessTo;
+    function getAccessToConsultant(){
+         return consultantAccess;
     }
 
     function canPurchaseConsultant(){
@@ -43,7 +46,9 @@ const Consultant = (props) =>{
         }
         const currentMoney = props.money;
         props.setMoney(currentMoney - consultantPrice);
-        setAccessTo(true);
+        props.setAccessToConsultant(true);
+        console.log("PURCHASED CONSULTANT");
+        console.log("ACCESS TO CONSULTANT = "+props.accessToConsultant);
     }
     
     function generateStatement(){
@@ -53,19 +58,21 @@ const Consultant = (props) =>{
         //add condition to check if advice has been purchased and prevent 
         //generating new advice per season.
      
-
        console.log(consultantDialog[randNum] + statistic)
        return consultantDialog[randNum] + statistic;
-
     }
 
     return (
         <div>
-            { this.hasAccessToConsultant() ? 
-                <AvatarDialog generateStatement={generateStatement} {...props}/>
-
-                :
-                <div></div>
+            {
+                <AvatarDialog   isConsultant={true}
+                                getAccessToConsultant={getAccessToConsultant} 
+                                purchaseConsultant={purchaseConsultant} 
+                                canPurchaseConsultant={canPurchaseConsultant} 
+                                generateStatement={generateStatement} 
+                                consultantPrice={consultantPrice} 
+                                {...props}
+                />
             }
     </div>
     );

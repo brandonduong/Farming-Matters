@@ -14,9 +14,11 @@ const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
   const [user, setUser] = useState("Brandon");
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState(1000);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
+  const [accessToConsultant, setAccessToConsultant] = useState(false);
+  
 
     const [decisionType, setDecisionType] = useState(0);
 
@@ -49,7 +51,7 @@ const App = () => {
         </Canvas>
 
       </div>
-      <AvatarMenu money={money} setMoney={setMoney} decisionType = {decisionType} />
+      <AvatarMenu season={season} accessToConsultant={accessToConsultant} setAccessToConsultant={setAccessToConsultant} money={money} setMoney={setMoney} decisionType = {decisionType} />
       <Inventory />
       <Shop money={money} setMoney={setMoney}></Shop>
       
