@@ -17,10 +17,6 @@ const ShopItem = (props) => {
     }
   }
 
-  function sell() {
-      console.log("Sell")
-  }
-
   return (
     <div className="shop-item" key={props.id }>
       <img src={props.image} alt="crops" className="item-image"></img>

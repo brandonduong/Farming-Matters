@@ -7,7 +7,7 @@ const InventoryItem = (props) => {
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
 
   function sell() {
-      if(getItemCount(props.name) < quantity){
+      if(parseInt(getItemCount(inventoryState,props.name)) < quantity || parseInt(getItemCount(inventoryState,props.name)) === 0){
         console.log("Not enough items to sell")
       }
       else{

@@ -15,8 +15,10 @@ export function addItem(inventory,item,count){
 }
 
 export function removeItem(inventory,item,count){
-  if (parseInt(inventory[item]) < parseInt(count)){
+  if (parseInt(inventory[item]) < parseInt(count)) {
     console.log("Not enough items");
   }
-  inventory[item] = parseInt(inventory[item]) - parseInt(count);
+  else{
+    inventory[item] = parseInt(inventory[item]) - parseInt(count);
+  }
 }
