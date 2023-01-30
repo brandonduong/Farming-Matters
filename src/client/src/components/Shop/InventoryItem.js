@@ -18,11 +18,20 @@ const InventoryItem = (props) => {
       }
   }
 
+  function fluctuatePrice(price) {
+    // basePrice+randomFactor ×(basePrice/3)
+    // generate random factor between 0 and 1
+    const randomFactor = Math.random() * (1 - (-1)) - 1;
+    const basePrice = parseFloat(price);
+    let newPrice = basePrice + randomFactor*(basePrice/3);
+    return newPrice.toFixed(2);
+  }
+
   return (
     <div className="shop-item" key={props.id }>
       <img src={props.image} alt="crops" className="item-image"></img>
       <p style={{ color: "white", margin: "5px" }}>
-        {props.name + " - $" + props.price}
+        {props.name + " - $" + fluctuatePrice(props.price)}
       </p>
       <label htmlFor="quantity" style={{ color: "white" }}>
         Quantity:
