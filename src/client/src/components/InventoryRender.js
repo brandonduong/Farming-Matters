@@ -10,7 +10,6 @@ function InventoryRender() {
   let [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const { inventoryState } = React.useContext(globalInventoryContext);
 
-
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
   }
@@ -18,17 +17,19 @@ function InventoryRender() {
   let itemList = getItems(inventoryState);
   for (let i = 0; i < itemList.length; i++){
 
-    currentItemRender.push(    
+    currentItemRender.push(   
       <div className="item">
-      <img src={shopItemsList[i].image} alt="item-pic" />
-      <div className="item-info">
-        <h4>{itemList[i]}</h4>
-        <h4 className="quantity-title">Quantity:</h4>
-        <p className="quantity">{getItemCount(inventoryState,itemList[i])}</p>
-      </div>
+        <img src={shopItemsList[i].image} alt="item-pic" />
+        <div className="item-info">
+          <h4>{itemList[i]}</h4>
+          <h4 className="quantity-title">Quantity:</h4>
+          <p className="quantity">{getItemCount(inventoryState,itemList[i])}</p>
+        </div>
       </div>
     )
   }
+
+
 
 
   return (

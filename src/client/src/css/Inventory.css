@@ -89,3 +89,7 @@ img {
 .quantity {
   margin-top: -10%;
 }
+
+.sell {
+  display: inline-block;
+}

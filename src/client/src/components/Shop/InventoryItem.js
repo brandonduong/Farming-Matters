@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import {globalInventoryContext} from "../../App";
-import { addItem } from "../Inventory";
+import { addItem, getItemCount, getItems, removeItem } from "../Inventory";
 
-const ShopItem = (props) => {
+const InventoryItem = (props) => {
   const [quantity, setQuantity] = useState(0);
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
 
-  function buy() {
-    if (quantity * props.price <= props.money) {
-      props.setMoney(props.money - quantity * props.price);
-      setQuantity(0);
-      addItem(inventoryState, props.name, quantity);
-      console.log(inventoryState);
-    } else {
-      console.log("Not enough money to buy crop");
-    }
-  }
-
   function sell() {
-      console.log("Sell")
+      if(getItemCount(props.name) < quantity){
+        console.log("Not enough items to sell")
+      }
+      else{
+        props.setMoney(props.money + quantity * props.price);
+        setQuantity(0);
+        removeItem(inventoryState,props.name,quantity);
+        console.log(inventoryState);
+      }
   }
 
   return (
@@ -39,10 +36,9 @@ const ShopItem = (props) => {
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
       ></input>
-      <button onClick={() => buy()}>Buy</button>
-      {/* <button onClick={() => sell()}>Sell</button> */}
+      <button onClick={() => sell()}>Sell</button>
     </div>
   );
 };
 
-export default ShopItem;
+export default InventoryItem;
