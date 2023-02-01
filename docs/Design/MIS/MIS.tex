@@ -32,7 +32,6 @@ urlcolor=cyan          % color of external links
 \usepackage{array}
 
 \externaldocument{../../SRS/SRS}
-
 \input{../../Comments}
 \input{../../Common}
 
@@ -53,8 +52,7 @@ urlcolor=cyan          % color of external links
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+1/18/2023 & 1.0 & Finished First Version\\
 \bottomrule
 \end{tabularx}
 
@@ -62,9 +60,7 @@ Date 2 & 1.1 & Notes\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
-
-\wss{Also add any additional symbols, abbreviations or acronyms}
+See SRS Documentation on \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/SRS/SRS.pdf}{github}.
 
 \newpage
 
@@ -76,22 +72,17 @@ See SRS Documentation at \wss{give url}
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+The following document outlines the system design of Farming Matters. The project aims to conduct survey research through an interactive and engaging activity. This will further help understand genuine decisions from the users to help with the research of understanding risk-making decisions. 
 
 Complementary documents include the System Requirement Specifications
-and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+and Module Guide.  The full documentation and implementation can be 
+found on \href{https://github.com/brandonduong/Farming-Matters}{github}.
 
 \section{Notation}
-
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
-
-The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+The structure of the MIS for modules comes from Hoffman and Strooper (1995),
 with the addition that template modules have been adapted from
-\cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
-\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+Ghezzi et al. (2003).  The mathematical notation comes from Chapter 3 of
+Hoffman and Strooper (1995).  For instance, the symbol := is used for a
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
@@ -105,9 +96,11 @@ The following table summarizes the primitive data types used by \progname.
 \textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
 \midrule
 character & char & a single symbol or digit\\
+string & String & a sequence of characters\\
 integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+boolean & $\mathbb{B}$ & any true or false value\\
 \bottomrule
 \end{tabular} 
 \end{center}
@@ -124,28 +117,43 @@ described by giving their type signature followed by their specification.
 
 The following table is taken directly from the Module Guide document for this project.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
 \toprule
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding} & ~ \\
+{Hardware-Hiding Module} & - \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
+\multirow{10}{0.3\textwidth}{Behaviour-Hiding Module} & GameController\\
+& AvatarMenu\\
+& Market\\
+& Inventory\\
+& FarmGrid\\
+& GameSettings\\
+& CreateAccount\\
+& Login\\
+& TurnSummary\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
+\multirow{18}{0.3\textwidth}{Software-Hiding Module} & Avatar\\
+& Consultant\\
+& OtherAvatars\\
+& FarmTile\\
+& Seed\\
+& Item\\
+& DatabaseOperations\\ 
+& ServerFirebase\\
+& ClientFirebase\\
+& AuthState\\
+& Socket\\
+& RedisClient\\
+& Server\\ 
+& MusicPlayer \\
+& User \\
+& AuthError \\
 \bottomrule
 
 \end{tabular}
@@ -154,21 +162,1531 @@ The following table is taken directly from the Module Guide document for this pr
 \end{table}
 
 \newpage
-~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
+% ----------------- MIS of Avatar
+\section{MIS of Avatar} 
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
 
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+\subsection{Module}
+Avatar
+
+\subsection{Uses}
+AvatarMenu
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+newAvatar & $\mathbb{Z}$,$\mathbb{Z}$, String, String, String, String & Avatar & \\
+\hline
+getID &  & $\mathbb{Z}$ & \\
+\hline
+getType &  & $\mathbb{Z}$ & \\
+\hline
+getName &  & String & \\
+\hline
+getRole &  & String & \\
+\hline
+getDescription &  & String & \\
+\hline
+getStatement &  & String & \\
+\hline
+setStatement &  String &  & \\
+\hline
+renderDialog &   & String & \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{id}: \text{$\mathbb{Z}$}$\\
+$\mathit{type}: \text{$\mathbb{Z}$}$\\
+$\mathit{name}: \text{String}$\\
+$\mathit{role}: \text{String}$\\
+$\mathit{description}: \text{String}$\\
+$\mathit{statement}: \text{String}$\\
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new Avatar($\mathit{avatarID}, \mathit{avatarType}, \mathit{avatarName}, \mathit{avatarRole}, \mathit{avatarDescription}, \mathit{avatarStatement}$):
+\begin{itemize}
+\item transition: $\mathit{id}, \mathit{type}, \mathit{name}, \mathit{role}, \mathit{description}, \mathit{statement}:= \mathit{avatarID}, \mathit{avatarType}, \newline \mathit{avatarName}, \mathit{avatarRole},\mathit{avatarDescription}, \mathit{avatarStatement}$
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+
+
+\noindent getId():
+\begin{itemize}
+\item output: $out := \mathit{id}$
+\item exception: none
+\end{itemize}
+
+
+\noindent getType():
+\begin{itemize}
+\item output: $out := \mathit{type}$
+\item exception: none
+\end{itemize}
+
+
+\noindent getName():
+\begin{itemize}
+\item output: $out := \mathit{name}$
+\item exception: none
+\end{itemize}
+
+
+\noindent getRole():
+\begin{itemize}
+\item output: $out := \mathit{role}$
+\item exception: none
+\end{itemize}
+
+\noindent getDescription():
+\begin{itemize}
+\item output: $out := \mathit{description}$
+\item exception: none
+\end{itemize}
+
+\noindent getStatement():
+\begin{itemize}
+\item output: $out := \mathit{statement}$
+\item exception: none
+\end{itemize}
+
+\noindent setStatement(newStatement):
+\begin{itemize}
+\item transition: $statement := \mathit{newStatement}$
+\item exception: none
+\end{itemize}
+
+\noindent renderDialog():
+\begin{itemize}
+\item output: $out := $ formats the styling of presenting a dialog to display all information about an avatar such as presenting the avatar's name, role, description and dialog statement.  
+\item exception: none
+\end{itemize}
+
+
+\newpage
+
+% ----------------- MIS of AvatarMenu
+\section{MIS of AvatarMenu} 
+
+
+\subsection{Module}
+AvatarMenu
+
+\subsection{Uses}
+GameController, Avatar
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3.5cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+newAvatarMenu & $\mathbb{Z}$ & AvatarMenu & \\
+\hline
+getSelectedAvatar &  & $\mathbb{Z}$ & \\
+\hline
+getDecisionType &  & $\mathbb{Z}$ & \\
+\hline
+getIsOpened &  & $\mathbb{B}$ & \\
+\hline
+onAvatarSelect &  $\mathbb{Z}$ &  & \\
+\hline
+onExitClick &   &  & \\
+\hline
+renderAvatarMenu &  & String & \\
+\hline
+generateAvatars &  &  & \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{selectedAvatar}: \text{$\mathbb{Z}$}$\\
+$\mathit{decisionType}: \text{$\mathbb{Z}$}$\\
+$\mathit{isOpened}: \text{$\mathbb{B}$}$\\
+$\mathit{avatars}: \text{seq of Avatar}$\\
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new AvatarMenu(userDecisionType):
+\begin{itemize}
+\item transition: $\mathit{selectedAvatar}, \mathit{decisionType}, \mathit{isOpened}:= DEFAULT\_AVATAR, \newline userDecisionType, DEFAULT\_OPEN\_STATE$
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+
+
+\noindent getSelectedAvatar():
+\begin{itemize}
+\item out: $out := selectedAvatar$
+\item exception: none
+\end{itemize}
+
+\noindent getDecisionType():
+\begin{itemize}
+\item out: $out := decisionType$
+\item exception: none
+\end{itemize}
+
+\noindent getIsOpened():
+\begin{itemize}
+\item out: $out := isOpened$
+\item exception: none
+\end{itemize}
+
+
+\noindent onAvatarSelect(userSelectedAvatar):
+\begin{itemize}
+\item transition: $isOpened, selectedAvatar := true, (a: Avatar | a \in avatars: (a.getId() = userSelectedAvatar)) $
+\item exception: none
+\end{itemize}
+
+\noindent onExitClick():
+\begin{itemize}
+\item transition: $isOpened, selectedAvatar := DEFAULT\_OPEN\_STATE, DEFAULT\_AVATAR$
+\item exception: none
+\end{itemize}
+
+Upon requesting to exit out of the Avatar Menu, reset $isOpened$ and $selectedAvatar$ to their default state.\\ 
+
+\noindent generateAvatars():
+\begin{itemize}
+\item transition: $ avatars := (index : \mathbb{Z} | 0 \le index \le |AVATARS\_ID| - 1: \newline avatars || \{Avatar(AVATARS\_ID[i], AVATARS\_TYPE[i], \newline AVATARS\_NAME[i],  AVATARS\_ROLE[i], AVATARS\_DESCRIPTION[i], \newline EMPTY\_STRING)\}  )$
+\item exception: none
+\end{itemize}
+Generate a sequence of Avatar's and concatenate to the state variable $avatars$.\\
+
+\noindent renderAvatarMenu():
+\begin{itemize}
+\item out: formats the styling of presenting a menu with a list of in-game Avatars to interact with.
+\item exception: none
+\end{itemize}
+
+\subsubsection{Local Constants}
+EMPTY\_STRING = String
+DEFAULT\_AVATAR = $\mathbb{Z}$\\
+DEFAULT\_OPEN\_STATE = $\mathbb{B}$\\
+AVATARS\_ID = seq of $\mathbb{Z}$\\
+AVATARS\_TYPE = seq of $\mathbb{Z}$\\
+AVATARS\_NAME = seq of  String\\
+AVATARS\_ROLE = seq of String\\
+AVATARS\_DESCRIPTION = seq of String\\
+
+\newpage
+
+
+% ----------------- MIS of Consultant
+\section{MIS of Consultant} 
+
+
+\subsection{Module}
+Consultant
+
+\subsection{Uses}
+GameController, Avatar
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+newConsultant & $\mathbb{Z}$ & Consultant & \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{decisionType}: \text{$\mathbb{Z}$}$\\
+$\mathit{statement}: \text{string}$\\
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new Consultant(userDecisionType):
+\begin{itemize}
+\item transition: $\mathit{decisionType, statement}:= userDecisionType, genereateStatement()$
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+
+
+Upon requesting to exit out of the Avatar Menu, reset $isOpened$ and $selectedAvatar$ to their default state 
+
+\subsubsection{Local Functions}
+randomIndex: $\mathbb{Z}$ $\rightarrow \mathbb{R}$  \\
+randomIndex(arrayLength) $\equiv i : \mathbb{R} | 0 \le i \le |arrayLength| - 1 $ \\
+This function produces a random number between 0 and the length of the given array - 1. \\
+
+\noindent observeSeason: GameController $\rightarrow $ seq of String  \\
+observeSeason(game) $\equiv$ Observe the current game state relevant to the current season and the season after. Consider which items are available to be purchased, the current item(s) the user has, the selling price of items that will yield the most profit, etc.  \\
+
+\noindent observeInventory: GameController $\rightarrow $ seq of String  \\
+observeSeason(game) $\equiv$ Observe the users inventory. Consider which items are still growing, what still needs to be planted, availability of space on the farm left to plant while also considering an optimal planting strategy, etc.  \\
+
+\noindent observeAllGameState: GameController $\rightarrow $ seq of String  \\
+observeAllGameState(game) $\equiv$ Observe the current game state relevant to the current season and the season after. It will use the local functions above that are related to observing a specific aspect of the users current game state. Consider which items are available to be purchased, the current item(s) the user has, the selling price of items that will yield the most profit, etc.  \\
+
+\noindent relatedStatements: String $\times$ GameController $\rightarrow $ seq of String  \\
+relatedStatements(statisticValue, game) $\equiv$ Taking the current state of the game, observe numerous aspects of the game that are relevant to the current users situtation (i.e considering the current season, current turn, current inventory, current shop market), set out a relevant prediction based on several parameters. \\
+
+\noindent generateStatement: $\mathbb{Z}$ $\times$ GameController  $\rightarrow$ String\\
+generateStatement(decisionType, game) $\equiv (decisionType = PROBABLISTIC\_ID \Rightarrow \newline relatedStatements(generateProbablisticValue(), game) | \newline decisionType = DETERMINISTIC\_ID \Rightarrow \newline relatedStatements(generateDeterministicValue(), game) )$   \\
+
+\noindent realToString: $\mathbb{R}$  $\rightarrow$ String\\
+realToString(realValue) $\equiv$ Given a real value, convert this to a string.  \\
+
+\noindent booleanToString: $\mathbb{B}$  $\rightarrow$ String\\
+booleanToString(booleanValue) $\equiv$ Given a boolean value, convert this to a string.  \\
+
+\noindent generateProbablisticValue: void  $\rightarrow$ String\\
+generateProbablisticValue() $\equiv realToString(i : \mathbb{R} | 0\le i \le 1) $  \\   
+Generating a random real number between 0 and 1.\\
+
+\noindent generateDeterministicValue: void  $\rightarrow$ String\\
+generateDeterministicValue() $\equiv booleanToString(i : \mathbb{B} | i\equiv true \lor i\equiv false)$ \\
+Generating a random boolean (true and false) value. \\
+
+\subsubsection{Local Constants}
+PROBABLISTIC\_ID = $\mathbb{Z}$\\
+DETERMINISTIC\_ID = $\mathbb{Z}$\\
+
+\newpage
+
+% ----------------- MIS of OtherAvatar
+\section{MIS of OtherAvatar} 
+
+
+\subsection{Module}
+OtherAvatar
+
+\subsection{Uses}
+Avatar
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+newOtherAvatar &  & OtherAvatar & \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{statement}: \text{String}$\\
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new OtherAvatar():
+\begin{itemize}
+\item transition: $\mathit{statement}:= genereateStatement()$
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+randomIndex: $\mathbb{Z}$ $\rightarrow \mathbb{R}$  \\
+randomIndex(arrayLength) $\equiv i : \mathbb{R} | 0 \le i \le |arrayLength| - 1 $ \\
+This function produces a random number between 0 and the length of the given array - 1. \\
+
+\noindent generateStatement: $\mathbb{Z}$  $\rightarrow$ String\\
+generateStatement(avatarID) $\equiv \newline DEFAULT\_STATEMENTS[randomIndex(DEFAULT\_STATEMENTS)]$   \\
+This function will randomly select a default statement from a seq of default statements that are associated with a specific OtherAvatar.
+
+\subsubsection{Local Constants}
+DEFAULT\_STATEMENTS = seq of String\\
+
+\newpage
+
+\section{MIS of Item} 
+
+
+\subsection{Module}
+Item
+
+\subsection{Uses}
+None
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+newItem & String,$\mathbb{Z}$,$\mathbb{R}$,String & Item & \\
+\hline
+getName &  & String & \\
+\hline
+getCount &  & $\mathbb{Z}$ & \\
+\hline
+getPrice &  & $\mathbb{R}$ & \\
+\hline
+getType &  & String & \\
+\hline
+setCount & $\mathbb{Z}$ &  & Illegal Argument Exception \\
+\hline
+setPrice & $\mathbb{R}$ &  & Illegal Argument Exception\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{name}: \text{String}$\\
+$\mathit{count}: \text{$\mathbb{Z}$}$\\
+$\mathit{price}: \text{$\mathbb{R}$}$\\
+$\mathit{type}: \text{String}$
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new Item($\mathit{itemName}, \mathit{itemCount}, \mathit{itemPrice}, \mathit{itemType}$):
+\begin{itemize}
+\item transition: $\mathit{name}, \mathit{count}, \mathit{price}, \mathit{type}:= \mathit{itemName}, \mathit{itemCount}, \mathit{itemPrice}, \mathit{itemType},$
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+
+
+\noindent getName():
+\begin{itemize}
+\item output: $out := \mathit{name}$
+\item exception: none
+\end{itemize}
+
+\noindent getCount():
+\begin{itemize}
+\item output: $out := \mathit{count}$
+\item exception: none
+\end{itemize}
+
+\noindent getPrice():
+\begin{itemize}
+\item output: $out := \mathit{price}$
+\item exception: none
+\end{itemize}
+
+
+\noindent getType():
+\begin{itemize}
+\item output: $out := \mathit{type}$
+\item exception: none
+\end{itemize}
+
+\noindent setCount(quantity):
+\begin{itemize}
+\item transition: $\mathit{count}:= \mathit{quantity}$
+\item exception: exc := $ (\mathit{quantity} < 0) \Rightarrow
+  \text{IllegalArgumentException}$
+
+\end{itemize}
+
+\noindent setPrice(newPrice):
+\begin{itemize}
+\item transition: $\mathit{price}:= \mathit{newPrice}$
+\item exception: exc := $ (\mathit{newPrice} \le 0) \Rightarrow
+  \text{IllegalArgumentException}$
+\end{itemize}
+
+
+\newpage
+
+\section{MIS of Inventory} 
+
+
+\subsection{Module}
+Inventory
+
+\subsection{Uses}
+Item
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+newInventory & & Inventory \\
+\hline
+getItems &  & set of Item & \\
+\hline
+addItem & Item,$\mathbb{Z}$  &  & \\
+\hline
+removeItem & Item,$\mathbb{Z}$ & & Illegal Argument Exception\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{inventory}: \text{set of Item}$\\
+
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+An inventory will be created only at the beginning of the game or if the user wishes to delete their data and restart.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new Inventory():
+\begin{itemize}
+\item transition: $\mathit{inventory} := $ \{\}
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+This constructor will create an empty set as the user will start with no items when the game begins.
+
+\noindent getItems():
+\begin{itemize}
+\item output: $out := \{ i: \text{Item} | i \in inventory : i \}$
+\item exception: none
+\end{itemize}
+
+\noindent addItem(item,quantity):
+\begin{itemize}
+\item transition: $inventory := \{ i: \text{Item} | i \in inventory : (i.\mathit{name} = item)
+\Rightarrow (i.count = i.count + quantity) | \text{True} \Rightarrow  \mathit{inventory} \cup
+    \{\mathit{item}\} 
+    where \hspace{0.1cm} item.count = quantity \}$ 
+\item exception: none
+\end{itemize}
+Cases: \\
+1)The item exists in the inventory $\rightarrow$ change the count of the item by the quantity provided. \\
+2) The item does not exist $\rightarrow$ add it to the inventory and set the count of the item to the quantity provided. \\
+\medskip
+\noindent removeItem(item,quantity):
+\begin{itemize}
+\item transition: $inventory := \{ i: \text{Item} | i \in inventory : (i.\mathit{name} = item) \land (i.\mathit{count} = quantity)
+\Rightarrow \mathit{inventory} -
+    \{\mathit{item}\}  | (i.\mathit{name} = item) \land (i.\mathit{count} > quantity) \Rightarrow  inventory\ where\\ (i.count = i.count - quantity)\}$
+\item exception: $exc := (\mathit{quantity} < 0) \Rightarrow
+  \text{IllegalArgumentException}| (item \notin inventory) \Rightarrow \text{IllegalArgumentException} | (item \in inventory) \land (item.count < quantity) \Rightarrow \\ \text{IllegalArgumentException}$  
+\end{itemize}
+Cases:\\
+1) Item exists in inventory and quantity is less than item count.\\
+2) Item exists in inventory and quantity equals item count\\
+3) Item exists in inventory and quantity greater than item count(Exception)\\
+4) Item does not exist in inventory(Exception)\\
+
+\newpage
+
+\section{MIS of Market} 
+
+
+\subsection{Module}
+Market
+
+\subsection{Uses}
+Items, Inventory 
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{3cm} p{2cm} p{3cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+buyItems & Item,$\mathbb{Z}$  &  & IllegalArgumentException \\
+\hline
+sellItems &  Item,$\mathbb{Z}$ &  & \\
+\hline
+purchaseInsurance & Item,$\mathbb{Z}$ & & \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{inventory}: \text{set of Item}$\\
+$\mathit{shopItems}: \text{set of Item}$\\
+$\mathit{balance}: \mathbb{R}$\\
+\subsubsection{Environment Variables}
+None
+
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent buyItems(item,amount):
+\begin{itemize}
+\item transition: \\
+$balance := (balance - amount \times item.price) \hspace{0.2cm} where \hspace{0.2cm} (item \in shopItems)\\ 
+inventory := inventory.addItem(item,amount)$\\
+\item exception: $exc := (\mathit{quantity} < 0) \lor (item \notin shopItems) \lor \\ (balance < amount \times item.price)  \Rightarrow
+  \text{IllegalArgumentException}$
+\end{itemize}
+
+\noindent sellItems(item,amount) :
+\begin{itemize}
+\item transition: \\
+$balance := (balance + amount \times fluctuatePrice(RandomNum(),item.price)) \hspace{0.2cm} where \hspace{0.2cm} (item \in shopItems) \land (item \in inventory)  \\ 
+inventory := inventory.removeItem(item,amount)$\\
+\item exception: $exc := (\mathit{quantity} < 0) \lor (item \notin shopItems) \Rightarrow
+  \text{IllegalArgumentException}$
+\end{itemize}
+
+\noindent purchaseInsurance(item,amount):
+\begin{itemize}
+\item transition: \\
+$balance := (balance - amount \times (item.price / 4)) \hspace{0.2cm} where \hspace{0.2cm} (item \in shopItems) \land (item \in inventory)  \\
+inventory := \{ i: \text{Item} | i \in inventory : (i.\mathit{name} = item)  \Rightarrow \mathit{i.price} = max \hspace{0.1cm} where \hspace{0.1cm} max = (item.price \geq fluctuatePrice(RandomNum(),item.price) \Rightarrow item.price| item.price < item.price \Rightarrow fluctuatePrice(RandomNum(),item.price)) \}$
+\item exception: none \\
+Purchasing insurance on an item will mean the farmer is guaranteed not to lose any money when selling the insured item. Since prices fluctuate it is possible the price that the item gets sold at is lower than the buy price. This is meant to ensure that the buyer will at least get back the amount paid for the item.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+randomNum: void $\rightarrow \mathbb{R}$  \\
+randomNum() $\equiv i : \mathbb{R} | - 1 \le i \le 1 $ \\
+This function produces a random number between -1 and 1. \\
+fluctuatePrice: $\mathbb{R}, \mathbb{R}$  $\rightarrow \mathbb{R}$\\
+fluctuatePrice(randomFactor,basePrice) $\equiv basePrice + randomFactor
+\times (basePrice/3) $
+This function will allow the user to sell crops at fluctuating prices as mentioned in FR8 of the SRS.
+
+
+\medskip
+\newpage
+% Not sure if there should be exceptions for if the db is unable to be connected with
+\section{MIS of DatabaseOperations} 
+
+
+\subsection{Module}
+DatabaseOperations
+
+\subsection{Uses}
+AuthState, GameController
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+createConnection &   & $\mathbb{B}$ & \\
+\hline
+stopConnection &   & $\mathbb{B}$ & \\
+\hline
+createUserTable & $\mathbb{Z}$ &  &  \\
+\hline
+deleteUserTable & $\mathbb{Z}$ &  &  \\
+\hline
+logData & $\mathbb{Z}$, set of ActionDetails  &  & IllegalArgumentException\\
+\hline
+saveGame & $\mathbb{Z}$, set of MapGameStates &  & IllegalArgumentException \\
+\hline
+loadGame & $\mathbb{Z}$ & set of MapGameStates & IllegalArguementException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+isConnected: $\mathbb{B}$
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+The database server is running allowing for connection with valid incoming requests.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent createConnection():
+\begin{itemize}
+\item output: $out :=$ If the user is logged in and not connected to the database server, send a request to using CREDENTIALS for access. Return True if the request is successful, False otherwise. If the user is not logged in or there is already a connection to the database, return False.
+\item transition: $isConnected := $ True if request successful or there is already a connection, False otherwise
+\item exception: none
+\end{itemize}
+
+\noindent stopConnection():
+\begin{itemize}
+\item output: $out := $ If the user is logged in and there is a connection to the database server, send request to stop the connection. If the request is successful, return True and False otherwise. Return False, if the user is not logged or there is not a connection to the database.
+\item transition: $isConnected := $ False if request successful or there is already not a connection, True otherwise
+\item exception: none
+\end{itemize}
+
+\noindent createUserTable(userId):
+\begin{itemize}
+\item output: $out := $ If the the user is logged, the database is connected, and there is not a table corresponding to the userId, create a table corresponding using the userId.
+\item exception: None
+\end{itemize}
+
+\noindent deleteUserTable(userId):
+\begin{itemize}
+\item output: $out := $ If the the user is logged, the database is connected, and there is a table corresponding to the userId, delete the table corresponding using the userId.
+\item exception: None
+\end{itemize}
+
+\noindent logData(userId, action):
+\begin{itemize}
+\item transition: If the the user is logged and the database is connected, add an entry in the database table corresponding to the userId.
+\item exception: If there is not a table corresponding to the userId, raise IllegalArguementException.
+\end{itemize}
+
+\noindent saveGame(userId, gameStateData):
+\begin{itemize}
+\item transition: If the the user is logged and the database is connected, modify the entry in the game state table corresponding to the userId with the gameStateData.
+\item exception: If there is not a table corresponding to the userId, raise IllegalArguementException.
+\end{itemize}
+
+\noindent loadGame(userId):
+\begin{itemize}
+\item output: $out := $ If the the user is logged and the database is connected, return the entry in the game state table corresponding to the userId.
+\item exception: If there is not a table corresponding to the userId, raise IllegalArguementException.
+\end{itemize}
+
+\subsubsection{Local Constants}
+CREDENTIALS: set of MapAuthInfo \#mapping authentication secret keys and values\\
+\medskip
+\newpage
+\section{MIS of MusicPlayer}
 
 \subsection{Module}
 
-\wss{Short name for the module}
+MusicPlayer
 
 \subsection{Uses}
 
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+loadMusic & String &  & InvalidFile \\
+\hline
+startMusic &  &  &  \\
+\hline
+stopMusic &  &  &  \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{audioFile}:$ Audio\\
+$\mathit{isPlaying}:$ $\mathbb{B}$\\
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent loadMusic(audioFileName):
+\begin{itemize}
+\item transition: $turn, money := turn, money$
+\item exception: If the given audio file name does not exist in the directory or the provided file name is of invalid type, raise invalidFile exception.
+\end{itemize}
+
+\noindent startMusic():
+\begin{itemize}
+\item transition: $audioFile :=$ If isPlaying is False, start playing the audio file in a infinte loop, otherwise continue playing the music.\\
+$isPlaying := True$
+
+\item exception: None
+\end{itemize}
+
+\noindent stopMusic():
+\begin{itemize}
+\item transition: $audioFile :=$ If isPlaying is False, stops playing the audio file, otherwise do nothing.\\
+$isPlaying := False$
+\item exception: none
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+None
+
+\medskip
+\newpage
+\section{MIS of GameSettings} 
+
+
+\subsection{Module}
+GameSettings
+
+\subsection{Uses}
+DatabaseOperations, MusicPlayer
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+getVolume &  & $\mathbb{N}$ &  \\
+\hline
+setVolume & $\mathbb{N}$  &  & IllegalArguementException \\
+\hline
+changeVolumne & $\mathbb{Z}$  &  & IllegalArguementException \\
+\hline
+optOutOfStudy & $\mathbb{Z}$ &  & \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+currentVolume: $\mathbb{N}$
+\subsubsection{Environment Variables}
+None
+\subsubsection{Assumptions}
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent getVolume():
+\begin{itemize}
+\item output: $out := currentVolume$ 
+\item exception: None
+\end{itemize}
+
+\noindent setVolume(newVolume):
+\begin{itemize}
+\item transition: $currentVolumne := newVolume$ 
+\item exception: $(newVolume < 0 \lor newVolumne > 100 ) \Rightarrow IllegalArgumentException $
+\end{itemize}
+
+\noindent changeVolume(relativeChangeVolume):
+\begin{itemize}
+\item transition: $currentVolumne := currentVolumne + newVolume$ 
+\item exception: $((currentVolumne + newVolume) < 0 \lor (currentVolumne + newVolumne) > 100 ) \Rightarrow IllegalArgumentException $
+\end{itemize}
+
+\noindent optOutOfStudy(userId):
+\begin{itemize}
+\item output: $out := $ Deletes the user table using DatabaseOperations.deleteUserTable and also removes the entry corresponding to the userId in the game state table.
+\item exception: None
+\end{itemize}
+\medskip
+\newpage
+% ***************************** MIS of AuthState *****************************
+\section{MIS of AuthState} \label{AuthState} 
+
+\subsection{Module}
+
+AuthState
+
+\subsection{Uses}
+
+User, AuthError, Socket, ClientFirebase, DatabaseOperations
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+getUser &  & $\{$User$\}$ $\cup$ $\{$null$\}$ &  \\ \hline
+getUserId &  & $\{$String$\}$ $\cup$ $\{$null$\}$ &  \\ \hline
+getIsLoggedIn &  & $\mathbb{B}$ &  \\ \hline
+getIsActiveSession &  & $\mathbb{B}$ &  \\ \hline
+getIsDenied &  & $\mathbb{B}$ &  \\ \hline
+getAuthError &  & AuthError &  \\ \hline
+signIn & String, String &  &  \\ \hline
+signOut & &  &  \\ \hline
+createAccount & String, String, String &  &  \\ \hline
+\end{tabular}
+\end{center}
+Note: There are no exceptions present because instead of throwing exceptions, auth errors in all access programs are handled internally using the authError state variable.
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+user: User  \\
+isLoggedIn: $\mathbb{B}$ \\
+isActiveSession: $\mathbb{B}$ \\
+isDenied: $\mathbb{B}$ \\
+authError: AuthError \\
+socket: Socket \\
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+This module is the 'source of truth' for anything auth-related. This is an assumption guaranteed by this module.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent getUser():
+\begin{itemize}
+\item output: $out := ((isLoggedIn \land \lnot isDenied) \Rightarrow user) \ | \ (\text{True} \Rightarrow \text{null})$
+\end{itemize}
+
+\noindent getUserId():
+\begin{itemize}
+\item output: $out := ((isLoggedIn \land \lnot isDenied) \Rightarrow user.uid) \ | \ (\text{True} \Rightarrow \text{null})$
+\end{itemize}
+
+\noindent getIsLoggedIn():
+\begin{itemize}
+\item output: $out := isLoggedIn$
+\end{itemize}
+
+\noindent getIsActiveSession():
+\begin{itemize}
+\item output: $out := isActiveSession$
+\end{itemize}
+
+\noindent getIsDenied():
+\begin{itemize}
+\item output: $out := isDenied$
+\end{itemize}
+
+\noindent getAuthError():
+\begin{itemize}
+\item output: $out := authError$
+\end{itemize}
+
+\noindent signIn(email, password):
+\begin{itemize}
+\item transition: \\
+Note that $userCredential$ is a temporary variable in this method used to store the results of calling the Firebase API. It is not a state variable. \\ \\
+$userCredential :=  ClientFirebase.signInWithEmailAndPassword(email, password)$ \\
+
+$user := (userCrediential.user \neq \text{null} \Rightarrow userCredential.user) \ | \ (userCrediential.user = \text{null} \Rightarrow \text{null})$ \\
+
+$isLoggedIn := (userCrediential.user \neq \text{null})$ \\
+
+$isActiveSession := \\ (userCrediential.user \neq \text{null}) \\ \Rightarrow socket.checkIsOnlySession(userCredential.user.uid, userCrediential.user.accessToken) \\
+| \ (userCrediential.user = \text{null}) \Rightarrow \text {false}$ \\
+
+$isDenied := (userCrediential.error \neq \text{null})$ \\
+
+$authError := isDenied \Rightarrow userCredential.error \ | \ \lnot isDenied \Rightarrow \text{null} $
+
+\end{itemize}
+
+\noindent signOut():
+\begin{itemize}
+\item transition: \\
+$user := \text{null}$ 
+
+$isLoggedIn := \text{false}$ 
+
+$isActiveSession := \text{false}$
+
+$isDenied := \text{false}$
+
+$authError := \text{null}$
+
+\item side effect: \\
+Because the app needs to keep track of which users have a unique session active, the frontend needs to notify the server when a user signs out so their active status can be removed. \\ \\
+$socket.userSignedOut(getUserId(), getUser().accessToken)$
+
+\end{itemize}
+
+\noindent createAccount(displayName, email, password):
+\begin{itemize}
+\item transition: \\ 
+Note that $userCredential$ is a temporary variable in this method used to store the results of calling the Firebase API. It is not a state variable. \\ \\
+$userCredential :=  ClientFirebase.createUserWithEmailAndPassword(email, password)$ \\
+
+$user := (userCrediential.user \neq \text{null} \Rightarrow userCredential.user) \ | \ (userCrediential.user = \text{null} \Rightarrow \text{null})$ \\
+
+$isLoggedIn := (userCrediential.user \neq \text{null})$ \\
+
+$isActiveSession := (userCrediential.user \neq \text{null})$ \\
+
+$isDenied := (userCrediential.error \neq \text{null})$ \\
+
+$authError := isDenied \Rightarrow userCredential.error \ | \ \lnot isDenied \Rightarrow \text{null} $
+
+\item side effect: Calls the createUserTable method from the DatabaseOperations module on successful account creation. \\
+
+$(userCrediential.user \neq \text{null}) \Rightarrow \\
+DatabaseOperations.createUserTable(userCredential.user.uid)$ \\
+\\ Also notifies the socket that a new user is connected. \\ 
+\\ $socket.checkIsOnlySession(userCredential.user.uid, userCrediential.user.accessToken)$
+
+\end{itemize}
+
+  
+\medskip
+\newpage
+% ***************************** MIS of Socket *****************************
+\section{MIS of Socket} \label{Socket} 
+
+\subsection{Module}
+
+Socket (inherits Socket from \href{https://socket.io/docs/v4/client-socket-instance/}{socket-io}).\\ \\
+The Socket module defines a few methods using the underlying communication infrastructure of the socket-io package. This is one of the modules used to communicate between client and server, the other being DatabaseOperations.
+
+\subsection{Uses}
+
+Server
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+checkIsOnlySession & String, String & $\mathbb{B}$ & InvalidUserIdException \\ \hline
+userSignedOut & String, String & $\mathbb{B}$ & InvalidUserIdException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+$isClientDisconnected: \mathbb{B}$ \\
+socket-io features a built-in \href{https://socket.io/docs/v4/client-socket-instance/#disconnect}{disconnect event} which fires when the client disconnects from the socket. This environment variable represents the event firing.  
+
+\subsubsection{Assumptions}
+
+The socket-io package behaves as expected and the disconnect event fires correctly whenever a client ends their connection with the socket. \\ \\
+The server is always on and connected to the socket.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent checkIsOnlySession(userId, token):
+\begin{itemize}
+\item output: $out := Server.userExists(userId)$
+\item side effect: \\
+If there is no active user then the socket notifies the server that a new unique session is created. \\
+$(Server.userExists(userId) = \text{false}) \Rightarrow Server.addUser(userId, token)$ 
+
+\item exception: $exception := isValidUUID(userId) \Rightarrow \text{InvalidUserIdException}$ 
+\end{itemize}
+
+\noindent userSignedOut(userId, token):
+\begin{itemize}
+\item side effect: \\
+$Server.deleteUser(userId, token)$ 
+
+\item exception: $exception := isValidUUID(userId) \Rightarrow \text{InvalidUserIdException}$ 
+\end{itemize}
+
+The following access routine is called upon a client disconnecting (see \href{https://socket.io/docs/v4/client-socket-instance/#disconnect}{socket-io docs}). 
+\noindent userDisconnected(userId, token):
+\begin{itemize}
+\item side effect: \\
+$isClientDisconnected \Rightarrow Server.deleteUser(userId, token)$ 
+
+\item exception: $exception := isValidUUID(userId) \Rightarrow \text{InvalidUserIdException}$ 
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+isValidUUID: String $\rightarrow \mathbb{B}$  \\
+isValidUUID(userId) $\equiv$ userId $\in$ $\{$[0-9a-fA-F]$\{$8$\}$\textbackslash b-[0-9a-fA-F]$\{$4$\}$\textbackslash b-[0-9a-fA-F]$\{$4$\}$\textbackslash b-[0-9a-fA-F]$\{$4$\}$\textbackslash b-[0-9a-fA-F]$\{$12$\}$$\}$ \\
+This function makes sure that the format of the userId is a valid UUID (Universally Unique Identifier). The regular expression above represents the set of all allowable strings.  \\
+  
+\medskip
+\newpage
+% ***************************** MIS of ClientFirebase *****************************
+\section{MIS of ClientFirebase} \label{ClientFirebase} 
+
+\subsection{Module}
+
+ClientFirebase inherits \href{https://firebase.google.com/docs/reference/js/auth}{firebase.auth} \\ \\
+This module uses API credentials to give access to firebase. For details of all syntax and semantics of exported constants and access programs, see the \href{https://firebase.google.com/docs/reference/js/auth}{firebase auth package documentation}.
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+See the \href{https://firebase.google.com/docs/reference/js/auth}{firebase auth package documentation}.
+
+\subsubsection{Exported Access Programs}
+
+See the \href{https://firebase.google.com/docs/reference/js/auth}{firebase auth package documentation}.
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+The underlying firebase instance is always working properly. Credentials are correct and never need to be updated.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new ClientFirebase():
+\begin{itemize} 
+\item output: $out := self$ 
+\item exception: $exception := InvalidCredentialException$ if the FIREBASE\_API\_KEY is invalid.  
+\end{itemize} 
+
+\subsubsection{Local Constants}
+
+FIREBASE\_API\_KEY: String \\
+The API key to access the firebase instance.
+  
+\medskip
+\newpage
+% ***************************** MIS of User *****************************
+\section{MIS of User} \label{User} 
+
+\subsection{Module}
+
+\href{https://firebase.google.com/docs/reference/js/v8/firebase.User}{firebase.auth.User} \\ \\
+This module is defined by firebase. See the linked documentation for all exported constants and access routines.
+  
+\medskip
+\newpage
+% ***************************** MIS of AuthError *****************************
+\section{MIS of AuthError} \label{AuthError} 
+
+\subsection{AuthError}
+
+\href{https://firebase.google.com/docs/reference/js/auth.autherror}{firebase.auth.AuthError} \\ \\
+This module is defined by firebase. See the linked documentation for all exported constants.
+  
+\medskip
+\newpage
+% ***************************** MIS of CreateAccount *****************************
+\section{MIS of CreateAccount} \label{CreateAccount} 
+
+\subsection{Module}
+
+CreateAccount
+
+\subsection{Uses}
+
+AuthState
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None.
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{2cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+setDisplayName & String &  & InvalidDisplayNameException \\ \hline
+setEmail & String &  & InvalidEmailException \\ \hline
+setPassword & String &  & InvalidPasswordException \\ \hline
+setConfirmPassword & String & \\ \hline
+clickCreateAccount &  &  & IncorrectCredentialsException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+displayName: String \\ 
+email: String \\ 
+password: String  \\ 
+confirmPassword: String  \\
+
+\subsubsection{Environment Variables}
+
+These environment variables capture input from the keyboard. They each correspond to their own input section where a user may type. \\ \\
+inputDisplayName: String \\ 
+inputEmail: String \\ 
+inputPassword: String  \\ 
+inputConfirmPassword: String  \\ 
+
+\subsubsection{Assumptions}
+An important assumption for security is that all client-server requests will use HTTPS, allowing for a secure connection when dealing with sensitive data.
+\\
+\\ It is clear to the users which sections to type in with respect to the environment variables (eg. The section capturing keyboard input for displayName should be labelled with 'Display Name'). 
+
+\subsubsection{Access Routine Semantics}
+
+\noindent setDisplayName(inputDisplayName):
+\begin{itemize}
+\item transition: $displayName := inputDisplayName$
+\item exception: \\$exception := isInvalidDisplayName(inputDisplayName) \Rightarrow InvalidDisplayNameException$
+\end{itemize}
+
+\noindent setEmail(inputEmail):
+\begin{itemize}
+\item transition: $email := inputEmail$
+\item exception: $exception := isInvalidEmail(inputEmail) \Rightarrow InvalidEmailException$
+\end{itemize}
+
+\noindent setPassword(inputPassword):
+\begin{itemize}
+\item transition: $email := inputEmail$
+\item exception: $exception := isInvalidEmail(inputEmail) \Rightarrow InvalidEmailException$
+\end{itemize}
+
+\noindent setConfirmPassword(inputConfirmPassword):
+\begin{itemize}
+\item transition: $confirmPassword := inputConfirmPassword$
+\end{itemize}
+
+\noindent clickCreateAccount():
+\begin{itemize}
+\item side effect: \\$(password = confirmPassword) \Rightarrow AuthState.createAccount(displayName, email, password)$
+\item exception: $exception := (AuthState.getAuthError() \neq \text{null} \ \lor  \ password \neq confirmPassword) \\ \Rightarrow IncorrectCredentialsException$ 
+\end{itemize}
+
+\subsubsection{Local Functions}
+isInvalidDisplayName: String $\rightarrow \mathbb{B}$  \\
+isInvalidDisplayName(displayName) $\equiv$ displayName $\notin$ $\{$/(.*[[a-zA-Z0-9]])\{3\}/i$\}$ 
+\\ \\
+This function validates the displayName input. Valid display names are at least 3 characters long and only consists of alphanumeric characters. \\ 
+\\ 
+\\
+isInvalidEmail: String $\rightarrow \mathbb{B}$  \\
+isInvalidEmail(email) $\equiv$ email $\notin$ $\{$/([a-zA-Z0-9.!\#\%\&'*+/=?\^\_`\{|\}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*/$\}$ 
+\\ \\
+This function validates the email input. Valid emails contain only valid characters and contain an '@' in the middle. \\
+\\
+\\
+isInvalidPassword: String $\rightarrow \mathbb{B}$  \\
+isInvalidPassword(password) $\equiv$ password $\notin$ $\{$/\^.\{6,\}/$\}$ 
+\\ \\
+This function validates the password input. Valid passwords are at least 6 characters long.  
+\\ \\
+
+
+\medskip
+\newpage
+% ***************************** MIS of Login *****************************
+\section{MIS of Login} \label{Login} 
+
+\subsection{Module}
+
+Login
+
+\subsection{Uses}
+
+AuthState
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+None.
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{2cm} p{1cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+setEmail & String &  & InvalidEmailException \\ \hline
+setPassword & String &  & InvalidPasswordException \\ \hline
+clickLogin &  &  & IncorrectCredentialsException, InvalidSessionException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+ email: String \\ 
+password: String  \\ 
+
+\subsubsection{Environment Variables}
+
+These environment variables capture input from the keyboard. They each correspond to their own input section where a user may type. \\ \\
+inputEmail: String \\ 
+inputPassword: String  \\ 
+
+\subsubsection{Assumptions}
+An important assumption for security is that all client-server requests will use HTTPS, allowing for a secure connection when dealing with sensitive data.
+\\
+\\ It is clear to the users which sections to type in with respect to the environment variables (eg. The section capturing keyboard input for email should be labelled with 'Email'). 
+
+\subsubsection{Access Routine Semantics}
+
+\noindent setEmail(inputEmail):
+\begin{itemize}
+\item transition: $email := inputEmail$
+\item exception: $exception := isInvalidEmail(inputEmail) \Rightarrow InvalidEmailException$
+\end{itemize}
+
+\noindent setPassword(inputPassword):
+\begin{itemize}
+\item transition: $email := inputEmail$
+\item exception: $exception := isInvalidEmail(inputEmail) \Rightarrow InvalidEmailException$
+\end{itemize}
+
+\noindent clickLogin():
+\begin{itemize}
+\item side effect: \\$AuthState.signIn(email, password)$
+\item exception: $exception := \\(AuthState.getAuthError() \neq \text{null} \ \lor \ AuthState.getIsDenied() = \text{true}) \\ \Rightarrow IncorrectCredentialsException  \\
+| \ (AuthState.getIsActiveSession() = \text{false}) \Rightarrow InvalidSessionException$ 
+\end{itemize}
+
+\subsubsection{Local Functions}
+isInvalidEmail: String $\rightarrow \mathbb{B}$  \\
+isInvalidEmail(email) $\equiv$ email $\notin$ $\{$/([a-zA-Z0-9.!\#\%\&'*+/=?\^\_`\{|\}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*/$\}$ 
+\\ \\
+This function validates the email input. Valid emails contain only valid characters and contain an '@' in the middle. \\ 
+\\
+\\
+isInvalidPassword: String $\rightarrow \mathbb{B}$  \\
+isInvalidPassword(password) $\equiv$ password $\notin$ $\{$/\^.\{6,\}/$\}$ 
+\\ \\
+This function validates the password input. Valid passwords are at least 6 characters long. 
+\\ \\
+  
+\medskip
+\newpage
+% ***************************** MIS of ServerFirebase *****************************
+\section{MIS of ServerFirebase} \label{ServerFirebase} 
+
+\subsection{Module}
+
+ServerFirebase inherits \href{https://firebase.google.com/docs/reference/admin/node/firebase-admin.auth}{firebase-admin.auth} \\ \\
+This module uses API credentials to give access to the server-side instance of firebase, which can be used for privileged operations. For details of all syntax and semantics of exported constants and access programs, see the \href{https://firebase.google.com/docs/reference/admin/node/firebase-admin.auth}{Firebase auth package documentation}. Note that the firebase-admin Auth class further inherits the \href{https://firebase.google.com/docs/reference/admin/node/firebase-admin.auth.baseauth.md#baseauth_class}{BaseAuth} class. This should be referenced for exported access routines. 
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+See the \href{https://firebase.google.com/docs/reference/admin/node/firebase-admin.auth.baseauth.md#baseauth_class}{Firebase BaseAuth package documentation}. 
+
+\subsubsection{Exported Access Programs}
+
+See the \href{https://firebase.google.com/docs/reference/admin/node/firebase-admin.auth.baseauth.md#baseauth_class}{Firebase BaseAuth package documentation}.
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+The underlying Firebase instance is always working properly. Credentials are correct and never need to be updated.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new ServerFirebase():
+\begin{itemize} 
+\item output: $out := self$ 
+\item exception: $exception := InvalidCredentialException$ if the FIREBASE-ADMIN\_API\_KEY is invalid.  
+\end{itemize} 
+
+\subsubsection{Local Constants}
+
+FIREBASE-ADMIN\_API\_KEY: String \\
+The API key to access the firebase-admin instance.
+  
+\medskip
+\newpage
+% ***************************** MIS of RedisClient *****************************
+\section{MIS of RedisClient} \label{RedisClient} 
+
+\subsection{Module}
+
+RedisClient inherits \href{https://luin.github.io/ioredis/classes/Redis.html}{ioredis.Redis} \\ \\
+This module uses API credentials to give access to the a Redis database hosted on the cloud (\href{https://app.redislabs.com/#/}{Redis Labs}) specifically. Redis is typically used as a key-value store but in this case we will use it like a set (which is natively supported). 
+\\
+\\For details of all syntax and semantics of exported constants and access programs, see the \href{https://luin.github.io/ioredis/classes/Redis.html}{ioredis.Redis documentation}. 
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+See the \href{https://luin.github.io/ioredis/classes/Redis.html}{ioredis.Redis documentation}. 
+
+\subsubsection{Exported Access Programs}
+
+See the \href{https://luin.github.io/ioredis/classes/Redis.html}{ioredis.Redis documentation}.
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+The underlying Redis instance is always working properly. Credentials are correct and never need to be updated.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new RedisClient():
+\begin{itemize} 
+\item output: $out := self$ 
+\item exception: $exception := InvalidCredentialException$ if the REDIS\_API\_KEY is invalid.  
+\end{itemize} 
+
+\subsubsection{Local Constants}
+
+REDIS\_API\_KEY: String \\
+The API key to access the Redis instance.
+  
+\medskip
+\newpage
+% ***************************** MIS of Server *****************************
+\section{MIS of Server} \label{Server} 
+
+\subsection{Module}
+
+Server
+
+\subsection{Uses}
+
+RedisClient, ServerFirebase
 
 \subsection{Syntax}
 
@@ -181,7 +1699,10 @@ The following table is taken directly from the Module Guide document for this pr
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+userExists & String & $\mathbb{B}$ & \\ \hline
+addUser & String, String & & \\ \hline
+deleteUser & String, String & & \\ \hline
+checkToken & & $\mathbb{B}$ & InvalidTokenException \\
 \hline
 \end{tabular}
 \end{center}
@@ -190,42 +1711,394 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+redis: RedisClient
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+None.
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The hardware running the server is always functional while the application is being used.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent userExists(userId):
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item output: $out := redis.sismember(userId) = \text{true}$
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
+\noindent addUser(userId, token):
+\begin{itemize}
+\item side effect: $checkToken(token) \Rightarrow redis.sadd(userId)$
+\end{itemize}
 
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+\noindent deleteUser(userId, token):
+\begin{itemize}
+\item output: $checkToken(token) \Rightarrow redis.srem(userId)$
+\end{itemize}
+
+\noindent checkToken(token):
+\begin{itemize}
+\item output: $out := ServerFirebase.verifyIdToken(token)$
+\end{itemize}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+None.
+  
+\medskip
+\newpage
+
+% ***************************** MIS of Seed *****************************
+\section{MIS of Seed} \label{Seed} 
+
+\subsection{Module inherits Item}
+
+Seed
+
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+Seed & $String, \mathbb{N}, \mathbb{R}$ & - & - \\
+\hline
+getGrowthLength & - & $\mathbb{N}$ & - \\
+\hline
+getPlantableSeasons & - & set of String & - \\
+\hline
+getSellValueRanges & - & seq of $\mathbb{N}$ & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{growthLength}: \text{$\mathbb{N}$}$\\
+$\mathit{plantableSeasons}:$ set of \text{String}\\
+$\mathit{sellValueRanges}:$ seq of \text{$\mathbb{N}$}\\
+
+\subsubsection{Environment Variables}
+
+None
+\subsubsection{Assumptions}
+
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new Seed($\mathit{itemName}, \mathit{itemCount}, \mathit{itemPrice}, growthLength, plantableSeasons, sellValueRanges$):
+\begin{itemize}
+\item transition: $\mathit{name}, \mathit{count}, \mathit{price}, \mathit{type}, growthLength, plantableSeasons, sellValueRanges:= \mathit{itemName}, \mathit{itemCount}, \mathit{itemPrice}$, $\mathit{'Seed'} , growthLength, plantableSeasons, sellValueRanges$
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+
+
+\noindent getGrowthLength():
+\begin{itemize}
+\item output: $out := growthLength$
+\item exception: none
+\end{itemize}
+
+\noindent getPlantableSeasons():
+\begin{itemize}
+\item output: $out := plantableSeasons$
+\item exception: none
+\end{itemize}
+
+\noindent getSellValueRanges():
+\begin{itemize}
+\item output: $out := sellValueRanges$
+\item exception: none
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+None
+  
+\medskip
+\newpage
+
+% ***************************** MIS of FarmTile *****************************
+\section{MIS of FarmTile} \label{FarmTile} 
+
+\subsection{Module}
+
+FarmTile
+
+\subsection{Uses}
+
+Seed, Inventory, GameController
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+FarmTile & $\mathbb{Z}$, $\mathbb{Z}$ & FarmTile &  \\
+\hline
+plantSeed & Seed, $\mathbb{N}$ & - & AlreadyPlantedSeed, \\&&& NoSeed, \\&&& NotInSeason  \\
+\hline
+getPlantedSeed & - & Seed & NoPlantedSeed \\
+\hline
+getTurnPlanted & - & $\mathbb{N}$ & NoPlantedSeed \\
+\hline
+harvestCrop & - & - & InvalidHarvest, \\&&&NoPlantedSeed \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{x}:$ \text{$\mathbb{Z}$}\\
+$\mathit{y}:$ \text{$\mathbb{Z}$}\\
+$\mathit{plantedSeed}:$ \text{Seed}\\
+$\mathit{turnPlanted}:$ \text{$\mathbb{N}$}\\
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new FarmTile(x, y):
+\begin{itemize}
+\item transition: $x, y := x, y$
+\item output: $out := self$
+\item exception: none
+\end{itemize}
+
+\noindent plantSeed(seed, turn):
+\begin{itemize}
+\item transition: $plantedSeed, turnPlanted := seed, turn$
+\item exception: $exc := plantedSeed \neq null \implies AlreadyPlantedSeed$ $|$\\ $  \neg \exists (i : Item | i \in Inventory.getItems() : i.getName() = seed.getName()) \implies NoSeed$ $|$\\ $GameController.getSeason() \notin seed.getPlantableSeasons() \implies NotInSeason$
+\end{itemize}
+
+\noindent getPlantedSeed():
+\begin{itemize}
+\item output: $out := plantedSeed$
+\item exception: $exc := plantedSeed = null \implies NoPlantedSeed$
+\end{itemize}
+
+\noindent getTurnPlanted():
+\begin{itemize}
+\item output: $out := turnPlanted$
+\item exception: $exc := plantedSeed = null \implies NoPlantedSeed$
+\end{itemize}
+
+\noindent harvestPlant():
+\begin{itemize}
+\item transition: $plantedSeed, turnPlanted := null, null$
+\item exception: $exc := plantedSeed = null \implies NoPlantedSeed$ $|$ $\neg(GameController.turn - turnPlanted \ge plantedSeed.getGrowthLength()) \implies InvalidHarvest$
+\end{itemize}
+
+\subsubsection{Local Functions}
+ 
+None
+  
+\medskip
+\newpage
+
+% ***************************** MIS of FarmGrid *****************************
+\section{MIS of FarmGrid} \label{FarmGrid} 
+
+\subsection{Module}
+
+FarmGrid
+
+\subsection{Uses}
+
+FarmTile
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+FarmGrid & set of FarmTile & FarmGrid & - \\
+\hline
+getTiles & & set of FarmTile & - \\
+\hline
+addTile & FarmTile & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+$tiles :$ set of FarmTile
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new FarmGrid(tiles):
+\begin{itemize}
+\item transition: $tiles := tiles$
+\item output: $out := self$
+\item exception: none
+\end{itemize}
+
+\noindent getTiles():
+\begin{itemize}
+\item output: $out := tiles$
+\item exception: none
+\end{itemize}
+
+\noindent addTile(tile):
+\begin{itemize}
+\item transition: $tiles := tiles \cup \{tile\}$
+\item exception: none
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+None
+  
+\medskip
+\newpage
+
+% ***************************** MIS of GameController *****************************
+\section{MIS of GameController} \label{ServerAuth} 
+
+\subsection{Module}
+
+GameController
+
+\subsection{Uses}
+
+None
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+SEASONS = ['Winter', 'Spring', 'Summer', 'Fall']
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+GameController & $\mathbb{N}$, $\mathbb{N}$ & GameController & - \\
+\hline
+getTurn & - & $\mathbb{N}$ & - \\
+\hline
+getMoney & - & $\mathbb{N}$ & - \\
+\hline
+getSeason & - & String & - \\
+\hline
+setTurn & $\mathbb{N}$ &-& - \\
+\hline
+setMoney & $\mathbb{N}$ &-& - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+$\mathit{turn}:$ \text{$\mathbb{N}$}\\
+$\mathit{money}:$ \text{$\mathbb{N}$}\\
+
+\subsubsection{Environment Variables}
+
+None
+
+\subsubsection{Assumptions}
+
+None
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new GameController(turn, money):
+\begin{itemize}
+\item transition: $turn, money := turn, money$
+\item output: $out := self$
+\item exception: None
+\end{itemize}
+
+\noindent getTurn():
+\begin{itemize}
+\item output: $out := turn$
+\item exception: none
+\end{itemize}
+
+\noindent getMoney():
+\begin{itemize}
+\item output: $out := money$
+\item exception: none
+\end{itemize}
+
+\noindent getSeason():
+\begin{itemize}
+\item output: $out := SEASONS[\lfloor(turn / 4)\rfloor$ \% 4]
+\item exception: none
+\end{itemize}
+
+\noindent setTurn(turn):
+\begin{itemize}
+\item transition: $turn := turn$
+\item exception: none
+\end{itemize}
+
+\noindent setMoney(money):
+\begin{itemize}
+\item transition: $money := money$
+\item exception: none
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+None
+
+\medskip
 
 \newpage
 
@@ -235,7 +2108,6 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 
 \section{Appendix} \label{Appendix}
-
-\wss{Extra information if required}
+N/A
 
 \end{document}
