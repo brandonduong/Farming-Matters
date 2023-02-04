@@ -4,7 +4,8 @@ import { addItem, getItemCount, getItems, removeItem } from "../Inventory";
 
 const InventoryItem = (props) => {
   const [quantity, setQuantity] = useState(0);
-  const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
+  const { inventoryState, insuredState } = React.useContext(globalInventoryContext);
+  let hasSeasonChanged = props.turn % 3 == 1;
 
   function sell() {
       if(parseInt(getItemCount(inventoryState,props.name)) < quantity || parseInt(getItemCount(inventoryState,props.name)) === 0){
@@ -27,11 +28,21 @@ const InventoryItem = (props) => {
     return newPrice.toFixed(0);
   }
 
+  function chooseBestPrice() {
+      let currBestPrice = fluctuatePrice(props.price);
+      if (getItemCount(insuredState,props.name) > 0){
+        if (props.price > currBestPrice){
+          currBestPrice = props.price;
+        }
+      }
+      return currBestPrice;
+  }
+
   return (
     <div className="shop-item" key={props.id }>
       <img src={props.image} alt="crops" className="item-image"></img>
       <p style={{ color: "white", margin: "5px" }}>
-        {props.name + " - $" + fluctuatePrice(props.price)}
+        {props.name + " - $" + chooseBestPrice()}
       </p>
       <label htmlFor="quantity" style={{ color: "white" }}>
         Quantity:
