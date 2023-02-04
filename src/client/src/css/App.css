@@ -301,3 +301,8 @@
   color: white;
   font-size: large;
 }
+
+.insurance-button{
+  height: 40px;
+  width: 100px;
+}

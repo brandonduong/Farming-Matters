@@ -1,19 +1,36 @@
 import React, { useState } from "react";
-import {globalInventoryContext} from "../../App";
-import { addItem } from "../Inventory";
+import { globalInventoryContext} from "../../App";
+import { addInsuredItem, addItem, getItemCount } from "../Inventory";
 
 const ShopItem = (props) => {
-  const [quantity, setQuantity] = useState(0);
-  const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
+  const [itemQuantity, setItemQuantity] = useState(0);
+  const [insuranceQuantity, setInsuranceQuantity] = useState(0);
+  const { inventoryState, insuredState } = React.useContext(globalInventoryContext);
 
   function buy() {
-    if (quantity * props.price <= props.money) {
-      props.setMoney(props.money - quantity * props.price);
-      setQuantity(0);
-      addItem(inventoryState, props.name, quantity);
+    if (itemQuantity * props.price <= props.money) {
+      props.setMoney(props.money - itemQuantity * props.price);
+      addItem(inventoryState, props.name, itemQuantity);
+      setItemQuantity(0);
       console.log(inventoryState);
     } else {
       console.log("Not enough money to buy crop");
+    }
+  }
+
+  function purchaseInsurance(){
+    //insurance quantity is a string according to typeof
+    // insurance is 1/4 of market price
+    const insurancePrice = (props.price/4);
+    let hasEnoughMoney = (insuranceQuantity * insurancePrice) <= props.money
+    let hasEnoughItems = (parseInt(insuranceQuantity) + getItemCount(insuredState,props.name)) <= getItemCount(inventoryState,props.name);
+    if (hasEnoughMoney && hasEnoughItems){
+      props.setMoney(props.money - (parseInt(insuranceQuantity) * insurancePrice));
+      addInsuredItem(insuredState, props.name, insuranceQuantity);
+      setInsuranceQuantity(0);
+      console.log(insuredState);
+    } else {
+      console.log("Not enough money to purchase insurance or not enough items to ensure")
     }
   }
 
@@ -23,20 +40,33 @@ const ShopItem = (props) => {
       <p style={{ color: "white", margin: "5px" }}>
         {props.name + " - $" + props.price}
       </p>
-      <label htmlFor="quantity" style={{ color: "white" }}>
+      <label htmlFor="itemQuantity" style={{ color: "white" }}>
         Quantity:
       </label>
-      <input
+      <input 
         type="number"
-        name="quantity"
+        name="itemQuantity"
         min="1"
         max="5"
         style={{ width: "15%", margin: "0px 2%"}}
-        value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
+        value={itemQuantity}
+        onChange={(e) => setItemQuantity(e.target.value)}
       ></input>
       <button onClick={() => buy()}>Buy</button>
-      {/* <button onClick={() => sell()}>Sell</button> */}
+      <br></br>
+      <label htmlFor="insuranceQuantity" style={{ color: "white" }}>
+        Quantity:
+      </label>
+      <input id="insurance"
+        type="number"
+        name="insuranceQuantity"
+        min="1"
+        max="5"
+        style={{ width: "15%", margin: "0px 2%"}}
+        value={insuranceQuantity}
+        onChange={(event_insurance) => setInsuranceQuantity(event_insurance.target.value)}
+      ></input>
+      <button className="insurance-button" onClick={() => purchaseInsurance()}>Purchase Insurance</button>
     </div>
   );
 };

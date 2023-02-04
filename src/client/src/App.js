@@ -12,7 +12,9 @@ import { ModelProvider } from "./components/models/ModelContext";
 import {plants} from "./components/Farm/FarmTile/constants"
 
 const globalInventoryState = {};
-export const globalInventoryContext = React.createContext();
+const insuredItems = {};
+export const globalInventoryContext = React.createContext({});
+// export const globalInsuredContext = React.createContext();
 
 const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
@@ -22,19 +24,27 @@ const App = () => {
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
+  const [insuredState, setInsuredState] = useState(insuredItems);
 
 
   // constructor for inventory
   let getNames = {};
+  let getNamesInsurance = {};
   for (let i = 0; i < plants.length; i++){
     let currentName = plants[i].name;
-    getNames[currentName]=0;    
+    getNames[currentName]=0;   
+    getNamesInsurance[currentName]=0; 
   }
   useEffect( () => {
     setInventoryState(
       getNames
     )
   },[]);
+
+  useEffect(() => {   
+    setInsuredState(
+      getNamesInsurance
+  )}, []);
    
 
 
@@ -70,11 +80,14 @@ const App = () => {
 
       </div>
       <Consultant decisionType = {decisionType} />
-      <globalInventoryContext.Provider value={{inventoryState,setInventoryState}}>
-        <InventoryRender />
-        <Shop money={money} setMoney={setMoney}></Shop>
+      <globalInventoryContext.Provider value={{inventoryState,setInventoryState,insuredState,setInsuredState}}>
+          <InventoryRender />
+          <Shop money={money} setMoney={setMoney}></Shop>
+        {/* <globalInsuredContext value={{insuredState,setInsuredState}}>
+            <InventoryRender />
+            <Shop money={money} setMoney={setMoney}></Shop>
+        </globalInsuredContext> */}
       </globalInventoryContext.Provider>
-      
     </div>
   );
 }

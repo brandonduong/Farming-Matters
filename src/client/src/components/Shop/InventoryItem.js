@@ -23,8 +23,8 @@ const InventoryItem = (props) => {
     // generate random factor between 0 and 1
     const randomFactor = Math.random() * (1 - (-1)) - 1;
     const basePrice = parseFloat(price);
-    let newPrice = basePrice + randomFactor*(basePrice/3);
-    return newPrice.toFixed(2);
+    let newPrice = basePrice + randomFactor*(basePrice/10);
+    return newPrice.toFixed(0);
   }
 
   return (
