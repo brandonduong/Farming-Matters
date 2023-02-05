@@ -4,6 +4,7 @@ import OtherAvatar from './OtherAvatar'
 import AvatarDialog from './AvatarDialog'
 import { avatarNames, avatarDescription  } from './constants';
 
+// TODO: Prevent other modules from accessing certain props elements such as (INFOMRATION HIDING)
 const Avatar = (props) =>{
     const [id, setId] = useState(props.avatarID);
     const [name, setName] = useState(avatarNames[props.avatarID][0]);

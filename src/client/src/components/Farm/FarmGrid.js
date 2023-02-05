@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import FarmTile from './FarmTile'
 
 function FarmGrid(props) {
@@ -7,9 +7,12 @@ function FarmGrid(props) {
   const gridTiles = [];
   for (let i = -4; i < 6; i++) {
     for (let o = -4; o < 6; o++) {
-    gridTiles.push(<FarmTile x={i} z={o} key={"tile" + i + o} clickedTile={clickedTile} setClickedTile={setClickedTile} turn={props.turn} money={props.money} setMoney={props.setMoney}/>)
+    gridTiles.push(<FarmTile x={i} z={o} key={"tile" + i + o} clickedTile={clickedTile} setClickedTile={setClickedTile} turn={props.turn} money={props.money} setMoney={props.setMoney} plantedSeeds={props.plantedSeeds}setPlantedSeeds={props.setPlantedSeeds} GameLogic={props.GameLogic}/>)
     }
   }
+
+  //only update the gridTiles list on grid change
+  //useEffect(()=> {props.setGridTiles(gridTiles);}, []);
 
   return (
     <mesh

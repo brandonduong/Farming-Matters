@@ -29,6 +29,14 @@ const Consultant = (props) =>{
         }
     }
 
+    //console.log(props.gridTiles);
+    for (let i = 0; i < props.plantedSeeds.length; i++){
+        let currentTile = props.plantedSeeds[i];
+        if (currentTile.getPlantedSeed > 0){
+            console.log(currentTile[i]);
+        }
+    }
+
     function getAccessToConsultant(){
          return consultantAccess;
     }
@@ -47,8 +55,8 @@ const Consultant = (props) =>{
         const currentMoney = props.money;
         props.setMoney(currentMoney - consultantPrice);
         props.setAccessToConsultant(true);
-        console.log("PURCHASED CONSULTANT");
-        console.log("ACCESS TO CONSULTANT = "+props.accessToConsultant);
+        //console.log("PURCHASED CONSULTANT");
+        //console.log("ACCESS TO CONSULTANT = "+props.accessToConsultant);
     }
     
     function generateStatement(){
