@@ -1,51 +1,30 @@
+const databaseOperations = require("./databaseOperations");
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const app = express();
-const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 
 const PORT = process.env.PORT || 5001;
 
-// For allowing access to API from other server than host
-app.use(cors());
-
 app.use(express.json());
 
-// maybe?
-// app.use(express.urlencoded({ extended: false }));
-
-// connection details
+// connection
 let db = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: process.env.PASSWORD,
+  user: "capstone",
+  password: "farming-matters",
   database: "testFarmingMatters",
 });
 
-// connect to database
-db.connect((err) => {
-  if (err) {
-    throw err;
-  }
-  console.log("MySql connected...");
-});
-
 app.post("/", (req, res) => {
-  let action = `Action: ${req.body["action"]}`;
-  console.log(JSON.stringify(req.body));
-  let action_entry = {
-    user_id: 1,
-    action: JSON.stringify(req.body),
-    time: new Date().toLocaleString(),
-  };
-  let sql = "INSERT INTO LoggedActions SET ?";
-  let query = db.query(sql, action_entry, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
-  console.log(req.body);
-  res.status(200).send();
+  // Create table for user if it does not exist and inserting data
+  let userID = "111111";
+
+  //prob dont need to call createusertable here unless there is stuff about creating account on the backend already
+  databaseOperations.createUserTable(db, userID);
+  databaseOperations.logData(db, userID, JSON.stringify(req.body));
+  databaseOperations.deleteUserTable(db, userID);
 });
 
 app.listen(PORT, () => {
