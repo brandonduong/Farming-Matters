@@ -8,9 +8,6 @@ const Consultant = (props) =>{
     const [consultantPrice, setConsultantPrice] = useState(defaultPrice);
     let consultantAccess = props.accessToConsultant;
     
-    //Moved to GameController
-    //let [accessToConsultant, setAccessToConsultant] = useState(false);
-    
     function statisticGenerator(){
         const randomNum = Math.random(); //0 ... 1 real number
         const minThreshold = 0.80; //going to happen

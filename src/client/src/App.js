@@ -1,4 +1,5 @@
 import "./css/App.css";
+import "./css/Avatar.css";
 import "./css/Inventory.css";
 import { Canvas } from "@react-three/fiber";
 import { Stats, OrbitControls, PerspectiveCamera} from "@react-three/drei";
