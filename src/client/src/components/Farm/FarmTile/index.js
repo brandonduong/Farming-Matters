@@ -64,9 +64,9 @@ const FarmTile = (props) => {
     }
   }, [props.turn]);
 
+  // Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable
   const models = (
     <>
-      {/* Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable */}
       <RiceModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
