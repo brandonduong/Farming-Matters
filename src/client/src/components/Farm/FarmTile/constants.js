@@ -65,7 +65,7 @@ export const plants = [
   },
   {
     id: 12,
-    name: "Winter Melon",
+    name: "Wintermelon",
     growthLength: 3,
   },
 ];

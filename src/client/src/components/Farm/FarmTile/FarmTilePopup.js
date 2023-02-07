@@ -47,9 +47,16 @@ const FarmTilePopup = (props) => {
 
   for (let i = start; i < start + 3; i++) {
     plantButtons.push(
-      <button type="button" onClick={() => onClick(i)} key={"plant" + i}>
-        <h4>Seed {i}</h4>
-      </button>
+      <div className="tile-popup-info-item">
+        <button
+          className="tile-popup-button"
+          type="button"
+          onClick={() => onClick(i)}
+          key={"plant" + i}
+        >
+          <h4>{plants[i].name}</h4>
+        </button>
+      </div>
     );
   }
 
@@ -88,9 +95,17 @@ const FarmTilePopup = (props) => {
 
   return (
     <div className="tile-popup">
-      {props.owned ? (!props.plantedSeed ? plantButtons : plantInfo) : buyInfo}
+      {props.owned ? (
+        !props.plantedSeed ? (
+          <div className="tile-popup-info">{plantButtons}</div>
+        ) : (
+          plantInfo
+        )
+      ) : (
+        buyInfo
+      )}
       <button type="button" onClick={() => props.setClickedTile(null)}>
-        <h4>Close popup</h4>
+        <h4>Cancel</h4>
       </button>
     </div>
   );
