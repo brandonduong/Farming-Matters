@@ -184,7 +184,7 @@ const FarmTile = (props) => {
                 : "#404040"
               : owned
               ? "green"
-              : "black"
+              : "#4a4a4a"
           }
         />
 

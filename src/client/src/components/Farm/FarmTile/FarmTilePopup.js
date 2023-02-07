@@ -21,10 +21,34 @@ const FarmTilePopup = (props) => {
 
   // Buttons for planting seeds
   const plantButtons = [];
-  for (let i = 1; i < plants.length; i++) {
+  var start = 0;
+
+  // Only get buttons for in-season seeds
+  switch (Math.floor((props.turn - 1) / 3) % 4) {
+    case 0:
+      // Fall
+      start = 7;
+      break;
+    case 1:
+      // Winter
+      start = 10;
+      break;
+    case 2:
+      // Spring
+      start = 1;
+      break;
+    case 3:
+      // Summer
+      start = 4;
+      break;
+    default:
+      break;
+  }
+
+  for (let i = start; i < start + 3; i++) {
     plantButtons.push(
       <button type="button" onClick={() => onClick(i)} key={"plant" + i}>
-        Seed {i}
+        <h4>Seed {i}</h4>
       </button>
     );
   }
@@ -34,16 +58,16 @@ const FarmTilePopup = (props) => {
     <div className="tile-popup-info">
       <div className="tile-popup-info-item">Seed Num: {props.plantedSeed}</div>
       <div className="tile-popup-info-item">
-        Turn Planted: {props.turnPlanted}
+        <h4>Turn Planted: {props.turnPlanted}</h4>
       </div>
       <div className="tile-popup-info-item">
-        Turn Complete:{" "}
+        <h4>Turn Complete: </h4>
         {props.turnPlanted + plants[props.plantedSeed].growthLength}
       </div>
       {props.turn - props.turnPlanted >=
         plants[props.plantedSeed].growthLength && (
         <button type="button" onClick={() => harvestPlant()}>
-          Harvest Plant
+          <h4>Harvest Plant</h4>
         </button>
       )}
     </div>
@@ -57,7 +81,7 @@ const FarmTilePopup = (props) => {
         disabled={!(props.money >= props.price)}
         onClick={() => buyPlot()}
       >
-        Buy Plot
+        <h4>Buy Plot</h4>
       </button>
     </>
   );
@@ -66,7 +90,7 @@ const FarmTilePopup = (props) => {
     <div className="tile-popup">
       {props.owned ? (!props.plantedSeed ? plantButtons : plantInfo) : buyInfo}
       <button type="button" onClick={() => props.setClickedTile(null)}>
-        Close popup
+        <h4>Close popup</h4>
       </button>
     </div>
   );

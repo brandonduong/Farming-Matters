@@ -41,7 +41,11 @@ function FarmGrid(props) {
   addFarmLand(6.5, -3.5, false);
   addFarmLand(6.5, 1.5, false);
 
-  console.log(gridTiles);
+  // Adding the below seems to have some performance issues
+  //addFarmLand(1.5, 6.5, false);
+  //addFarmLand(1.5, -8.5, false);
+  //addFarmLand(-3.5, 6.5, false);
+  //addFarmLand(-3.5, -8.5, false);
 
   return (
     <mesh {...props}>
