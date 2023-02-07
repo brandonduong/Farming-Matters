@@ -14,11 +14,14 @@ import { WatermelonModel } from "../../models/WatermelonModel";
 import { WheatModel } from "../../models/WheatModel";
 import { PumpkinModel } from "../../models/PumpkinModel";
 
+const PLOT_SIZE = 4;
+
 const FarmTile = (props) => {
   // Hold state for hovered and clicked events
   const position = [props.x - 0.5, -0.01, props.z - 0.5];
   const [hovered, hover] = useState(false);
   const [clicked, click] = useState(false);
+  const [owned, setOwned] = useState(props.owned);
 
   const [plantedSeed, setPlantedSeed] = useState(0); // 0 if nothing is planted
   const [turnPlanted, setTurnPlanted] = useState(null); // null if nothing is planted
@@ -145,8 +148,18 @@ const FarmTile = (props) => {
         onPointerOver={() => hover(true)}
         onPointerOut={() => hover(false)}
       >
-        <planeGeometry args={[1, 1]} />
-        <meshStandardMaterial color={hovered ? "darkgreen" : "green"} />
+        <planeGeometry args={owned ? [1, 1] : [PLOT_SIZE, PLOT_SIZE]} />
+        <meshStandardMaterial
+          color={
+            hovered
+              ? owned
+                ? "darkgreen"
+                : "#404040"
+              : owned
+              ? "green"
+              : "black"
+          }
+        />
 
         <Html center>
           {props.clickedTile &&
@@ -158,6 +171,11 @@ const FarmTile = (props) => {
                 setClickedTile={props.setClickedTile}
                 turn={props.turn}
                 turnPlanted={turnPlanted}
+                money={props.money}
+                setMoney={props.setMoney}
+                owned={owned}
+                setOwned={setOwned}
+                price={props.price}
               />
             )}
         </Html>
