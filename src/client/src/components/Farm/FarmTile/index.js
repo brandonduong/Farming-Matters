@@ -180,10 +180,10 @@ const FarmTile = (props) => {
           color={
             hovered
               ? owned
-                ? "darkgreen"
+                ? "#566b50"
                 : "#404040"
               : owned
-              ? "green"
+              ? props.colors[Math.floor((props.turn - 1) / 3) % 4]
               : "#4a4a4a"
           }
         />

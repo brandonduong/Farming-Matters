@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import FarmTile from "./FarmTile";
 
 const PLOT_SIZE = 4;
+const SEASON_COLORS = ["#a67a47", "#a1a09f", "#7efc5b", "#77c761"]; // Fall, Winter, Spring, Summer
+
 function FarmGrid(props) {
   // This reference gives us direct access to the THREE.Mesh object
   const [clickedTile, setClickedTile] = useState(null);
@@ -23,6 +25,7 @@ function FarmGrid(props) {
             setMoney={props.setMoney}
             owned={owned}
             price={price}
+            colors={SEASON_COLORS}
           />
         );
       }
@@ -47,6 +50,10 @@ function FarmGrid(props) {
   //addFarmLand(-3.5, 6.5, false);
   //addFarmLand(-3.5, -8.5, false);
 
+  function getColor() {
+    return SEASON_COLORS[Math.floor((props.turn - 1) / 3) % 4];
+  }
+
   return (
     <mesh {...props}>
       {gridTiles}
@@ -57,7 +64,7 @@ function FarmGrid(props) {
         }}
       >
         <boxGeometry args={[500, 10, 500]} />
-        <meshStandardMaterial color={"green"} />
+        <meshStandardMaterial color={getColor()} />
       </mesh>
       <meshStandardMaterial />
     </mesh>
