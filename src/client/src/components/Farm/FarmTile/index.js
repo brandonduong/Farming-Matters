@@ -14,8 +14,6 @@ import { WatermelonModel } from "../../models/WatermelonModel";
 import { WheatModel } from "../../models/WheatModel";
 import { PumpkinModel } from "../../models/PumpkinModel";
 
-const PLOT_SIZE = 4;
-
 const FarmTile = (props) => {
   // Hold state for hovered and clicked events
   const position = [props.x - 0.5, -0.01, props.z - 0.5];
@@ -139,6 +137,11 @@ const FarmTile = (props) => {
           <Sparkles size={3} position={position} scale={0.75} />
         )}
 
+      {/* Grid outline */}
+      <mesh rotation={[0, 0, 0]} position={[props.x - 0.5, 0, props.z - 0.5]}>
+        <gridHelper args={[1, 1, "#004500", "#004500"]} position={[0, 0, 0]} />
+      </mesh>
+
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={position}
@@ -148,7 +151,7 @@ const FarmTile = (props) => {
         onPointerOver={() => hover(true)}
         onPointerOut={() => hover(false)}
       >
-        <planeGeometry args={owned ? [1, 1] : [PLOT_SIZE, PLOT_SIZE]} />
+        <planeGeometry args={[1, 1]} />
         <meshStandardMaterial
           color={
             hovered
