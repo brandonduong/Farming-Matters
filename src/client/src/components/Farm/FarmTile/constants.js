@@ -52,4 +52,20 @@ export const plants = [
     name: "Beet",
     growthLength: 3,
   },
+  // Winter
+  {
+    id: 10,
+    name: "Berries",
+    growthLength: 1,
+  },
+  {
+    id: 11,
+    name: "Mushroom",
+    growthLength: 2,
+  },
+  {
+    id: 12,
+    name: "Winter Melon",
+    growthLength: 3,
+  },
 ];

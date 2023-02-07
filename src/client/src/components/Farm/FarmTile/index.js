@@ -13,6 +13,9 @@ import { TomatoModel } from "../../models/TomatoModel";
 import { WatermelonModel } from "../../models/WatermelonModel";
 import { WheatModel } from "../../models/WheatModel";
 import { PumpkinModel } from "../../models/PumpkinModel";
+import { WinterModel } from "../../models/WinterModel";
+import { BerryModel } from "../../models/BerryModel";
+import { MushroomModel } from "../../models/MushroomModel";
 
 const FarmTile = (props) => {
   // Hold state for hovered and clicked events
@@ -124,6 +127,27 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 9}
+        stage={props.turn - turnPlanted}
+      />
+
+      <BerryModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 10}
+        stage={props.turn - turnPlanted}
+      />
+
+      <MushroomModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 11}
+        stage={props.turn - turnPlanted}
+      />
+
+      <WinterModel
+        position={position}
+        rotation={[0, -Math.PI / 2, Math.PI / 2]}
+        visible={plantedSeed === 12}
         stage={props.turn - turnPlanted}
       />
     </>

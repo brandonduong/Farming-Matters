@@ -55,6 +55,21 @@ export function ModelProvider({ children }) {
   const beet3 = useGLTF("3dmodels/beet_3.glb");
   const beet4 = useGLTF("3dmodels/beet_4.glb");
 
+  // Berries
+  const berry1 = useGLTF("3dmodels/berry_1.glb");
+  const berry2 = useGLTF("3dmodels/berry_2.glb");
+
+  // Mushrooms
+  const mush1 = useGLTF("3dmodels/mush_1.glb");
+  const mush2 = useGLTF("3dmodels/mush_2.glb");
+  const mush3 = useGLTF("3dmodels/mush_3.glb");
+
+  // Wintermelon
+  const winter1 = useGLTF("3dmodels/winter_1.glb");
+  const winter2 = useGLTF("3dmodels/winter_2.glb");
+  const winter3 = useGLTF("3dmodels/winter_3.glb");
+  const winter4 = useGLTF("3dmodels/winter_4.glb");
+
   const value = {
     tree,
     rice1,
@@ -84,6 +99,15 @@ export function ModelProvider({ children }) {
     beet2,
     beet3,
     beet4,
+    berry1,
+    berry2,
+    mush1,
+    mush2,
+    mush3,
+    winter1,
+    winter2,
+    winter3,
+    winter4,
   };
 
   return (
