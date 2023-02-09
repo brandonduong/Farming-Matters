@@ -43,11 +43,9 @@ function FarmGrid(props) {
   addFarmLand(-8.5, 1.5, false);
   addFarmLand(6.5, -3.5, false);
   addFarmLand(6.5, 1.5, false);
-
-  // Adding the below seems to have some performance issues
-  //addFarmLand(1.5, 6.5, false);
+  addFarmLand(1.5, 6.5, false);
   //addFarmLand(1.5, -8.5, false);
-  //addFarmLand(-3.5, 6.5, false);
+  addFarmLand(-3.5, 6.5, false);
   //addFarmLand(-3.5, -8.5, false);
 
   function getColor() {

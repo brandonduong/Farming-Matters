@@ -47,7 +47,7 @@ const FarmTilePopup = (props) => {
 
   for (let i = start; i < start + 3; i++) {
     plantButtons.push(
-      <div className="tile-popup-info-item">
+      <div className="tile-popup-info-item" key={"plantdiv" + i}>
         <button
           className="tile-popup-button"
           type="button"
@@ -60,36 +60,59 @@ const FarmTilePopup = (props) => {
     );
   }
 
+  plantButtons.push(
+    <button type="button" onClick={() => props.setClickedTile(null)}>
+      <h4>Cancel</h4>
+    </button>
+  );
+
   // Plant info for when a seed is currently planted
   const plantInfo = (
-    <div className="tile-popup-info">
-      <div className="tile-popup-info-item">Seed Num: {props.plantedSeed}</div>
+    <div>
       <div className="tile-popup-info-item">
-        <h4>Turn Planted: {props.turnPlanted}</h4>
+        <h2 className="tile-popup-title">{plants[props.plantedSeed].name}</h2>
       </div>
-      <div className="tile-popup-info-item">
-        <h4>Turn Complete: </h4>
-        {props.turnPlanted + plants[props.plantedSeed].growthLength}
-      </div>
-      {props.turn - props.turnPlanted >=
-        plants[props.plantedSeed].growthLength && (
-        <button type="button" onClick={() => harvestPlant()}>
-          <h4>Harvest Plant</h4>
+      <div className="tile-popup-info">
+        <div className="tile-popup-info-item">
+          <h4 className="tile-popup-info-title">Day Planted: </h4>
+          {props.turnPlanted}
+        </div>
+        <div className="tile-popup-info-item">
+          <h4 className="tile-popup-info-title">Day Complete: </h4>
+          {props.turnPlanted + plants[props.plantedSeed].growthLength}
+        </div>
+        {props.turn - props.turnPlanted >=
+          plants[props.plantedSeed].growthLength && (
+          <button
+            className="tile-popup-info-item"
+            type="button"
+            onClick={() => harvestPlant()}
+          >
+            <h4>Harvest</h4>
+          </button>
+        )}
+        <button type="button" onClick={() => props.setClickedTile(null)}>
+          <h4>Cancel</h4>
         </button>
-      )}
+      </div>
     </div>
   );
 
   // Buttons for buying plot of land
   const buyInfo = (
     <>
-      <button
-        type="button"
-        disabled={!(props.money >= props.price)}
-        onClick={() => buyPlot()}
-      >
-        <h4>Buy Plot</h4>
-      </button>
+      <div className="tile-popup-info">
+        <button
+          type="button"
+          disabled={!(props.money >= props.price)}
+          onClick={() => buyPlot()}
+        >
+          <h4>Buy Plot</h4>
+        </button>
+        <button type="button" onClick={() => props.setClickedTile(null)}>
+          <h4>Cancel</h4>
+        </button>
+      </div>
     </>
   );
 
@@ -104,9 +127,6 @@ const FarmTilePopup = (props) => {
       ) : (
         buyInfo
       )}
-      <button type="button" onClick={() => props.setClickedTile(null)}>
-        <h4>Cancel</h4>
-      </button>
     </div>
   );
 };

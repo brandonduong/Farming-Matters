@@ -4,7 +4,7 @@
 }
 
 .tile-popup {
-  display: flex;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.65);
   border-radius: 1rem;
   padding: 1rem;
@@ -12,10 +12,23 @@
 
 .tile-popup-info {
   display: flex;
+  justify-content: space-between;
 }
 
 .tile-popup-info-item {
-  margin-right: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tile-popup-title {
+  margin: 0 0 0.5rem 0;
+}
+
+.tile-popup-info-title {
+  margin: 0;
 }
 
 .tile-popup-button {

@@ -70,6 +70,14 @@ export function ModelProvider({ children }) {
   const winter3 = useGLTF("3dmodels/winter_3.glb");
   const winter4 = useGLTF("3dmodels/winter_4.glb");
 
+  // Farm Buildings
+  const barn = useGLTF("3dmodels/barn.glb");
+  const coop = useGLTF("3dmodels/coop.glb");
+  const fence = useGLTF("3dmodels/fence.glb");
+  const silo = useGLTF("3dmodels/silo.glb");
+  const well = useGLTF("3dmodels/well.glb");
+  const wind = useGLTF("3dmodels/windmill.glb");
+
   const value = {
     tree,
     rice1,
@@ -108,6 +116,12 @@ export function ModelProvider({ children }) {
     winter2,
     winter3,
     winter4,
+    barn,
+    coop,
+    fence,
+    silo,
+    well,
+    wind,
   };
 
   return (

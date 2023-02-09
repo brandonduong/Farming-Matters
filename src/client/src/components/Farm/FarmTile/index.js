@@ -157,9 +157,11 @@ const FarmTile = (props) => {
     <>
       {models}
       {plantedSeed &&
-        props.turn - turnPlanted >= plants[plantedSeed].growthLength && (
-          <Sparkles size={3} position={position} scale={0.75} />
-        )}
+      props.turn - turnPlanted >= plants[plantedSeed].growthLength ? (
+        <Sparkles size={3} position={position} scale={0.75} />
+      ) : (
+        <></>
+      )}
 
       {/* Grid outline */}
       <mesh rotation={[0, 0, 0]} position={[props.x - 0.5, 0, props.z - 0.5]}>
