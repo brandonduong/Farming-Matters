@@ -4,10 +4,9 @@ import { addItem, getItemCount, getItems, removeItem } from "../Inventory";
 
 const InventoryItem = (props) => {
   const [quantity, setQuantity] = useState(0);
-  const { inventoryState, insuredState } = React.useContext(globalInventoryContext);
-  // let bestPrice = props.price;
-  const [ bestPrice, setBestPrice] = useState(props.price);
-  // let hasTurnChanged = props.turn % 2 == 1;
+  const { inventoryState, insuredState, turn } = React.useContext(globalInventoryContext);
+  console.log(props.price[props.name])
+  const [ bestPrice, setBestPrice] = useState(props.price[props.name]);
 
   function sell() {
       if(parseInt(getItemCount(inventoryState,props.name)) < quantity || parseInt(getItemCount(inventoryState,props.name)) === 0){
@@ -24,6 +23,7 @@ const InventoryItem = (props) => {
   function fluctuatePrice(price) {
     // basePrice+randomFactor ×(basePrice/3)
     // generate random factor between 0 and 1
+    console.log("FLUFCATIING WITH PRICE:  ", price)
     const randomFactor = Math.random() * (1 - (-1)) - 1;
     const basePrice = parseFloat(price);
     let newPrice = basePrice + randomFactor*(basePrice/10);
@@ -32,28 +32,45 @@ const InventoryItem = (props) => {
 
   function chooseBestPrice() {
     // start by seeing if prices fluctuate every turn
-      let previous = props.price;
-      let fluctuate = fluctuatePrice(props.price);
+      let previous = bestPrice;
+      let fluctuate = fluctuatePrice(props.price[props.name]);
       let hasEnoughInsuredItems = getItemCount(insuredState,props.name) > 0;
+      let newPrice;
       // if the person has insurance they will sell the item for atleast the same price it was bought for
       if (hasEnoughInsuredItems){
         if (previous > fluctuate){
+          console.log("ENOUGH INSURED ITEMS -> PREVIOUS BETTER");
           setBestPrice(previous);
+          newPrice = previous;
+
         }
         else{
+          console.log("ENOUGH INSURED ITEMS -> FLUCTUATE BETTER");
           setBestPrice(fluctuate)
+          newPrice = fluctuate;
+     
         }
       }
       // if the person has not ensured the item then it will fluctuate the next turn 
       else {
+        console.log("NO INSURED ITEMS -> FLUCTUATE BETTER");
         setBestPrice(fluctuate);
-      }
+        newPrice = fluctuate;
+    
+      } 
+      
+      //console.log("AT BEST PRICE", bestPrice)
+      props.updatePrice(props.name,newPrice);
+      //console.log(props.turnPrices);
   }
 
   useEffect(() => {
-    chooseBestPrice()
-    console.log(bestPrice);
-  }, [props.turn])
+    console.log("ON TURN CHANGE", turn, props.turnChanged);
+    if(props.turnChanged != turn){
+     chooseBestPrice();
+    }
+  },[]);
+
 
 
   return (
@@ -74,7 +91,7 @@ const InventoryItem = (props) => {
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
       ></input>
-      <button onClick={() => sell()}>Sell</button>
+      <button onClick={() => { sell() }}>Sell</button>
     </div>
   );
 };

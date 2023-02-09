@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
 import {globalInventoryContext} from "../../App";
 import InventoryItem from "./InventoryItem";
+import { getItemCount, getItems } from "../Inventory";
 
 
-const Shop = ({money, setMoney}) => {
+const Shop = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
-  
+
+ // console.log("TURN PRICES: ")
+ // console.log(props.turnPrices);
 
   const displayShop = () => {
     setShowMenu(!showMenu);
     setShowBuy(!showBuy);
-    
   };
 
   const  displayBuy =  () => {
@@ -36,8 +38,8 @@ const Shop = ({money, setMoney}) => {
           image={item.image}
           name={item.name}
           price={item.price}
-          money={money}
-          setMoney={setMoney}
+          money={props.money}
+          setMoney={props.setMoney}
         />
       ))
       );
@@ -52,6 +54,8 @@ const Shop = ({money, setMoney}) => {
 
   function displaySellItems (){
     const currentInventory = inventoryState;
+    //console.log("DISPLAY SELL ITEMS", props.turnPrices);
+
     return(
       shopItemsList.map((item) => (
         <InventoryItem
@@ -59,9 +63,15 @@ const Shop = ({money, setMoney}) => {
           id={item.id}
           image={item.image}
           name={item.name}
-          price={item.price}
-          money={money}
-          setMoney={setMoney}
+          price={props.turnPrices[props.turnPrices.findIndex(function (turnPriceItem) {
+            return Object.keys(turnPriceItem)[0] == item.name
+          })]}
+          money={props.money}
+          setMoney={props.setMoney}
+          updatePrice={props.updatePrice}
+          turn={props.turn}
+          turnPrices={props.turnPrices}
+          turnChanged={props.turnChanged}
         />
       ))
       );
