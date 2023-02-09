@@ -19,12 +19,12 @@ let db = mysql.createConnection({
 
 app.post("/", (req, res) => {
   // Create table for user if it does not exist and inserting data
-  let userID = "111111";
+  let userID = "111112";
 
   //prob dont need to call createusertable here unless there is stuff about creating account on the backend already
   databaseOperations.createUserTable(db, userID);
   databaseOperations.logData(db, userID, JSON.stringify(req.body));
-  databaseOperations.deleteUserTable(db, userID);
+  // databaseOperations.deleteUserTable(db, userID);
 });
 
 app.listen(PORT, () => {
