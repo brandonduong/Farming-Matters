@@ -15,6 +15,12 @@ import { CoopModel } from "./components/models/CoopModel";
 import { WindModel } from "./components/models/WindModel";
 import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
+import { LoginPage } from "./components/LoginPage";
+import { Route, Routes } from "react-router-dom";
+import { PrivateRoute } from "./components/common/PrivateRoute";
+import { Game } from "./Game";
+import { AuthProvider } from "./utils/auth/AuthContext";
+import { DeniedPage } from "./components/common/DeniedPage";
 
 const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
@@ -33,6 +39,21 @@ const App = () => {
 
   return (
     <div className="App">
+      <AuthProvider>
+        <Routes>
+          <Route index element={<LoginPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="denied" element={<DeniedPage />} />
+          <Route
+            path="play"
+            element={
+              <PrivateRoute>
+                <Game />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
       <div className="canvas-container">
         <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
           <ambientLight intensity={1} />

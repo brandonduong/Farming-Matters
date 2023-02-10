@@ -1,3 +1,5 @@
+import { SignOutButton } from "./SignOutButton";
+
 const InfoHeader = (props) => {
   const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
 
