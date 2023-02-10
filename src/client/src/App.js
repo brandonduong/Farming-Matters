@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
-import InventoryRender from "./components/InventoryRender";
+import InventoryRender from "./components/Inventory/InventoryRender";
 import Consultant from './components/Consultant';
 import InfoHeader from './components/InfoHeader';
 import React, { useEffect, useState } from 'react';
@@ -51,6 +51,11 @@ const App = () => {
   }
 
   //console.log(currentPrices)
+
+  const PD = require("probability-distributions");
+  let tomatoPrices = PD.rnorm(100, 200, 2);
+
+  console.log(tomatoPrices);
 
   function updatePrice(name, price){
     console.log("UPDATING PRICE HERE - ", name, price);
