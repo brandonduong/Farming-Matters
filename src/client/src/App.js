@@ -12,6 +12,8 @@ import { ModelProvider } from "./components/models/ModelContext";
 import {plants} from "./components/Farm/FarmTile/constants"
 import {getItems} from "./components/Inventory"
 import {shopItemsList} from "./components/Shop/constants";
+import { generateNTurnPriceState }  from "./components/GameLogic/gamelogic";
+import { itemFluctuation } from "./components/GameLogic/constants";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -27,10 +29,9 @@ const App = () => {
   const [turn, setTurn] = useState(1);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
   const [insuredState, setInsuredState] = useState(insuredItems);
-  const [turnPrices, setTurnPrices] = useState(shopItemsList);
-  const [list, setList] = useState(shopItemsList);
+  let nTurnItemPrices = generateNTurnPriceState(10,itemFluctuation,shopItemsList);
+  const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
 
-  const [turnChanged, setTurnChanged] = useState(0);
 
   // constructor for inventory
   let getNames = {};
@@ -50,30 +51,8 @@ const App = () => {
     currentPrices.push(itemInfo);
   }
 
-  //console.log(currentPrices)
-
-  const PD = require("probability-distributions");
-  let tomatoPrices = PD.rnorm(100, 200, 2);
-
-  console.log(tomatoPrices);
-
-  function updatePrice(name, price){
-    console.log("UPDATING PRICE HERE - ", name, price);
-    setTurnPrices(
-      turnPrices.map((item) => {
-        if (Object.keys(item)[0] === name) {
-          console.log("FOUND NAME", item);
-          let newItem = {};
-          newItem[name] = Number(price);
-          return { ...newItem };
-        } else {
-          return item;
-        }
-      })
-    );
-
-    console.log("UPDATED TURNPRICE LIST IS: ", turnPrices);
-  };
+  console.log("COOK: ");
+  console.log(allTurnPrices)
 
   useEffect( () => {
     setInventoryState(
@@ -86,17 +65,6 @@ const App = () => {
       getNamesInsurance
   )}, []);
 
-  useEffect(() => {
-    setTurnPrices(
-      currentPrices
-    )
-  console.log(turnPrices)}, []);
-
-  
-  useEffect(() => {
-    setTurnChanged(turn);
-  });
-   
     const [decisionType, setDecisionType] = useState(0);
 
     // This useEffect hook performs all operations needed on page load
@@ -131,7 +99,7 @@ const App = () => {
       <Consultant decisionType = {decisionType} />
       <globalInventoryContext.Provider value={{inventoryState,setInventoryState,insuredState,setInsuredState, turn}}>
           <InventoryRender />
-          <Shop money={money} setMoney={setMoney} turn={turn} turnPrices={turnPrices} setTurnPrices={setTurnPrices} updatePrice={updatePrice} turnChanged={turnChanged}></Shop>
+          <Shop money={money} setMoney={setMoney} turn={turn} allTurnPrices={allTurnPrices} ></Shop>
         {/* <globalInsuredContext value={{insuredState,setInsuredState}}>
             <InventoryRender />
             <Shop money={money} setMoney={setMoney}></Shop>
