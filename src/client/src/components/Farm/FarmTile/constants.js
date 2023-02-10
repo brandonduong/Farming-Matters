@@ -1,50 +1,74 @@
 export const plants = [
     {
       id: 0,
-      name: "Nothing",
+      name: "Corn",
       harvestValue: 0,
       growthLength: 0, // Max growth length is 1 whole season (3 turns)
-      color: "green",
-      hoverColor: "darkgreen"
+      color: "yellow",
+      hoverColor: "#B8860B",
+      season: "summer",
     },
     {
       id: 1,
-      name: "Plant 1",
+      name: "Tomato",
       harvestValue: 100,
       growthLength: 1,
-      color: "#dbd470",
-      hoverColor: "#a8a032"
+      color: "red",
+      hoverColor: "#DC143C",
+      season: "summer"
     },
     {
       id: 2,
-      name: "Plant 2",
+      name: "Eggplant",
       harvestValue: 225,
       growthLength: 2,
-      color: "#be71c7",
-      hoverColor: "#93489c"
+      color: "purple",
+      hoverColor: "#9932CC",
+      season: "spring"
     },
     {
       id: 3,
-      name: "Plant 3",
+      name: "Cucumber",
       harvestValue: 375,
       growthLength: 3,
-      color: "#dda6e3",
-      hoverColor: "#89668c"
+      color: "#556B2F",
+      hoverColor: "#ADFF2F",
+      season: "spring"
     },
     {
       id: 4,
-      name: "Plant 4",
+      name: "Pumpkin",
       harvestValue: 100,
       growthLength: 1,
-      color: "#291eeb",
-      hoverColor: "#2a22bd"
+      color: "orange",
+      hoverColor: "#F4A460",
+      season: "fall"
     },
     {
       id: 5,
-      name: "Plant 5",
+      name: "Carrot",
       harvestValue: 225,
       growthLength: 2,
-      color: "red",
-      hoverColor: "darkred"
+      color: "#FFA07A",
+      hoverColor: "#F08080",
+      season: "fall"
+    },
+    {
+      id: 6,
+      name: "Wintermelon",
+      harvestValue: 225,
+      growthLength: 2,
+      color: "#F5FFFA",
+      hoverColor: "#FDF5E6",
+      season: "winter"
+    },
+    {
+      id: 7,
+      name: "Winter Wheat",
+      harvestValue: 225,
+      growthLength: 2,
+      color: "#F4A460",
+      hoverColor: "#FFDAB9",
+      season: "winter"
     },
   ]
