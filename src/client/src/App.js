@@ -8,7 +8,7 @@ import Shop from "./components/Shop";
 import InventoryRender from "./components/InventoryRender";
 import AvatarMenu from './components/Avatar/AvatarMenu';
 import InfoHeader from './components/InfoHeader';
-import {GameLogic} from './components/GameLogic';
+import {GameLogic} from './components/GameLogic/GameLogic';
 import {HeavyRain} from './components/GameEvents/SeasonalEvents/SeasonalEvents';
 import React, { useEffect, useState } from 'react';
 import { ModelProvider } from "./components/models/ModelContext";
@@ -36,6 +36,8 @@ const App = () => {
   const [insuredState, setInsuredState] = useState(insuredItems);
   const [turnPrices, setTurnPrices] = useState(shopItemsList);
   const [list, setList] = useState(shopItemsList);
+  const [consultantStatement, setConsultantStatement] = useState("");
+
 
   const [turnChanged, setTurnChanged] = useState(0);
 
@@ -43,7 +45,6 @@ const App = () => {
   useEffect(() => {
     setDecisionType(Math.round(Math.random()));
   }, []); 
-
 
 
   // constructor for inventory
@@ -112,6 +113,9 @@ const App = () => {
     }, [])
     ; 
 
+    useEffect(() => {
+      setAccessToConsultant(false);
+    },[season]);
   return (
     <div className="App">
       <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
@@ -138,15 +142,11 @@ const App = () => {
       </div>
 
       <AvatarMenu 
-        season={season} 
         accessToConsultant={accessToConsultant} 
         setAccessToConsultant={setAccessToConsultant} 
         money={money} 
-        setMoney={setMoney} 
-        decisionType = {decisionType} 
-        plantedSeeds={plantedSeeds} 
-        setPlantedSeeds={setPlantedSeeds} 
-        GameLogic={GameLogic}
+        setMoney={setMoney}  
+        consultantStatement={consultantStatement}
       />
 
       

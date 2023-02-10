@@ -37,7 +37,7 @@ const Avatar = (props) =>{
                 props.avatarID === 0 ? (<Consultant getId={getId}
                                                     setId={setId}
                                                     getName={getName}
-                                                    setName={setName}
+                                                    setName={props.consultantStatement}
                                                     getRole={getRole}
                                                     setRole={setRole}
                                                     getDescription={getDescription}

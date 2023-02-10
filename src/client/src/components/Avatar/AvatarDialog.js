@@ -13,7 +13,7 @@ const AvatarDialog = (props) =>{
     let name = props.getName();
     let role= props.getRole();
     let description = props.getDescription();
-    let statement = props.generateStatement();
+    let statement = props.statement;
     
     function purchaseConsultant(purchasePrice){
             return (
@@ -37,16 +37,17 @@ const AvatarDialog = (props) =>{
                     <h1> { props.getName() +" "+ props.getRole()} </h1> 
                     <h2> { props.getDescription() } </h2>
                     <p>
-                        {props.generateStatement()}
+                        {props.statement}
                     </p>
                     <button onClick={() => props.onExit()}>Close</button>
                 </div>
             )
     }
-        return (
+    
+    return (
             <div>
 
-            { props.isConsultant && !props.getAccessToConsultant()  ?
+            { props.isConsultant && !props.accessToConsultant  ?
                 purchaseConsultant(props.consultantPrice)
                 :
                 generalDialog()

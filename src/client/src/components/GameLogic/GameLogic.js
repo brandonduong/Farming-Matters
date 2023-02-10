@@ -1,4 +1,4 @@
-import {SeasonalEvents} from './GameEvents/SeasonalEvents/SeasonalEvents'
+import {SeasonalEvents} from '../GameEvents/SeasonalEvents/SeasonalEvents'
 import { Stats, OrbitControls, PerspectiveCamera} from "@react-three/drei";
 //seed [x,z] coordinates on grid
 function addPlantedSeeds(plantedSeeds, seed){
