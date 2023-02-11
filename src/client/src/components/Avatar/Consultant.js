@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import AvatarDialog from './AvatarDialog';
-import {consultantDialog} from './constants'
+import {consultantDialog} from '../GameLogic/constants'
 import { useEffect } from 'react';
 
 

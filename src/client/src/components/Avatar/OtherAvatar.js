@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import AvatarDialog from './AvatarDialog';
-import {generalDialog} from './constants'
-import { avatarNames, avatarDescription  } from './constants';
+import {generalDialog} from '../GameLogic/constants'
+import { avatarNames, avatarDescription  } from '../GameLogic/constants';
 
 const OtherAvatar = (props) =>{
     function generateStatement(){

@@ -1,107 +1,23 @@
-import {SeasonalEvents} from '../GameEvents/SeasonalEvents/SeasonalEvents'
-import { Stats, OrbitControls, PerspectiveCamera} from "@react-three/drei";
-//seed [x,z] coordinates on grid
-function addPlantedSeeds(plantedSeeds, seed){
-    console.log(plantedSeeds);
-    //exception if added planted seed exceeds grid
-    plantedSeeds.push(seed);
-    return plantedSeeds;
-}
+import {generateStatement} from './GenerateStatistics';
 
-function removePlantedSeeds(plantedSeeds, seed){
-    //exception if removing a seed is not in the grid
-    const itemIndex = plantedSeeds.findIndex(seed);
-    if (itemIndex < 0){
-        return false;
-    }
 
-    //removing only 1 item at itemIndex
-    plantedSeeds.splice(itemIndex,1);
-    return plantedSeeds;
-}
 
-function changeSeasonBaseEnvironment(currentSeason){
-    switch(currentSeason){
-        case "Fall":
-            break;
-        case "Winter":
-            return SeasonalEvents.SnowStorm();
-        case "Spring":
-            break;
-        case "Summer":
-            break;
+function futureSeasonalEvents(){
+    //(n+3) index of market price
+    // randomly choose an item from n+3 index
+    // (n+3)item/nitem price
+    // calculate new pEventHappening
+    // if pEventHapppning < 0.65 padd with error
+    // othergive (n+3)item/nitem price
+
+    const pEventHappening = Math.random();
+
+    if (pEventHappening < 0.65){ //Not happening
+        //percentPriceIncrease *= Math.random()*0.4
     }
 }
 
-function changeSeasonAmbience(currentSeason){
-    let lightIntensity;
-    switch (currentSeason){
-        case "Fall":
-            lightIntensity = 0.65;
-            break;
-        case "Winter":
-            lightIntensity = 0.45;
-            break;
-        case "Spring":
-            lightIntensity = 0.85;
-            break;
-        case "Summer": 
-            lightIntensity= 1.15;
-            break;
-    }
-    return lightIntensity;
-}
-
-function generateVisualEnvironment(currentSeason){
-    return(
-        <>
-            <ambientLight intensity={changeSeasonAmbience(currentSeason)} />
-            <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
-            <pointLight position={[-10, -10, -10]} />
-            <PerspectiveCamera
-                makeDefault
-                fov={70}
-                position={ changeCameraAngle(currentSeason)}
-            />
-            {changeSeasonBaseEnvironment(currentSeason)}
-        </>
-    )
-}
-
-function changeCameraAngle(currentSeason){
-    let x,y,z;
-    //Make a constants file
-    switch (currentSeason){
-        case "Fall":
-            x = 10;
-            y = 5;
-            z = 0;
-            break;
-        case "Winter":
-            x = 15;
-            y = 5;
-            z = 0;
-            break;
-        case "Spring":
-            x = 15;
-            y = 5;
-            z = 10;
-            break;
-        case "Summer":
-            x = 5;
-            y = 5;
-            z = 15;
-            break;
-    }
-
-    return [x,y,z];
-}
 
 export const GameLogic = {
-    addPlantedSeeds,
-    removePlantedSeeds,
-    changeSeasonBaseEnvironment,
-    changeCameraAngle,
-    generateVisualEnvironment
-};
-
+    generateStatement
+}

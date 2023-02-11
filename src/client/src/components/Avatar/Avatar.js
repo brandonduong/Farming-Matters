@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Consultant from './Consultant';
 import OtherAvatar from './OtherAvatar'
 import AvatarDialog from './AvatarDialog'
-import { avatarNames, avatarDescription  } from './constants';
+import { avatarNames, avatarDescription  } from '../GameLogic/constants';
 
 // TODO: Prevent other modules from accessing certain props elements such as (INFOMRATION HIDING)
 const Avatar = (props) =>{

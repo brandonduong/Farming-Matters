@@ -20,8 +20,26 @@ export const generalDialog = [
     "I got a big shipment of equipment coming in, hope they are worth the price!",
 ];
 
-export const consultantDialog = [
-    `The weather is looking rough this season, it is said that `,
-    `The market value of said crop is to drop by  `,
-    `The market value of said crop is to increase by `
- ];
+export const gameEvents = {
+    
+    "Market": {
+        "statements" : 
+            [`The market value of said crop is to %increaseOrDecrease% by  %statistic%`],
+        "action": {"BuyItem": "%item%"},
+        "probability": [0.2,1]
+    },
+    "Season": {
+        "statements":
+        ['A snow storm is following along, make sure to be prepared as it will be %statistic%',
+        'Heavy rain is following along, make sure to be prepared as it will be %statistic%'],
+        "probability": [0,0.2],
+        "action": {"BuyInsurance": "%item%"}
+    },
+    "Miscellaneous":{
+        "statements": ["There is a group of people up to no good, there is a %statistic% of your inventory being"]
+    }
+    
+};
+export const eventProbabilities = [];
+
+ 

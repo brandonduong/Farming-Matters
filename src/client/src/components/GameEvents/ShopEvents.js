@@ -7,7 +7,6 @@ const ShopEvent = (props) =>{
     function MarketInflation(){
 
     }
-
     function RestoreToNormalState(){
         
     }

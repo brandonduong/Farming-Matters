@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Avatar from './Avatar'
-import { avatarNames } from './constants.js';
+import { avatarNames } from '../GameLogic/constants.js';
 
 // TODO: - Once the general Game loader component is done, generate this
 //         component

@@ -8,6 +8,7 @@ import Shop from "./components/Shop";
 import InventoryRender from "./components/InventoryRender";
 import AvatarMenu from './components/Avatar/AvatarMenu';
 import InfoHeader from './components/InfoHeader';
+import {VisualGameLogic} from './components/GameLogic/VisualGameLogic';
 import {GameLogic} from './components/GameLogic/GameLogic';
 import {HeavyRain} from './components/GameEvents/SeasonalEvents/SeasonalEvents';
 import React, { useEffect, useState } from 'react';
@@ -37,7 +38,7 @@ const App = () => {
   const [turnPrices, setTurnPrices] = useState(shopItemsList);
   const [list, setList] = useState(shopItemsList);
   const [consultantStatement, setConsultantStatement] = useState("");
-
+  const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
 
   const [turnChanged, setTurnChanged] = useState(0);
 
@@ -107,15 +108,18 @@ const App = () => {
     setTurnChanged(turn);
   });
    
-    // This useEffect hook performs all operations needed on page load
-    useEffect(() => {
-      setDecisionType(Math.round(Math.random()));
-    }, [])
-    ; 
-
-    useEffect(() => {
-      setAccessToConsultant(false);
-    },[season]);
+  useEffect(() => {
+    setAccessToConsultant(false);
+  },[season]);
+    
+  useEffect(()=>{
+    if (accessToConsultant){
+      setConsultantStatement(GameLogic.generateStatement.generateConsultantStatement(decisionType));
+    }else{
+      setConsultantStatement("");
+    }
+    }, [accessToConsultant]
+  );
   return (
     <div className="App">
       <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
@@ -125,10 +129,10 @@ const App = () => {
          
           
           <ModelProvider>
-            <FarmGrid position={[0, 0, 0]} plantedSeeds={plantedSeeds} setPlantedSeeds={setPlantedSeeds} GameLogic={GameLogic} turn={turn} money={money} setMoney={setMoney} />
+            <FarmGrid position={[0, 0, 0]} plantedSeeds={plantedSeeds} setPlantedSeeds={setPlantedSeeds} VisualGameLogic={VisualGameLogic} turn={turn} money={money} setMoney={setMoney} />
           </ModelProvider>
 
-          {GameLogic.generateVisualEnvironment(season)}
+          {VisualGameLogic.generateVisualEnvironment(season)}
           
           <OrbitControls
             target={[0, 0, 0]}
