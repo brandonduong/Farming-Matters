@@ -1,3 +1,4 @@
+export const SEASONS = ["Winter", "Spring", "Summer", "Fall"]
 export const avatarNames = [
     ["Jerry", "the Consultant"],
     ["Bob", "the tools smith"],
@@ -23,8 +24,7 @@ export const generalDialog = [
 export const gameEvents = {
     
     "Market": {
-        "statements" : 
-            [`The market value of said crop is to %increaseOrDecrease% by  %statistic%`],
+        "statement" : `The market value of %item% is going to %increaseOrDecrease% %statistic% in the coming %season%`,
         "action": {"BuyItem": "%item%"},
         "probability": [0.2,1]
     },

@@ -1,11 +1,12 @@
 import { gameEvents, generalDialog } from "./constants";
- 
+
+let randomItem;
 
 function generateRandomIndex(arr){
     return Math.floor(Math.random()*arr.length);
 }
 
-function marketStatisticGenerator(decisionType){
+function marketStatisticGenerator(currentTurn, allTurnPrices){
     //(n+3) index of market price
     // randomly choose an item from n+3 index
     // (n+3)item/nitem price
@@ -13,11 +14,14 @@ function marketStatisticGenerator(decisionType){
     // if pEventHapppning < 0.65 padd with error
     // othergive (n+3)item/nitem price
 
-    const randomIndex = Math.floor(Math.random()*Object.keys(inventoryList).length)
-    const randomItem = inventoryList([Object.keys(inventoryList)[randomIndex]]);
-    const futureMarketPrice = (turnPrice[i+3])[randomItem]; //i+3
-    const currentMarketPrice = (turnPrice[i])[randomItem]; // i
-    const percentPriceIncrease = (futureMarketPrice - currentMarketPrice)/currentMarketPrice;
+    console.log(allTurnPrices);
+    randomItem = chooseRandomItem(Object.keys(allTurnPrices[0]));
+    console.log((allTurnPrices[currentTurn+3]), (allTurnPrices[currentTurn]),randomItem);
+    const futureMarketPrice = (allTurnPrices[currentTurn+3])[randomItem]; //i+3
+    const currentMarketPrice = (allTurnPrices[currentTurn])[randomItem]; // i
+    console.log(futureMarketPrice, currentMarketPrice);
+    
+    let percentPriceIncrease = (futureMarketPrice - currentMarketPrice)/currentMarketPrice;
 
     const pEventHappening = Math.random();
 
@@ -53,28 +57,50 @@ function chooseRandomItem(list){
     return list[generateRandomIndex(list)]; 
 }
 
-function generateConsultantStatement(decisionType){
+function generateConsultantStatement(decisionType, currentTurn, allTurnPrices, SEASONS, currentSeason){
     const gameEventNameList= Object.keys(gameEvents);
     //const randomEventName = chooseRandomItem(gameEventNameList);
     const randomEvent = Math.random();
     
-    switch(randomEvent){
-        case O <= randomEvent && randomEvent <= 0.2://Seasonal
-            gameEvents["Seasonal"]
-            break;
-        case 0.2 < randomEvent && randomEvent <= 1: //Market
-            let stat = marketStatisticGenerator();
+    console.log(randomEvent);
+ 
+        if (0 <= randomEvent && randomEvent <= 0.2){//Seasonal
+            //gameEvents["Seasonal"]
+        
+        }
+        if (0.2 < randomEvent && randomEvent <= 1){ //Market
+            let stat = marketStatisticGenerator(currentTurn, allTurnPrices);
             if (decisionType == 1){
-                stat = stat > 0.5 ? true : false;
+                stat = stat > 0.5 ? 1 : 0;
+                stat = parseInt(stat)
             }
-            const increaseOrDecrease = stat > 0.5 ? "increase" : "decrease"
-            return gameEvents["Market"].replace("%statistic%", stat, "%increaseOrDecrease%", increaseOrDecrease);
-    }
+
+            const increaseOrDecrease = stat > 0.5 ? "increase" : "decrease";
+            console.log(stat);
+            let statement = gameEvents["Market"].statement;
+            console.log(statement);
+            if (decisionType == 0){
+                statement = statement.replace("%statistic%", "by %statistic% %").replace("%statistic%", (Math.abs(stat*100).toFixed(2))); 
+            }else{
+                statement = statement.replace("%statistic%", "")
+            }
+            console.log(statement);
+            statement = statement.replace( "%increaseOrDecrease%", increaseOrDecrease)
+            console.log(statement);
+            statement = statement.replace("%item%", randomItem);
+
     
-    const statistic = gameEvents(decisionType);
+
+            statement = statement.replace("%season%", SEASONS[(SEASONS.indexOf(currentSeason) + 1)%4]);
+
+            return statement
+    }
+
+    
+    //const statistic = gameEvents(decisionType);
 
     //Javascript string placeholder for statistic values
-    return chooseRandomItem(statistic).replace('%statistic%',statistic );
+    //return chooseRandomItem(statistic).replace('%statistic%',statistic );
 }
 
 function generateGeneralStatement(){

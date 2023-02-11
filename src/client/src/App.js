@@ -5,18 +5,19 @@ import { Canvas } from "@react-three/fiber";
 import { Stats, OrbitControls, PerspectiveCamera} from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
-import InventoryRender from "./components/InventoryRender";
+import InventoryRender from "./components/Inventory/InventoryRender";
 import AvatarMenu from './components/Avatar/AvatarMenu';
 import InfoHeader from './components/InfoHeader';
 import {VisualGameLogic} from './components/GameLogic/VisualGameLogic';
 import {GameLogic} from './components/GameLogic/GameLogic';
+import {SEASONS} from './components/GameLogic/constants'
 import {HeavyRain} from './components/GameEvents/SeasonalEvents/SeasonalEvents';
 import React, { useEffect, useState } from 'react';
 import { ModelProvider } from "./components/models/ModelContext";
 import {plants} from "./components/Farm/FarmTile/constants"
 import {getItems} from "./components/Inventory"
 import {shopItemsList} from "./components/Shop/constants";
-import { generateNTurnPriceState, getItemBasePrice }  from "./components/GameLogic/gamelogic";
+import { generateNTurnPriceState, getItemBasePrice }  from "./components/GameLogic/GenerateTurnPrices";
 import { itemFluctuation } from "./components/GameLogic/constants";
 
 const globalInventoryState = {};
@@ -34,18 +35,18 @@ const App = () => {
   const [accessToConsultant, setAccessToConsultant] = useState(false);
   const [plantedSeeds, setPlantedSeeds] = useState([]);
   const [decisionType, setDecisionType] = useState(0);
-
+  
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
   const [insuredState, setInsuredState] = useState(insuredItems);
   const [consultantStatement, setConsultantStatement] = useState("");
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
-  let nTurnItemPrices = generateNTurnPriceState(10,itemFluctuation,shopItemsList);
+  let nTurnItemPrices = generateNTurnPriceState(100,itemFluctuation,shopItemsList);
   const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
 
 
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
+    setDecisionType(1);
   }, []); 
 
 
@@ -78,24 +79,15 @@ const App = () => {
       getNamesInsurance
   )}, []);
 
-  useEffect(() => {
-    setTurnPrices(
-      currentPrices
-    )
-  console.log(turnPrices)}, []);
-
   
-  useEffect(() => {
-    setTurnChanged(turn);
-  });
-   
   useEffect(() => {
     setAccessToConsultant(false);
   },[season]);
     
   useEffect(()=>{
     if (accessToConsultant){
-      setConsultantStatement(GameLogic.generateStatement.generateConsultantStatement(decisionType));
+      console.log(allTurnPrices);
+      setConsultantStatement(GameLogic.generateStatement.generateConsultantStatement(decisionType, turn, allTurnPrices, SEASONS, season));
     }else{
       setConsultantStatement("");
     }
@@ -105,7 +97,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
+      <InfoHeader user={user} money={money} season={season} turn={turn} SEASONS={SEASONS} setSeason={setSeason} setTurn={setTurn} />
       <div className="canvas-container">
         <Canvas >
           <Stats />
