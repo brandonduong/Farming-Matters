@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {globalInventoryContext} from "../../App";
+import {globalInventoryContext} from "../../Game";
 import { addItem, getItemCount, getItems, removeItem } from "../Inventory";
 import { shopItemsList } from "./constants";
 

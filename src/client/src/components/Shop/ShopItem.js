@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { globalInventoryContext} from "../../App";
+import { globalInventoryContext} from "../../Game";
 import { addInsuredItem, addItem, getItemCount } from "../Inventory";
 
 const ShopItem = (props) => {

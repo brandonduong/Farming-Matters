@@ -1,7 +1,7 @@
 import "../../css/Inventory.css";
 import React, { useState } from "react";
 import { getItemCount, getItems } from "../Inventory";
-import { globalInventoryContext } from "../../App";
+import { globalInventoryContext } from "../../Game";
 import { shopItemsList} from "../Shop/constants";
 
 
@@ -13,13 +13,17 @@ function InventoryRender() {
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
   }
-  let currentItemRender = []
+  let currentItemRender = [];
   let itemList = getItems(inventoryState);
   for (let i = 0; i < itemList.length; i++){
 
+      let img = "";
+      if (shopItemsList[i]){
+        img = shopItemsList[i].image;
+      }
     currentItemRender.push(   
       <div className="item">
-        <img src={shopItemsList[i].image} alt="item-pic" />
+        <img src={img} alt="Item-Pick"></img>
         <div className="item-info">
           <h4>{itemList[i]}</h4>
           <h4 className="quantity-title">Quantity:</h4>

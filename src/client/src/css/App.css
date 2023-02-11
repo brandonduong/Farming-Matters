@@ -4,7 +4,7 @@
 }
 
 .tile-popup {
-  display: flex;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.65);
   border-radius: 1rem;
   padding: 1rem;
@@ -12,30 +12,66 @@
 
 .tile-popup-info {
   display: flex;
+  justify-content: space-between;
 }
 
 .tile-popup-info-item {
-  margin-right: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tile-popup-title {
+  margin: 0 0 0.5rem 0;
+}
+
+.tile-popup-info-title {
+  margin: 0;
+}
+
+.tile-popup-button {
+  height: 100%;
+  width: 100%;
 }
 
 .canvas-container {
-  width: 75%;
-  height: 75vh;
+  width: 100%;
+  height: 100vh;
   margin: auto;
-  padding-bottom: 50px;
 }
 
 .info-header {
+  position: absolute;
+  top: 2%;
+  left: 12.5%;
+  background-color: rgba(255, 255, 255, 0.65);
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 75%;
+  font-size: calc(1rem + 0.5vw);
+  font-weight: bold;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .info-header-item {
-  width: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .end-turn {
-  margin-left: 1rem;
+  height: 100%;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.info-header-item-value {
+  font-weight: normal;
 }
 
 .align-left {
@@ -93,7 +129,7 @@
   display: grid;
   position: relative;
   top: 0%;
-  width: 100%
+  width: 100%;
 }
 
 .avatar-grid {
@@ -120,7 +156,6 @@
   margin: 15% auto;
   border: 1px solid #000;
   border-radius: 100%;
-
 }
 
 .avatar-selected {
@@ -135,21 +170,21 @@
 }
 
 .avatar-0 {
-  background: url('./img/icons8-administrator-94.png');
+  background: url("./img/icons8-administrator-94.png");
   background-size: 50px 50px;
   background-color: #fff;
   margin: 15px auto;
 }
 
 .avatar-1 {
-  background: url('./img/icons8-account-96.png');
+  background: url("./img/icons8-account-96.png");
   background-size: 50px 50px;
   background-color: #fff;
   margin: 15px auto;
 }
 
 .avatar-2 {
-  background: url('./img/icons8-user-female-skin-type-4-80.png');
+  background: url("./img/icons8-user-female-skin-type-4-80.png");
   background-size: 50px 50px;
   background-color: #fff;
   margin: 15px auto;
@@ -179,25 +214,23 @@
   margin: auto auto;
 
   background-color: rgb(30, 194, 30);
-  ;
   border: 1px solid #000;
   border-radius: 50px 50px 50px 0px;
-
 }
 
-.dialog>h1 {
+.dialog > h1 {
   font-size: 32px;
   margin: 0;
 }
 
-.dialog>h2 {
+.dialog > h2 {
   font-size: 16px;
   color: #444444;
   margin: 0;
   padding: 0;
 }
 
-.dialog>p {
+.dialog > p {
   font-size: 24px;
   margin: 0;
   padding: 0;

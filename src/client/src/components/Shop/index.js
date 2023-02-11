@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
-import {globalInventoryContext} from "../../App";
+import {globalInventoryContext} from "../../Game";
 import InventoryItem from "./InventoryItem";
 
 
