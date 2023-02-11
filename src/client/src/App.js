@@ -12,7 +12,7 @@ import { ModelProvider } from "./components/models/ModelContext";
 import {plants} from "./components/Farm/FarmTile/constants"
 import {getItems} from "./components/Inventory"
 import {shopItemsList} from "./components/Shop/constants";
-import { generateNTurnPriceState }  from "./components/GameLogic/gamelogic";
+import { generateNTurnPriceState, getItemBasePrice }  from "./components/GameLogic/gamelogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 
 const globalInventoryState = {};
@@ -50,9 +50,6 @@ const App = () => {
     itemInfo[currItemName] = currItemPrice;
     currentPrices.push(itemInfo);
   }
-
-  console.log("COOK: ");
-  console.log(allTurnPrices)
 
   useEffect( () => {
     setInventoryState(

@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {globalInventoryContext} from "../../App";
 import { addItem, getItemCount, getItems, removeItem } from "../Inventory";
+import { shopItemsList } from "./constants";
 
 const InventoryItem = (props) => {
   const [quantity, setQuantity] = useState(0);
   const { inventoryState, insuredState } = React.useContext(globalInventoryContext);
-  const currTurnPrices = props.allTurnPrices[props.turn]
-  const currentPrice = currTurnPrices[props.name];
-  console.log(typeof(currentPrice));
-  console.log(typeof(quantity));
-  console.log(typeof(props.money));
+  let currTurnPrices = props.allTurnPrices[props.turn]
+  let currentPrice = currTurnPrices[props.name];
+  let [sellPrice, setSellPrice] = useState(currentPrice);
 
 
   function sell() {
@@ -17,29 +16,51 @@ const InventoryItem = (props) => {
         console.log("Not enough items to sell")
       }
       else{
-        props.setMoney(props.money + quantity * currentPrice);
+        props.setMoney(props.money + quantity * chooseBestPrice());
         setQuantity(0);
         removeItem(inventoryState,props.name,quantity);
         console.log(inventoryState);
       }
   }
 
+  function getItemBasePrice(name,items){
+    let basePrice = props.price;
+    for (let i = 0; i < items.length; i++){
+      if (items[i].name == name){
+        basePrice = items[i].price;
+      }
+    }
+    return basePrice;
+  }
+
 
   function chooseBestPrice() {
-      let currBestPrice = props.price;
+      let basePrice = getItemBasePrice(props.name,shopItemsList);
+      console.log("Base Price: "+ basePrice);
       if (getItemCount(insuredState,props.name) > 0){
-        if (props.price > currBestPrice){
-          currBestPrice = props.price;
+        if (basePrice > currentPrice){
+          setSellPrice(basePrice);
+          console.log("Sell at Base Price");
         }
+        else {
+          setSellPrice(currentPrice);
+          console.log("Sell at Current Price")
+        }
+      } else {
+        setSellPrice(currentPrice);
+        console.log("Sell at Current Price")
       }
-      return currBestPrice;
   }
+
+  useEffect(() => {
+    chooseBestPrice()   
+  },[sellPrice])
 
   return (
     <div className="shop-item" key={props.id }>
       <img src={props.image} alt="crops" className="item-image"></img>
       <p style={{ color: "white", margin: "5px" }}>
-        {props.name + " - $" + currentPrice}
+        {props.name + " - $" + sellPrice.toFixed(2)}
       </p>
       <label htmlFor="quantity" style={{ color: "white" }}>
         Quantity:

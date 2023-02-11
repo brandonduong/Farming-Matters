@@ -21,3 +21,12 @@ export function generateNTurnPriceState(totalTurns,priceFluctuations,marketItems
     }
     return nTurnItemPrices;
 }
+
+export function getItemBasePrice(name,items){
+    let basePrice = 0;
+    for (let i = 0; i < items.length; i++){
+      if (items[i].name == name){
+        return basePrice = items[i].price;
+      }
+    }
+  }
