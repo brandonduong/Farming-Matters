@@ -1,6 +1,7 @@
 import "../css/Inventory.css";
 import React, { useState } from "react";
 
+//TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
 function Inventory() {
   let [isInventoryOpen, setIsInventoryOpen] = useState(false);
   function onClick() {
@@ -16,42 +17,42 @@ function Inventory() {
             </p>
             <div className="grid">
               <div className="item">
-                <img src={require("../assets/mushroom.png")} alt="mushroom" />
+                <img src={require("../assets/CropIcons/mushroom.png")} alt="mushroom" />
                 <div className="item-info">
                   <h4 className="quantity-title">Quantity:</h4>
                   <p className="quantity">0</p>
                 </div>
               </div>
               <div className="item">
-                <img src={require("../assets/wheat.png")} alt="wheat" />
+                <img src={require("../assets/CropIcons/wheat.png")} alt="wheat" />
                 <div className="item-info">
                   <h4 className="quantity-title">Quantity:</h4>
                   <p className="quantity">0</p>
                 </div>
               </div>
               <div className="item">
-                <img src={require("../assets/potato.png")} alt="potato" />
+                <img src={require("../assets/CropIcons/potato.png")} alt="potato" />
                 <div className="item-info">
                   <h4 className="quantity-title">Quantity:</h4>
                   <p className="quantity">0</p>
                 </div>
               </div>
               <div className="item">
-                <img src={require("../assets/bamboo.png")} alt="bamboo" />
+                <img src={require("../assets/CropIcons/bamboo.png")} alt="bamboo" />
                 <div className="item-info">
                   <h4 className="quantity-title">Quantity:</h4>
                   <p className="quantity">0</p>
                 </div>
               </div>
               <div className="item">
-                <img src={require("../assets/lavender.png")} alt="lavendar" />
+                <img src={require("../assets/CropIcons/lavender.png")} alt="lavendar" />
                 <div className="item-info">
                   <h4 className="quantity-title">Quantity:</h4>
                   <p className="quantity">0</p>
                 </div>
               </div>
               <div className="item">
-                <img src={require("../assets/corn.png")} alt="corn" />
+                <img src={require("../assets/CropIcons/corn.png")} alt="corn" />
                 <div className="item-info">
                   <h4 className="quantity-title">Quantity:</h4>
                   <p className="quantity">0</p>
