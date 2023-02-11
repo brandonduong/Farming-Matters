@@ -1,8 +1,8 @@
-import "../css/Inventory.css";
+import "../../css/Inventory.css";
 import React, { useState } from "react";
-import { getItemCount, getItems } from "./Inventory";
-import { globalInventoryContext } from "../App";
-import { shopItemsList} from "./Shop/constants";
+import { getItemCount, getItems } from "../Inventory";
+import { globalInventoryContext } from "../../App";
+import { shopItemsList} from "../Shop/constants";
 
 
 //TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents

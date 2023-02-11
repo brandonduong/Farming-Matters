@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
 import {globalInventoryContext} from "../../App";
 import InventoryItem from "./InventoryItem";
-import { getItemCount, getItems } from "../Inventory";
 
 
 const Shop = (props) => {
@@ -12,13 +11,12 @@ const Shop = (props) => {
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
-
- // console.log("TURN PRICES: ")
- // console.log(props.turnPrices);
+  
 
   const displayShop = () => {
     setShowMenu(!showMenu);
     setShowBuy(!showBuy);
+    
   };
 
   const  displayBuy =  () => {
@@ -40,6 +38,8 @@ const Shop = (props) => {
           price={item.price}
           money={props.money}
           setMoney={props.setMoney}
+          turn={props.turn}
+          allTurnPrices={props.allTurnPrices}
         />
       ))
       );
@@ -54,8 +54,6 @@ const Shop = (props) => {
 
   function displaySellItems (){
     const currentInventory = inventoryState;
-    //console.log("DISPLAY SELL ITEMS", props.turnPrices);
-
     return(
       shopItemsList.map((item) => (
         <InventoryItem
@@ -63,15 +61,11 @@ const Shop = (props) => {
           id={item.id}
           image={item.image}
           name={item.name}
-          price={props.turnPrices[props.turnPrices.findIndex(function (turnPriceItem) {
-            return Object.keys(turnPriceItem)[0] == item.name
-          })]}
+          price={item.price}
           money={props.money}
           setMoney={props.setMoney}
-          updatePrice={props.updatePrice}
           turn={props.turn}
-          turnPrices={props.turnPrices}
-          turnChanged={props.turnChanged}
+          allTurnPrices={props.allTurnPrices}
         />
       ))
       );

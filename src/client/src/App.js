@@ -16,6 +16,8 @@ import { ModelProvider } from "./components/models/ModelContext";
 import {plants} from "./components/Farm/FarmTile/constants"
 import {getItems} from "./components/Inventory"
 import {shopItemsList} from "./components/Shop/constants";
+import { generateNTurnPriceState, getItemBasePrice }  from "./components/GameLogic/gamelogic";
+import { itemFluctuation } from "./components/GameLogic/constants";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -35,12 +37,11 @@ const App = () => {
 
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
   const [insuredState, setInsuredState] = useState(insuredItems);
-  const [turnPrices, setTurnPrices] = useState(shopItemsList);
-  const [list, setList] = useState(shopItemsList);
   const [consultantStatement, setConsultantStatement] = useState("");
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
+  let nTurnItemPrices = generateNTurnPriceState(10,itemFluctuation,shopItemsList);
+  const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
 
-  const [turnChanged, setTurnChanged] = useState(0);
 
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {
@@ -65,26 +66,6 @@ const App = () => {
     itemInfo[currItemName] = currItemPrice;
     currentPrices.push(itemInfo);
   }
-
-  //console.log(currentPrices)
-
-  function updatePrice(name, price){
-    console.log("UPDATING PRICE HERE - ", name, price);
-    setTurnPrices(
-      turnPrices.map((item) => {
-        if (Object.keys(item)[0] === name) {
-          console.log("FOUND NAME", item);
-          let newItem = {};
-          newItem[name] = Number(price);
-          return { ...newItem };
-        } else {
-          return item;
-        }
-      })
-    );
-
-    console.log("UPDATED TURNPRICE LIST IS: ", turnPrices);
-  };
 
   useEffect( () => {
     setInventoryState(
@@ -120,6 +101,8 @@ const App = () => {
     }
     }, [accessToConsultant]
   );
+    
+
   return (
     <div className="App">
       <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
@@ -156,7 +139,7 @@ const App = () => {
       
       <globalInventoryContext.Provider value={{inventoryState,setInventoryState,insuredState,setInsuredState, turn}}>
           <InventoryRender />
-          <Shop money={money} setMoney={setMoney} turn={turn} turnPrices={turnPrices} setTurnPrices={setTurnPrices} updatePrice={updatePrice} turnChanged={turnChanged}></Shop>
+          <Shop money={money} setMoney={setMoney} turn={turn} allTurnPrices={allTurnPrices} ></Shop>
         {/* <globalInsuredContext value={{insuredState,setInsuredState}}>
             <InventoryRender />
             <Shop money={money} setMoney={setMoney}></Shop>

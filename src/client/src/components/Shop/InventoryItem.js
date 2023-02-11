@@ -1,83 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {globalInventoryContext} from "../../App";
 import { addItem, getItemCount, getItems, removeItem } from "../Inventory";
+import { shopItemsList } from "./constants";
 
 const InventoryItem = (props) => {
   const [quantity, setQuantity] = useState(0);
-  const { inventoryState, insuredState, turn } = React.useContext(globalInventoryContext);
-  console.log(props.price[props.name])
-  const [ bestPrice, setBestPrice] = useState(props.price[props.name]);
+  const { inventoryState, insuredState } = React.useContext(globalInventoryContext);
+  let currTurnPrices = props.allTurnPrices[props.turn]
+  let currentPrice = currTurnPrices[props.name];
+  let [sellPrice, setSellPrice] = useState(currentPrice);
+
 
   function sell() {
       if(parseInt(getItemCount(inventoryState,props.name)) < quantity || parseInt(getItemCount(inventoryState,props.name)) === 0){
         console.log("Not enough items to sell")
       }
       else{
-        props.setMoney(props.money + quantity * bestPrice);
+        props.setMoney(props.money + quantity * chooseBestPrice());
         setQuantity(0);
         removeItem(inventoryState,props.name,quantity);
         console.log(inventoryState);
       }
   }
 
-  function fluctuatePrice(price) {
-    // basePrice+randomFactor ×(basePrice/3)
-    // generate random factor between 0 and 1
-    console.log("FLUFCATIING WITH PRICE:  ", price)
-    const randomFactor = Math.random() * (1 - (-1)) - 1;
-    const basePrice = parseFloat(price);
-    let newPrice = basePrice + randomFactor*(basePrice/10);
-    return newPrice.toFixed(0);
+  function getItemBasePrice(name,items){
+    let basePrice = props.price;
+    for (let i = 0; i < items.length; i++){
+      if (items[i].name == name){
+        basePrice = items[i].price;
+      }
+    }
+    return basePrice;
   }
 
-  function chooseBestPrice() {
-    // start by seeing if prices fluctuate every turn
-      let previous = bestPrice;
-      let fluctuate = fluctuatePrice(props.price[props.name]);
-      let hasEnoughInsuredItems = getItemCount(insuredState,props.name) > 0;
-      let newPrice;
-      // if the person has insurance they will sell the item for atleast the same price it was bought for
-      if (hasEnoughInsuredItems){
-        if (previous > fluctuate){
-          console.log("ENOUGH INSURED ITEMS -> PREVIOUS BETTER");
-          setBestPrice(previous);
-          newPrice = previous;
 
+  function chooseBestPrice() {
+      let basePrice = getItemBasePrice(props.name,shopItemsList);
+      console.log("Base Price: "+ basePrice);
+      if (getItemCount(insuredState,props.name) > 0){
+        if (basePrice > currentPrice){
+          setSellPrice(basePrice);
+          console.log("Sell at Base Price");
         }
-        else{
-          console.log("ENOUGH INSURED ITEMS -> FLUCTUATE BETTER");
-          setBestPrice(fluctuate)
-          newPrice = fluctuate;
-     
+        else {
+          setSellPrice(currentPrice);
+          console.log("Sell at Current Price")
         }
+      } else {
+        setSellPrice(currentPrice);
+        console.log("Sell at Current Price")
       }
-      // if the person has not ensured the item then it will fluctuate the next turn 
-      else {
-        console.log("NO INSURED ITEMS -> FLUCTUATE BETTER");
-        setBestPrice(fluctuate);
-        newPrice = fluctuate;
-    
-      } 
-      
-      //console.log("AT BEST PRICE", bestPrice)
-      props.updatePrice(props.name,newPrice);
-      //console.log(props.turnPrices);
   }
 
   useEffect(() => {
-    console.log("ON TURN CHANGE", turn, props.turnChanged);
-    if(props.turnChanged != turn){
-     chooseBestPrice();
-    }
-  },[]);
-
-
+    chooseBestPrice()   
+  },[sellPrice])
 
   return (
     <div className="shop-item" key={props.id }>
       <img src={props.image} alt="crops" className="item-image"></img>
       <p style={{ color: "white", margin: "5px" }}>
-        {props.name + " - $" + bestPrice}
+        {props.name + " - $" + sellPrice.toFixed(2)}
       </p>
       <label htmlFor="quantity" style={{ color: "white" }}>
         Quantity:
@@ -91,7 +74,7 @@ const InventoryItem = (props) => {
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
       ></input>
-      <button onClick={() => { sell() }}>Sell</button>
+      <button onClick={() => sell()}>Sell</button>
     </div>
   );
 };
