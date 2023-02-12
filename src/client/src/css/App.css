@@ -8,19 +8,23 @@
   background-color: rgba(255, 255, 255, 0.65);
   border-radius: 1rem;
   padding: 1rem;
+  position: relative;
 }
 
 .tile-popup-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .tile-popup-info-item {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.tile-popup-button-item {
+  width: 100%;
 }
 
 .tile-popup-title {
@@ -29,6 +33,13 @@
 
 .tile-popup-info-title {
   margin: 0;
+}
+
+.tile-popup-cancel {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  padding: 0 0.2rem;
 }
 
 .tile-popup-button {
@@ -63,7 +74,7 @@
   align-items: center;
 }
 
-.end-turn {
+.info-header-button {
   height: 100%;
   width: 100%;
   font-weight: bold;
@@ -116,124 +127,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.avatar-overlay {
-  display: grid;
-  position: absolute;
-  top: 15%;
-  width: 15%;
-}
-
-.avatar-overlay-dialog {
-  display: grid;
-  position: relative;
-  top: 0%;
-  width: 100%;
-}
-
-.avatar-grid {
-  display: grid;
-  grid-template-columns: 2fr;
-  grid-template-rows: auto;
-
-  width: 75px;
-  height: 350px;
-
-  background-color: rgb(30, 194, 0.75);
-  border: 1px solid #000;
-  border-radius: 25px;
-  margin-left: 0%;
-  margin-top: 15%;
-}
-
-.avatar {
-  width: 50px;
-  height: 50px;
-
-  padding: 5px;
-
-  margin: 15% auto;
-  border: 1px solid #000;
-  border-radius: 100%;
-}
-
-.avatar-selected {
-  background-color: rgb(0, 0, 0, 0.4);
-  z-index: 1;
-  border-radius: 25px;
-}
-
-.avatar-mini-name {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.avatar-0 {
-  background: url("./img/icons8-administrator-94.png");
-  background-size: 50px 50px;
-  background-color: #fff;
-  margin: 15px auto;
-}
-
-.avatar-1 {
-  background: url("./img/icons8-account-96.png");
-  background-size: 50px 50px;
-  background-color: #fff;
-  margin: 15px auto;
-}
-
-.avatar-2 {
-  background: url("./img/icons8-user-female-skin-type-4-80.png");
-  background-size: 50px 50px;
-  background-color: #fff;
-  margin: 15px auto;
-}
-
-.dialog-background {
-  position: absolute;
-  top: 0px;
-  left: 0%;
-  background-color: rgba(0, 0, 0, 0.632);
-  height: 100vh;
-  width: 100vw;
-}
-
-.dialog {
-  display: grid;
-  position: relative;
-  top: -90%;
-
-  grid-template-columns: auto;
-  grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr;
-  /* picture, name, character description, dialog */
-
-  width: 50%;
-  height: 400px;
-
-  margin: auto auto;
-
-  background-color: rgb(30, 194, 30);
-  border: 1px solid #000;
-  border-radius: 50px 50px 50px 0px;
-}
-
-.dialog > h1 {
-  font-size: 32px;
-  margin: 0;
-}
-
-.dialog > h2 {
-  font-size: 16px;
-  color: #444444;
-  margin: 0;
-  padding: 0;
-}
-
-.dialog > p {
-  font-size: 24px;
-  margin: 0;
-  padding: 0;
 }
 
 .shop-button {
@@ -294,6 +187,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+  overflow-y: scroll;
 }
 
 .shop-item {
@@ -309,8 +203,32 @@
 
 .item-image {
   width: 80px;
+  height: 80px; 
   border: 1px solid white;
   border-radius: 60px;
   padding: 5px;
   margin-top: 25px;
+}
+
+.buy-button {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgb(30, 194, 30);
+  color: white;
+  font-size: large;
+}
+
+.sell-button {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgb(30, 194, 30);
+  color: white;
+  font-size: large;
+}
+
+.insurance-button{
+  height: 40px;
+  width: 100px;
 }

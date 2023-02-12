@@ -1,4 +1,5 @@
 import "./css/App.css";
+import "./css/Avatar.css";
 import "./css/Inventory.css";
 import React, { useEffect, useState } from "react";
 import { LoginPage } from "./components/LoginPage";

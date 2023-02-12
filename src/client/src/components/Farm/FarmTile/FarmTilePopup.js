@@ -1,15 +1,21 @@
 import React from "react";
 import { plants } from "./constants";
+import { getItemCount, addItem, removeItem} from "../../Inventory"
+import { checkIfItemIsPlant } from "../../GameLogic/Gamelogic";
 
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {
-  function onClick(seedNum) {
+
+
+  function onClick(seedNum,plantName) {
     props.setPlantedSeed(seedNum);
+    removeItem(props.inventoryState,plantName,1);
     props.setClickedTile(null);
   }
 
-  function harvestPlant() {
+  function harvestPlant(plantName) {
     props.setPlantedSeed(0);
+    addItem(props.inventoryState,plantName,1);
     props.setClickedTile(null);
   }
 
@@ -44,27 +50,31 @@ const FarmTilePopup = (props) => {
     default:
       break;
   }
-
+  
   for (let i = start; i < start + 3; i++) {
-    plantButtons.push(
-      <div className="tile-popup-info-item" key={"plantdiv" + i}>
-        <button
-          className="tile-popup-button"
-          type="button"
-          onClick={() => onClick(i)}
-          key={"plant" + i}
-        >
-          <h4>{plants[i].name}</h4>
-        </button>
-      </div>
-    );
-  }
 
-  plantButtons.push(
-    <button type="button" onClick={() => props.setClickedTile(null)}>
-      <h4>Cancel</h4>
-    </button>
-  );
+    let hasEnough = parseInt(getItemCount(props.inventoryState,plants[i].name)) > 0;
+    let isPlant = checkIfItemIsPlant(plants[i].name,plants);
+    if (hasEnough && isPlant){
+      plantButtons.push(
+        <div className="tile-popup-info-item tile-popup-button-item" 
+        key={"plantdiv" + i}
+        >
+          <button
+            className="tile-popup-button"
+            type="button"
+            onClick={() => onClick(i,plants[i].name)}
+            key={"plant" + i}
+          >
+            <h4>{plants[i].name}</h4>
+          </button>
+        </div>
+      );
+      
+    }
+  }
+  
+
 
   // Plant info for when a seed is currently planted
   const plantInfo = (
@@ -86,14 +96,11 @@ const FarmTilePopup = (props) => {
           <button
             className="tile-popup-info-item"
             type="button"
-            onClick={() => harvestPlant()}
+            onClick={() => harvestPlant(plants[props.plantedSeed].name)}
           >
             <h4>Harvest</h4>
           </button>
         )}
-        <button type="button" onClick={() => props.setClickedTile(null)}>
-          <h4>Cancel</h4>
-        </button>
       </div>
     </div>
   );
@@ -108,9 +115,6 @@ const FarmTilePopup = (props) => {
           onClick={() => buyPlot()}
         >
           <h4>Buy Plot</h4>
-        </button>
-        <button type="button" onClick={() => props.setClickedTile(null)}>
-          <h4>Cancel</h4>
         </button>
       </div>
     </>
@@ -127,6 +131,13 @@ const FarmTilePopup = (props) => {
       ) : (
         buyInfo
       )}
+      <button
+        className="tile-popup-cancel"
+        type="button"
+        onClick={() => props.setClickedTile(null)}
+      >
+        X
+      </button>
     </div>
   );
 };
