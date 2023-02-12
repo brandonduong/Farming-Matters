@@ -67,7 +67,7 @@ function generateVisualEnvironment(turn, currentSeason, eventHappening, eventTyp
                 fov={70}
                 position={ changeCameraAngle(currentSeason)}
             />
-            {eventHappening ? changeSeasonBaseEnvironment(currentSeason) : <></>}
+            {eventHappening > 0.5 ? changeSeasonBaseEnvironment(currentSeason) : <></>}
         </>
     )
 }
