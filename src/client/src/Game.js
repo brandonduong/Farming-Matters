@@ -1,12 +1,11 @@
-import Consultant from "./components/Consultant";
-import InfoHeader from "./components/InfoHeader";
 import "./css/App.css";
 import "./css/Inventory.css";
+import Consultant from "./components/Consultant";
+import InfoHeader from "./components/InfoHeader";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
-import Inventory from "./components/Inventory";
 import React, { useState, useEffect, useNavigate } from "react";
 import { ModelProvider } from "./components/models/ModelContext";
 import { BarnModel } from "./components/models/BarnModel";
@@ -17,9 +16,8 @@ import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import {plants} from "./components/Farm/FarmTile/constants"
-import {getItems} from "./components/Inventory"
 import {shopItemsList} from "./components/Shop/constants";
-import { generateNTurnPriceState, getItemBasePrice }  from "./components/GameLogic/gamelogic";
+import { generateNTurnPriceState }  from "./components/GameLogic/gamelogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 
 const globalInventoryState = {};
@@ -40,27 +38,31 @@ export const Game = () => {
   const [decisionType, setDecisionType] = useState(0);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
   const [insuredState, setInsuredState] = useState(insuredItems);
-  let nTurnItemPrices = generateNTurnPriceState(10,itemFluctuation,shopItemsList);
+  const marketItems = []
+  for (let i = 1; i < shopItemsList.length; i++){
+    marketItems.push(shopItemsList[i]);
+  }
+  let nTurnItemPrices = generateNTurnPriceState(10,itemFluctuation, marketItems);
   const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
-
 
   // constructor for inventory
   let getNames = {};
   let getNamesInsurance = {};
-  for (let i = 0; i < plants.length; i++){
+  for (let i = 1; i < plants.length; i++){
     let currentName = plants[i].name;
     getNames[currentName]=0;   
     getNamesInsurance[currentName]=0; 
   }
 
   let currentPrices = []
-  for (let i = 0; i < shopItemsList.length; i++){
+  for (let i = 0; i < marketItems.length; i++){
     let itemInfo = {}
-    const currItemName = shopItemsList[i].name;
-    let currItemPrice = shopItemsList[i].price;
+    const currItemName = marketItems[i].name;
+    let currItemPrice = marketItems[i].price;
     itemInfo[currItemName] = currItemPrice;
     currentPrices.push(itemInfo);
   }
+
 
   useEffect( () => {
     setInventoryState(
@@ -174,7 +176,7 @@ export const Game = () => {
       <Consultant decisionType = {decisionType} />
        { <globalInventoryContext.Provider value={{inventoryState,setInventoryState,insuredState,setInsuredState, turn}}>
           <InventoryRender />
-          <Shop money={money} setMoney={setMoney} turn={turn} allTurnPrices={allTurnPrices} ></Shop>
+          <Shop money={money} setMoney={setMoney} turn={turn} allTurnPrices={allTurnPrices} marketItems={marketItems} ></Shop>
       </globalInventoryContext.Provider> } 
     </>
   );

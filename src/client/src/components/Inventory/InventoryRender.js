@@ -15,7 +15,7 @@ function InventoryRender() {
   }
   let currentItemRender = [];
   let itemList = getItems(inventoryState);
-  for (let i = 0; i < itemList.length; i++){
+  for (let i = 1; i < itemList.length; i++){
 
       let img = "";
       if (shopItemsList[i]){

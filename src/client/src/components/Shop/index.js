@@ -12,6 +12,7 @@ const Shop = (props) => {
   const [showSell, setShowSell] = useState(false);
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
   
+  
 
   const displayShop = () => {
     setShowMenu(!showMenu);
@@ -29,7 +30,7 @@ const Shop = (props) => {
 
   function displayBuyItems (){
     return(
-      shopItemsList.map((item) => (
+      props.marketItems.map((item) => (
         <ShopItem
           key={item.id}
           id={item.id}
@@ -55,7 +56,7 @@ const Shop = (props) => {
   function displaySellItems (){
     const currentInventory = inventoryState;
     return(
-      shopItemsList.map((item) => (
+      props.marketItems.map((item) => (
         <InventoryItem
           key={item.id}
           id={item.id}

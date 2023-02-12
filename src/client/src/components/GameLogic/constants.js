@@ -1,42 +1,62 @@
 export const itemFluctuation = [
     {
       id: 0,
-      name: "Corn",
+      name: "Rice",
       fluctuationFactor: 2,
     },
     {
       id: 1,
-      name: "Tomato",
+      name: "Carrot",
       fluctuationFactor: 1.5,
     },
     {
       id: 2,
-      name: "Eggplant",
+      name: "Orange",
       fluctuationFactor: 2.5,
     },
     {
       id: 3,
-      name: "Cucumber",
+      name: "Lettuce",
       fluctuationFactor: 2.1,
     },
     {
       id: 4,
-      name: "Pumpkin",
+      name: "Tomato",
       fluctuationFactor: 2.1,
     },
     {
       id: 5,
-      name: "Carrot",
+      name: "Watermelon",
       fluctuationFactor: 3.0,
     },
     {
       id: 6,
-      name: "Wintermelon",
+      name: "Wheat",
       fluctuationFactor: 2.1,
     },
     {
       id: 7,
-      name: "Winter Wheat",
+      name: "Pumpkin",
       fluctuationFactor: 1.9,
     },
+    {
+      id: 8,
+      name: "Beet",
+      fluctuationFactor: 2.1,
+    },
+    {
+      id: 9,
+      name: "Berries",
+      fluctuationFactor: 2.1,
+    },
+    {
+      id: 10,
+      name: "Mushroom",
+      fluctuationFactor: 3.0,
+    },
+    {
+      id: 11,
+      name: "Wintermelon",
+      fluctuationFactor: 2.1,
+    },    
   ];

@@ -54,13 +54,14 @@ const InventoryItem = (props) => {
 
   useEffect(() => {
     chooseBestPrice()   
+    console.log(sellPrice)
   },[sellPrice])
 
   return (
     <div className="shop-item" key={props.id }>
       <img src={props.image} alt="crops" className="item-image"></img>
       <p style={{ color: "white", margin: "5px" }}>
-        {props.name + " - $" + sellPrice.toFixed(2)}
+        {props.name + " - $" +  sellPrice.toFixed(2)}
       </p>
       <label htmlFor="quantity" style={{ color: "white" }}>
         Quantity:
