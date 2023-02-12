@@ -23,7 +23,7 @@ function removePlantedSeeds(plantedSeeds, seed){
 function changeSeasonBaseEnvironment(currentSeason){
     switch(currentSeason){
         case "Fall":
-            break;
+            return SeasonalEvents.HeavyRain();
         case "Winter":
             return SeasonalEvents.SnowStorm();
         case "Spring":
@@ -52,7 +52,7 @@ function changeSeasonAmbience(currentSeason){
     return lightIntensity;
 }
 
-function generateVisualEnvironment(currentSeason){
+function generateVisualEnvironment(currentSeason, eventHappening){
     return(
         <>
             <ambientLight intensity={changeSeasonAmbience(currentSeason)} />
@@ -63,7 +63,7 @@ function generateVisualEnvironment(currentSeason){
                 fov={70}
                 position={ changeCameraAngle(currentSeason)}
             />
-            {changeSeasonBaseEnvironment(currentSeason)}
+            {eventHappening ? changeSeasonBaseEnvironment(currentSeason) : <></>}
         </>
     )
 }

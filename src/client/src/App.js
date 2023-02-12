@@ -42,6 +42,7 @@ const App = () => {
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   let nTurnItemPrices = generateNTurnPriceState(100,itemFluctuation,shopItemsList);
   const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
+  const [isEventHappening, setIsEventHappening] = useState(false);
 
 
   // This useEffect hook performs all operations needed on page load
@@ -82,17 +83,23 @@ const App = () => {
   
   useEffect(() => {
     setAccessToConsultant(false);
+    const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
+    setIsEventHappening(isEventHappeningNextSeason);
   },[season]);
     
   useEffect(()=>{
     if (accessToConsultant){
       console.log(allTurnPrices);
-      setConsultantStatement(GameLogic.generateStatement.generateConsultantStatement(decisionType, turn, allTurnPrices, SEASONS, season));
+      const statement = GameLogic.GenerateStatistics.generateConsultantStatement(decisionType, turn, allTurnPrices, SEASONS, season);
+      setConsultantStatement(statement);
+
     }else{
       setConsultantStatement("");
     }
     }, [accessToConsultant]
   );
+
+
     
 
   return (
@@ -107,7 +114,7 @@ const App = () => {
             <FarmGrid position={[0, 0, 0]} plantedSeeds={plantedSeeds} setPlantedSeeds={setPlantedSeeds} VisualGameLogic={VisualGameLogic} turn={turn} money={money} setMoney={setMoney} />
           </ModelProvider>
 
-          {VisualGameLogic.generateVisualEnvironment(season)}
+          {VisualGameLogic.generateVisualEnvironment(season, isEventHappening)}
           
           <OrbitControls
             target={[0, 0, 0]}

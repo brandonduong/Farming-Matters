@@ -1,4 +1,4 @@
-import {generateStatement} from './GenerateStatistics';
+import {GenerateStatistics} from './GenerateStatistics';
 
 
 
@@ -19,5 +19,5 @@ function futureSeasonalEvents(){
 
 
 export const GameLogic = {
-    generateStatement
+    GenerateStatistics
 }

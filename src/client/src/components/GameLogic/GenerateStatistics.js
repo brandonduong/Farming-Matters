@@ -4,8 +4,33 @@ let randomItem;
 
 let pEventHappening; //should make global
 
+let isEventHappening = false;
+
+let generatedForCurrentSeason = false;
+
 function generateRandomIndex(arr){
     return Math.floor(Math.random()*arr.length);
+}
+
+
+
+function generateEventHappening(){
+    if (generatedForCurrentSeason){
+        return isEventHappening;
+    }
+
+    const pEventHappening = Math.random();
+
+    if (pEventHappening < EVENT_OCCUR_THRESHOLD){ //Not happening
+        isEventHappening = true;
+    }
+
+    return pEventHappening;
+}
+
+function getEventHappening(){
+    isEventHappening = generateEventHappening();
+    return isEventHappening;
 }
 
 function marketStatisticGenerator(currentTurn, allTurnPrices){
@@ -21,13 +46,8 @@ function marketStatisticGenerator(currentTurn, allTurnPrices){
     const currentMarketPrice = (allTurnPrices[currentTurn])[randomItem]; // i
 
     let percentPriceIncrease = (futureMarketPrice - currentMarketPrice)/currentMarketPrice;
+    percentPriceIncrease = generateEventHappening()*0.4; //additional prob padding
 
-    const pEventHappening = Math.random();
-
-    if (pEventHappening < EVENT_OCCUR_THRESHOLD){ //Not happening
-        percentPriceIncrease *= Math.random()*0.4
-    }
-    
     return percentPriceIncrease;
 }
  
@@ -59,12 +79,14 @@ function replaceStatisticInsert(stat,decisionType, statement, eventType){
         }else{
             statement = statement.replace("%statistic%", "");
         }
-    }else if (eventType == "Seasonal"){
+    }else if (eventType == "Season"){
         if (decisionType == 0){
             statement = statement.replace("%statistic%", "by %statistic% %").replace("%statistic%", (Math.abs(stat*100).toFixed(2))); 
         }else{
             statement = statement.replace("%statistic%", happenOrNotHappen(stat));
         }
+    }else{
+        console.log("EMPTY EVENTTYPE")
     }
 
     return statement;
@@ -75,7 +97,7 @@ function setDeterministicStat(stat){
     return stat > 0.5 ? 1 : 0;
 }
 
-function marketEventStatementInserts(decisionType, currentTurn, allTurnPrices, SEASONS, currentSeason){
+function marketEventStatementInserts(decisionType, currentTurn, allTurnPrices, SEASONS, currentSeason, eventType){
     let stat = marketStatisticGenerator(currentTurn, allTurnPrices);
     if (decisionType == 1){
         stat = setDeterministicStat(stat);
@@ -84,7 +106,7 @@ function marketEventStatementInserts(decisionType, currentTurn, allTurnPrices, S
     const increaseOrDecrease = replaceIncreaseOrDecreaseInsert(stat);
     let statement = gameEvents["Market"].statement;
 
-    statement = replaceStatisticInsert(stat, decisionType, statement);
+    statement = replaceStatisticInsert(stat, decisionType, statement, eventType);
     statement = statement.replace( "%increaseOrDecrease%", increaseOrDecrease);
     statement = statement.replace("%item%", randomItem);
     statement = statement.replace("%season%", getNextSeason(SEASONS, currentSeason));
@@ -106,32 +128,33 @@ function seasonalEventStatementInserts(decisionType, currentTurn, allTurnPrices,
     statement = replaceStatisticInsert(stat, decisionType, statement, eventType);
     statement = statement.replace("%season%", getNextSeason(SEASONS, currentSeason));
     
-    pEventHappening = stat;
+    generateEventHappening();
     return statement;
 }
 
 function generateConsultantStatement(decisionType, currentTurn, allTurnPrices, SEASONS, currentSeason){
-
+    isEventHappening = false;
     const randomEvent = Math.random();
     let statement;
     
-    console.log(randomEvent);
+    console.log(decisionType);
     
-    if (true){//Seasonal
-        statement = seasonalEventStatementInserts(decisionType, currentTurn, allTurnPrices, SEASONS, currentSeason, "Seasonal");
+    if (0 <= randomEvent && randomEvent <= 0.2){//Seasonal
+        statement = seasonalEventStatementInserts(decisionType, currentTurn, allTurnPrices, SEASONS, currentSeason, "Season");
     }
     else if (0.2 < randomEvent && randomEvent <= 1){ //Market
         statement = marketEventStatementInserts(decisionType, currentTurn, allTurnPrices, SEASONS, currentSeason, "Market");
     }
     
-    return statement
+    return  statement;
 }
 
 function generateGeneralStatement(){
     return chooseRandomItem(generalDialog);
 }
 
-export const generateStatement  = {
+export const GenerateStatistics  = {
     generateConsultantStatement,
-    generateGeneralStatement
+    generateGeneralStatement,
+    getEventHappening
 }
