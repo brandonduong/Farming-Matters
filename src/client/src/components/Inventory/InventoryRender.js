@@ -15,7 +15,7 @@ const InventoryRender = (props) => {
   }
   let currentItemRender = [];
   let itemList = getItems(inventoryState);
-  console.log(inventoryState);
+  console.log("RENDERING GET INVENTORY ITEMS",inventoryState);
   for (let i = 0; i < itemList.length; i++){
 
       let img = "";

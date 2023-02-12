@@ -205,6 +205,7 @@ const FarmTile = (props) => {
                 owned={owned}
                 setOwned={setOwned}
                 price={props.price}
+                inventoryState={props.inventoryState}
               />
             )}
         </Html>

@@ -87,6 +87,7 @@ export const Game = () => {
 
   return (
     <>
+    { <globalInventoryContext.Provider value={{inventoryState,setInventoryState,insuredState,setInsuredState, turn}}>
       <InfoHeader
         user={user}
         money={money}
@@ -104,6 +105,8 @@ export const Game = () => {
           <ModelProvider>
             {/* Blue sky */}
             <Sky distance={50} sunPosition={[10, 12, 0]} />
+
+      
 
             <FarmGrid
               position={[0, 0, 0]}
@@ -173,7 +176,6 @@ export const Game = () => {
         setTurn={setTurn}
       />
       <Consultant decisionType = {decisionType} />
-       { <globalInventoryContext.Provider value={{inventoryState,setInventoryState,insuredState,setInsuredState, turn}}>
           <InventoryRender marketItems={marketItems} />
           <Shop money={money} setMoney={setMoney} turn={turn} allTurnPrices={allTurnPrices} marketItems={marketItems} ></Shop>
       </globalInventoryContext.Provider> } 
