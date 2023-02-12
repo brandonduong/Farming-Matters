@@ -1,5 +1,7 @@
 import {SeasonalEvents} from '../GameEvents/SeasonalEvents/SeasonalEvents'
+import { logData } from '../../utils/logData';
 import { Stats, OrbitControls, PerspectiveCamera} from "@react-three/drei";
+import { useEffect } from 'react';
 //seed [x,z] coordinates on grid
 function addPlantedSeeds(plantedSeeds, seed){
     console.log(plantedSeeds);
@@ -52,7 +54,9 @@ function changeSeasonAmbience(currentSeason){
     return lightIntensity;
 }
 
-function generateVisualEnvironment(currentSeason, eventHappening){
+function generateVisualEnvironment(turn, currentSeason, eventHappening, eventType){
+
+    
     return(
         <>
             <ambientLight intensity={changeSeasonAmbience(currentSeason)} />

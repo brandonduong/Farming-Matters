@@ -21,6 +21,7 @@ import AvatarMenu from './components/Avatar/AvatarMenu';
 import {VisualGameLogic} from './components/GameLogic/VisualGameLogic';
 import {GameLogic} from './components/GameLogic/Gamelogic';
 import {SEASONS} from './components/GameLogic/constants'
+import { logData } from "./utils/logData";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -45,6 +46,8 @@ export const Game = () => {
   const [consultantStatement, setConsultantStatement] = useState("");
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
+  const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
+
   for (let i = 1; i < shopItemsList.length; i++){
     marketItems.push(shopItemsList[i]);
   }
@@ -87,15 +90,20 @@ export const Game = () => {
     }, [])
     ; 
 
-  // This useEffect hook performs all operations needed on page load
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-  }, []);
-
   useEffect(() => {
     setAccessToConsultant(false);
     const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
     setIsEventHappening(isEventHappeningNextSeason);
+    const eventType = setTypeOfCatastrophicEvent(GameLogic.GenerateStatistics.getEventType());
+    
+    if (isEventHappening){
+      logData("CatastrophicEvent", {
+          turn: turn,
+          isEventHappeningNextSeason: isEventHappeningNextSeason, 
+          eventType: eventType
+        });
+  }
+  
   },[season]);
     
   useEffect(()=>{
@@ -103,6 +111,11 @@ export const Game = () => {
       console.log(allTurnPrices);
       const statement = GameLogic.GenerateStatistics.generateConsultantStatement(decisionType, turn, allTurnPrices, SEASONS, season);
       setConsultantStatement(statement);
+      logData("ConsultantAdvice", {
+        turn: turn,
+        statement: statement,
+        isEventHappeningNextSeason: isEventHappening
+      });
 
     }else{
       setConsultantStatement("");
@@ -141,7 +154,7 @@ export const Game = () => {
               setMoney={setMoney}
             />
 
-          {VisualGameLogic.generateVisualEnvironment(season, isEventHappening)}
+          {VisualGameLogic.generateVisualEnvironment(turn, season, isEventHappening, typeOfCatastrophicEvent)}
 
             {/* Farm Buildings*/}
             <BarnModel position={[0, 0, -10]} />
@@ -203,8 +216,6 @@ export const Game = () => {
         setSeason={setSeason}
         setTurn={setTurn}
       />
-
-      
 
        <AvatarMenu 
         accessToConsultant={accessToConsultant} 

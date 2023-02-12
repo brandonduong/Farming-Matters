@@ -1,5 +1,6 @@
 import { gameEvents, generalDialog, EVENT_OCCUR_THRESHOLD } from "./constants";
-
+import { checkIfItemIsPlant } from "./Gamelogic";
+import { plants } from "../Farm/FarmTile/constants";
 let randomItem;
 
 let pEventHappening; //should make global
@@ -8,11 +9,11 @@ let isEventHappening = false;
 
 let generatedForCurrentSeason = false;
 
+let typeOfEvent = "";
+
 function generateRandomIndex(arr){
     return Math.floor(Math.random()*arr.length);
 }
-
-
 
 function generateEventHappening(){
     if (generatedForCurrentSeason){
@@ -25,6 +26,7 @@ function generateEventHappening(){
         isEventHappening = true;
     }
 
+    
     return pEventHappening;
 }
 
@@ -43,6 +45,9 @@ function marketStatisticGenerator(currentTurn, allTurnPrices){
 
 
     randomItem = chooseRandomItem(Object.keys(allTurnPrices[0]));
+    while (!checkIfItemIsPlant(randomItem,plants )){
+        randomItem = chooseRandomItem(Object.keys(allTurnPrices[0]));
+    }
     const arrLength = allTurnPrices.length
     const futureMarketPrice = (allTurnPrices[(currentTurn+3)%arrLength])[randomItem]; //i+3
     const currentMarketPrice = (allTurnPrices[currentTurn%arrLength])[randomItem]; // i
@@ -55,7 +60,6 @@ function marketStatisticGenerator(currentTurn, allTurnPrices){
  
 
 function chooseRandomItem(list){
-
     return list[generateRandomIndex(list)];
 }
 
@@ -99,8 +103,13 @@ function setDeterministicStat(stat){
     return stat > 0.5 ? 1 : 0;
 }
 
+function getEventType(){
+    return typeOfEvent;
+}
+
 function marketEventStatementInserts(decisionType, currentTurn, allTurnPrices, SEASONS, currentSeason, eventType){
     let stat = marketStatisticGenerator(currentTurn, allTurnPrices);
+    typeOfEvent = eventType;
     if (decisionType == 1){
         stat = setDeterministicStat(stat);
     }
@@ -119,6 +128,8 @@ function seasonalEventStatementInserts(decisionType, currentTurn, allTurnPrices,
     const nextSeason = getNextSeason(SEASONS, currentSeason);
     console.log( gameEvents["Season"], nextSeason);
     const randomEvent = chooseRandomItem( Object.keys((gameEvents["Season"])[nextSeason]));
+    console.log(randomEvent);
+    typeOfEvent = eventType;
     let statement =(((gameEvents["Season"])[nextSeason])[randomEvent])["statement"]; 
 
     const SEASONAL_PROB_PADDING = 0.05;
@@ -158,5 +169,6 @@ function generateGeneralStatement(){
 export const GenerateStatistics  = {
     generateConsultantStatement,
     generateGeneralStatement,
-    getEventHappening
+    getEventHappening,
+    getEventType,
 }
