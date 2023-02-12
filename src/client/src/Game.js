@@ -1,6 +1,5 @@
 import "./css/App.css";
 import "./css/Inventory.css";
-import Consultant from "./components/Consultant";
 import InfoHeader from "./components/InfoHeader";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky } from "@react-three/drei";
@@ -16,8 +15,13 @@ import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import {shopItemsList} from "./components/Shop/constants";
-import { generateNTurnPriceState }  from "./components/GameLogic/gamelogic";
+import { generateNTurnPriceState }  from "./components/GameLogic/Gamelogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
+import AvatarMenu from './components/Avatar/AvatarMenu';
+import {VisualGameLogic} from './components/GameLogic/VisualGameLogic';
+import {GameLogic} from './components/GameLogic/Gamelogic';
+import {SEASONS} from './components/GameLogic/constants'
+import { logData } from "./utils/logData";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -37,7 +41,13 @@ export const Game = () => {
   const [decisionType, setDecisionType] = useState(0);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
   const [insuredState, setInsuredState] = useState(insuredItems);
-  const marketItems = []
+  const marketItems = [];
+  const [accessToConsultant, setAccessToConsultant] = useState(false);
+  const [consultantStatement, setConsultantStatement] = useState("");
+  const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
+  const [isEventHappening, setIsEventHappening] = useState(false);
+  const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
+
   for (let i = 1; i < shopItemsList.length; i++){
     marketItems.push(shopItemsList[i]);
   }
@@ -80,10 +90,39 @@ export const Game = () => {
     }, [])
     ; 
 
-  // This useEffect hook performs all operations needed on page load
   useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-  }, []);
+    setAccessToConsultant(false);
+    const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
+    setIsEventHappening(isEventHappeningNextSeason);
+    const eventType = setTypeOfCatastrophicEvent(GameLogic.GenerateStatistics.getEventType());
+    
+    if (isEventHappening){
+      logData("CatastrophicEvent", {
+          turn: turn,
+          isEventHappeningNextSeason: isEventHappeningNextSeason, 
+          eventType: eventType
+        });
+  }
+  
+  },[season]);
+    
+  useEffect(()=>{
+    if (accessToConsultant){
+      console.log(allTurnPrices);
+      const statement = GameLogic.GenerateStatistics.generateConsultantStatement(decisionType, turn, allTurnPrices, SEASONS, season);
+      setConsultantStatement(statement);
+      logData("ConsultantAdvice", {
+        turn: turn,
+        statement: statement,
+        isEventHappeningNextSeason: isEventHappening
+      });
+
+    }else{
+      setConsultantStatement("");
+    }
+    }, [accessToConsultant]
+  );
+
 
   return (
     <>
@@ -114,6 +153,8 @@ export const Game = () => {
               money={money}
               setMoney={setMoney}
             />
+
+          {VisualGameLogic.generateVisualEnvironment(turn, season, isEventHappening, typeOfCatastrophicEvent)}
 
             {/* Farm Buildings*/}
             <BarnModel position={[0, 0, -10]} />
@@ -175,7 +216,16 @@ export const Game = () => {
         setSeason={setSeason}
         setTurn={setTurn}
       />
-      <Consultant decisionType = {decisionType} />
+
+       <AvatarMenu 
+        accessToConsultant={accessToConsultant} 
+        setAccessToConsultant={setAccessToConsultant} 
+        money={money} 
+        setMoney={setMoney}  
+        consultantStatement={consultantStatement}
+      />
+
+
           <InventoryRender marketItems={marketItems} />
           <Shop money={money} setMoney={setMoney} turn={turn} allTurnPrices={allTurnPrices} marketItems={marketItems} ></Shop>
       </globalInventoryContext.Provider> } 

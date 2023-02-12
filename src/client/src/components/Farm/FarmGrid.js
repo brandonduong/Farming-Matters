@@ -31,6 +31,7 @@ function FarmGrid(props) {
             price={price}
             colors={SEASON_COLORS}
             inventoryState={inventoryState}
+            VisualGameLogic={props.VisualGameLogic}
           />
         );
       }

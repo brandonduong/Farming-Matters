@@ -53,8 +53,6 @@ const InventoryRender = (props) => {
   }
 
 
-
-
   return (
     <>
       {isInventoryOpen ? (

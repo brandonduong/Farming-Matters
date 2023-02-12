@@ -45,6 +45,11 @@ const FarmTile = (props) => {
     if (plantedSeed !== 0) {
       setTurnPlanted(props.turn);
 
+      //update list that maintains location of where the plants are planted
+      //console.log(props.GameLogic);
+      props.setPlantedSeeds(props.VisualGameLogic.addPlantedSeeds(props.plantedSeeds, [props.x, props.z]));
+
+
       logData("Seed planted", {
         x: props.x,
         z: props.z,
