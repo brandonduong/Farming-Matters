@@ -1,25 +1,31 @@
 import "../../css/Inventory.css";
 import React, { useState } from "react";
 import { getItemCount, getItems } from "../Inventory";
-import { globalInventoryContext } from "../../App";
+import { globalInventoryContext, marketItems } from "../../Game";
 import { shopItemsList} from "../Shop/constants";
 
 
 //TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
-function InventoryRender() {
+const InventoryRender = (props) => {
   let [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const { inventoryState } = React.useContext(globalInventoryContext);
 
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
   }
-  let currentItemRender = []
+  let currentItemRender = [];
   let itemList = getItems(inventoryState);
+  console.log("RENDERING GET INVENTORY ITEMS",inventoryState);
   for (let i = 0; i < itemList.length; i++){
+
+      let img = "";
+      if (props.marketItems[i]){
+        img = props.marketItems[i].image;
+      }
 
     currentItemRender.push(   
       <div className="item">
-        <img src={shopItemsList[i].image} alt="item-pic" />
+        <img src={img} alt="Item-Pic"></img>
         <div className="item-info">
           <h4>{itemList[i]}</h4>
           <h4 className="quantity-title">Quantity:</h4>

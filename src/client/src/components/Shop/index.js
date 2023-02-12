@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
-import {globalInventoryContext} from "../../App";
+import {globalInventoryContext} from "../../Game";
 import InventoryItem from "./InventoryItem";
 
 
@@ -11,6 +11,7 @@ const Shop = (props) => {
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
+  
   
 
   const displayShop = () => {
@@ -29,7 +30,7 @@ const Shop = (props) => {
 
   function displayBuyItems (){
     return(
-      shopItemsList.map((item) => (
+      props.marketItems.map((item) => (
         <ShopItem
           key={item.id}
           id={item.id}
@@ -55,7 +56,7 @@ const Shop = (props) => {
   function displaySellItems (){
     const currentInventory = inventoryState;
     return(
-      shopItemsList.map((item) => (
+      props.marketItems.map((item) => (
         <InventoryItem
           key={item.id}
           id={item.id}

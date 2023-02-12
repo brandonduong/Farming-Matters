@@ -1,0 +1,25 @@
+import React from "react";
+import { useModels } from "./hooks";
+
+export function RiceModel(props) {
+  const { rice1, rice2 } = useModels();
+  function getModel() {
+    switch (props.stage) {
+      case 0:
+        return rice1.scene.clone();
+      case 1:
+        return rice2.scene.clone();
+      default:
+        return rice2.scene.clone();
+    }
+  }
+
+  return (
+    <primitive
+      object={getModel()}
+      {...props}
+      scale={0.015}
+      rotation-x={Math.PI / 2}
+    />
+  );
+}

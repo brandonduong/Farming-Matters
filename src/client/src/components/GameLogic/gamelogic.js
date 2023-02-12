@@ -21,3 +21,20 @@ function futureSeasonalEvents(){
 export const GameLogic = {
     GenerateStatistics
 }
+export function getItemBasePrice(name,items){
+    let basePrice = 0;
+    for (let i = 0; i < items.length; i++){
+      if (items[i].name == name){
+        return basePrice = items[i].price;
+      }
+    }
+  }
+
+export function checkIfItemIsPlant(name, plants){
+  for (let i = 0; i < plants.length; i++){
+    if (plants[i].name == name){
+      return true;
+    }
+  }
+  return false;
+}

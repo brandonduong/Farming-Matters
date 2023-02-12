@@ -19,6 +19,7 @@
 \input{../../Comments}
 \input{../../Common}
 
+
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
 \newcommand{\acref}[1]{AC\ref{#1}}
@@ -43,11 +44,12 @@
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\begin{tabularx}{\textwidth}{llX}
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+1/18/2023 & Namit Chopra, Brandon Duong  & Finished First Version of Module Guide\\
+ & Andrew Balmakund, Mohammad Harun \\
+ & Mihail Serafimovski & \\
 \bottomrule
 \end{tabularx}
 
@@ -69,12 +71,20 @@ This section records information for easy reference.
   M & Module \\
   MG & Module Guide \\
   OS & Operating System \\
-  R & Requirement\\
+  FR & Functional Requirement\\
+  NR & Non-Functional Requirement\\
+  LF & Look and Feel Requirement\\
+  UH & Usability and Humanity Requirement\\
+  PR & Performance Requirement\\
+  OE & Operations and Environmental Requirement\\
+  MR & Maintainability and Support Requirement\\
+  SR & Security Requirement\\
+  LR & Legal Requirement\\
   SC & Scientific Computing \\
   SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
+  UI & User Interface\\
+  \progname & Final Year Software Engineering Capstone Project name\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
   \bottomrule
 \end{tabular}\\
 
@@ -111,10 +121,7 @@ Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \end{itemize}
 
 After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
+Specification (SRS), the Module Guide (MG) is developed (Parnas et al., 1984). The MG specifies the modular structure of the system and is intended to allow both designers and maintainers to easily identify the parts of the software.  The potential readers of this document are as follows:
 
 \begin{itemize}
 \item New project members: This document can be a guide for a new project member
@@ -125,7 +132,7 @@ potential readers of this document are as follows:
   important for a maintainer to update the relevant sections of the document
   after changes have been made.
 \item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility and flexibility. Designers can verify the
+  check for consistency, feasibility, and flexibility. Designers can verify the
   system in various ways, such as consistency among modules, feasibility of the
   decomposition, and flexibility of the design.
 \end{itemize}
@@ -157,11 +164,20 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{PriceFluctuate}:] Fluctuating prices for purchasing an item as well.
+\item[\refstepcounter{acnum} \actheacnum \label{AvatarVariety}:] Adding more variety to the type of avatars for the user to interact with
+\item[\refstepcounter{acnum} \actheacnum \label{ItemVariety}:] Adding more variety to the type of items
+\item[\refstepcounter{acnum} \actheacnum \label{EventMechanism}:] Mechanism of events to alter the game state
+\item[\refstepcounter{acnum} \actheacnum \label{ConsultantMechanism}:] Mechanism of consultant for providing probabilities of future events
+\item[\refstepcounter{acnum} \actheacnum \label{SoundtrackVariety}:] Multiple soundtracks for different aspects of the game
+\item[\refstepcounter{acnum} \actheacnum \label{SellOptions}:] Being able to sell from either market or inventory 
+\item[\refstepcounter{acnum} \actheacnum \label{PurchaseInsurance}:] The freedom of choosing where purchase insurance of an item
+\item[\refstepcounter{acnum} \actheacnum \label{InsuranceAlgorithm}:] The algorithm behind of how insurance works
+\item[\refstepcounter{acnum} \actheacnum \label{UIComponents}:] The placements of UI elements for different aspects of the game
+\item[\refstepcounter{acnum} \actheacnum \label{SaveGame}:] The method of saving game state
+\item[\refstepcounter{acnum} \actheacnum \label{TurnNumber}:] The number of turns per season
+
+
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -174,9 +190,19 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] User input in-game controls 
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The details need to create an account will remain the same
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The environment in which the user will be able to play the game
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The system will only one login session per user
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The specific data used to collect for research purposes will remain the same
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The ability to purchase and sell items
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The ability to access a consultant 
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The authentication of a user is required before allowing them to perform actions in the game 
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The ability to delete user data
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The ability to plant and harvest a crop
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Changing of seasons
+
+
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -187,34 +213,71 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{Avatar}:] Avatar
+\item [\refstepcounter{mnum} \mthemnum \label{AvatarMenu}:] AvatarMenu
+\item [\refstepcounter{mnum} \mthemnum \label{Consultant}:] Consultant
+\item [\refstepcounter{mnum} \mthemnum \label{OtherAvatar}:] OtherAvatar
+\item [\refstepcounter{mnum} \mthemnum \label{Item}:] Item
+\item [\refstepcounter{mnum} \mthemnum \label{Inventory}:] Inventory
+\item [\refstepcounter{mnum} \mthemnum \label{Market}:] Market
+\item [\refstepcounter{mnum} \mthemnum \label{DatabaseOperations}:] DatabaseOperations
+\item [\refstepcounter{mnum} \mthemnum \label{MusicPlayer}:] MusicPlayer
+\item [\refstepcounter{mnum} \mthemnum \label{GameSettings}:] GameSettings
+\item [\refstepcounter{mnum} \mthemnum \label{AuthState}:] AuthState
+\item [\refstepcounter{mnum} \mthemnum \label{Socket}:] Socket
+\item [\refstepcounter{mnum} \mthemnum \label{ClientFirebase}:] ClientFirebase
+\item [\refstepcounter{mnum} \mthemnum \label{User}:] User
+\item [\refstepcounter{mnum} \mthemnum \label{AuthError}:] AuthError
+\item [\refstepcounter{mnum} \mthemnum \label{CreateAccount}:] CreateAccount
+\item [\refstepcounter{mnum} \mthemnum \label{Login}:] Login
+\item [\refstepcounter{mnum} \mthemnum \label{ServerFirebase}:] ServerFirebase
+\item [\refstepcounter{mnum} \mthemnum \label{RedisClient}:] RedisClient
+\item [\refstepcounter{mnum} \mthemnum \label{Server}:] Server
+\item [\refstepcounter{mnum} \mthemnum \label{Seed}:] Seed
+\item [\refstepcounter{mnum} \mthemnum \label{FarmTile}:] FarmTile
+\item [\refstepcounter{mnum} \mthemnum \label{FarmGrid}:] FarmGrid
+\item [\refstepcounter{mnum} \mthemnum \label{TurnSummary}:] TurnSummary
+\item [\refstepcounter{mnum} \mthemnum \label{GameController}:] GameController
 \end{description}
 
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
 \toprule
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ \\
+{Hardware-Hiding Module} & - \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{10}{0.3\textwidth}{Behaviour-Hiding Module} & GameController\\
+& AvatarMenu\\
+& Market\\
+& Inventory\\
+& FarmGrid\\
+& GameSettings\\
+& CreateAccount\\
+& Login\\
+& TurnSummary\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{18}{0.3\textwidth}{Software-Hiding Module} & Avatar\\
+& Consultant\\
+& OtherAvatars\\
+& FarmTile\\
+& Seed\\
+& Item\\
+& DatabaseOperations\\ 
+& ServerFirebase\\
+& ClientFirebase\\
+& AuthState\\
+& Socket\\
+& RedisClient\\
+& Server\\ 
+& MusicPlayer \\
+& User \\
+& AuthError \\
 \bottomrule
 
 \end{tabular}
@@ -226,16 +289,7 @@ actually be implemented.
 
 The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table \ref{TblRT}.
-
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.  In scientific examples, the choice of algorithm
-could potentially go here, if that is a decision that is exposed by the
-interface.}
+between requirements and modules is listed in Table~\ref{TblRT}.
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -251,9 +305,9 @@ module will be implemented by the \progname{} software.
 
 Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
-to be implemented.
+to be implemented. 
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware Hiding Modules }
 
 \begin{description}
 \item[Secrets:]The data structure and algorithm used to implement the virtual
@@ -276,19 +330,89 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+
+\subsubsection{GameController (\mref{GameController})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] User input handlers and in-game logic.
+\item[Services:] Responsible for calling all related submodules throughout a session.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{AvatarMenu (\mref{AvatarMenu})}
 
+\begin{description}
+\item[Secrets:] User input handling during menu.
+\item[Services:] Interact with user selecting several avatars to choose to interact with.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+
+\subsubsection{Market (\mref{Market})}
+
+\begin{description}
+\item[Secrets:] The data structure of a Market.
+\item[Services:] Provide functionality to interact with various items in a market, make purchases and updating the inventory.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Inventory (\mref{Inventory})}
+
+\begin{description}
+\item[Secrets:] The data structure of an Inventory.
+\item[Services:] Provide the ability to get the current state of the inventory, add items to an inventory and remove items from an inventory.
+
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{FarmGrid (\mref{FarmGrid})}
+
+\begin{description}
+\item[Secrets:] The data structure of a Farm Grid.
+\item[Services:] Provide the ability to get the current state of the grid tiles and add tiles to the current grid tiles.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{GameSettings (\mref{GameSettings})}
+
+\begin{description}
+\item[Secrets:] User adjustable setting values.
+\item[Services:] The ability to change volume and opt out of study.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{CreateAccount (\mref{CreateAccount})}
+
+\begin{description}
+\item[Secrets:] User account details.
+\item[Services:] Provides functionality for registering an account to create the game and handling invalid user inputs.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Login (\mref{Login})}
+
+\begin{description}
+\item[Secrets:] User account details.
+\item[Services:] Provides functionality for logging into the system and handling invalid user inputs.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{TurnSummary (\mref{TurnSummary})}
+
+\begin{description}
+\item[Secrets:] Users decisions made in a single turn.
+\item[Services:] Provides functionality for logging into the system and handling invalid user inputs.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
 
 \subsection{Software Decision Module}
 
@@ -303,12 +427,164 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+
+\subsubsection{Avatar (\mref{Avatar})}
+
+\begin{description}
+\item[Secrets:] The data structure of an Avatar.
+\item[Services:] Provide functionality to get and set various properties of an Avatar.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Consultant (\mref{Consultant})}
+
+\begin{description}
+\item[Secrets:] Avatar statements.
+\item[Services:] Provides functionality to generate a statement that assesses the current state of the game and provide a statistic based on a type of decision (probabilistic or deterministic).
+\item[Implemented By:]  \progname
+\item[Type of Module:] Record
+\end{description}
+
+\subsubsection{OtherAvatars (\mref{OtherAvatar})}
+
+\begin{description}
+\item[Secrets:] Avatar statements.
+\item[Services:] Provides functionality to generate a statement related to a specific other avatar.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Record
+\end{description}
+
+
+
+
+\subsubsection{FarmTile (\mref{FarmTile})}
+
+\begin{description}
+\item[Secrets:] Data structure of a farm tile.
+\item[Services:] Provides functionality to plant a seed, harvest a crop, determine what has been planted on a given tile and how long a seed has been growing for.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Seed (\mref{Seed})}
+
+\begin{description}
+\item[Secrets:] Data structure of a seed.
+\item[Services:] Provides functionality to determine the seed growth length, the seasons in which the seed can grow and the sellable price ranges .
+\item[Implemented By:]  \progname
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Item (\mref{Seed})}
+
+\begin{description}
+\item[Secrets:] Data structure of an item.
+\item[Services:] Provides functionality to get and set the price of an item, get the name of an item, get the quantity of an item and get the type of the item.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{DatabaseOperations (\mref{DatabaseOperations})}
+
+\begin{description}
+\item[Secrets:] Establishing database connection.
+\item[Services:] Provides functionality for terminating the database connection, adding and removing users from database, logging a given data, saving and loading the current state of the game.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{ServerFirebase (\mref{ServerFirebase})}
+
+\begin{description}
+\item[Secrets:] Firebase API credentials.
+\item[Services:] Connects the server to a Firebase API.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{ClientFirebase (\mref{ClientFirebase})}
+
+\begin{description}
+\item[Secrets:] Firebase API credentials.
+\item[Services:] Connects the client to a Firebase API.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+
+\subsubsection{AuthState (\mref{AuthState})}
+
+\begin{description}
+\item[Secrets:] User session details.
+\item[Services:] Validates if a user is authenicated session and handles unauthorized sessions.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Socket (\mref{Socket})}
+
+\begin{description}
+\item[Secrets:] User session details.
+\item[Services:] Grants the user access to play the game.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{RedisClient (\mref{RedisClient})}
+
+\begin{description}
+\item[Secrets:] API credentials needed to access Firebase instance.
+\item[Services:] Handles invalid credentials.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Server (\mref{Server})}
+
+\begin{description}
+\item[Secrets:] Internal routing and database setup.
+\item[Services:] Provides communication protocols to connect the front-end and the back-end.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{MusicPlayer (\mref{MusicPlayer})}
+
+\begin{description}
+\item[Secrets:] Audio files.
+\item[Services:] Provides the ability to load, start and stop playing a audio file.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{User (\mref{User})}
+
+\begin{description}
+\item[Secrets:] User credentials stored in Firebase system.
+\item[Services:] Retrieve user information.
+\item[Implemented By:]  Firebase
+\item[Type of Module:] Record
+\end{description}
+
+\subsubsection{AuthError (\mref{AuthError})}
+
+\begin{description}
+\item[Secrets:] Authentication specific details for a user.
+\item[Services:] Raises in error for unverified users.
+\item[Implemented By:]  Firebase
+\item[Type of Module:] Library
+\end{description}
+
+
+
+
+
 
 \section{Traceability Matrix} \label{SecTM}
 
 This section shows two traceability matrices: between the modules and the
-requirements and between the modules and the anticipated changes.
+requirements and between the modules and the anticipated changes. Here is the \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specification} document to find specific details to the corresponding requirements listed below in Table \ref{TblRT}.
 
 % the table should use mref, the requirements should be named, use something
 % like fref
@@ -318,17 +594,42 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FR1 & \mref{CreateAccount}, \mref{AuthState}, \mref{Login}, \mref{DatabaseOperations}\\
+FR2 &  \mref{Login}, \mref{DatabaseOperations}\\
+FR3 & \mref{Market}, \mref{Inventory} \\
+FR4 & \mref{Inventory}, \mref{Item}\\
+FR5 & \mref{AuthState}, \mref{CreateAccount}, \mref{Login}\\
+FR6 & \mref{Market}, \mref{Inventory}, \mref{Item}\\
+FR7 & \mref{FarmGrid}, \mref{FarmTile}, \mref{Seed}, \mref{Item}, \mref{Inventory}\\
+FR8 & \mref{Market}, \mref{Inventory}, \mref{Item}\\
+FR9 & \mref{Inventory}, \mref{Item}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Seed}\\
+FR10 & \mref{Market}, \mref{FarmGrid}, \mref{FarmTile}\\
+FR11 & \mref{AvatarMenu}, \mref{Avatar}, \mref{Consultant}, \mref{GameController}\\
+FR12 & \mref{Market}, \mref{Item}, \mref{Inventory}\\
+FR13 & \mref{DatabaseOperations}, \mref{GameController}, \mref{ServerFirebase}, \mref{Server}\\
+FR14 & \mref{DatabaseOperations}, \mref{GameController}, \mref{ServerFirebase}, \mref{Server}\\
+FR15 & \mref{DatabaseOperations}, \mref{GameController}, \mref{ServerFirebase}, \mref{ClientFirebase}, \mref{Server}\\
+FR16 & \mref{FarmGrid}, \mref{FarmTile}\\
+FR17 & \mref{FarmGrid}, \mref{FarmTile}, \mref{Inventory}, \mref{Item}\\
+FR18 & \mref{Login}\\
+FR19 & \mref{Inventory}, \mref{FarmGrid}, \mref{GameController}\\
+FR20 & \mref{CreateAccount}, \mref{DatabaseOperations}, \mref{GameController}\\
+FR21 & \mref{GameController}\\
+FR22 & \mref{GameController}\\
+LF1& \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
+LF2& \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
+LF3& \mref{MusicPlayer}\\
+LF4& \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Consultant}, \mref{OtherAvatar}, \mref{Item}\\
+LF5& \mref{GameController}\\
+LF6 &\mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Consultant}, \mref{OtherAvatar}, \mref{Item}, \mref{GameController}\\
+UH1& \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}, \mref{GameController}\\
+PR1& \mref{DatabaseOperations}, \mref{Server}, \mref{GameController}\\
+PR2& \mref{DatabaseOperations}, \mref{Server}, \mref{GameController}\\
+OE1& \mref{Login}, \mref{GameController}\\
+OE2& \mref{Login}, \mref{GameController}\\
+MR1& \mref{MusicPlayer}, \mref{Item}, \mref{AvatarMenu}\\
+SR1& \mref{Login}, \mref{CreateAccount}\\
+LR1 & \mref{DatabaseOperations}, \mref{GameSettings}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -341,18 +642,18 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{PriceFluctuate} & \mref{Market}, \mref{Item}\\
+\acref{AvatarVariety} & \mref{AvatarMenu}, \mref{OtherAvatar}\\
+\acref{ItemVariety} & \mref{Item}\\
+\acref{EventMechanism} & \mref{GameController}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Consultant}\\
+\acref{ConsultantMechanism} & \mref{Consultant}, \mref{GameController}\\
+\acref{SoundtrackVariety} & \mref{MusicPlayer}\\
+\acref{SellOptions} & \mref{Market}, \mref{Inventory}\\
+\acref{PurchaseInsurance} & \mref{Market}, \mref{Inventory}, \mref{GameController}, \mref{Item}\\
+\acref{InsuranceAlgorithm} & \mref{Market},\mref{Item}\\
+\acref{UIComponents} & \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
+\acref{SaveGame} & \mref{DatabaseOperations}, \mref{GameController}\\
+\acref{TurnNumber} & \mref{GameController}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -362,7 +663,7 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
 In this section, the uses hierarchy between modules is
-provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
+provided. Parnas said of two programs A and B that A {\em uses} B if
 correct execution of B may be necessary for A to complete the task described in
 its specification. That is, A {\em uses} B if there exist situations in which
 the correct functioning of A depends upon the availability of a correct
@@ -374,7 +675,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=\textwidth]{./capstone_MG_diagram.drawio.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
@@ -385,14 +686,5 @@ because they use modules from the lower levels.
 \bibliography{../../../refs/References}
 
 \newpage{}
-\section*{Appendix --- Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
-
-\begin{enumerate}
-  \item 
-  \item 
-\end{enumerate}
 
 \end{document}
