@@ -15,6 +15,8 @@ import { CoopModel } from "./components/models/CoopModel";
 import { WindModel } from "./components/models/WindModel";
 import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
+import { TreeModel } from "./components/models/TreeModel";
+import { FlowerModel } from "./components/models/FlowerModel";
 
 /**
  * Contains all of the game logic and graphics related code.
@@ -27,11 +29,91 @@ export const Game = () => {
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
   const [decisionType, setDecisionType] = useState(0);
+  const [landscape, setLandscape] = useState([]);
+  const [farmBuildings, setFarmBuildings] = useState([]);
 
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {
     setDecisionType(Math.round(Math.random()));
+    initializeLandscape();
+    initializeFarmBuildings();
   }, []);
+
+  function randomXYCircle(maxRadius, minRadius) {
+    const r = maxRadius * Math.random() ** 0.5 + minRadius;
+    const theta = Math.random() * 2 * Math.PI;
+    console.log([r * Math.cos(theta), 0, r * Math.sin(theta)]);
+    return [r * Math.cos(theta), 0, r * Math.sin(theta)];
+  }
+
+  function initializeLandscape() {
+    const initial = [];
+    const treeNum = 100;
+
+    for (let i = 0; i < treeNum; i++) {
+      // Trees
+      initial.push(
+        <TreeModel
+          variant={Math.floor(Math.random() * 3)}
+          position={randomXYCircle(30, 11)}
+          key={`tree${i}`}
+          scale={Math.random() * 0.05 + 0.02}
+        />
+      );
+
+      // Flowers
+      initial.push(
+        <FlowerModel
+          variant={Math.floor(Math.random() * 2)}
+          position={randomXYCircle(30, 11)}
+          key={`flower${i}`}
+          scale={Math.random() * 0.03 + 0.02}
+        />
+      );
+    }
+
+    setLandscape(initial);
+  }
+
+  // Farm buildings
+  function initializeFarmBuildings() {
+    setFarmBuildings(
+      <>
+        <BarnModel position={[0, 0, -10]} />
+        <SiloModel position={[-6.9, 0, -8]} rotation={[0, Math.PI / 8, 0]} />
+        <CoopModel position={[-12, 0, -5]} rotation={[0, Math.PI / 4, 0]} />
+        <WindModel position={[6.5, 0, -7]} rotation={[0, -Math.PI / 8, 0]} />
+        <WellModel position={[7, 0, 7]} rotation={[0, -Math.PI / 4, 0]} />
+        <FenceModel position={[7.375, 0, 5]} />
+        <FenceModel
+          position={[9.875, 0, 2.625]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel
+          position={[9.875, 0, -2.625]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel position={[7.375, 0, -5]} />
+        <FenceModel position={[-7.375, 0, -5]} />
+        <FenceModel
+          position={[-9.875, 0, 2.625]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel
+          position={[-9.875, 0, -2.625]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel position={[-7.375, 0, 5]} />
+        <FenceModel
+          position={[-4.9, 0, 7.375]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel position={[-2.625, 0, 9.875]} />
+        <FenceModel position={[2.625, 0, 9.875]} />
+        <FenceModel position={[4.9, 0, 7.375]} rotation={[0, Math.PI / 2, 0]} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -60,48 +142,8 @@ export const Game = () => {
               setMoney={setMoney}
             />
 
-            {/* Farm Buildings*/}
-            <BarnModel position={[0, 0, -10]} />
-            <SiloModel
-              position={[-6.9, 0, -8]}
-              rotation={[0, Math.PI / 8, 0]}
-            />
-            <CoopModel position={[-12, 0, -5]} rotation={[0, Math.PI / 4, 0]} />
-            <WindModel
-              position={[6.5, 0, -7]}
-              rotation={[0, -Math.PI / 8, 0]}
-            />
-            <WellModel position={[7, 0, 7]} rotation={[0, -Math.PI / 4, 0]} />
-            <FenceModel position={[7.375, 0, 5]} />
-            <FenceModel
-              position={[9.875, 0, 2.625]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel
-              position={[9.875, 0, -2.625]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel position={[7.375, 0, -5]} />
-            <FenceModel position={[-7.375, 0, -5]} />
-            <FenceModel
-              position={[-9.875, 0, 2.625]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel
-              position={[-9.875, 0, -2.625]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel position={[-7.375, 0, 5]} />
-            <FenceModel
-              position={[-4.9, 0, 7.375]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel position={[-2.625, 0, 9.875]} />
-            <FenceModel position={[2.625, 0, 9.875]} />
-            <FenceModel
-              position={[4.9, 0, 7.375]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
+            {farmBuildings}
+            {landscape}
           </ModelProvider>
 
           <OrbitControls
