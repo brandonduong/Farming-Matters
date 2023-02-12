@@ -46,7 +46,7 @@ const App = () => {
 
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {
-    setDecisionType(1);
+    setDecisionType(Math.round(Math.random()));
   }, []); 
 
 

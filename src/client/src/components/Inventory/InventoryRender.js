@@ -30,8 +30,6 @@ function InventoryRender() {
   }
 
 
-
-
   return (
     <>
       {isInventoryOpen ? (

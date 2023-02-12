@@ -1,4 +1,4 @@
-export const SEASONS = ["Winter", "Spring", "Summer", "Fall"]
+export const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
 export const avatarNames = [
     ["Jerry", "the Consultant"],
     ["Bob", "the tools smith"],
@@ -29,11 +29,27 @@ export const gameEvents = {
         "probability": [0.2,1]
     },
     "Season": {
-        "statements":
-        ['A snow storm is following along, make sure to be prepared as it will be %statistic%',
-        'Heavy rain is following along, make sure to be prepared as it will be %statistic%'],
-        "probability": [0,0.2],
-        "action": {"BuyInsurance": "%item%"}
+        "Winter": {
+            "SnowStorm": {
+              "statement": 'A snow storm is following along, make sure to be prepared as it will %statistic%'
+          }
+        },
+        "Spring":{
+          "HeavyRain":{
+            "statement": 'Heavy rain is following along, make sure to be prepared as it will %statistic%'
+          },
+        },
+        "Summer":{
+          "Drought":{
+            "statement": 'A severe drought is following along, make sure to be prepared as it will %statistic%'
+          },
+        },
+        "Fall":{
+          "Tornadoes":{
+            "statement": 'A big tornado is headed your way, make sure to be prepared as it will %statistic%'
+          },
+        }
+
     },
     "Miscellaneous":{
         "statements": ["There is a group of people up to no good, there is a %statistic% of your inventory being"]
@@ -42,7 +58,9 @@ export const gameEvents = {
 };
 export const eventProbabilities = [];
 
- 
+export const EVENT_OCCUR_THRESHOLD = 0.15;
+
+
 export const itemFluctuation = [
     {
       id: 0,
