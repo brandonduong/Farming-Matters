@@ -59,4 +59,14 @@ export const itemFluctuation = [
       name: "Wintermelon",
       fluctuationFactor: 2.1,
     },    
+    {
+      id: 12,
+      name: "Fertilizer",
+      fluctuationFactor: 3.0,
+    },
+    {
+      id: 13,
+      name: "Pesticide",
+      fluctuationFactor: 2.1,
+    },   
   ];

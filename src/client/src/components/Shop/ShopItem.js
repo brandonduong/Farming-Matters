@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { globalInventoryContext} from "../../Game";
 import { addInsuredItem, addItem, getItemCount } from "../Inventory";
+import { checkIfItemIsPlant } from "../GameLogic/gamelogic";
+import { plants } from "../Farm/FarmTile/constants";
 
 const ShopItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
@@ -54,19 +56,22 @@ const ShopItem = (props) => {
       ></input>
       <button onClick={() => buy()}>Buy</button>
       <br></br>
+      { checkIfItemIsPlant(props.name,plants) ?  
+      <>
       <label htmlFor="insuranceQuantity" style={{ color: "white" }}>
         Quantity:
       </label>
       <input id="insurance"
-        type="number"
-        name="insuranceQuantity"
-        min="1"
-        max="5"
-        style={{ width: "15%", margin: "0px 2%"}}
-        value={insuranceQuantity}
-        onChange={(event_insurance) => setInsuranceQuantity(event_insurance.target.value)}
+      type="number"
+      name="insuranceQuantity"
+      min="1"
+      max="5"
+      style={{ width: "15%", margin: "0px 2%"}}
+      value={insuranceQuantity}
+      onChange={(event_insurance) => setInsuranceQuantity(event_insurance.target.value)}
       ></input>
       <button className="insurance-button" onClick={() => purchaseInsurance()}>Purchase Insurance</button>
+      </> : <></>}
     </div>
   );
 };

@@ -15,7 +15,6 @@ import { WindModel } from "./components/models/WindModel";
 import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
-import {plants} from "./components/Farm/FarmTile/constants"
 import {shopItemsList} from "./components/Shop/constants";
 import { generateNTurnPriceState }  from "./components/GameLogic/gamelogic";
 import { itemFluctuation } from "./components/GameLogic/constants";

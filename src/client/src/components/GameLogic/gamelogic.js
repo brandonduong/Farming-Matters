@@ -30,3 +30,12 @@ export function getItemBasePrice(name,items){
       }
     }
   }
+
+export function checkIfItemIsPlant(name, plants){
+  for (let i = 0; i < plants.length; i++){
+    if (plants[i].name == name){
+      return true;
+    }
+  }
+  return false;
+}
