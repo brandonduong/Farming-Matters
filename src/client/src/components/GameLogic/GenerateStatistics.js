@@ -41,9 +41,11 @@ function marketStatisticGenerator(currentTurn, allTurnPrices){
     // if pEventHapppning < 0.65 padd with error
     // othergive (n+3)item/nitem price
 
+
     randomItem = chooseRandomItem(Object.keys(allTurnPrices[0]));
-    const futureMarketPrice = (allTurnPrices[currentTurn+3])[randomItem]; //i+3
-    const currentMarketPrice = (allTurnPrices[currentTurn])[randomItem]; // i
+    const arrLength = allTurnPrices.length
+    const futureMarketPrice = (allTurnPrices[(currentTurn+3)%arrLength])[randomItem]; //i+3
+    const currentMarketPrice = (allTurnPrices[currentTurn%arrLength])[randomItem]; // i
 
     let percentPriceIncrease = (futureMarketPrice - currentMarketPrice)/currentMarketPrice;
     percentPriceIncrease = generateEventHappening()*0.4; //additional prob padding
