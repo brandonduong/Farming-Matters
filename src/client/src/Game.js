@@ -42,7 +42,6 @@ export const Game = () => {
   function randomXYCircle(maxRadius, minRadius) {
     const r = maxRadius * Math.random() ** 0.5 + minRadius;
     const theta = Math.random() * 2 * Math.PI;
-    console.log([r * Math.cos(theta), 0, r * Math.sin(theta)]);
     return [r * Math.cos(theta), 0, r * Math.sin(theta)];
   }
 

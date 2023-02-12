@@ -30,7 +30,6 @@ const FarmTile = (props) => {
   function onClick(e) {
     e.stopPropagation();
     click(!clicked);
-    console.log(`clicked ${props.x} ${props.z}`);
     props.setClickedTile([props.x, props.z]);
 
     //Log data to the server
@@ -53,16 +52,6 @@ const FarmTile = (props) => {
       });
     }
   }, [plantedSeed]);
-
-  // Check whenever turn is ended
-  useEffect(() => {
-    if (
-      turnPlanted &&
-      props.turn - turnPlanted >= plants[plantedSeed].growthLength
-    ) {
-      console.log(`Plant at (${props.x}, ${props.z}) is done growing`);
-    }
-  }, [props.turn]);
 
   // Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable
   const models = (
