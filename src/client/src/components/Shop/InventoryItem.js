@@ -4,6 +4,7 @@ import { addItem, getItemCount, getItems, removeItem } from "../Inventory";
 import { shopItemsList } from "./constants";
 import { checkIfItemIsPlant } from "../GameLogic/Gamelogic";
 import { plants } from "../Farm/FarmTile/constants";
+import { logData } from "../../utils/logData";
 
 const InventoryItem = (props) => {
   const [quantity, setQuantity] = useState(0);
@@ -18,10 +19,19 @@ const InventoryItem = (props) => {
         console.log("Not enough items to sell")
       }
       else{
-        props.setMoney(props.money + quantity * chooseBestPrice());
+        console.log(sellPrice);
+        const currBalance = props.money + quantity * sellPrice;
+        props.setMoney(currBalance.toFixed(2));
         setQuantity(0);
         removeItem(inventoryState,props.name,quantity);
-        console.log(inventoryState);
+        logData("Sold item",{
+          turn: props.turn,
+          name: props.name,
+          quantity: quantity,
+          hasInsurance: getItemCount(insuredState,props.name) > 0,
+          soldPrice: sellPrice.toFixed(2),
+          marketPrice: currentPrice.toFixed(2),
+        })
       }
   }
 

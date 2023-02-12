@@ -15,13 +15,20 @@ const InfoHeader = (props) => {
   return (
     <div className="info-header">
       <div className="username info-header-item">{props.user}</div>
+      <div className="info-header-item">
+        <SignOutButton />
+      </div>
       <div className="money info-header-item">${props.money}</div>
       <div className="season info-header-item">{props.season}</div>
-      <div className="turn info-header-item">
+      <div className="info-header-item">
         Day:&nbsp;<div className="info-header-item-value">{props.turn}</div>
       </div>
-      <div className="turn info-header-item">
-        <button className="end-turn" type="button" onClick={() => endTurn()}>
+      <div className="info-header-item">
+        <button
+          className="info-header-button"
+          type="button"
+          onClick={() => endTurn()}
+        >
           End Turn
         </button>
       </div>

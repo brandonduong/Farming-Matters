@@ -3,6 +3,7 @@ import { globalInventoryContext} from "../../Game";
 import { addInsuredItem, addItem, getItemCount } from "../Inventory";
 import { checkIfItemIsPlant } from "../GameLogic/Gamelogic";
 import { plants } from "../Farm/FarmTile/constants";
+import { logData } from "../../utils/logData";
 
 const ShopItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
@@ -14,7 +15,10 @@ const ShopItem = (props) => {
       props.setMoney(props.money - itemQuantity * props.price);
       addItem(inventoryState, props.name, itemQuantity);
       setItemQuantity(0);
-      console.log(inventoryState);
+      logData("Bought item",{
+        name: props.name,
+        quantity: itemQuantity,
+      })
     } else {
       console.log("Not enough money to buy crop");
     }
@@ -30,7 +34,12 @@ const ShopItem = (props) => {
       props.setMoney(props.money - (parseInt(insuranceQuantity) * insurancePrice));
       addInsuredItem(insuredState, props.name, insuranceQuantity);
       setInsuranceQuantity(0);
-      console.log(insuredState);
+      logData("Bought insurance",{
+        turn: props.turn,
+        name: props.name,
+        quantity: insuranceQuantity,
+        price: props.price,
+      })
     } else {
       console.log("Not enough money to purchase insurance or not enough items to ensure")
     }

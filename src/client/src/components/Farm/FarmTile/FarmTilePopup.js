@@ -57,7 +57,9 @@ const FarmTilePopup = (props) => {
     let isPlant = checkIfItemIsPlant(plants[i].name,plants);
     if (hasEnough && isPlant){
       plantButtons.push(
-        <div className="tile-popup-info-item" key={"plantdiv" + i}>
+        <div className="tile-popup-info-item tile-popup-button-item" 
+        key={"plantdiv" + i}
+        >
           <button
             className="tile-popup-button"
             type="button"
@@ -73,12 +75,6 @@ const FarmTilePopup = (props) => {
   }
   
 
-
-  plantButtons.push(
-    <button type="button" onClick={() => props.setClickedTile(null)}>
-      <h4>Cancel</h4>
-    </button>
-  );
 
   // Plant info for when a seed is currently planted
   const plantInfo = (
@@ -105,9 +101,6 @@ const FarmTilePopup = (props) => {
             <h4>Harvest</h4>
           </button>
         )}
-        <button type="button" onClick={() => props.setClickedTile(null)}>
-          <h4>Cancel</h4>
-        </button>
       </div>
     </div>
   );
@@ -122,9 +115,6 @@ const FarmTilePopup = (props) => {
           onClick={() => buyPlot()}
         >
           <h4>Buy Plot</h4>
-        </button>
-        <button type="button" onClick={() => props.setClickedTile(null)}>
-          <h4>Cancel</h4>
         </button>
       </div>
     </>
@@ -141,6 +131,13 @@ const FarmTilePopup = (props) => {
       ) : (
         buyInfo
       )}
+      <button
+        className="tile-popup-cancel"
+        type="button"
+        onClick={() => props.setClickedTile(null)}
+      >
+        X
+      </button>
     </div>
   );
 };
