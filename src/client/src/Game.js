@@ -106,7 +106,7 @@ export const Game = () => {
 
           <OrbitControls
             target={[0, 0, 0]}
-            maxPolarAngle={Math.PI / 2.5}
+            maxPolarAngle={Math.PI / 3.5}
             maxDistance={13}
             screenSpacePanning={false}
           />

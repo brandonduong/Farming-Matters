@@ -91,7 +91,11 @@ const FarmTilePopup = (props) => {
             <h4>Harvest</h4>
           </button>
         )}
-        <button type="button" onClick={() => props.setClickedTile(null)}>
+        <button
+          style={{ marginLeft: "0.5rem" }}
+          type="button"
+          onClick={() => props.setClickedTile(null)}
+        >
           <h4>Cancel</h4>
         </button>
       </div>
