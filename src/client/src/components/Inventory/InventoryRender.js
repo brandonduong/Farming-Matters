@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { getItemCount, getItems } from "../Inventory";
 import { globalInventoryContext, marketItems } from "../../Game";
 import { shopItemsList} from "../Shop/constants";
+import { logData } from "../../utils/logData";
 
 
 //TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
@@ -12,10 +13,24 @@ const InventoryRender = (props) => {
 
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
+    if(isInventoryOpen){
+      let currInventory = []
+      const items = getItems(inventoryState);
+      for (let i = 0; i < items.length; i++){
+        if(getItemCount(inventoryState,items[i])>0){
+          let currItem = {}
+          currItem[items[i]]=getItemCount(inventoryState,items[i]);
+          currInventory.push(currItem);
+        }
+      }
+      logData("Inventory count", 
+      { turn: props.turn, 
+        inventory: currInventory, 
+      })
+    }
   }
   let currentItemRender = [];
   let itemList = getItems(inventoryState);
-  console.log("RENDERING GET INVENTORY ITEMS",inventoryState);
   for (let i = 0; i < itemList.length; i++){
 
       let img = "";
