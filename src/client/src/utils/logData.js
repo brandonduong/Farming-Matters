@@ -1,22 +1,29 @@
 import { auth } from "./firebase";
 
 export const logData = async (action, data) => {
-    let idToken = '';
-    
-    try {
-        idToken = auth.currentUser ? await auth.currentUser.getIdToken(true) : '';
-    } catch(error) {
-        console.error(error);
-    }
+  let idToken = "";
+  let userId = "";
 
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'AuthToken': idToken,
-        },
-            body: JSON.stringify({action, ...data})
-        }
+  try {
+    idToken = auth.currentUser ? await auth.currentUser.getIdToken(true) : "";
+  } catch (error) {
+    console.error(error);
+  }
 
-    await fetch('/private/actions', requestOptions)
-}
+  try {
+    userId = auth.currentUser ? await auth.currentUser.uid : "";
+  } catch (error) {
+    console.error(error);
+  }
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      AuthToken: idToken,
+    },
+    body: JSON.stringify({ userId, action: { action, ...data } }),
+  };
+
+  await fetch("/private/actions", requestOptions);
+};

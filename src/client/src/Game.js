@@ -1,5 +1,5 @@
-import Consultant from './components/Consultant';
-import InfoHeader from './components/InfoHeader';
+import Consultant from "./components/Consultant";
+import InfoHeader from "./components/InfoHeader";
 import "./css/App.css";
 import "./css/Inventory.css";
 import { Canvas } from "@react-three/fiber";
@@ -9,6 +9,7 @@ import Shop from "./components/Shop";
 import Inventory from "./components/Inventory";
 import { useState, useEffect } from "react";
 import { ModelProvider } from "./components/models/ModelContext";
+import { createConnection } from "./utils/connectionDb";
 
 /**
  * Contains all of the game logic and graphics related code.
@@ -25,19 +26,36 @@ export const Game = () => {
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {
     setDecisionType(Math.round(Math.random()));
-  }, []); 
+  }, []);
+
+  // This effect will create a connection to the database once this component loads
+  useEffect(() => {
+    createConnection();
+  }, []);
 
   return (
     <>
-      <InfoHeader user={user} money={money} season={season} turn={turn} setSeason={setSeason} setTurn={setTurn} />
+      <InfoHeader
+        user={user}
+        money={money}
+        season={season}
+        turn={turn}
+        setSeason={setSeason}
+        setTurn={setTurn}
+      />
       <div className="canvas-container">
         <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
           <ambientLight intensity={1} />
           <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
           <pointLight position={[-10, -10, -10]} />
-          
+
           <ModelProvider>
-            <FarmGrid position={[0, 0, 0]} turn={turn} money={money} setMoney={setMoney} />
+            <FarmGrid
+              position={[0, 0, 0]}
+              turn={turn}
+              money={money}
+              setMoney={setMoney}
+            />
           </ModelProvider>
 
           <OrbitControls
@@ -48,11 +66,10 @@ export const Game = () => {
             enablePan={false}
           />
         </Canvas>
-
       </div>
-      <Consultant decisionType = {decisionType} />
+      <Consultant decisionType={decisionType} />
       <Inventory />
       <Shop money={money} setMoney={setMoney} />
     </>
   );
-}
+};

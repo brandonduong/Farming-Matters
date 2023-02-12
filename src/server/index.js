@@ -5,6 +5,7 @@ const { Server } = require("socket.io");
 const { allowSingleSession } = require("./socket/allowSingleSession");
 const { auth } = require("./firebase");
 const mysql = require("mysql2");
+let db;
 
 const PORT = process.env.PORT || 5001;
 
@@ -17,18 +18,10 @@ app.use(express.json());
 /* Auth */
 function checkAuth(req, res, next) {
   if (req.headers.authtoken) {
+    console.log(req.headers.authtoken);
     auth
       .verifyIdToken(req.headers.authtoken)
       .then(() => {
-        // Request is verified
-        // connection
-        let db = mysql.createConnection({
-          host: "localhost",
-          user: "capstone",
-          password: "farming-matters",
-          database: "testFarmingMatters",
-        });
-
         next();
       })
       .catch((error) => {
@@ -42,11 +35,28 @@ function checkAuth(req, res, next) {
 app.use("/private", checkAuth);
 /************************/
 
+app.get("/private/connectToDatabase", (req, res) => {
+  db = mysql.createConnection({
+    host: "localhost",
+    user: "capstone",
+    password: "farming-matters",
+    database: "testFarmingMatters",
+  });
+  res.status(200).send();
+});
+
 app.post("/private/actions", (req, res) => {
-  // TODO: write action to MySQL database
-  console.log("action:");
+  let userId = req.body.userId;
+  let action = req.body.action;
+  // let loggedActions =
   console.log(req.body);
-  console.log();
+
+  // Only creates a user table if it does not exist in the database
+  databaseOperations.createUserTable(db, userId);
+
+  // Log actions
+  databaseOperations.logData(db, userId, JSON.stringify(action));
+
   res.status(200).send();
 });
 
