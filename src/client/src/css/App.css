@@ -8,19 +8,23 @@
   background-color: rgba(255, 255, 255, 0.65);
   border-radius: 1rem;
   padding: 1rem;
+  position: relative;
 }
 
 .tile-popup-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .tile-popup-info-item {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.tile-popup-button-item {
+  width: 100%;
 }
 
 .tile-popup-title {
@@ -29,6 +33,13 @@
 
 .tile-popup-info-title {
   margin: 0;
+}
+
+.tile-popup-cancel {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  padding: 0 0.2rem;
 }
 
 .tile-popup-button {
@@ -63,7 +74,7 @@
   align-items: center;
 }
 
-.end-turn {
+.info-header-button {
   height: 100%;
   width: 100%;
   font-weight: bold;
