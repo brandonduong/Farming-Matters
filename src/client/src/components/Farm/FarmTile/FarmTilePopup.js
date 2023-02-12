@@ -21,46 +21,30 @@ const FarmTilePopup = (props) => {
 
   // Buttons for planting seeds
   const plantButtons = [];
-  var start = 0;
+  var season = Math.floor((props.turn - 1) / 3) % 4;
 
   // Only get buttons for in-season seeds
-  switch (Math.floor((props.turn - 1) / 3) % 4) {
-    case 0:
-      // Fall
-      start = 7;
-      break;
-    case 1:
-      // Winter
-      start = 10;
-      break;
-    case 2:
-      // Spring
-      start = 1;
-      break;
-    case 3:
-      // Summer
-      start = 4;
-      break;
-    default:
-      break;
-  }
-
-  for (let i = start; i < start + 3; i++) {
-    plantButtons.push(
-      <div
-        className="tile-popup-info-item tile-popup-button-item"
-        key={"plantdiv" + i}
-      >
-        <button
-          className="tile-popup-button"
-          type="button"
-          onClick={() => onClick(i)}
-          key={"plant" + i}
+  for (let i = 0; i < plants.length; i++) {
+    if (
+      plants[i].plantableSeasons &&
+      plants[i].plantableSeasons.includes(season)
+    ) {
+      plantButtons.push(
+        <div
+          className="tile-popup-info-item tile-popup-button-item"
+          key={"plantdiv" + i}
         >
-          <h4>{plants[i].name}</h4>
-        </button>
-      </div>
-    );
+          <button
+            className="tile-popup-button"
+            type="button"
+            onClick={() => onClick(i)}
+            key={"plant" + i}
+          >
+            <h4>{plants[i].name}</h4>
+          </button>
+        </div>
+      );
+    }
   }
 
   // Plant info for when a seed is currently planted
