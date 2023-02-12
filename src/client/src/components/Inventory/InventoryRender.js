@@ -28,8 +28,10 @@ const InventoryRender = (props) => {
         <img src={img} alt="Item-Pic"></img>
         <div className="item-info">
           <h4>{itemList[i]}</h4>
-          <h4 className="quantity-title">Quantity:</h4>
-          <p className="quantity">{getItemCount(inventoryState,itemList[i])}</p>
+          <div className="quantity-info">
+            <h4 className="quantity-title">Quantity:</h4>
+            <p className="quantity">{getItemCount(inventoryState,itemList[i])}</p>
+          </div>
         </div>
       </div>
     )

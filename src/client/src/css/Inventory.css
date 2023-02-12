@@ -60,7 +60,7 @@ img {
   border: 1px solid white;
   border-radius: 60px;
   padding: 5px;
-  margin-top: 25px;
+  margin-top: 5px;
 }
 
 .item {
@@ -68,12 +68,13 @@ img {
   border: 1px solid white;
   border-radius: 15px;
   justify-content: center;
+  height: 150px;
 }
 
 .item-info {
   color: white;
-  font-size: larger;
-  margin-top: -5%;
+  font-size: large;
+  margin-top: -3%;
 }
 
 #inventory-title {
@@ -83,13 +84,21 @@ img {
 
 .quantity-title {
   color: white;
-  margin-top: -5%;
+  height: 100%;
+  font-size: medium;
 }
 
 .quantity {
-  margin-top: -10%;
+  font-size: medium;
+  margin-left: 5%;
 }
 
 .sell {
   display: inline-block;
+}
+
+.quantity-info {
+  display: flex;
+  margin-top: 5%;
+  margin-left: 25%;
 }
