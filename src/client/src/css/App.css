@@ -305,6 +305,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+  overflow-y: scroll;
 }
 
 .shop-item {
@@ -320,8 +321,32 @@
 
 .item-image {
   width: 80px;
+  height: 80px; 
   border: 1px solid white;
   border-radius: 60px;
   padding: 5px;
   margin-top: 25px;
+}
+
+.buy-button {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgb(30, 194, 30);
+  color: white;
+  font-size: large;
+}
+
+.sell-button {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgb(30, 194, 30);
+  color: white;
+  font-size: large;
+}
+
+.insurance-button{
+  height: 40px;
+  width: 100px;
 }
