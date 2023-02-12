@@ -48,8 +48,8 @@ export const Game = () => {
   // constructor for inventory
   let getNames = {};
   let getNamesInsurance = {};
-  for (let i = 1; i < plants.length; i++){
-    let currentName = plants[i].name;
+  for (let i = 0; i < marketItems.length; i++){
+    let currentName = marketItems[i].name;
     getNames[currentName]=0;   
     getNamesInsurance[currentName]=0; 
   }
@@ -175,7 +175,7 @@ export const Game = () => {
       />
       <Consultant decisionType = {decisionType} />
        { <globalInventoryContext.Provider value={{inventoryState,setInventoryState,insuredState,setInsuredState, turn}}>
-          <InventoryRender />
+          <InventoryRender marketItems={marketItems} />
           <Shop money={money} setMoney={setMoney} turn={turn} allTurnPrices={allTurnPrices} marketItems={marketItems} ></Shop>
       </globalInventoryContext.Provider> } 
     </>
