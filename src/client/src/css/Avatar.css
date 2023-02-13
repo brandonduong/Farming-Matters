@@ -1,9 +1,11 @@
-
 .avatar-overlay {
     display: grid;
+    grid-template-columns: 2r;
+    grid-template-rows: auto;
     position: absolute;
     top: 15%;
     width: 15%;
+    justify-content: center;
   }
   
   .avatar-overlay-dialog {
@@ -50,6 +52,10 @@
   .avatar-menu{
     width: fit-content;
     height: fit-content;
+    background-color: transparent;
+    border-color: transparent;  
+
+    margin-top: -10%;
   }
   .avatar-selected {
     background-color: rgb(0, 0, 0, 0.4);
