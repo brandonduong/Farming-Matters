@@ -1,16 +1,19 @@
-
 .avatar-overlay {
     display: grid;
+    grid-template-columns: 2r;
+    grid-template-rows: auto;
     position: absolute;
     top: 15%;
     width: 15%;
+    justify-content: center;
+    
   }
   
   .avatar-overlay-dialog {
     display: grid;
     position: relative;
     top: 0%;
-    width: 100%
+    width: 100%;
   }
   
   .avatar-grid {
@@ -28,12 +31,12 @@
     margin-top: 15%;
   
     opacity: 0; /* here */
-    background-color: #f9f9f9;
     min-width: 160px;
     z-index: 1;
     transition: all 0.05s ease-in; /* here */
     transform: translateY(-50px);
   
+    background-color: rgba(255, 255, 255, 0.65);
   }
   
   .avatar {
@@ -50,6 +53,10 @@
   .avatar-menu{
     width: fit-content;
     height: fit-content;
+    background-color: transparent;
+    border-color: transparent;  
+
+    margin-top: -10%;
   }
   .avatar-selected {
     background-color: rgb(0, 0, 0, 0.4);
@@ -156,9 +163,10 @@
     margin: auto auto;
   
     background-color: rgb(30, 194, 30);
-    ;
+    
     border: 1px solid #000;
     border-radius: 50px 50px 50px 0px;
+    margin-top: 15%;
   
   }
   

@@ -9,7 +9,7 @@ import { logData } from "../../utils/logData";
 const InventoryItem = (props) => {
   const [quantity, setQuantity] = useState(0);
   const { inventoryState, insuredState } = React.useContext(globalInventoryContext);
-  let currTurnPrices = props.allTurnPrices[props.turn]
+  let currTurnPrices = props.allTurnPrices[props.turn%10]
   let currentPrice = currTurnPrices[props.name];
   let [sellPrice, setSellPrice] = useState(currentPrice);
 
@@ -21,7 +21,7 @@ const InventoryItem = (props) => {
       else{
         console.log(sellPrice);
         const currBalance = props.money + quantity * sellPrice;
-        props.setMoney(currBalance.toFixed(2));
+        props.setMoney(currBalance);
         setQuantity(0);
         removeItem(inventoryState,props.name,quantity);
         logData("Sold item",{
