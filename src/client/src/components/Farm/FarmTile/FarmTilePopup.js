@@ -32,7 +32,7 @@ const FarmTilePopup = (props) => {
   // Buttons for planting seeds
   const plantButtons = [];
   var season = Math.floor((props.turn - 1) / 3) % 4;
-
+  var seedsPresent = false;
   // Only get buttons for in-season seeds
   for (let i = 0; i < plants.length; i++) {
     if (
@@ -43,6 +43,7 @@ const FarmTilePopup = (props) => {
         parseInt(getItemCount(props.inventoryState, plants[i].name)) > 0;
       let isPlant = checkIfItemIsPlant(plants[i].name, plants);
       if (hasEnough && isPlant) {
+        seedsPresent=true
         plantButtons.push(
           <div
             className="tile-popup-info-item tile-popup-button-item"
@@ -60,6 +61,10 @@ const FarmTilePopup = (props) => {
         );
       }
     }
+  }
+
+  if (!seedsPresent) {
+    plantButtons.push(<h4>No seeds</h4>)
   }
 
   // Plant info for when a seed is currently planted
