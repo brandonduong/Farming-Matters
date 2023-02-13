@@ -68,22 +68,25 @@ const saveGame = (database, userId, gameData) => {
 
 const loadGame = (database, userId) => {
   let sql = `SELECT * FROM GAMESTATE WHERE user_id='${userId}'`;
+  console.log(sql);
 
   database.query(sql, (err, result) => {
     if (err) throw err;
 
-    return_array = {};
+    console.log("Gamestate return: ", result);
+    return result;
+    // return_array = {};
     //transoforming the data to the type that will be used by the react states
-    return_array.turn = result[0]["turn"];
-    return_array.season = result[0]["season"];
-    return_array.money = result[0]["money"];
-    return_array.decisionType = Number(result[0]["decision_type"]);
-    return_array.inventory = JSON.parse(result[0]["inventory"]);
-    return_array.sellPrices = JSON.parse(result[0]["sell_prices"]);
-    return_array.insuredCrops = JSON.parse(result[0]["insured_crops"]);
-    return_array.consultant = result[0]["consultant"].split(",");
+    // return_array.turn = result[0]["turn"];
+    // return_array.season = result[0]["season"];
+    // return_array.money = result[0]["money"];
+    // return_array.decisionType = Number(result[0]["decision_type"]);
+    // return_array.inventory = JSON.parse(result[0]["inventory"]);
+    // return_array.sellPrices = JSON.parse(result[0]["sell_prices"]);
+    // return_array.insuredCrops = JSON.parse(result[0]["insured_crops"]);
+    // return_array.consultant = result[0]["consultant"].split(",");
 
-    return return_array;
+    // return return_array;
   });
 };
 

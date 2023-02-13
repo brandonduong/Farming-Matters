@@ -144,10 +144,39 @@ export const Game = () => {
     }
   }, [accessToConsultant]);
 
-  // This effect will create a connection to the database once this component loads
+  // Temp function for dealy
+  function databaseDelay(i) {
+    setTimeout(function () {
+      // Add tasks to do
+    }, 9000);
+  }
+
+  // // This effect will create a connection to the database once this component loads
   useEffect(() => {
     createConnection();
-    // console.log(retrieveSavedGame());
+    //   console.log("1: ", new Date().toLocaleString());
+    //   setTimeout(() => {
+    //     console.log("2: ", new Date().toLocaleString());
+    //     let gameState = retrieveSavedGame();
+    //     console.log(gameState);
+    //   }, 5000);
+    //   // let connection;
+    //   // const databaseSetup = async () => {
+    //   //   connection = await createConnection();
+    //   //   console.log("Client: ", connection);
+    //   //   console.log("Client:  ", new Date().toLocaleString());
+    //   //   return connection;
+    //   // };
+    //   // databaseSetup().then((value) => {
+    //   //   console.log(value);
+    //   // });
+    //   // .then(() => {
+    //   //   console.log("test: ", connection);
+    //   //   // const gameState = retrieveSavedGame();
+    //   // console.log("Gamestate: ", retrieveSavedGame());
+    //   // });
+    //   // console.log("Client2:  ", new Date().toLocaleString());
+    //   // console.log(retrieveSavedGame());
   }, []);
 
   return (

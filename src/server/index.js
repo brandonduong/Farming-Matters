@@ -35,6 +35,13 @@ function checkAuth(req, res, next) {
 app.use("/private", checkAuth);
 /************************/
 
+// // Temp function for dealy
+// function databaseDelay(i) {
+//   setTimeout(function () {
+//     // Add tasks to do
+//   }, 20000);
+// }
+
 app.get("/private/connectToDatabase", (req, res) => {
   db = mysql.createConnection({
     host: "localhost",
@@ -42,6 +49,10 @@ app.get("/private/connectToDatabase", (req, res) => {
     password: "farming-matters",
     database: "testFarmingMatters",
   });
+  // // setTimeout(res.status(200).send(), 5000);
+  // console.log("1: ", new Date().toLocaleString());
+  // sleep(5000);
+  // console.log("2: ", new Date().toLocaleString());
   res.status(200).send();
 });
 
@@ -71,13 +82,19 @@ app.post("/private/saveGame", (req, res) => {
 });
 
 app.get("/private/loadGame", (req, res) => {
-  let userId = req.headers.userId;
+  let userId = req.headers.userid;
 
   // Only creates a user table if it does not exist in the database
-  let gameState = databaseOperations.saveGame(db, userId);
-  console.log(gameState);
+  async function waitQuery() {
+    let gameState = await databaseOperations.loadGame(db, userId);
 
-  res.status(200).send(gameState);
+    console.log(gameState);
+    res.status(200).send(gameState);
+  }
+  waitQuery();
+
+  // console.log("Game state: ", gameState);
+  // console.log("db:  ", new Date().toLocaleString());
 });
 
 //app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));
