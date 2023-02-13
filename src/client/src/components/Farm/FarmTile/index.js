@@ -26,11 +26,11 @@ const FarmTile = (props) => {
 
   const [plantedSeed, setPlantedSeed] = useState(0); // 0 if nothing is planted
   const [turnPlanted, setTurnPlanted] = useState(null); // null if nothing is planted
+  const [fertilizerAmount, setFertilizerAmount] = useState(0);
 
   function onClick(e) {
     e.stopPropagation();
     click(!clicked);
-    console.log(`clicked ${props.x} ${props.z}`);
     props.setClickedTile([props.x, props.z]);
 
     //Log data to the server
@@ -53,16 +53,6 @@ const FarmTile = (props) => {
       });
     }
   }, [plantedSeed]);
-
-  // Check whenever turn is ended
-  useEffect(() => {
-    if (
-      turnPlanted &&
-      props.turn - turnPlanted >= plants[plantedSeed].growthLength
-    ) {
-      console.log(`Plant at (${props.x}, ${props.z}) is done growing`);
-    }
-  }, [props.turn]);
 
   // Using a model component. The model is placed outside of the <mesh> so it's not clickable or hoverable
   const models = (
@@ -206,6 +196,8 @@ const FarmTile = (props) => {
                 setOwned={setOwned}
                 price={props.price}
                 inventoryState={props.inventoryState}
+                fertilizerAmount={fertilizerAmount}
+                setFertilizerAmount={setFertilizerAmount}
               />
             )}
         </Html>
