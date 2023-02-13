@@ -136,10 +136,11 @@
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 45px;
   padding: 10px 30px;
-  background-color: rgb(30, 194, 30);
-  color: white;
+  background-color: rgba(255, 255, 255);
+  color: black;
   font-size: large;
   z-index: 10;
+  
 }
 
 .shop-button:hover {
@@ -159,7 +160,7 @@
 
 .shop-component {
   position: relative;
-  background-color: rgb(30, 194, 30);
+  background-color: rgba(255, 255, 255, 0.65);
   color: green;
   height: 70%;
   width: 60%;
@@ -214,8 +215,8 @@
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 45px;
   padding: 10px 30px;
-  background-color: rgb(30, 194, 30);
-  color: white;
+  background-color: rgba(255, 255, 255);
+  color: black;
   font-size: large;
 }
 
@@ -223,12 +224,17 @@
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 45px;
   padding: 10px 30px;
-  background-color: rgb(30, 194, 30);
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: black;
   font-size: large;
 }
 
 .insurance-button{
   height: 40px;
   width: 100px;
+}
+
+
+.active{
+  background-color: darkseagreen;
 }
