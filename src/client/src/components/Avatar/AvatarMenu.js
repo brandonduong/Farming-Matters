@@ -40,7 +40,7 @@ return (
           
           {(!isOpened) && 
           <button type="button" className="general-avatar" onClick={()=> onMenuAccess()}  >  </button> }
-                {isMenuOpened ? 
+                {isMenuOpened && !isOpened ? 
                     <button className="avatar-menu" style={isOpened? {  visibility: "hidden"}: {  visibility: "visible"}}>
                         <div className="avatar-grid">
                             {avatarButtons}

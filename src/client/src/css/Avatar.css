@@ -156,9 +156,10 @@
     margin: auto auto;
   
     background-color: rgb(30, 194, 30);
-    ;
+    
     border: 1px solid #000;
     border-radius: 50px 50px 50px 0px;
+    margin-top: 15%;
   
   }
   
