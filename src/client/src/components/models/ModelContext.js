@@ -78,6 +78,13 @@ export function ModelProvider({ children }) {
   const well = useGLTF("3dmodels/well.glb");
   const wind = useGLTF("3dmodels/windmill.glb");
 
+  // Landscape
+  const tree1 = useGLTF("3dmodels/tree1.glb");
+  const tree2 = useGLTF("3dmodels/tree2.glb");
+  const tree3 = useGLTF("3dmodels/tree3.glb");
+  const flower1 = useGLTF("3dmodels/flower1.glb");
+  const flower2 = useGLTF("3dmodels/flower2.glb");
+
   const value = {
     tree,
     rice1,
@@ -122,6 +129,11 @@ export function ModelProvider({ children }) {
     silo,
     well,
     wind,
+    tree1,
+    tree2,
+    tree3,
+    flower1,
+    flower2,
   };
 
   return (

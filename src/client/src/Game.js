@@ -7,23 +7,27 @@ import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
 import React, { useState, useEffect, useNavigate } from "react";
 import { ModelProvider } from "./components/models/ModelContext";
-import { createConnection } from "./utils/connectionDb";
 import { BarnModel } from "./components/models/BarnModel";
 import { SiloModel } from "./components/models/SiloModel";
 import { CoopModel } from "./components/models/CoopModel";
 import { WindModel } from "./components/models/WindModel";
 import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
+import { TreeModel } from "./components/models/TreeModel";
+import { FlowerModel } from "./components/models/FlowerModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import { shopItemsList } from "./components/Shop/constants";
-import { generateNTurnPriceState } from "./components/GameLogic/Gamelogic";
+import {
+  generateNTurnPriceState,
+  GameLogic,
+} from "./components/GameLogic/Gamelogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
-import { GameLogic } from "./components/GameLogic/Gamelogic";
 import { SEASONS } from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
-import { saveGame, retrieveSavedGame } from "./utils/gameState";
+import { createConnection } from "./utils/connectionDb";
+import { saveGame } from "./utils/gameState";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -41,6 +45,8 @@ export const Game = () => {
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
   const [decisionType, setDecisionType] = useState(0);
+  const [landscape, setLandscape] = useState([]);
+  const [farmBuildings, setFarmBuildings] = useState([]);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
   const [insuredState, setInsuredState] = useState(insuredItems);
   const marketItems = [];
@@ -105,6 +111,12 @@ export const Game = () => {
   }, []);
 
   useEffect(() => {
+    setDecisionType(Math.round(Math.random()));
+    initializeLandscape();
+    initializeFarmBuildings();
+  }, []);
+
+  useEffect(() => {
     setAccessToConsultant(false);
     const isEventHappeningNextSeason =
       GameLogic.GenerateStatistics.getEventHappening();
@@ -116,7 +128,7 @@ export const Game = () => {
     if (isEventHappening) {
       logData("CatastrophicEvent", {
         turn: turn,
-        // event type not working
+        isEventHappeningNextSeason: isEventHappeningNextSeason,
         eventType: eventType,
       });
     }
@@ -143,13 +155,6 @@ export const Game = () => {
       setConsultantStatement("");
     }
   }, [accessToConsultant]);
-
-  // Temp function for dealy
-  function databaseDelay(i) {
-    setTimeout(function () {
-      // Add tasks to do
-    }, 9000);
-  }
 
   // // This effect will create a connection to the database once this component loads
   useEffect(() => {
@@ -178,6 +183,81 @@ export const Game = () => {
     //   // console.log("Client2:  ", new Date().toLocaleString());
     //   // console.log(retrieveSavedGame());
   }, []);
+
+  function randomXYCircle(maxRadius, minRadius) {
+    const r = maxRadius * Math.random() ** 0.5 + minRadius;
+    const theta = Math.random() * 2 * Math.PI;
+    return [r * Math.cos(theta), 0, r * Math.sin(theta)];
+  }
+
+  function initializeLandscape() {
+    const initial = [];
+    const treeNum = 100;
+
+    for (let i = 0; i < treeNum; i++) {
+      // Trees
+      initial.push(
+        <TreeModel
+          variant={Math.floor(Math.random() * 3)}
+          position={randomXYCircle(30, 11)}
+          key={`tree${i}`}
+          scale={Math.random() * 0.05 + 0.02}
+        />
+      );
+
+      // Flowers
+      initial.push(
+        <FlowerModel
+          variant={Math.floor(Math.random() * 2)}
+          position={randomXYCircle(30, 11)}
+          key={`flower${i}`}
+          scale={Math.random() * 0.03 + 0.02}
+        />
+      );
+    }
+
+    setLandscape(initial);
+  }
+
+  // Farm buildings
+  function initializeFarmBuildings() {
+    setFarmBuildings(
+      <>
+        <BarnModel position={[0, 0, -10]} />
+        <SiloModel position={[-6.9, 0, -8]} rotation={[0, Math.PI / 8, 0]} />
+        <CoopModel position={[-12, 0, -5]} rotation={[0, Math.PI / 4, 0]} />
+        <WindModel position={[6.5, 0, -7]} rotation={[0, -Math.PI / 8, 0]} />
+        <WellModel position={[7, 0, 7]} rotation={[0, -Math.PI / 4, 0]} />
+        <FenceModel position={[7.375, 0, 5]} />
+        <FenceModel
+          position={[9.875, 0, 2.625]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel
+          position={[9.875, 0, -2.625]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel position={[7.375, 0, -5]} />
+        <FenceModel position={[-7.375, 0, -5]} />
+        <FenceModel
+          position={[-9.875, 0, 2.625]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel
+          position={[-9.875, 0, -2.625]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel position={[-7.375, 0, 5]} />
+        <FenceModel
+          position={[-4.9, 0, 7.375]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <FenceModel position={[-2.625, 0, 9.875]} />
+        <FenceModel position={[2.625, 0, 9.875]} />
+        <FenceModel position={[4.9, 0, 7.375]} rotation={[0, Math.PI / 2, 0]} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -216,61 +296,14 @@ export const Game = () => {
                   setMoney={setMoney}
                 />
 
+                {farmBuildings}
+                {landscape}
                 {VisualGameLogic.generateVisualEnvironment(
                   turn,
                   season,
                   isEventHappening,
                   typeOfCatastrophicEvent
                 )}
-
-                {/* Farm Buildings*/}
-                <BarnModel position={[0, 0, -10]} />
-                <SiloModel
-                  position={[-6.9, 0, -8]}
-                  rotation={[0, Math.PI / 8, 0]}
-                />
-                <CoopModel
-                  position={[-12, 0, -5]}
-                  rotation={[0, Math.PI / 4, 0]}
-                />
-                <WindModel
-                  position={[6.5, 0, -7]}
-                  rotation={[0, -Math.PI / 8, 0]}
-                />
-                <WellModel
-                  position={[7, 0, 7]}
-                  rotation={[0, -Math.PI / 4, 0]}
-                />
-                <FenceModel position={[7.375, 0, 5]} />
-                <FenceModel
-                  position={[9.875, 0, 2.625]}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
-                <FenceModel
-                  position={[9.875, 0, -2.625]}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
-                <FenceModel position={[7.375, 0, -5]} />
-                <FenceModel position={[-7.375, 0, -5]} />
-                <FenceModel
-                  position={[-9.875, 0, 2.625]}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
-                <FenceModel
-                  position={[-9.875, 0, -2.625]}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
-                <FenceModel position={[-7.375, 0, 5]} />
-                <FenceModel
-                  position={[-4.9, 0, 7.375]}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
-                <FenceModel position={[-2.625, 0, 9.875]} />
-                <FenceModel position={[2.625, 0, 9.875]} />
-                <FenceModel
-                  position={[4.9, 0, 7.375]}
-                  rotation={[0, Math.PI / 2, 0]}
-                />
               </ModelProvider>
 
               <OrbitControls

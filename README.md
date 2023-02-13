@@ -1,10 +1,12 @@
 # Project Name
 
-Developer Names:
+Developer Names: Andrew Balmakund, Namit Chopra, Brandon Duong, Mohammad Harun, Mihail Serafimovski
 
-Date of project start:
+Date of project start: September 9th, 2022
 
-This project is ...
+Farming Matters aims to conduct survey research through an interactive and engaging activity. 
+This will further help understand genuine decisions from the users to help with the research of understanding
+risk-making decisions.
 
 The folders and files for this project are as follows:
 
