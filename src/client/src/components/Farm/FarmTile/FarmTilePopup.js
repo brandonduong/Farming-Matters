@@ -13,6 +13,7 @@ const FarmTilePopup = (props) => {
 
   function harvestPlant(plantName) {
     props.setPlantedSeed(0);
+    props.setFertilizerAmount(0);
     addItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
   }
