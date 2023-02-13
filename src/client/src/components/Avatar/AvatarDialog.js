@@ -17,13 +17,12 @@ const AvatarDialog = (props) =>{
     
     function purchaseConsultant(purchasePrice){
             return (
-                <div className="dialog">
-                    <div className="purchase-Consultant">
-                        <h3>Price: $ + {purchasePrice} </h3>
-                        <p>By purchasing advice from the consultant ...</p>
+                <div className="purchase-dialog">
+                    <div className="purchase-consultant">
+                        <h1>Price: $ {purchasePrice} </h1>
                         <div className="purchase-tip">
-                            <button type="button" onClick={() => props.purchaseConsultant()} disabled={!props.canPurchaseConsultant()}>Purchase</button>
-                            <button onClick={() => props.onExit()}>Close</button>
+                            <button type="button" className="purchase-button" onClick={() => props.purchaseConsultant()} disabled={!props.canPurchaseConsultant()}>Purchase</button>
+                            <button className="close-button" onClick={() => props.onExit()}>Close</button>
                         </div>
                     </div>
                 </div>
