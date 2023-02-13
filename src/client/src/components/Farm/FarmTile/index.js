@@ -26,6 +26,7 @@ const FarmTile = (props) => {
 
   const [plantedSeed, setPlantedSeed] = useState(0); // 0 if nothing is planted
   const [turnPlanted, setTurnPlanted] = useState(null); // null if nothing is planted
+  const [fertilizerAmount, setFertilizerAmount] = useState(0);
 
   function onClick(e) {
     e.stopPropagation();
@@ -195,6 +196,8 @@ const FarmTile = (props) => {
                 setOwned={setOwned}
                 price={props.price}
                 inventoryState={props.inventoryState}
+                fertilizerAmount={fertilizerAmount}
+                setFertilizerAmount={setFertilizerAmount}
               />
             )}
         </Html>

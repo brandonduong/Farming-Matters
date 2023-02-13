@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { plants } from "./constants";
 import { getItemCount, addItem, removeItem } from "../../Inventory";
 import { checkIfItemIsPlant } from "../../GameLogic/Gamelogic";
@@ -15,6 +15,11 @@ const FarmTilePopup = (props) => {
     props.setPlantedSeed(0);
     addItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
+  }
+
+  function applyFertilizer() {
+    props.setFertilizerAmount(props.fertilizerAmount + 1);
+    removeItem(props.inventoryState, "Fertilizer", 1);
   }
 
   function buyPlot() {
@@ -69,10 +74,12 @@ const FarmTilePopup = (props) => {
         </div>
         <div className="tile-popup-info-item">
           <h4 className="tile-popup-info-title">Day Complete: </h4>
-          {props.turnPlanted + plants[props.plantedSeed].growthLength}
+          {props.turnPlanted +
+            plants[props.plantedSeed].growthLength -
+            props.fertilizerAmount}
         </div>
-        {props.turn - props.turnPlanted >=
-          plants[props.plantedSeed].growthLength && (
+        {props.turn - props.turnPlanted + props.fertilizerAmount >=
+        plants[props.plantedSeed].growthLength ? (
           <button
             className="tile-popup-info-item"
             type="button"
@@ -80,6 +87,19 @@ const FarmTilePopup = (props) => {
           >
             <h4>Harvest</h4>
           </button>
+        ) : (
+          parseInt(getItemCount(props.inventoryState, "Fertilizer")) > 0 && (
+            <button
+              className="tile-popup-info-item"
+              type="button"
+              onClick={() => applyFertilizer()}
+            >
+              <h4>
+                Apply Fertilizer (
+                {parseInt(getItemCount(props.inventoryState, "Fertilizer"))})
+              </h4>
+            </button>
+          )
         )}
       </div>
     </div>
