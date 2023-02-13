@@ -1,15 +1,19 @@
 import React from "react";
 import { plants } from "./constants";
+import { getItemCount, addItem, removeItem } from "../../Inventory";
+import { checkIfItemIsPlant } from "../../GameLogic/Gamelogic";
 
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {
-  function onClick(seedNum) {
+  function onClick(seedNum, plantName) {
     props.setPlantedSeed(seedNum);
+    removeItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
   }
 
-  function harvestPlant() {
+  function harvestPlant(plantName) {
     props.setPlantedSeed(0);
+    addItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
   }
 
@@ -37,7 +41,7 @@ const FarmTilePopup = (props) => {
           <button
             className="tile-popup-button"
             type="button"
-            onClick={() => onClick(i)}
+            onClick={() => onClick(i, plants[i].name)}
             key={"plant" + i}
           >
             <h4>{plants[i].name}</h4>
@@ -67,7 +71,7 @@ const FarmTilePopup = (props) => {
           <button
             className="tile-popup-info-item"
             type="button"
-            onClick={() => harvestPlant()}
+            onClick={() => harvestPlant(plants[props.plantedSeed].name)}
           >
             <h4>Harvest</h4>
           </button>

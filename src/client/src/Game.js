@@ -1,13 +1,11 @@
-import Consultant from "./components/Consultant";
-import InfoHeader from "./components/InfoHeader";
 import "./css/App.css";
 import "./css/Inventory.css";
+import InfoHeader from "./components/InfoHeader";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
-import Inventory from "./components/Inventory";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useNavigate } from "react";
 import { ModelProvider } from "./components/models/ModelContext";
 import { BarnModel } from "./components/models/BarnModel";
 import { SiloModel } from "./components/models/SiloModel";
@@ -17,6 +15,20 @@ import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
 import { TreeModel } from "./components/models/TreeModel";
 import { FlowerModel } from "./components/models/FlowerModel";
+import InventoryRender from "./components/Inventory/InventoryRender";
+import { shopItemsList } from "./components/Shop/constants";
+import { generateNTurnPriceState } from "./components/GameLogic/Gamelogic";
+import { itemFluctuation } from "./components/GameLogic/constants";
+import AvatarMenu from "./components/Avatar/AvatarMenu";
+import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
+import { GameLogic } from "./components/GameLogic/Gamelogic";
+import { SEASONS } from "./components/GameLogic/constants";
+import { logData } from "./utils/logData";
+
+const globalInventoryState = {};
+const insuredItems = {};
+export const globalInventoryContext = React.createContext({});
+// export const globalInsuredContext = React.createContext();
 
 /**
  * Contains all of the game logic and graphics related code.
@@ -31,13 +43,101 @@ export const Game = () => {
   const [decisionType, setDecisionType] = useState(0);
   const [landscape, setLandscape] = useState([]);
   const [farmBuildings, setFarmBuildings] = useState([]);
+  const [inventoryState, setInventoryState] = useState(globalInventoryState);
+  const [insuredState, setInsuredState] = useState(insuredItems);
+  const marketItems = [];
+  const [accessToConsultant, setAccessToConsultant] = useState(false);
+  const [consultantStatement, setConsultantStatement] = useState("");
+  const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
+  const [isEventHappening, setIsEventHappening] = useState(false);
+  const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
+
+  for (let i = 1; i < shopItemsList.length; i++) {
+    marketItems.push(shopItemsList[i]);
+  }
+  let nTurnItemPrices = generateNTurnPriceState(
+    10,
+    itemFluctuation,
+    marketItems
+  );
+  const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
+
+  // constructor for inventory
+  let getNames = {};
+  let getNamesInsurance = {};
+  for (let i = 0; i < marketItems.length; i++) {
+    let currentName = marketItems[i].name;
+    getNames[currentName] = 0;
+    getNamesInsurance[currentName] = 0;
+  }
+
+  let currentPrices = [];
+  for (let i = 0; i < marketItems.length; i++) {
+    let itemInfo = {};
+    const currItemName = marketItems[i].name;
+    let currItemPrice = marketItems[i].price;
+    itemInfo[currItemName] = currItemPrice;
+    currentPrices.push(itemInfo);
+  }
+
+  useEffect(() => {
+    setInventoryState(getNames);
+  }, []);
+
+  useEffect(() => {
+    setInsuredState(getNamesInsurance);
+  }, []);
 
   // This useEffect hook performs all operations needed on page load
+  useEffect(() => {
+    setDecisionType(Math.round(Math.random()));
+  }, []);
+
   useEffect(() => {
     setDecisionType(Math.round(Math.random()));
     initializeLandscape();
     initializeFarmBuildings();
   }, []);
+
+  useEffect(() => {
+    setAccessToConsultant(false);
+    const isEventHappeningNextSeason =
+      GameLogic.GenerateStatistics.getEventHappening();
+    setIsEventHappening(isEventHappeningNextSeason);
+    const eventType = setTypeOfCatastrophicEvent(
+      GameLogic.GenerateStatistics.getEventType()
+    );
+
+    if (isEventHappening) {
+      logData("CatastrophicEvent", {
+        turn: turn,
+        isEventHappeningNextSeason: isEventHappeningNextSeason,
+        eventType: eventType,
+      });
+    }
+  }, [season]);
+
+  useEffect(() => {
+    if (accessToConsultant) {
+      console.log(allTurnPrices);
+      const statement =
+        GameLogic.GenerateStatistics.generateConsultantStatement(
+          decisionType,
+          turn,
+          allTurnPrices,
+          SEASONS,
+          season
+        );
+      setConsultantStatement(statement);
+      logData("ConsultantAdvice", {
+        turn: turn,
+        statement: statement,
+        isEventHappeningNextSeason: isEventHappening,
+      });
+    } else {
+      setConsultantStatement("");
+    }
+  }, [accessToConsultant]);
 
   function randomXYCircle(maxRadius, minRadius) {
     const r = maxRadius * Math.random() ** 0.5 + minRadius;
@@ -116,54 +216,86 @@ export const Game = () => {
 
   return (
     <>
-      <InfoHeader
-        user={user}
-        money={money}
-        season={season}
-        turn={turn}
-        setSeason={setSeason}
-        setTurn={setTurn}
-      />
-      <div className="canvas-container">
-        <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
-          <ambientLight intensity={1} />
-          <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
-          <pointLight position={[-10, -10, -10]} />
-
-          <ModelProvider>
-            {/* Blue sky */}
-            <Sky distance={50} sunPosition={[10, 12, 0]} />
-
-            <FarmGrid
-              position={[0, 0, 0]}
-              turn={turn}
-              money={money}
-              setMoney={setMoney}
-            />
-
-            {farmBuildings}
-            {landscape}
-          </ModelProvider>
-
-          <OrbitControls
-            target={[0, 0, 0]}
-            maxPolarAngle={Math.PI / 3.5}
-            maxDistance={13}
-            screenSpacePanning={false}
+      {
+        <globalInventoryContext.Provider
+          value={{
+            inventoryState,
+            setInventoryState,
+            insuredState,
+            setInsuredState,
+            turn,
+          }}
+        >
+          <InfoHeader
+            user={user}
+            money={money}
+            season={season}
+            turn={turn}
+            setSeason={setSeason}
+            setTurn={setTurn}
           />
-        </Canvas>
-      </div>
-      <InfoHeader
-        user={user}
-        money={money}
-        season={season}
-        turn={turn}
-        setSeason={setSeason}
-        setTurn={setTurn}
-      />
-      <Consultant decisionType={decisionType} />
-      <Inventory />
-      <Shop money={money} setMoney={setMoney} />
+          <div className="canvas-container">
+            <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
+              <ambientLight intensity={1} />
+              <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
+              <pointLight position={[-10, -10, -10]} />
+
+              <ModelProvider>
+                {/* Blue sky */}
+                <Sky distance={50} sunPosition={[10, 12, 0]} />
+
+                <FarmGrid
+                  position={[0, 0, 0]}
+                  turn={turn}
+                  money={money}
+                  setMoney={setMoney}
+                />
+
+                {farmBuildings}
+                {landscape}
+                {VisualGameLogic.generateVisualEnvironment(
+                  turn,
+                  season,
+                  isEventHappening,
+                  typeOfCatastrophicEvent
+                )}
+              </ModelProvider>
+
+              <OrbitControls
+                target={[0, 0, 0]}
+                maxPolarAngle={Math.PI / 3.5}
+                maxDistance={13}
+                screenSpacePanning={false}
+              />
+            </Canvas>
+          </div>
+          <InfoHeader
+            user={user}
+            money={money}
+            season={season}
+            turn={turn}
+            setSeason={setSeason}
+            setTurn={setTurn}
+          />
+
+          <AvatarMenu
+            accessToConsultant={accessToConsultant}
+            setAccessToConsultant={setAccessToConsultant}
+            money={money}
+            setMoney={setMoney}
+            consultantStatement={consultantStatement}
+          />
+
+          <InventoryRender marketItems={marketItems} />
+          <Shop
+            money={money}
+            setMoney={setMoney}
+            turn={turn}
+            allTurnPrices={allTurnPrices}
+            marketItems={marketItems}
+          ></Shop>
+        </globalInventoryContext.Provider>
+      }
     </>
   );
 };
