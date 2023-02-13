@@ -15,11 +15,10 @@ import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import {shopItemsList} from "./components/Shop/constants";
-import { generateNTurnPriceState }  from "./components/GameLogic/Gamelogic";
+import { generateNTurnPriceState, GameLogic }  from "./components/GameLogic/Gamelogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from './components/Avatar/AvatarMenu';
 import {VisualGameLogic} from './components/GameLogic/VisualGameLogic';
-import {GameLogic} from './components/GameLogic/Gamelogic';
 import {SEASONS} from './components/GameLogic/constants'
 import { logData } from "./utils/logData";
 
