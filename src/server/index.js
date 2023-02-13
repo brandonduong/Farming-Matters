@@ -18,7 +18,7 @@ app.use(express.json());
 /* Auth */
 function checkAuth(req, res, next) {
   if (req.headers.authtoken) {
-    console.log(req.headers.authtoken);
+    // console.log(req.headers.authtoken);
     auth
       .verifyIdToken(req.headers.authtoken)
       .then(() => {
@@ -58,6 +58,26 @@ app.post("/private/actions", (req, res) => {
   databaseOperations.logData(db, userId, JSON.stringify(action));
 
   res.status(200).send();
+});
+
+app.post("/private/saveGame", (req, res) => {
+  let userId = req.body.userId;
+  let data = req.body.gameData;
+
+  // Only creates a user table if it does not exist in the database
+  databaseOperations.saveGame(db, userId, data);
+
+  res.status(200).send();
+});
+
+app.get("/private/loadGame", (req, res) => {
+  let userId = req.headers.userId;
+
+  // Only creates a user table if it does not exist in the database
+  let gameState = databaseOperations.saveGame(db, userId);
+  console.log(gameState);
+
+  res.status(200).send(gameState);
 });
 
 //app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));

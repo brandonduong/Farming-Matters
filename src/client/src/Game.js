@@ -15,14 +15,15 @@ import { WindModel } from "./components/models/WindModel";
 import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
-import {shopItemsList} from "./components/Shop/constants";
-import { generateNTurnPriceState }  from "./components/GameLogic/Gamelogic";
+import { shopItemsList } from "./components/Shop/constants";
+import { generateNTurnPriceState } from "./components/GameLogic/Gamelogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
-import AvatarMenu from './components/Avatar/AvatarMenu';
-import {VisualGameLogic} from './components/GameLogic/VisualGameLogic';
-import {GameLogic} from './components/GameLogic/Gamelogic';
-import {SEASONS} from './components/GameLogic/constants'
+import AvatarMenu from "./components/Avatar/AvatarMenu";
+import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
+import { GameLogic } from "./components/GameLogic/Gamelogic";
+import { SEASONS } from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
+import { saveGame, retrieveSavedGame } from "./utils/gameState";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -49,192 +50,235 @@ export const Game = () => {
   const [isEventHappening, setIsEventHappening] = useState(false);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
 
-  for (let i = 1; i < shopItemsList.length; i++){
+  for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
   }
-  let nTurnItemPrices = generateNTurnPriceState(10,itemFluctuation, marketItems);
+  let nTurnItemPrices = generateNTurnPriceState(
+    10,
+    itemFluctuation,
+    marketItems
+  );
   const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
 
   // constructor for inventory
   let getNames = {};
   let getNamesInsurance = {};
-  for (let i = 0; i < marketItems.length; i++){
+  for (let i = 0; i < marketItems.length; i++) {
     let currentName = marketItems[i].name;
-    getNames[currentName]=0;   
-    getNamesInsurance[currentName]=0; 
+    getNames[currentName] = 0;
+    getNamesInsurance[currentName] = 0;
   }
 
-  let currentPrices = []
-  for (let i = 0; i < marketItems.length; i++){
-    let itemInfo = {}
+  let currentPrices = [];
+  for (let i = 0; i < marketItems.length; i++) {
+    let itemInfo = {};
     const currItemName = marketItems[i].name;
     let currItemPrice = marketItems[i].price;
     itemInfo[currItemName] = currItemPrice;
     currentPrices.push(itemInfo);
   }
 
+  useEffect(() => {
+    saveGame({
+      turn: turn,
+      season: season,
+      money: money,
+      decisionType: decisionType,
+      inventory: inventoryState,
+      insuredCrops: insuredState,
+      sellPrices: allTurnPrices[turn],
+      consultant: [accessToConsultant, consultantStatement],
+    });
+  }, [turn]);
 
-  useEffect( () => {
-    setInventoryState(
-      getNames
-    )
-  },[]);
+  useEffect(() => {
+    setInventoryState(getNames);
+  }, []);
 
-  useEffect(() => {   
-    setInsuredState(
-      getNamesInsurance
-  )}, []);
+  useEffect(() => {
+    setInsuredState(getNamesInsurance);
+  }, []);
 
-    // This useEffect hook performs all operations needed on page load
-    useEffect(() => {
-      setDecisionType(Math.round(Math.random()));
-    }, [])
-    ; 
+  // This useEffect hook performs all operations needed on page load
+  useEffect(() => {
+    setDecisionType(Math.round(Math.random()));
+  }, []);
 
   useEffect(() => {
     setAccessToConsultant(false);
-    const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
+    const isEventHappeningNextSeason =
+      GameLogic.GenerateStatistics.getEventHappening();
     setIsEventHappening(isEventHappeningNextSeason);
-    const eventType = setTypeOfCatastrophicEvent(GameLogic.GenerateStatistics.getEventType());
-    
-    if (isEventHappening){
+    const eventType = setTypeOfCatastrophicEvent(
+      GameLogic.GenerateStatistics.getEventType()
+    );
+
+    if (isEventHappening) {
       logData("CatastrophicEvent", {
-          turn: turn,
-          isEventHappeningNextSeason: isEventHappeningNextSeason, 
-          eventType: eventType
-        });
-  }
-  
-  },[season]);
-    
-  useEffect(()=>{
-    if (accessToConsultant){
+        turn: turn,
+        // event type not working
+        eventType: eventType,
+      });
+    }
+  }, [season]);
+
+  useEffect(() => {
+    if (accessToConsultant) {
       console.log(allTurnPrices);
-      const statement = GameLogic.GenerateStatistics.generateConsultantStatement(decisionType, turn, allTurnPrices, SEASONS, season);
+      const statement =
+        GameLogic.GenerateStatistics.generateConsultantStatement(
+          decisionType,
+          turn,
+          allTurnPrices,
+          SEASONS,
+          season
+        );
       setConsultantStatement(statement);
       logData("ConsultantAdvice", {
         turn: turn,
         statement: statement,
-        isEventHappeningNextSeason: isEventHappening
+        isEventHappeningNextSeason: isEventHappening,
       });
-
-    }else{
+    } else {
       setConsultantStatement("");
     }
-    }, [accessToConsultant]
-  );
-
+  }, [accessToConsultant]);
 
   // This effect will create a connection to the database once this component loads
   useEffect(() => {
     createConnection();
+    // console.log(retrieveSavedGame());
   }, []);
 
   return (
     <>
-    { <globalInventoryContext.Provider value={{inventoryState,setInventoryState,insuredState,setInsuredState, turn}}>
-      <InfoHeader
-        user={user}
-        money={money}
-        season={season}
-        turn={turn}
-        setSeason={setSeason}
-        setTurn={setTurn}
-      />
-      <div className="canvas-container">
-        <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
-          <ambientLight intensity={1} />
-          <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
-          <pointLight position={[-10, -10, -10]} />
-
-          <ModelProvider>
-            {/* Blue sky */}
-            <Sky distance={50} sunPosition={[10, 12, 0]} />
-
-      
-
-            <FarmGrid
-              position={[0, 0, 0]}
-              turn={turn}
-              money={money}
-              setMoney={setMoney}
-            />
-
-          {VisualGameLogic.generateVisualEnvironment(turn, season, isEventHappening, typeOfCatastrophicEvent)}
-
-            {/* Farm Buildings*/}
-            <BarnModel position={[0, 0, -10]} />
-            <SiloModel
-              position={[-6.9, 0, -8]}
-              rotation={[0, Math.PI / 8, 0]}
-            />
-            <CoopModel position={[-12, 0, -5]} rotation={[0, Math.PI / 4, 0]} />
-            <WindModel
-              position={[6.5, 0, -7]}
-              rotation={[0, -Math.PI / 8, 0]}
-            />
-            <WellModel position={[7, 0, 7]} rotation={[0, -Math.PI / 4, 0]} />
-            <FenceModel position={[7.375, 0, 5]} />
-            <FenceModel
-              position={[9.875, 0, 2.625]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel
-              position={[9.875, 0, -2.625]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel position={[7.375, 0, -5]} />
-            <FenceModel position={[-7.375, 0, -5]} />
-            <FenceModel
-              position={[-9.875, 0, 2.625]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel
-              position={[-9.875, 0, -2.625]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel position={[-7.375, 0, 5]} />
-            <FenceModel
-              position={[-4.9, 0, 7.375]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-            <FenceModel position={[-2.625, 0, 9.875]} />
-            <FenceModel position={[2.625, 0, 9.875]} />
-            <FenceModel
-              position={[4.9, 0, 7.375]}
-              rotation={[0, Math.PI / 2, 0]}
-            />
-          </ModelProvider>
-
-          <OrbitControls
-            target={[0, 0, 0]}
-            maxPolarAngle={Math.PI / 3.5}
-            maxDistance={13}
-            screenSpacePanning={false}
+      {
+        <globalInventoryContext.Provider
+          value={{
+            inventoryState,
+            setInventoryState,
+            insuredState,
+            setInsuredState,
+            turn,
+          }}
+        >
+          <InfoHeader
+            user={user}
+            money={money}
+            season={season}
+            turn={turn}
+            setSeason={setSeason}
+            setTurn={setTurn}
           />
-        </Canvas>
-      </div>
-      <InfoHeader
-        user={user}
-        money={money}
-        season={season}
-        turn={turn}
-        setSeason={setSeason}
-        setTurn={setTurn}
-      />
+          <div className="canvas-container">
+            <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
+              <ambientLight intensity={1} />
+              <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
+              <pointLight position={[-10, -10, -10]} />
 
-       <AvatarMenu 
-        accessToConsultant={accessToConsultant} 
-        setAccessToConsultant={setAccessToConsultant} 
-        money={money} 
-        setMoney={setMoney}  
-        consultantStatement={consultantStatement}
-      />
+              <ModelProvider>
+                {/* Blue sky */}
+                <Sky distance={50} sunPosition={[10, 12, 0]} />
 
+                <FarmGrid
+                  position={[0, 0, 0]}
+                  turn={turn}
+                  money={money}
+                  setMoney={setMoney}
+                />
+
+                {VisualGameLogic.generateVisualEnvironment(
+                  turn,
+                  season,
+                  isEventHappening,
+                  typeOfCatastrophicEvent
+                )}
+
+                {/* Farm Buildings*/}
+                <BarnModel position={[0, 0, -10]} />
+                <SiloModel
+                  position={[-6.9, 0, -8]}
+                  rotation={[0, Math.PI / 8, 0]}
+                />
+                <CoopModel
+                  position={[-12, 0, -5]}
+                  rotation={[0, Math.PI / 4, 0]}
+                />
+                <WindModel
+                  position={[6.5, 0, -7]}
+                  rotation={[0, -Math.PI / 8, 0]}
+                />
+                <WellModel
+                  position={[7, 0, 7]}
+                  rotation={[0, -Math.PI / 4, 0]}
+                />
+                <FenceModel position={[7.375, 0, 5]} />
+                <FenceModel
+                  position={[9.875, 0, 2.625]}
+                  rotation={[0, Math.PI / 2, 0]}
+                />
+                <FenceModel
+                  position={[9.875, 0, -2.625]}
+                  rotation={[0, Math.PI / 2, 0]}
+                />
+                <FenceModel position={[7.375, 0, -5]} />
+                <FenceModel position={[-7.375, 0, -5]} />
+                <FenceModel
+                  position={[-9.875, 0, 2.625]}
+                  rotation={[0, Math.PI / 2, 0]}
+                />
+                <FenceModel
+                  position={[-9.875, 0, -2.625]}
+                  rotation={[0, Math.PI / 2, 0]}
+                />
+                <FenceModel position={[-7.375, 0, 5]} />
+                <FenceModel
+                  position={[-4.9, 0, 7.375]}
+                  rotation={[0, Math.PI / 2, 0]}
+                />
+                <FenceModel position={[-2.625, 0, 9.875]} />
+                <FenceModel position={[2.625, 0, 9.875]} />
+                <FenceModel
+                  position={[4.9, 0, 7.375]}
+                  rotation={[0, Math.PI / 2, 0]}
+                />
+              </ModelProvider>
+
+              <OrbitControls
+                target={[0, 0, 0]}
+                maxPolarAngle={Math.PI / 3.5}
+                maxDistance={13}
+                screenSpacePanning={false}
+              />
+            </Canvas>
+          </div>
+          <InfoHeader
+            user={user}
+            money={money}
+            season={season}
+            turn={turn}
+            setSeason={setSeason}
+            setTurn={setTurn}
+          />
+
+          <AvatarMenu
+            accessToConsultant={accessToConsultant}
+            setAccessToConsultant={setAccessToConsultant}
+            money={money}
+            setMoney={setMoney}
+            consultantStatement={consultantStatement}
+          />
 
           <InventoryRender marketItems={marketItems} />
-          <Shop money={money} setMoney={setMoney} turn={turn} allTurnPrices={allTurnPrices} marketItems={marketItems} ></Shop>
-      </globalInventoryContext.Provider> } 
+          <Shop
+            money={money}
+            setMoney={setMoney}
+            turn={turn}
+            allTurnPrices={allTurnPrices}
+            marketItems={marketItems}
+          ></Shop>
+        </globalInventoryContext.Provider>
+      }
     </>
   );
 };

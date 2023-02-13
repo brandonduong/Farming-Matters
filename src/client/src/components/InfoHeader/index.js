@@ -18,7 +18,9 @@ const InfoHeader = (props) => {
       <div className="info-header-item">
         <SignOutButton />
       </div>
-      <div className="money info-header-item">${props.money}</div>
+      <div className="money info-header-item">
+        ${parseFloat(props.money).toFixed(2)}
+      </div>
       <div className="season info-header-item">{props.season}</div>
       <div className="info-header-item">
         Day:&nbsp;<div className="info-header-item-value">{props.turn}</div>
