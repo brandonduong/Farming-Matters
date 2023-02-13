@@ -24,7 +24,7 @@
     width: 75px;
     height: 350px;
   
-    background-color: rgb(30, 194, 0.75);
+    background-color: rgba(255, 255, 255, 0.65);
     border: 1px solid #000;
     border-radius: 25px;
     margin-left: 0%;
@@ -71,7 +71,7 @@
   
   .general-avatar{
     background: url('./img/general-avatar.png');
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.65);
     margin: 15px auto;
     cursor: pointer;
     width: 70px;
@@ -98,7 +98,7 @@
     width: 50%;
     height: 400px;
     margin: auto auto;
-    background-color: rgb(59 123 181);
+    background-color: rgba(255, 255, 255, 0.65);
     border: 1px solid #000;
     border-radius: 50px 50px 50px 0px;
     margin-top: 15%;
@@ -238,7 +238,7 @@
   
     margin: auto auto;
   
-    background-color: rgb(30, 194, 30);
+    background-color: rgba(255, 255, 255, 0.65);
     
     border: 1px solid #000;
     border-radius: 50px 50px 50px 0px;

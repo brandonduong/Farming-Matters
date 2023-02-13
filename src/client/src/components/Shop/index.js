@@ -81,10 +81,10 @@ const Shop = (props) => {
             Close
           </button>
           <div className="shop">
-          <button type="button" className="buy-button" onClick={displayBuy}>
+          <button type="button"  className={"buy-button"  + (showBuy ? " active" : "")}  onClick={displayBuy}>
             Buy
           </button>
-          <button type="button" className="sell-button" onClick={displaySell}>
+          <button type="button" className={"sell-button" +  (showSell ? " active" : "")} onClick={displaySell}>
             Sell
           </button>
             <div className="shop-component">
