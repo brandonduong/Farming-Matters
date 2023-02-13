@@ -61,84 +61,84 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 1}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <CarrotModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 2}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <OrangeModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 3}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <LettuceModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 4}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <TomatoModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 5}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <WatermelonModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 6}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <WheatModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 7}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <PumpkinModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 8}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <BeetModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 9}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <BerryModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 10}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <MushroomModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 11}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <WinterModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 12}
-        stage={props.turn - turnPlanted}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
     </>
   );
@@ -147,7 +147,7 @@ const FarmTile = (props) => {
     <>
       {models}
       {plantedSeed &&
-      props.turn - turnPlanted >= plants[plantedSeed].growthLength ? (
+      props.turn - turnPlanted + fertilizerAmount >= plants[plantedSeed].growthLength ? (
         <Sparkles size={3} position={position} scale={0.75} />
       ) : (
         <></>
