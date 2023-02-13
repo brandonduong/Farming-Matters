@@ -33,21 +33,26 @@ const FarmTilePopup = (props) => {
       plants[i].plantableSeasons &&
       plants[i].plantableSeasons.includes(season)
     ) {
-      plantButtons.push(
-        <div
-          className="tile-popup-info-item tile-popup-button-item"
-          key={"plantdiv" + i}
-        >
-          <button
-            className="tile-popup-button"
-            type="button"
-            onClick={() => onClick(i, plants[i].name)}
-            key={"plant" + i}
+      let hasEnough =
+        parseInt(getItemCount(props.inventoryState, plants[i].name)) > 0;
+      let isPlant = checkIfItemIsPlant(plants[i].name, plants);
+      if (hasEnough && isPlant) {
+        plantButtons.push(
+          <div
+            className="tile-popup-info-item tile-popup-button-item"
+            key={"plantdiv" + i}
           >
-            <h4>{plants[i].name}</h4>
-          </button>
-        </div>
-      );
+            <button
+              className="tile-popup-button"
+              type="button"
+              onClick={() => onClick(i, plants[i].name)}
+              key={"plant" + i}
+            >
+              <h4>{plants[i].name}</h4>
+            </button>
+          </div>
+        );
+      }
     }
   }
 
