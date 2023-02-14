@@ -7,8 +7,7 @@ const SEASON_COLORS = ["#a67a47", "#a1a09f", "#7efc5b", "#77c761"]; // Fall, Win
 
 function FarmGrid(props) {
   // This reference gives us direct access to the THREE.Mesh object
-  let {inventoryState}  = React.useContext(globalInventoryContext);
-
+  let { inventoryState } = React.useContext(globalInventoryContext);
 
   const [clickedTile, setClickedTile] = useState(null);
   const gridTiles = [];

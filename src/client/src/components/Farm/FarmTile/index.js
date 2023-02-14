@@ -38,6 +38,7 @@ const FarmTile = (props) => {
       x: props.x,
       z: props.z,
     });
+    console.log(owned);
   }
 
   // Log when a seed is planted

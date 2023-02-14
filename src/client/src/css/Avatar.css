@@ -1,286 +1,272 @@
 .avatar-overlay {
-    display: grid;
-    grid-template-columns: 2r;
-    grid-template-rows: auto;
-    position: absolute;
-    top: 15%;
-    width: 15%;
-    justify-content: center;
-    
-  }
-  
-  .avatar-overlay-dialog {
-    display: grid;
-    position: relative;
-    top: 0%;
-    width: 100%;
-  }
-  
-  .avatar-grid {
-    display: grid;
-    grid-template-columns: 2fr;
-    grid-template-rows: auto;
-  
-    width: 75px;
-    height: 350px;
-  
-    background-color: rgba(255, 255, 255, 0.65);
-    border: 1px solid #000;
-    border-radius: 25px;
-    margin-left: 0%;
-    margin-top: 15%;
-  
-    opacity: 0; /* here */
-    min-width: 160px;
-    z-index: 1;
-    transition: all 0.05s ease-in; /* here */
-    transform: translateY(-50px);
-  
-    background-color: rgba(255, 255, 255, 0.65);
-  }
-  
-  .avatar {
-    width: 50px;
-    height: 50px;
-  
-    padding: 5px;
-  
-    margin: 15% auto;
-    border: 1px solid #000;
-    border-radius: 100%;
-  
-  }
-  .avatar-menu{
-    width: fit-content;
-    height: fit-content;
-    background-color: transparent;
-    border-color: transparent;  
+  display: grid;
+  grid-template-columns: 2r;
+  grid-template-rows: auto;
+  position: absolute;
+  top: 15%;
+  width: 15%;
+  justify-content: center;
+}
 
-    margin-top: -10%;
-  }
-  .avatar-selected {
-    background-color: rgb(0, 0, 0, 0.4);
-    z-index: 1;
-    border-radius: 25px;
-  }
-  
-  .avatar-mini-name {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .general-avatar{
-    background: url('./img/general-avatar.png');
-    background-color: rgba(255, 255, 255, 0.65);
-    margin: 15px auto;
-    cursor: pointer;
-    width: 70px;
-    height: 70px;
-    background-size: contain;
-    border: 1px solid #000;
-    border-radius: 100%;
-  }
+.avatar-overlay-dialog {
+  display: grid;
+  position: relative;
+  top: 0%;
+  width: 100%;
+}
 
-  .purchase-consultant{
-    display: grid;
-    grid-template-columns: 2r;
-    grid-template-rows: auto;
-    justify-content: center;
+.avatar-grid {
+  display: grid;
+  grid-template-columns: 2fr;
+  grid-template-rows: auto;
 
-  }
+  width: 75px;
+  height: 350px;
 
-  .purchase-dialog{
-    display: grid;
-    position: relative;
-    top: -50%;
-    grid-template-columns: auto;
-    /* grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr; */
-    width: 50%;
-    height: 400px;
-    margin: auto auto;
-    background-color: rgba(255, 255, 255, 0.65);
-    border: 1px solid #000;
-    border-radius: 50px 50px 50px 0px;
-    margin-top: 15%;
-    justify-content: center;
-  }
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 1px solid #000;
+  border-radius: 25px;
+  margin-left: 0%;
+  margin-top: 15%;
 
-  .purchase-consultant > h1{
-    padding: 0;
-    /* margin-top: 50px; */
-    padding: 0 0 0 0;
-    height: 0;
-    font-size: 3em;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin-top: 50%;
-  }
+  opacity: 0; /* here */
+  min-width: 160px;
+  z-index: 1;
+  transition: all 0.05s ease-in; /* here */
+  transform: translateY(-50px);
 
-  .purchase-button{
+  background-color: rgba(255, 255, 255, 0.65);
+}
 
-    border: 1px solid rgba(255, 255, 255, 0);
-    border-radius: 45px;
-    padding: 0;
-    background-color: rgb(30, 194, 30);
-    color: white;
-    font-size: large;
-    align-self: end;
-    justify-self: start;
-    margin: 10px;
+.avatar {
+  width: 50px;
+  height: 50px;
 
-    width: 120px;
-    height: 60px;
-  } 
+  padding: 5px;
 
-  .purchase-button:hover {
-    background-color: rgb(64, 130, 42);
-  }
+  margin: 15% auto;
+  border: 1px solid #000;
+  border-radius: 100%;
+}
+.avatar-menu {
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  border-color: transparent;
 
-  .close-button{
+  margin-top: -10%;
+}
+.avatar-selected {
+  background-color: rgb(0, 0, 0, 0.4);
+  z-index: 1;
+  border-radius: 25px;
+}
 
-    border: 1px solid rgba(255, 255, 255, 0);
-    border-radius: 45px;
-    padding: 0;
-    background-color: rgb(219, 28, 28);
-    color: white;
-    font-size: large;
-    align-self: end;
-    justify-self: start;
-    margin: 10px;
+.avatar-mini-name {
+  font-size: 18px;
+  font-weight: bold;
+}
 
-    width: 120px;
-    height: 60px;
-  } 
-  .close-button:hover{
-    background-color: rgba(74, 23, 23, 0.855);
-  
-  } 
+.general-avatar {
+  background: url("./img/general-avatar.png");
+  background-color: rgba(255, 255, 255, 0.65);
+  margin: 15px auto;
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  background-size: contain;
+  border: 1px solid #000;
+  border-radius: 100%;
+}
 
+.purchase-consultant {
+  display: grid;
+  grid-template-columns: 2r;
+  grid-template-rows: auto;
+  justify-content: center;
+}
 
-   .avatar-grid {
-      transform: translateY(0); /* here */
-      opacity: 1; /* here */
-      cursor: auto;
-    }
-    
-  
-    @keyframes rotateY {
-      0% {
-        opacity: 0;
-        transform: scaleY(0);
-      }
-      50% {
-        transform: scaleY(1.1);
-      }
-      100% {
-        opacity: 1;
-        transform: scaleY(1);
-      }
-    }
-    
-  .avatar-item-0{
-    transform-origin: top center;
-    animation: rotateY 500ms 0ms ease-in-out forwards
+.purchase-dialog {
+  display: grid;
+  position: relative;
+  top: -50%;
+  grid-template-columns: auto;
+  /* grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr; */
+  width: 50%;
+  height: 400px;
+  margin: auto auto;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 1px solid #000;
+  border-radius: 50px 50px 50px 0px;
+  margin-top: 15%;
+  justify-content: center;
+}
+
+.purchase-consultant > h1 {
+  padding: 0;
+  /* margin-top: 50px; */
+  padding: 0 0 0 0;
+  height: 0;
+  font-size: 3em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-top: 50%;
+}
+
+.purchase-button {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 0;
+  background-color: rgb(30, 194, 30);
+  color: white;
+  font-size: large;
+  align-self: end;
+  justify-self: start;
+  margin: 10px;
+
+  width: 120px;
+  height: 60px;
+}
+
+.purchase-button:hover {
+  background-color: rgb(64, 130, 42);
+}
+
+.close-button {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 0;
+  background-color: rgb(219, 28, 28);
+  color: white;
+  font-size: large;
+  align-self: end;
+  justify-self: start;
+  margin: 10px;
+
+  width: 120px;
+  height: 60px;
+}
+.close-button:hover {
+  background-color: rgba(74, 23, 23, 0.855);
+}
+
+.avatar-grid {
+  transform: translateY(0); /* here */
+  opacity: 1; /* here */
+  cursor: auto;
+}
+
+@keyframes rotateY {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
   }
-  .avatar-item-1{
-    transform-origin: top center;
-    animation: rotateY 750ms 0ms ease-in-out forwards
+  50% {
+    transform: scaleY(1.1);
   }
-  .avatar-item-2{
-    transform-origin: top center;
-    animation: rotateY 1000ms 0ms ease-in-out forwards
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
   }
-  
-  .avatar-0 {
-    background: url('./img/icons8-administrator-94.png');
-    background-size: 50px 50px;
-    background-color: #fff;
-    margin: 15px auto;
-  
-  }
-  
-  .avatar-1 {
-    background: url('./img/icons8-account-96.png');
-    background-size: 50px 50px;
-    background-color: #fff;
-    margin: 15px auto;
-  
-  }
-  
-  .avatar-2 {
-    background: url('./img/icons8-user-female-skin-type-4-80.png');
-    background-size: 50px 50px;
-    background-color: #fff;
-    margin: 15px auto;
-  
-  }
-  
-  .dialog-background {
-    position: absolute;
-    top: 0px;
-    left: 0%;
-    background-color: rgba(0, 0, 0, 0.632);
-    height: 100vh;
-    width: 100vw;
-  }
-  
-  .dialog {
-    display: grid;
-    position: relative;
-    top: -50%;
-  
-    grid-template-columns: auto;
-    grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr;
-    /* picture, name, character description, dialog */
-  
-    width: 50%;
-    height: 400px;
-  
-    margin: auto auto;
-  
-    background-color: rgba(255, 255, 255, 0.65);
-    
-    border: 1px solid #000;
-    border-radius: 50px 50px 50px 0px;
-    margin-top: 15%;
-  
-  }
-  
-  
-  .dialog>h1 {
-    font-size: 32px;
-    margin: 0;
-  }
-  
-  .dialog>h2 {
-    font-size: 16px;
-    color: #444444;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .dialog>p {
-    font-size: 24px;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .dialog>button{
-    border: 1px solid rgba(255, 255, 255, 0);
-    border-radius: 45px;
-    padding: 2px;
-    background-color: rgb(219, 28, 28);
-    color: white;
-    font-size: large;
-    width:15%;
-    height:60%;
-    align-self: end;
-    justify-self: start;
-    margin: 10px;
-  }
-  
-  .dialog>button:hover {
-    border: 1px solid white;
-    background-color: rgb(109, 5, 5);
-  }
-  
+}
+
+.avatar-item-0 {
+  transform-origin: top center;
+  animation: rotateY 500ms 0ms ease-in-out forwards;
+}
+.avatar-item-1 {
+  transform-origin: top center;
+  animation: rotateY 750ms 0ms ease-in-out forwards;
+}
+.avatar-item-2 {
+  transform-origin: top center;
+  animation: rotateY 1000ms 0ms ease-in-out forwards;
+}
+
+.avatar-0 {
+  background: url("./img/icons8-administrator-94.png");
+  background-size: 50px 50px;
+  background-color: #fff;
+  margin: 15px auto;
+}
+
+.avatar-1 {
+  background: url("./img/icons8-account-96.png");
+  background-size: 50px 50px;
+  background-color: #fff;
+  margin: 15px auto;
+}
+
+.avatar-2 {
+  background: url("./img/icons8-user-female-skin-type-4-80.png");
+  background-size: 50px 50px;
+  background-color: #fff;
+  margin: 15px auto;
+}
+
+.dialog-background {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  background-color: rgba(0, 0, 0, 0.632);
+  height: 100vh;
+  width: 100vw;
+}
+
+.dialog {
+  display: grid;
+  position: relative;
+  top: -50%;
+
+  grid-template-columns: auto;
+  grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr;
+  /* picture, name, character description, dialog */
+
+  width: 50%;
+  height: 400px;
+
+  margin: auto auto;
+
+  background-color: rgba(255, 255, 255, 0.65);
+
+  border: 1px solid #000;
+  border-radius: 50px 50px 50px 0px;
+  margin-top: 15%;
+}
+
+.dialog > h1 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.dialog > h2 {
+  font-size: 16px;
+  color: #444444;
+  margin: 0;
+  padding: 0;
+}
+
+.dialog > p {
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.dialog > button {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 2px;
+  background-color: rgb(219, 28, 28);
+  color: white;
+  font-size: large;
+  width: 15%;
+  height: 60%;
+  align-self: end;
+  justify-self: start;
+  margin: 10px;
+}
+
+.dialog > button:hover {
+  border: 1px solid white;
+  background-color: rgb(109, 5, 5);
+}

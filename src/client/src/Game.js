@@ -26,6 +26,8 @@ import AvatarMenu from "./components/Avatar/AvatarMenu";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
 import { SEASONS } from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
+import { createConnection } from "./utils/connectionDb";
+import { saveGame } from "./utils/gameState";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -81,6 +83,19 @@ export const Game = () => {
     itemInfo[currItemName] = currItemPrice;
     currentPrices.push(itemInfo);
   }
+
+  useEffect(() => {
+    saveGame({
+      turn: turn,
+      season: season,
+      money: money,
+      decisionType: decisionType,
+      inventory: inventoryState,
+      insuredCrops: insuredState,
+      sellPrices: allTurnPrices[turn],
+      consultant: [accessToConsultant, consultantStatement],
+    });
+  }, [turn]);
 
   useEffect(() => {
     setInventoryState(getNames);
@@ -140,6 +155,34 @@ export const Game = () => {
       setConsultantStatement("");
     }
   }, [accessToConsultant]);
+
+  // // This effect will create a connection to the database once this component loads
+  useEffect(() => {
+    createConnection();
+    //   console.log("1: ", new Date().toLocaleString());
+    //   setTimeout(() => {
+    //     console.log("2: ", new Date().toLocaleString());
+    //     let gameState = retrieveSavedGame();
+    //     console.log(gameState);
+    //   }, 5000);
+    //   // let connection;
+    //   // const databaseSetup = async () => {
+    //   //   connection = await createConnection();
+    //   //   console.log("Client: ", connection);
+    //   //   console.log("Client:  ", new Date().toLocaleString());
+    //   //   return connection;
+    //   // };
+    //   // databaseSetup().then((value) => {
+    //   //   console.log(value);
+    //   // });
+    //   // .then(() => {
+    //   //   console.log("test: ", connection);
+    //   //   // const gameState = retrieveSavedGame();
+    //   // console.log("Gamestate: ", retrieveSavedGame());
+    //   // });
+    //   // console.log("Client2:  ", new Date().toLocaleString());
+    //   // console.log(retrieveSavedGame());
+  }, []);
 
   function randomXYCircle(maxRadius, minRadius) {
     const r = maxRadius * Math.random() ** 0.5 + minRadius;

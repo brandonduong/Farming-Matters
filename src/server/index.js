@@ -1,8 +1,11 @@
+const databaseOperations = require("./databaseOperations");
 const express = require("express");
-const http = require('http');
+const http = require("http");
 const { Server } = require("socket.io");
 const { allowSingleSession } = require("./socket/allowSingleSession");
 const { auth } = require("./firebase");
+const mysql = require("mysql2");
+let db;
 
 const PORT = process.env.PORT || 5001;
 
@@ -10,34 +13,88 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-app.use(express.json())
+app.use(express.json());
 
 /* Auth */
 function checkAuth(req, res, next) {
   if (req.headers.authtoken) {
-    auth.verifyIdToken(req.headers.authtoken)
+    // console.log(req.headers.authtoken);
+    auth
+      .verifyIdToken(req.headers.authtoken)
       .then(() => {
-        // Request is verified
         next();
-      }).catch((error) => {
-        res.status(403).send('Unauthorized');
+      })
+      .catch((error) => {
+        res.status(403).send("Unauthorized");
       });
-
   } else {
-    res.status(403).send('Unauthorized')
+    res.status(403).send("Unauthorized");
   }
 }
 
-app.use('/private', checkAuth);
+app.use("/private", checkAuth);
 /************************/
 
+// // Temp function for dealy
+// function databaseDelay(i) {
+//   setTimeout(function () {
+//     // Add tasks to do
+//   }, 20000);
+// }
 
-app.post('/private/actions', (req, res) => {
-    // TODO: write action to MySQL database
-    console.log("action:")
-    console.log(req.body);
-    console.log();
-    res.status(200).send();
+app.get("/private/connectToDatabase", (req, res) => {
+  db = mysql.createConnection({
+    host: "localhost",
+    user: "capstone",
+    password: "farming-matters",
+    database: "testFarmingMatters",
+  });
+  // // setTimeout(res.status(200).send(), 5000);
+  // console.log("1: ", new Date().toLocaleString());
+  // sleep(5000);
+  // console.log("2: ", new Date().toLocaleString());
+  res.status(200).send();
+});
+
+app.post("/private/actions", (req, res) => {
+  let userId = req.body.userId;
+  let action = req.body.action;
+  // let loggedActions =
+  console.log(req.body);
+
+  // Only creates a user table if it does not exist in the database
+  databaseOperations.createUserTable(db, userId);
+
+  // Log actions
+  databaseOperations.logData(db, userId, JSON.stringify(action));
+
+  res.status(200).send();
+});
+
+app.post("/private/saveGame", (req, res) => {
+  let userId = req.body.userId;
+  let data = req.body.gameData;
+
+  // Only creates a user table if it does not exist in the database
+  databaseOperations.saveGame(db, userId, data);
+
+  res.status(200).send();
+});
+
+app.get("/private/loadGame", (req, res) => {
+  let userId = req.headers.userid;
+
+  // Only creates a user table if it does not exist in the database
+  async function waitQuery() {
+    let gameState = await databaseOperations.loadGame(db, userId);
+
+    console.log(gameState);
+    res.status(200).send(gameState);
+  }
+  waitQuery();
+
+  // console.log("Game state: ", gameState);
+  // console.log("db:  ", new Date().toLocaleString());
 });
 
 //app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));
@@ -46,7 +103,7 @@ app.post('/private/actions', (req, res) => {
 // Contains logic for validating that a user only has a single session
 // TODO: emit event from client on login containing userID, trigger function on login event
 var allClients = new Map();
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   allowSingleSession(socket, allClients);
 });
 
