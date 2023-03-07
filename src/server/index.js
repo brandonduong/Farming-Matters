@@ -24,12 +24,11 @@ function checkAuth(req, res, next) {
       });
 
   } else {
-    res.status(403).send('Unauthorized')
+    res.status(403).send('Unauthorized');
   }
 }
 
 app.use('/private', checkAuth);
-/************************/
 
 
 app.post('/private/actions', (req, res) => {
@@ -39,9 +38,6 @@ app.post('/private/actions', (req, res) => {
     console.log();
     res.status(200).send();
 });
-
-//app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));
-//app.post('/auth/createaccount',  (req, res) => createAccount(req.body.email, req.body.password, res));
 
 // Contains logic for validating that a user only has a single session
 // TODO: emit event from client on login containing userID, trigger function on login event
