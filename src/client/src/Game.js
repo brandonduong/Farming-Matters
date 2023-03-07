@@ -20,7 +20,7 @@ import { shopItemsList } from "./components/Shop/constants";
 import {
   generateNTurnPriceState,
   GameLogic,
-} from "./components/GameLogic/Gamelogic";
+} from "./components/GameLogic/GameLogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";

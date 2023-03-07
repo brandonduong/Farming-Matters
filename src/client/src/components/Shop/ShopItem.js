@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { globalInventoryContext } from "../../Game";
 import { addInsuredItem, addItem, getItemCount } from "../Inventory";
-import { checkIfItemIsPlant } from "../GameLogic/Gamelogic";
+import { checkIfItemIsPlant } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
 
