@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA9mLGi6G3y1Wl-fibqLB_zT1VD8aFfknU",
-  authDomain: "farming-matters.firebaseapp.com",
-  projectId: "farming-matters",
-  storageBucket: "farming-matters.appspot.com",
-  messagingSenderId: "99273253851",
-  appId: "1:99273253851:web:890373999eb22c22337dfe"
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID
 };
 
 export const app = initializeApp(firebaseConfig);
