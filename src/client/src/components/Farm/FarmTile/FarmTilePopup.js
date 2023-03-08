@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { plants } from "./constants";
 import { getItemCount, addItem, removeItem } from "../../Inventory";
-import { checkIfItemIsPlant } from "../../GameLogic/Gamelogic";
+import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
 
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {
