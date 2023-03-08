@@ -1,5 +1,5 @@
 import { gameEvents, generalDialog, EVENT_OCCUR_THRESHOLD } from "./constants";
-import { checkIfItemIsPlant } from "./Gamelogic";
+import { checkIfItemIsPlant } from "./GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 let randomItem;
 

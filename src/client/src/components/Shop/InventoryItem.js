@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { globalInventoryContext } from "../../Game";
 import { addItem, getItemCount, getItems, removeItem } from "../Inventory";
 import { shopItemsList } from "./constants";
-import { checkIfItemIsPlant } from "../GameLogic/Gamelogic";
+import { checkIfItemIsPlant } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
 
