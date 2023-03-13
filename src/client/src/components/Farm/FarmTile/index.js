@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Html, Sparkles } from "@react-three/drei";
 import FarmTilePopup from "./FarmTilePopup";
 import { logData } from "../../../utils/logData";
-import { TreeModel } from "../../models/TreeModel";
 import { plants } from "./constants";
 import { BeetModel } from "../../models/BeetModel";
 import { CarrotModel } from "../../models/CarrotModel";
@@ -22,11 +21,11 @@ const FarmTile = (props) => {
   const position = [props.x - 0.5, -0.01, props.z - 0.5];
   const [hovered, hover] = useState(false);
   const [clicked, click] = useState(false);
-  const [owned, setOwned] = useState(props.owned);
+  const owned = props.owned;
+  const fertilizerAmount = props.fertilizerAmount;
+  const plantedSeed = props.plantedSeed;
 
-  const [plantedSeed, setPlantedSeed] = useState(0); // 0 if nothing is planted
   const [turnPlanted, setTurnPlanted] = useState(null); // null if nothing is planted
-  const [fertilizerAmount, setFertilizerAmount] = useState(0);
 
   function onClick(e) {
     e.stopPropagation();
@@ -38,7 +37,6 @@ const FarmTile = (props) => {
       x: props.x,
       z: props.z,
     });
-    console.log(owned);
   }
 
   // Log when a seed is planted
@@ -148,7 +146,8 @@ const FarmTile = (props) => {
     <>
       {models}
       {plantedSeed &&
-      props.turn - turnPlanted + fertilizerAmount >= plants[plantedSeed].growthLength ? (
+      props.turn - turnPlanted + fertilizerAmount >=
+        plants[plantedSeed].growthLength ? (
         <Sparkles size={3} position={position} scale={0.75} />
       ) : (
         <></>
@@ -186,19 +185,20 @@ const FarmTile = (props) => {
             props.clickedTile[0] === props.x &&
             props.clickedTile[1] === props.z && (
               <FarmTilePopup
+                x={props.x}
+                z={props.z}
                 plantedSeed={plantedSeed}
-                setPlantedSeed={setPlantedSeed}
+                grid={props.grid}
+                setGrid={props.setGrid}
                 setClickedTile={props.setClickedTile}
                 turn={props.turn}
                 turnPlanted={turnPlanted}
                 money={props.money}
                 setMoney={props.setMoney}
                 owned={owned}
-                setOwned={setOwned}
                 price={props.price}
                 inventoryState={props.inventoryState}
                 fertilizerAmount={fertilizerAmount}
-                setFertilizerAmount={setFertilizerAmount}
               />
             )}
         </Html>
