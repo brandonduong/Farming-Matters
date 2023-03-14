@@ -1,7 +1,7 @@
 import React from 'react'
 import RainDrops from './Rain'
 import SnowFlakes from './Snow';
-
+import Flood from './Flood';
 
 function HeavyRain(){
     const totalRainDrops = 1000;
@@ -32,7 +32,9 @@ function Drought(){
 }
 
 function Floods(){
-
+    let wave = [];
+    wave.push(<Flood/>)
+    return wave;
 }
 
 function DustStorms(){
