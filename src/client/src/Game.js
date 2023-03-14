@@ -23,6 +23,7 @@ import {
 } from "./components/GameLogic/GameLogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
+import Avatar from "./components/Avatar/Avatar";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
 import { SEASONS } from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
@@ -53,6 +54,8 @@ export const Game = () => {
   const marketItems = [];
   const [accessToConsultant, setAccessToConsultant] = useState(false);
   const [consultantStatement, setConsultantStatement] = useState("");
+  const [autoPrompt, setAutoPrompt] = useState(true);
+  const [isConsultantPrompt, setIsConsultantPrompt] = useState(true);
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
@@ -119,6 +122,9 @@ export const Game = () => {
 
   useEffect(() => {
     setAccessToConsultant(false);
+
+    setAutoPrompt(true);
+    
     const isEventHappeningNextSeason =
       GameLogic.GenerateStatistics.getEventHappening();
     setIsEventHappening(isEventHappeningNextSeason);
@@ -331,6 +337,22 @@ export const Game = () => {
             setMoney={setMoney}
             consultantStatement={consultantStatement}
           />
+
+          {autoPrompt? 
+          <div className="dialog-background">
+            <Avatar
+            avatarID={0}
+            isOpened={autoPrompt}
+            onExit={() => {setAutoPrompt(!autoPrompt)}}
+            accessToConsultant={accessToConsultant}
+            setAccessToConsultant={setAccessToConsultant}
+            money={money}
+            setMoney={setMoney}
+            consultantStatement={consultantStatement}
+            
+            />
+          </div>
+         : <></>  }
 
           <InventoryRender marketItems={marketItems} />
           <Shop

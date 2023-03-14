@@ -1,8 +1,8 @@
 export const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
 export const avatarNames = [
-  ["Jerry", "the Consultant"],
-  ["Bob", "the tools smith"],
-  ["Alice", "the weather woman"],
+  ["Jerry", "Consultant"],
+  ["Bob", "Tools Smith"],
+  ["Alice", "Weather Woman"],
 ];
 
 export const consultantNames = [["Jerry", "the Consultant"]];
