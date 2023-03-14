@@ -42,17 +42,19 @@ app.use("/private", checkAuth);
 //   }, 20000);
 // }
 
-app.get("/private/connectToDatabase", (req, res) => {
-  db = mysql.createConnection({
-    host: "localhost",
-    user: "capstone",
-    password: "farming-matters",
-    database: "testFarmingMatters",
-  });
-  // // setTimeout(res.status(200).send(), 5000);
-  // console.log("1: ", new Date().toLocaleString());
-  // sleep(5000);
-  // console.log("2: ", new Date().toLocaleString());
+app.get("/private/connectToDatabase", async (req, res) => {
+  try {
+    db = await mysql.createConnection({
+      host: "localhost",
+      user: "capstone",
+      password: "farming-matters",
+      database: "testFarmingMatters",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send();
+  }
+
   res.status(200).send();
 });
 
@@ -83,15 +85,11 @@ app.post("/private/saveGame", (req, res) => {
 
 app.get("/private/loadGame", (req, res) => {
   let userId = req.headers.userid;
+  let gameState = databaseOperations.loadGame(db, userId);
 
-  // Only creates a user table if it does not exist in the database
-  async function waitQuery() {
-    let gameState = await databaseOperations.loadGame(db, userId);
-
-    console.log(gameState);
-    res.status(200).send(gameState);
-  }
-  waitQuery();
+  console.log("Gamestate: ", gameState);
+  console.log("type: ", typeof gameState);
+  res.status(200).send(gameState);
 
   // console.log("Game state: ", gameState);
   // console.log("db:  ", new Date().toLocaleString());

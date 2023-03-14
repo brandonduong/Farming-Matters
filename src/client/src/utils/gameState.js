@@ -36,11 +36,6 @@ export const retrieveSavedGame = async () => {
 
   try {
     idToken = auth.currentUser ? await auth.currentUser.getIdToken(true) : "";
-  } catch (error) {
-    console.error(error);
-  }
-
-  try {
     userId = auth.currentUser ? await auth.currentUser.uid : "";
   } catch (error) {
     console.error(error);
