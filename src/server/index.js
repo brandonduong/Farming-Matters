@@ -89,9 +89,9 @@ app.post("/private/saveGame", (req, res) => {
 app.get("/private/loadGame", async (req, res) => {
   let userId = req.headers.userid;
   let gameState = await databaseOperations.loadGame(db, userId);
-  console.log("gamestate: ", gameState);
-  console.log("gamestate: ", typeof gameState);
-  res.status(200).send(gameState);
+  console.log("gamestate: ", gameState[0][0]);
+  console.log("gamestate: ", typeof gameState[0][0]);
+  res.json(gameState[0][0]);
 });
 
 //app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));

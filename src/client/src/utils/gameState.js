@@ -50,5 +50,5 @@ export const retrieveSavedGame = async () => {
     },
   };
 
-  await fetch("/private/loadGame", requestOptions);
+  return await fetch("/private/loadGame", requestOptions);
 };

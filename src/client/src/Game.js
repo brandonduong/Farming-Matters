@@ -163,7 +163,7 @@ export const Game = () => {
     const initalizeGameState = async () => {
       await createConnection();
       retrieveSavedGame().then((gameState) => {
-        console.log(gameState);
+        console.log(gameState.json());
       });
     };
     initalizeGameState();
