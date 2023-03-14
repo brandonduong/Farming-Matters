@@ -50,5 +50,10 @@ export const retrieveSavedGame = async () => {
     },
   };
 
-  return await fetch("/private/loadGame", requestOptions);
+  let gameState;
+  gameState = await fetch("/private/loadGame", requestOptions);
+  gameState = gameState.json().then((currentGameState) => {
+    return currentGameState;
+  });
+  return gameState;
 };
