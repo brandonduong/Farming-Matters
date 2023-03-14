@@ -85,16 +85,18 @@ export const Game = () => {
   }
 
   useEffect(() => {
-    saveGame({
-      turn: turn,
-      season: season,
-      money: money,
-      decisionType: decisionType,
-      inventory: inventoryState,
-      insuredCrops: insuredState,
-      sellPrices: allTurnPrices[turn],
-      consultant: [accessToConsultant, consultantStatement],
-    });
+    if (turn > 1) {
+      saveGame({
+        turn: turn,
+        season: season,
+        money: money,
+        decisionType: decisionType,
+        inventory: inventoryState,
+        insuredCrops: insuredState,
+        sellPrices: allTurnPrices[turn],
+        consultant: [accessToConsultant, consultantStatement],
+      });
+    }
   }, [turn]);
 
   useEffect(() => {
@@ -157,11 +159,14 @@ export const Game = () => {
   }, [accessToConsultant]);
 
   // // This effect will create a connection to the database once this component loads
-  useEffect(async () => {
-    await createConnection();
-    retrieveSavedGame().then((gameState) => {
-      console.log(gameState);
-    });
+  useEffect(() => {
+    const initalizeGameState = async () => {
+      await createConnection();
+      retrieveSavedGame().then((gameState) => {
+        console.log(gameState);
+      });
+    };
+    initalizeGameState();
   }, []);
 
   function randomXYCircle(maxRadius, minRadius) {

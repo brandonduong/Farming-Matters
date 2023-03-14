@@ -66,15 +66,17 @@ const saveGame = (database, userId, gameData) => {
   });
 };
 
-const loadGame = (database, userId) => {
+const loadGame = async (database, userId) => {
   let sql = `SELECT * FROM GAMESTATE WHERE user_id='${userId}'`;
 
-  database.query(sql, (err, result) => {
-    if (err) throw err;
+  let result;
+  try {
+    result = await database.query(sql);
+  } catch (err) {
+    console.log(err);
+  }
 
-    console.log("sql: ", result);
-    return result;
-  });
+  return result;
 };
 
 module.exports = {

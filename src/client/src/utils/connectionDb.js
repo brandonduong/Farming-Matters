@@ -18,5 +18,6 @@ export const createConnection = async () => {
     },
   };
 
-  await fetch("/private/connectToDatabase", requestOptions);
+  const res = await fetch("/private/connectToDatabase", requestOptions);
+  console.log("response: ", res);
 };

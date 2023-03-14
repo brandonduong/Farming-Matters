@@ -4,7 +4,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const { allowSingleSession } = require("./socket/allowSingleSession");
 const { auth } = require("./firebase");
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 let db;
 
 const PORT = process.env.PORT || 5001;
@@ -55,6 +55,9 @@ app.get("/private/connectToDatabase", async (req, res) => {
     res.status(400).send();
   }
 
+  if (db) {
+    console.log("db defined");
+  }
   res.status(200).send();
 });
 
@@ -83,16 +86,12 @@ app.post("/private/saveGame", (req, res) => {
   res.status(200).send();
 });
 
-app.get("/private/loadGame", (req, res) => {
+app.get("/private/loadGame", async (req, res) => {
   let userId = req.headers.userid;
-  let gameState = databaseOperations.loadGame(db, userId);
-
-  console.log("Gamestate: ", gameState);
-  console.log("type: ", typeof gameState);
+  let gameState = await databaseOperations.loadGame(db, userId);
+  console.log("gamestate: ", gameState);
+  console.log("gamestate: ", typeof gameState);
   res.status(200).send(gameState);
-
-  // console.log("Game state: ", gameState);
-  // console.log("db:  ", new Date().toLocaleString());
 });
 
 //app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));
