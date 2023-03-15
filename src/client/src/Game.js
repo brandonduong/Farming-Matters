@@ -2,7 +2,7 @@ import "./css/App.css";
 import "./css/Inventory.css";
 import InfoHeader from "./components/InfoHeader";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Sky } from "@react-three/drei";
+import { OrbitControls, Sky, Stats } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
 import React, { useState, useEffect, useNavigate } from "react";
@@ -319,6 +319,7 @@ export const Game = () => {
                 maxDistance={13}
                 screenSpacePanning={false}
               />
+               <Stats showPanel={0} />
             </Canvas>
           </div>
           <InfoHeader

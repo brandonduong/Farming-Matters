@@ -21,7 +21,7 @@ const Flood = (props) =>{
         //Wrap texture vertically
         waterNormals.wrapT = THREE.RepeatWrapping;
         //Cache water plane
-        const geom = useMemo(() => new THREE.PlaneGeometry(10000, 10000), [])
+        const geom = useMemo(() => new THREE.PlaneGeometry(1000, 1000), [])
         
         //Cache wave configuration
         const config = useMemo(
