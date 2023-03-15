@@ -14,7 +14,7 @@ function HeavyRain(){
 
 function SnowStorm(){
     const totalSnowFlakes = 1000;
-    console.log("SNOWSTORM");
+    //console.log("SNOWSTORM");
     let snow = [];
     for(let i = 0; i < totalSnowFlakes; i++ ){
         snow.push(<SnowFlakes position={[Math.random()*10 - 5, Math.random()*10 + 5, Math.random()* 10 -5]}/>)
@@ -28,7 +28,15 @@ function ColdWaves(){
 }
 
 function Drought(){
-
+    //console.log("DROUGHT");
+    let drought = [];
+    drought.push(
+    <>
+      <ambientLight intensity={1.25} color='#FFFF00' />
+      <spotLight position={[0,0,0]} angle={0} penumbra={0} color='#FFFF00' />
+      <pointLight position={[0, 0,0]} color='#FFFF00' />
+    </>)
+    return drought;
 }
 
 function Floods(){
