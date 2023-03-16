@@ -53,7 +53,7 @@ function marketStatisticGenerator(currentTurn, allTurnPrices){
     const currentMarketPrice = (allTurnPrices[currentTurn%arrLength])[randomItem]; // i
 
     let percentPriceIncrease = (futureMarketPrice - currentMarketPrice)/currentMarketPrice;
-    percentPriceIncrease = generateEventHappening()*0.4; //additional prob padding
+    percentPriceIncrease = generateEventHappening()*0.85; //additional prob padding
 
     return percentPriceIncrease;
 }

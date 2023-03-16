@@ -17,12 +17,15 @@ const Tornado = (props) => {
         const positiveOrNegative = [1,-1];
         const randChoice = (() => positiveOrNegative[Math.floor(Math.random() * positiveOrNegative.length)]);
         
+        
 		if (mesh.current.position.x > -10 && mesh.current.position.z > -10) {
-			mesh.current.position.x = mesh.current.position.x  + randChoice() * Math.random()*0.75;
-            mesh.current.position.z = mesh.current.position.z +  randChoice() * Math.random()*0.75;
+			mesh.current.position.x = mesh.current.position.x  -  Math.random()*0.35;
+            mesh.current.position.z = mesh.current.position.z -  Math.random()*0.35;
+            mesh.current.position.y += Math.random()*0.02;
 		}else{  
-			mesh.current.position.x = 0;
-            mesh.current.position.z = 0;
+			mesh.current.position.x = 10;
+            mesh.current.position.z = 10;
+            mesh.current.position.y = 0;
 			mesh.current.position.needsUpdate = true;
 		}
 	});
@@ -36,12 +39,14 @@ const Tornado = (props) => {
 
     }
     return (
-        /*
-        <>
-        <TornadoModel/>
-        </>
-        */
         
+        //Need to wrap model around a mesh to update position
+        <mesh {...props} ref={mesh}>
+            <TornadoModel  />
+        </mesh>
+        
+        
+        /*
         <Line
             ref={mesh}
             points={points}       // Array of Points
@@ -53,6 +58,7 @@ const Tornado = (props) => {
             //dashed={false}                  // Default
             
         />
+        */
         
     )
 }

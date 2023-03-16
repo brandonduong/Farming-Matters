@@ -3,6 +3,7 @@ import RainDrops from './Rain'
 import SnowFlakes from './Snow';
 import Flood from './Flood';
 import Tornado from './Tornado';
+import { TornadoModel } from '../../models/TornadoModel';
 
 
 function HeavyRain(){
@@ -53,11 +54,14 @@ function DustStorms(){
 
 function Tornados(){
     console.log("Tornado");
-    const totalTornados = 100;
+    const totalTornados = 5;
     let tornados = [];
+
     for (let i = 0; i < totalTornados; i++ ){
         tornados.push(
-            <Tornado />
+            <>
+            <Tornado position={[Math.random()*5, 0, Math.random()* 10 -5]}/>
+            </>
         );
     }
     return tornados;
