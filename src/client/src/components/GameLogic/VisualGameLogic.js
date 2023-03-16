@@ -1,5 +1,4 @@
 import { SeasonalEvents } from "../GameEvents/SeasonalEvents/SeasonalEvents";
-import { logData } from "../../utils/logData";
 import { Stats, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { useEffect } from "react";
 //seed [x,z] coordinates on grid

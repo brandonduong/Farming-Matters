@@ -12,15 +12,33 @@ const ShopItem = (props) => {
     globalInventoryContext
   );
 
+  function determineSeasion(turnNumber) {
+    let season;
+    if (props.turn % 3 === 0) {
+      season = "Fall";
+    } else if (props.turn % 3 === 1) {
+      season = "Winter";
+    } else if (props.turn % 3 === 2) {
+      season = "Spring";
+    } else {
+      season = "Summer";
+    }
+    return season;
+  }
+
   function buy() {
     if (itemQuantity * props.price <= props.money) {
       props.setMoney(props.money - itemQuantity * props.price);
       addItem(inventoryState, props.name, itemQuantity);
       setItemQuantity(0);
-      logData("Bought item", {
+
+      logData({
+        actionType: "Item Bought",
         turn: props.turn,
-        name: props.name,
-        quantity: itemQuantity,
+        season: determineSeasion(props.turn),
+        isExperimental: true,
+        balance: props.money,
+        details: { name: props.name, quantity: itemQuantity },
       });
     } else {
       console.log("Not enough money to buy crop");
@@ -41,11 +59,18 @@ const ShopItem = (props) => {
       );
       addInsuredItem(insuredState, props.name, insuranceQuantity);
       setInsuranceQuantity(0);
-      logData("Bought insurance", {
+
+      logData({
+        actionType: "Insurance Bought",
         turn: props.turn,
-        name: props.name,
-        quantity: insuranceQuantity,
-        price: props.price,
+        season: determineSeasion(props.turn),
+        isExperimental: true,
+        balance: props.money,
+        details: {
+          name: props.name,
+          quantity: insuranceQuantity,
+          price: props.price,
+        },
       });
     } else {
       console.log(

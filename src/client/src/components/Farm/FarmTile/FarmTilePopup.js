@@ -43,7 +43,7 @@ const FarmTilePopup = (props) => {
         parseInt(getItemCount(props.inventoryState, plants[i].name)) > 0;
       let isPlant = checkIfItemIsPlant(plants[i].name, plants);
       if (hasEnough && isPlant) {
-        seedsPresent=true
+        seedsPresent = true;
         plantButtons.push(
           <div
             className="tile-popup-info-item tile-popup-button-item"
@@ -64,7 +64,7 @@ const FarmTilePopup = (props) => {
   }
 
   if (!seedsPresent) {
-    plantButtons.push(<h4>No seeds</h4>)
+    plantButtons.push(<h4>No seeds</h4>);
   }
 
   // Plant info for when a seed is currently planted

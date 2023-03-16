@@ -1,39 +1,66 @@
-const createUserTable = (database, userId) => {
+const runQuery = async (database, sql) => {
+  let result;
+  try {
+    console.log(sql);
+    result = await database.query(sql);
+  } catch (err) {
+    console.log(err);
+  }
+
+  return result;
+};
+
+const createUserTable = async (database, userId) => {
   let sql =
     "CREATE TABLE IF NOT EXISTS LoggedActions_" +
     userId +
-    " (action_id INT AUTO_INCREMENT NOT NULL, action MEDIUMTEXT NOT NULL, time DATETIME NOT NULL DEFAULT (NOW()), PRIMARY KEY (action_id))";
+    " (action_id INT AUTO_INCREMENT NOT NULL, actionType MEDIUMTEXT NOT NULL, time DATETIME NOT NULL DEFAULT (NOW()), \
+    turnNumber INT NOT NULL, season VARCHAR(6) NOT NULL, isExperimental BOOL NOT NULL, balance FLOAT NOT NULL, \
+    details LONGTEXT, PRIMARY KEY (action_id))";
 
-  database.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
+  return await runQuery(database, sql);
 };
 
-const deleteUserTable = (databse, userId) => {
+const deleteUserTable = async (databse, userId) => {
   let sql = "DROP TABLE LoggedActions_" + userId;
 
-  databse.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
+  return await runQuery(database, sql);
 };
 
-const logData = (database, userId, action) => {
-  let sql = "INSERT INTO LoggedActions_" + userId + " (action) values (?)";
+const logData = async (database, userId, data) => {
+  let parsedData = JSON.parse(data);
+  console.log(parsedData);
+  console.log("action: ", typeof parsedData["actionType"]);
+  console.log("turn: ", typeof parsedData["turn"]);
+  console.log("season: ", typeof parsedData["season"]);
+  console.log("season: ", parsedData["season"]);
+  console.log("dec: ", typeof parsedData["isExperimental"]);
+  console.log("balance: ", typeof parsedData["balance"]);
+  console.log("details: ", typeof parsedData["details"]);
 
-  database.query(sql, action, (err, result) => {
-    if (err) throw err;
-    // console.log(result);
-  });
+  let sql =
+    "INSERT INTO LoggedActions_" +
+    userId +
+    ` (actionType, turnNumber, season, isExperimental, balance, details) values ('${
+      parsedData["actionType"]
+    }', ${parsedData["turn"]}, \
+    '${parsedData["season"]}', ${parsedData["isExperimental"]}, ${
+      parsedData["balance"]
+    }, '${JSON.stringify(parsedData["details"])}')`;
+  try {
+    console.log("sql :", sql);
+    await database.query(sql);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // Update the code to use ? instead of putting in values directly in the string
-const saveGame = (database, userId, gameData) => {
+const saveGame = async (database, userId, gameData) => {
   let containsQuery = `SELECT * FROM GAMESTATE where user_id='${userId}'`;
 
-  database.query(containsQuery, (err, result) => {
-    if (err) throw err;
+  try {
+    let result = await runQuery(database, containsQuery);
     let sql = "";
 
     if (result.length > 0) {
@@ -59,35 +86,16 @@ const saveGame = (database, userId, gameData) => {
       )}', '${gameData["consultant"]}')`;
     }
 
-    database.query(sql, (err, result1) => {
-      if (err) throw err;
-      // console.log(result1);
-    });
-  });
+    return await runQuery(database, sql);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-const loadGame = (database, userId) => {
+const loadGame = async (database, userId) => {
   let sql = `SELECT * FROM GAMESTATE WHERE user_id='${userId}'`;
-  console.log(sql);
 
-  database.query(sql, (err, result) => {
-    if (err) throw err;
-
-    console.log("Gamestate return: ", result);
-    return result;
-    // return_array = {};
-    //transoforming the data to the type that will be used by the react states
-    // return_array.turn = result[0]["turn"];
-    // return_array.season = result[0]["season"];
-    // return_array.money = result[0]["money"];
-    // return_array.decisionType = Number(result[0]["decision_type"]);
-    // return_array.inventory = JSON.parse(result[0]["inventory"]);
-    // return_array.sellPrices = JSON.parse(result[0]["sell_prices"]);
-    // return_array.insuredCrops = JSON.parse(result[0]["insured_crops"]);
-    // return_array.consultant = result[0]["consultant"].split(",");
-
-    // return return_array;
-  });
+  return await runQuery(database, sql);
 };
 
 module.exports = {
