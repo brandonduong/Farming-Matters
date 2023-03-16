@@ -25,5 +25,5 @@ export const logData = async (action, data) => {
     body: JSON.stringify({ userId, action: { action, ...data } }),
   };
 
-  await fetch("/private/actions", requestOptions);
+  await fetch("/private/logactions", requestOptions);
 };

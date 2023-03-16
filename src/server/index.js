@@ -56,32 +56,31 @@ app.get("/private/connectToDatabase", async (req, res) => {
   }
 
   if (db) {
-    console.log("db defined");
+    let userId = req.headers.userid;
+    // Only creates a user table if it does not exist in the database
+    await databaseOperations.createUserTable(db, userId);
   }
   res.status(200).send();
 });
 
-app.post("/private/actions", (req, res) => {
+app.post("/private/logactions", async (req, res) => {
   let userId = req.body.userId;
   let action = req.body.action;
   // let loggedActions =
   console.log(req.body);
 
-  // Only creates a user table if it does not exist in the database
-  databaseOperations.createUserTable(db, userId);
-
   // Log actions
-  databaseOperations.logData(db, userId, JSON.stringify(action));
+  await databaseOperations.logData(db, userId, JSON.stringify(action));
 
   res.status(200).send();
 });
 
-app.post("/private/saveGame", (req, res) => {
+app.post("/private/saveGame", async (req, res) => {
   let userId = req.body.userId;
   let data = req.body.gameData;
 
   // Only creates a user table if it does not exist in the database
-  databaseOperations.saveGame(db, userId, data);
+  await databaseOperations.saveGame(db, userId, data);
 
   res.status(200).send();
 });

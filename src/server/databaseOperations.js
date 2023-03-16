@@ -1,39 +1,47 @@
-const createUserTable = (database, userId) => {
+const runQuery = async (database, sql) => {
+  let result;
+  try {
+    console.log(sql);
+    result = await database.query(sql);
+  } catch (err) {
+    console.log(err);
+  }
+
+  return result;
+};
+
+const createUserTable = async (database, userId) => {
   let sql =
     "CREATE TABLE IF NOT EXISTS LoggedActions_" +
     userId +
     " (action_id INT AUTO_INCREMENT NOT NULL, action MEDIUMTEXT NOT NULL, time DATETIME NOT NULL DEFAULT (NOW()), PRIMARY KEY (action_id))";
 
-  database.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
+  return await runQuery(database, sql);
 };
 
-const deleteUserTable = (databse, userId) => {
+const deleteUserTable = async (databse, userId) => {
   let sql = "DROP TABLE LoggedActions_" + userId;
 
-  databse.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
+  return await runQuery(database, sql);
 };
 
-const logData = (database, userId, action) => {
+const logData = async (database, userId, action) => {
   let sql = "INSERT INTO LoggedActions_" + userId + " (action) values (?)";
+  try {
+    await database.query(sql, action);
+  } catch (err) {
+    console.log(err);
+  }
 
-  database.query(sql, action, (err, result) => {
-    if (err) throw err;
-    // console.log(result);
-  });
+  // await runQuery(database, sql);
 };
 
 // Update the code to use ? instead of putting in values directly in the string
-const saveGame = (database, userId, gameData) => {
+const saveGame = async (database, userId, gameData) => {
   let containsQuery = `SELECT * FROM GAMESTATE where user_id='${userId}'`;
 
-  database.query(containsQuery, (err, result) => {
-    if (err) throw err;
+  try {
+    let result = await runQuery(database, containsQuery);
     let sql = "";
 
     if (result.length > 0) {
@@ -59,24 +67,16 @@ const saveGame = (database, userId, gameData) => {
       )}', '${gameData["consultant"]}')`;
     }
 
-    database.query(sql, (err, result1) => {
-      if (err) throw err;
-      // console.log(result1);
-    });
-  });
+    return await runQuery(database, sql);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const loadGame = async (database, userId) => {
   let sql = `SELECT * FROM GAMESTATE WHERE user_id='${userId}'`;
 
-  let result;
-  try {
-    result = await database.query(sql);
-  } catch (err) {
-    console.log(err);
-  }
-
-  return result;
+  return await runQuery(database, sql);
 };
 
 module.exports = {
