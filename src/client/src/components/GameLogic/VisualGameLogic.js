@@ -25,13 +25,13 @@ function removePlantedSeeds(plantedSeeds, seed) {
 function changeSeasonBaseEnvironment(currentSeason) {
   switch (currentSeason) {
     case "Fall":
-      return SeasonalEvents.Drought();
+      return SeasonalEvents.Tornados();
     case "Winter":
-      return SeasonalEvents.Drought();
+      return SeasonalEvents.Tornados();
     case "Spring":
-      return SeasonalEvents.Drought();
+      return SeasonalEvents.Tornados();
     case "Summer":
-      return SeasonalEvents.Drought();
+      return SeasonalEvents.Tornados();
   }
 }
 

@@ -2,6 +2,8 @@ import React from 'react'
 import RainDrops from './Rain'
 import SnowFlakes from './Snow';
 import Flood from './Flood';
+import Tornado from './Tornado';
+
 
 function HeavyRain(){
     const totalRainDrops = 1000;
@@ -49,12 +51,25 @@ function DustStorms(){
 
 }
 
+function Tornados(){
+    console.log("Tornado");
+    const totalTornados = 100;
+    let tornados = [];
+    for (let i = 0; i < totalTornados; i++ ){
+        tornados.push(
+            <Tornado />
+        );
+    }
+    return tornados;
+}
+
 export const SeasonalEvents = {
     HeavyRain,
     SnowStorm,
     ColdWaves,
     Drought,
     Floods,
-    DustStorms
+    DustStorms,
+    Tornados
 }
 
