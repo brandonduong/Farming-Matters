@@ -14,7 +14,9 @@ const createUserTable = async (database, userId) => {
   let sql =
     "CREATE TABLE IF NOT EXISTS LoggedActions_" +
     userId +
-    " (action_id INT AUTO_INCREMENT NOT NULL, action MEDIUMTEXT NOT NULL, time DATETIME NOT NULL DEFAULT (NOW()), PRIMARY KEY (action_id))";
+    " (action_id INT AUTO_INCREMENT NOT NULL, actionType MEDIUMTEXT NOT NULL, time DATETIME NOT NULL DEFAULT (NOW()), \
+    turnNumber INT NOT NULL, season VARCHAR(6) NOT NULL, isExperimental BOOL NOT NULL, balance FLOAT NOT NULL, \
+    details LONGTEXT, PRIMARY KEY (action_id))";
 
   return await runQuery(database, sql);
 };
@@ -25,15 +27,32 @@ const deleteUserTable = async (databse, userId) => {
   return await runQuery(database, sql);
 };
 
-const logData = async (database, userId, action) => {
-  let sql = "INSERT INTO LoggedActions_" + userId + " (action) values (?)";
+const logData = async (database, userId, data) => {
+  let parsedData = JSON.parse(data);
+  console.log(parsedData);
+  console.log("action: ", typeof parsedData["actionType"]);
+  console.log("turn: ", typeof parsedData["turn"]);
+  console.log("season: ", typeof parsedData["season"]);
+  console.log("season: ", parsedData["season"]);
+  console.log("dec: ", typeof parsedData["isExperimental"]);
+  console.log("balance: ", typeof parsedData["balance"]);
+  console.log("details: ", typeof parsedData["details"]);
+
+  let sql =
+    "INSERT INTO LoggedActions_" +
+    userId +
+    ` (actionType, turnNumber, season, isExperimental, balance, details) values ('${
+      parsedData["actionType"]
+    }', ${parsedData["turn"]}, \
+    '${parsedData["season"]}', ${parsedData["isExperimental"]}, ${
+      parsedData["balance"]
+    }, '${JSON.stringify(parsedData["details"])}')`;
   try {
-    await database.query(sql, action);
+    console.log("sql :", sql);
+    await database.query(sql);
   } catch (err) {
     console.log(err);
   }
-
-  // await runQuery(database, sql);
 };
 
 // Update the code to use ? instead of putting in values directly in the string

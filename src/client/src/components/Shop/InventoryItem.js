@@ -27,13 +27,31 @@ const InventoryItem = (props) => {
       props.setMoney(currBalance);
       setQuantity(0);
       removeItem(inventoryState, props.name, quantity);
-      logData("Sold item", {
+
+      let season;
+      if (props.turn % 3 === 0) {
+        season = "Fall";
+      } else if (props.turn % 3 === 1) {
+        season = "Winter";
+      } else if (props.turn % 3 === 2) {
+        season = "Spring";
+      } else {
+        season = "Summer";
+      }
+
+      logData({
+        actionType: "Crop Sold",
         turn: props.turn,
-        name: props.name,
-        quantity: quantity,
-        hasInsurance: getItemCount(insuredState, props.name) > 0,
-        soldPrice: sellPrice.toFixed(2),
-        marketPrice: currentPrice.toFixed(2),
+        season: season,
+        isExperimental: true,
+        balance: props.money,
+        details: {
+          name: props.name,
+          quantity: quantity,
+          hasInsurance: getItemCount(insuredState, props.name) > 0,
+          soldPrice: sellPrice.toFixed(2),
+          marketPrice: currentPrice.toFixed(2),
+        },
       });
     }
   }

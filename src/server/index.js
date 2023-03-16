@@ -65,12 +65,11 @@ app.get("/private/connectToDatabase", async (req, res) => {
 
 app.post("/private/logactions", async (req, res) => {
   let userId = req.body.userId;
-  let action = req.body.action;
-  // let loggedActions =
-  console.log(req.body);
+  let data = req.body.data;
+  console.log("data: ", data);
 
   // Log actions
-  await databaseOperations.logData(db, userId, JSON.stringify(action));
+  await databaseOperations.logData(db, userId, JSON.stringify(data));
 
   res.status(200).send();
 });

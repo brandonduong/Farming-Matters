@@ -128,10 +128,16 @@ export const Game = () => {
     );
 
     if (isEventHappening) {
-      logData("CatastrophicEvent", {
+      logData({
+        actionType: "Catastrophic Event",
         turn: turn,
-        isEventHappeningNextSeason: isEventHappeningNextSeason,
-        eventType: eventType,
+        season: season,
+        isExperimental: false,
+        balance: money,
+        details: {
+          isEventHappeningNextSeason: isEventHappeningNextSeason,
+          eventType: eventType,
+        },
       });
     }
   }, [season]);
@@ -148,10 +154,17 @@ export const Game = () => {
           season
         );
       setConsultantStatement(statement);
-      logData("ConsultantAdvice", {
+
+      logData({
+        actionType: "Consultant Advice",
         turn: turn,
-        statement: statement,
-        isEventHappeningNextSeason: isEventHappening,
+        season: season,
+        isExperimental: true,
+        balance: money,
+        details: {
+          // using statement instead of consultantStatement because I cant access the updated value
+          statement: statement,
+        },
       });
     } else {
       setConsultantStatement("");
@@ -317,7 +330,11 @@ export const Game = () => {
             consultantStatement={consultantStatement}
           />
 
-          <InventoryRender marketItems={marketItems} />
+          <InventoryRender
+            marketItems={marketItems}
+            money={money}
+            turn={turn}
+          />
           <Shop
             money={money}
             setMoney={setMoney}
