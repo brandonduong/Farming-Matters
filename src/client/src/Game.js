@@ -29,6 +29,7 @@ import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
+import { GameSettings } from "./components/GameSettings";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -331,6 +332,8 @@ export const Game = () => {
             setMoney={setMoney}
             consultantStatement={consultantStatement}
           />
+
+          <GameSettings />
 
           <InventoryRender marketItems={marketItems} />
           <Shop
