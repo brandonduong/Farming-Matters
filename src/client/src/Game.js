@@ -28,6 +28,7 @@ import { SEASONS } from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
+import { BackgroundMusic } from "./components/BackgroundMusic";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -344,6 +345,7 @@ export const Game = () => {
           ></Shop>
         </globalInventoryContext.Provider>
       }
+      <BackgroundMusic />
     </>
   );
 };
