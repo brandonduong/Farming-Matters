@@ -208,15 +208,27 @@
   position: absolute;
   top: 0px;
   left: 0%;
-  background-color: rgba(0, 0, 0, 0.632);
+  background-color: rgba(0, 0, 0, 0.90);
   height: 100vh;
   width: 100vw;
 }
 
-.dialog {
+.dialog-grid{
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 0.5fr;
+  align-self: self-end;
+  margin-top: 15%;
+  align-content: stretch;
+  justify-items: center;
+  justify-content: start;
+  align-items: center;
+}
+
+.dialog-chat {
   display: grid;
   position: relative;
-  top: -50%;
+  
 
   grid-template-columns: auto;
   grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr;
@@ -229,30 +241,46 @@
 
   background-color: rgba(255, 255, 255, 0.65);
 
-  border: 1px solid #000;
+  border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 50px 50px 50px 0px;
-  margin-top: 15%;
+
 }
 
-.dialog > h1 {
+
+
+.chat-bottom-left:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 48px solid rgba(255, 255, 255, 0.65);
+  border-right: 24px solid transparent;
+  border-top: 24px solid rgba(255, 255, 255, 0.65);
+  border-bottom: 40px solid transparent;
+  left: -1px;
+  bottom: -65px;
+}
+
+
+.avatar-info > h1 {
   font-size: 32px;
   margin: 0;
 }
 
-.dialog > h2 {
+.avatar-info > h2 {
   font-size: 16px;
   color: #444444;
   margin: 0;
   padding: 0;
 }
 
-.dialog > p {
+.avatar-info > p {
   font-size: 24px;
   margin: 0;
   padding: 0;
 }
 
-.dialog > button {
+.avatar-info > button {
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 45px;
   padding: 2px;
@@ -266,7 +294,7 @@
   margin: 10px;
 }
 
-.dialog > button:hover {
+.avatar-info > button:hover {
   border: 1px solid white;
   background-color: rgb(109, 5, 5);
 }
