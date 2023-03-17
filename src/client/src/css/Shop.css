@@ -1,0 +1,148 @@
+
+.shop-button {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 45px;
+    padding: 10px 30px;
+    background-color: rgba(255, 255, 255);
+    color: black;
+    font-size: large;
+    z-index: 2;
+    
+  }
+  
+  .shop-button:hover {
+    border: 1px solid white;
+    background-color: rgb(64, 130, 42);
+  }
+  
+  .shop {
+    position: absolute;
+    top: 0px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: green;
+    height: 100vh;
+    width: 100vw;
+    font-weight: bold;
+  }
+  
+  .all-shop {
+    display: grid;
+    grid-template-rows: 100vh;
+    grid-template-columns: 0.25fr 4fr 0.25fr 2fr 0.25fr;
+  }
+  .shop-component {
+    display: grid;
+    grid-template-columns: 15% auto;
+    grid-template-rows: 15%  75%;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.65);
+    color: green;
+    height: 65%;
+    width: auto;
+    top: 5%;
+    border-radius: 30px;
+
+
+  }
+
+  .display-more{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.65);
+    color: green;
+    height: 65%;
+    width: 10fr;
+    top: 5%;
+    border-radius: 30px;
+
+
+  }
+  
+.header{
+
+}
+
+.header-tools{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.market-options{
+    display: grid;
+    grid-template-rows: 1.1fr 1.1fr;
+    grid-template-columns: auto;
+}
+
+  .shop-heading {
+    margin-bottom: 10px;
+  }
+  
+  .center {
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: xx-large;
+  }
+  
+  .filter-tools{
+
+  }
+
+  .shop-items {
+    height: 80%;
+    width: 95%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    overflow-y: scroll;
+  }
+  
+  .shop-item {
+    text-align: center;
+    /* border: "1px solid transparent"; */
+    border-radius: 15px;
+    justify-content: center;
+  }
+  
+  .shop-item:hover {
+    box-shadow: 1px 1px 5px white;
+  }
+  
+  .item-image {
+    width: 80px;
+    height: 80px; 
+    border: 1px solid white;
+    border-radius: 60px;
+    padding: 5px;
+    margin-top: 25px;
+  }
+  
+  .market-button {
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 45px;
+    background-color: rgba(255, 255, 255);
+    color: black;
+    font-size: large;
+    height: 20%;
+  }
+  
+ 
+  .insurance-button{
+    height: 40px;
+    width: 100px;
+  }
+  
+  
+  .active{
+    background-color: darkseagreen;
+  }

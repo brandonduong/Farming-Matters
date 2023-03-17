@@ -4,12 +4,14 @@ import ShopItem from "./ShopItem";
 import { shopItemsList } from "./constants";
 import {globalInventoryContext} from "../../Game";
 import InventoryItem from "./InventoryItem";
+import DetailedItem from "./DetailedItem"
 
 
 const Shop = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
+  const [itemSelected, setItemSelected] = useState("");
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
   
   
@@ -17,6 +19,7 @@ const Shop = (props) => {
   const displayShop = () => {
     setShowMenu(!showMenu);
     setShowBuy(!showBuy);
+    setItemSelected("");
     
   };
 
@@ -41,6 +44,8 @@ const Shop = (props) => {
           setMoney={props.setMoney}
           turn={props.turn}
           allTurnPrices={props.allTurnPrices}
+          setItemSelected={setItemSelected}
+
         />
       ))
       );
@@ -71,34 +76,78 @@ const Shop = (props) => {
       ))
       );
   }
+  
 
 
   return (
     <>
       {showMenu ? (
-        <>
+        <div>
           <button type="button" className="shop-button" onClick={displayShop}>
             Close
           </button>
           <div className="shop">
-          <button type="button"  className={"buy-button"  + (showBuy ? " active" : "")}  onClick={displayBuy}>
-            Buy
-          </button>
-          <button type="button" className={"sell-button" +  (showSell ? " active" : "")} onClick={displaySell}>
-            Sell
-          </button>
-            <div className="shop-component">
-              <p className="center shop-heading">Shop</p>
-              <div className="shop-items">
-                {showBuy ? 
-                  displayBuyItems()
-                 : 
-                  displaySellItems()
-                }
+            <div className="all-shop">
+            <div className="empty-placeholder"></div>
+              <div className="shop-component">
+                <div></div>
+                  
+                  <div className="header">
+                      <p className="center shop-heading">Shop</p>
+                      <div className="header-tools">
+                      <div className="filter">
+                        <label>Filters: </label> <select name="filters">
+                          <optgroup label="Season Filters">
+                            <option value="Fall">Fall</option>
+                            <option value="Winter">Winter</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Summer">Summer</option>
+                          </optgroup>
+                          <optgroup label="Item Filters">
+                            <option label="LowToHigh">Lowest to Highest price</option>
+                            <option label="HighToLow">Highest to Lowest price</option>
+                          </optgroup>
+                        </select>
+                      </div>
+                      <div className="Info">
+                        <p>Season: PLACEHOLDER</p>
+                      </div>
+                      <div className="Info">
+
+                        <p>Money: $PLACEHOLDER</p>
+                      </div>
+
+                      
+                    </div>
+                  
+                  </div>
+                  <div className="market-options">
+                        <button type="button"  className={"market-button"  + (showBuy ? " active" : "")}  onClick={displayBuy}>
+                        Buy </button>
+                        <button type="button" className={"market-button" +  (showSell ? " active" : "")} onClick={displaySell}> Sell </button>
+                  </div>
+                  <div className="shop-items">
+                    {showBuy ? 
+                      displayBuyItems()
+                    : 
+                      displaySellItems()
+                    }
+                  </div>
+                  
+
+                  
+                
               </div>
+            <div className="empty-placeholder"></div>
+            <div className="display-more"> 
+                    <h1>More Information:</h1>
+                    <h2>{itemSelected != "" ? itemSelected : "No Item selected"}</h2>
+                    <DetailedItem item={itemSelected}/>
             </div>
           </div>
-        </>
+          </div>
+          <div className="empty-placeholder"></div>
+        </div>
       ) : (
         <button type="button" className="shop-button" onClick={displayShop}>
           Shop

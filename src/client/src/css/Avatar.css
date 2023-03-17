@@ -1,6 +1,6 @@
 .avatar-overlay {
   display: grid;
-  grid-template-columns: 2r;
+  grid-template-columns: 2fr;
   grid-template-rows: auto;
   position: absolute;
   top: 15%;
@@ -81,7 +81,7 @@
 
 .purchase-consultant {
   display: grid;
-  grid-template-columns: 2r;
+  grid-template-columns: 2fr;
   grid-template-rows: auto;
   justify-content: center;
 }

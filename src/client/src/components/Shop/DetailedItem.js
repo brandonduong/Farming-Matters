@@ -5,7 +5,7 @@ import { checkIfItemIsPlant } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
 
-const ShopItem = (props) => {
+const DetailedItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
   const [insuranceQuantity, setInsuranceQuantity] = useState(0);
   const { inventoryState, insuredState } = React.useContext(
@@ -130,4 +130,4 @@ const ShopItem = (props) => {
   );
 };
 
-export default ShopItem;
+export default DetailedItem;
