@@ -22,6 +22,9 @@ const Tornado = (props) => {
 			mesh.current.position.x = mesh.current.position.x  -  Math.random()*0.35;
             mesh.current.position.z = mesh.current.position.z -  Math.random()*0.35;
             mesh.current.position.y += Math.random()*0.02;
+            mesh.current.rotation.y += 0.05;
+            //mesh.current.rotation.y += 25;
+            //  mesh.current.rotation.z -= 30;
 		}else{  
 			mesh.current.position.x = 10;
             mesh.current.position.z = 10;
@@ -41,7 +44,7 @@ const Tornado = (props) => {
     return (
         
         //Need to wrap model around a mesh to update position
-        <mesh {...props} ref={mesh}>
+        <mesh {...props} ref={mesh} >
             <TornadoModel  />
         </mesh>
         

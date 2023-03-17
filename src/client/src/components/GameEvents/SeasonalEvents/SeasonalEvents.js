@@ -44,7 +44,9 @@ function Drought(){
 
 function Floods(){
     let wave = [];
-    wave.push(<Flood/>)
+    wave.push(
+    <Flood/>
+    )
     return wave;
 }
 

@@ -7,5 +7,5 @@ export function TornadoModel(props) {
     tornado.scene.clone(),
   ];
 
-  return <primitive object={tornado.scene.clone()} {...props} scale={0.01}/>;
+  return <primitive object={tornado.scene.clone()} {...props} scale={0.006}/>;
 }

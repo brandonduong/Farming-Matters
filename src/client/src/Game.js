@@ -287,10 +287,11 @@ export const Game = () => {
             setTurn={setTurn}
           />
           <div className="canvas-container">
-            <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
+            <Canvas camera={{ fov: 70, position: [0, 5, 5] }} performance={{ min: 0.1 }} gl={{ antialias: false }}>
               <ambientLight intensity={1} />
-              <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
+              <spotLight position={[-10, -10, -10]} angle={-Math.PI/2} penumbra={0.1} />
               <pointLight position={[-10, -10, -10]} />
+              
 
               <ModelProvider>
                 {/* Blue sky */}
@@ -305,6 +306,7 @@ export const Game = () => {
 
                 {farmBuildings}
                 {landscape}
+                
                 {VisualGameLogic.generateVisualEnvironment(
                   turn,
                   season,
