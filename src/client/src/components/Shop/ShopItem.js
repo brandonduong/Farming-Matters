@@ -85,47 +85,10 @@ const ShopItem = (props) => {
       <p style={{ color: "white", margin: "5px" }}>
         {props.name + " - $" + props.price}
       </p>
-      <label htmlFor="itemQuantity" style={{ color: "white" }}>
-        Quantity:
-      </label>
-      <input
-        type="number"
-        name="itemQuantity"
-        min="1"
-        max="5"
-        style={{ width: "15%", margin: "0px 2%" }}
-        value={itemQuantity}
-        onChange={(e) => setItemQuantity(e.target.value)}
-      ></input>
-      <button onClick={() => buy()}>Buy</button>
-      <br></br>
-      {checkIfItemIsPlant(props.name, plants) ? (
-        <>
-          <label htmlFor="insuranceQuantity" style={{ color: "white" }}>
-            Quantity:
-          </label>
-          <input
-            id="insurance"
-            type="number"
-            name="insuranceQuantity"
-            min="1"
-            max="5"
-            style={{ width: "15%", margin: "0px 2%" }}
-            value={insuranceQuantity}
-            onChange={(event_insurance) =>
-              setInsuranceQuantity(event_insurance.target.value)
-            }
-          ></input>
-          <button
-            className="insurance-button"
-            onClick={() => purchaseInsurance()}
-          >
-            Purchase Insurance
-          </button>
-        </>
-      ) : (
+     
+       : (
         <></>
-      )}
+      )
     </div>
   );
 };
