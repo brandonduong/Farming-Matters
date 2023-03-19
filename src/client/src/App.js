@@ -2,6 +2,7 @@ import "./css/App.css";
 import "./css/Avatar.css";
 import "./css/Inventory.css";
 import "./css/Shop.css"
+import "./css/SeasonTransition.css"
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from "react";
 import { LoginPage } from "./components/LoginPage";

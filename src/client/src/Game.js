@@ -24,7 +24,7 @@ import {
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
-import { SEASONS } from "./components/GameLogic/constants";
+import { SEASONS, EVENT_OCCUR_THRESHOLD, gameEvents} from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
@@ -57,6 +57,8 @@ export const Game = () => {
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [displayTransition, setDisplayTransition] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -122,12 +124,28 @@ export const Game = () => {
 
   useEffect(() => {
     setAccessToConsultant(false);
-    const isEventHappeningNextSeason =
-      GameLogic.GenerateStatistics.getEventHappening();
-    setIsEventHappening(isEventHappeningNextSeason);
-    const eventType = setTypeOfCatastrophicEvent(
-      GameLogic.GenerateStatistics.getEventType()
-    );
+    const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
+    console.log("EVENT HAPPENING IS ", isEventHappeningNextSeason);
+    //setIsEventHappening(isEventHappeningNextSeason);
+
+    //setTypeOfCatastrophicEvent(
+    //  GameLogic.GenerateStatistics.getEventType()
+    //);
+
+    if (isEventHappeningNextSeason ){
+      setIsEventHappening(true);
+    }else{
+      setIsEventHappening(false);
+    }
+
+    //Sesonal Events
+    if (isEventHappening > EVENT_OCCUR_THRESHOLD){
+      setTypeOfCatastrophicEvent(Object.keys(gameEvents["Season"][season])[0]);
+      setDisplayTransition(true);
+    }else{
+      setTypeOfCatastrophicEvent("");
+    }
+    console.log(typeOfCatastrophicEvent);
 
     if (isEventHappening) {
       logData({
@@ -327,7 +345,7 @@ export const Game = () => {
             setTurn={setTurn}
           />
 
-          {isEventHappening && turn > 3 ? console.log(isEventHappening) : <></>}
+          {isEventHappening && turn > 3 ? <SeasonTransition typeOfCatastrophicEvent={typeOfCatastrophicEvent} displayTransition={displayTransition} setDisplayTransition={setDisplayTransition}/> : <></>}
           <AvatarMenu
             accessToConsultant={accessToConsultant}
             setAccessToConsultant={setAccessToConsultant}

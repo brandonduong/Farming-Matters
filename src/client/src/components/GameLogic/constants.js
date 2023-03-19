@@ -133,3 +133,21 @@ export const itemFluctuation = [
     fluctuationFactor: 2.1,
   },
 ];
+
+
+export const seasonTransition = [
+  {
+    "SnowStorm": 
+    "Oh dear it looks a severe Snow Storm has came in overnight. Crops that are not protected will be destroyed."
+  },
+  
+  {
+    "HeavyRain": "Oh dear it looks a severe Thunder Storm has came in overnight. Crops that are not protected will be destroyed."
+  },
+  {
+    "Drought": "Oh dear it looks a severe Drought has came in overnight. Crops that are not protected will be destroyed."
+  },
+  {
+    "Tornadoes": "Oh dear it looks a severe Tornado has came in overnight. Crops that are not protected will be destroyed."
+  }
+];
