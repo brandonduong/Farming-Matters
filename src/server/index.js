@@ -84,6 +84,13 @@ app.get("/private/loadGame", async (req, res) => {
   res.json(gameState[0][0]);
 });
 
+app.get("/private/deleteUserTable", async (req, res) => {
+  let userId = req.headers.userid;
+  let deletedTable = await databaseOperations.deleteUserTable(db, userId);
+  console.log("result delete: ", deletedTable);
+  res.status(200).send();
+});
+
 //app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));
 //app.post('/auth/createaccount',  (req, res) => createAccount(req.body.email, req.body.password, res));
 
