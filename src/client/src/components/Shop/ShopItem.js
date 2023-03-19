@@ -80,12 +80,16 @@ const ShopItem = (props) => {
   }
 
   return (
-    <div className={"shop-item " + (props.seasonType != "" ? props.seasonType.toLowerCase() : "other") + "-item"} key={props.id} onClick={()=> {props.setItemSelected(props.name)}}>
+    <div className="shop-item "key={props.id} onClick={()=> {props.setItemSelected(props.name)}}>
+      
+      <div className="season-label">{props.seasonType}</div>
+      <div className={(props.seasonType != "" ? props.seasonType.toLowerCase() : "other") + "-item"}>
+      
       <img src={props.image} alt="crops" className="item-image"></img>
       <p style={{ color: "white", margin: "5px" }}>
         {props.name + " - $" + props.price}
       </p>
-     
+      </div>
       
     </div>
   );
