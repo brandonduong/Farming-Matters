@@ -342,6 +342,7 @@ export const Game = () => {
             turn={turn}
             allTurnPrices={allTurnPrices}
             marketItems={marketItems}
+            season={season}
           ></Shop>
         </globalInventoryContext.Provider>
       }

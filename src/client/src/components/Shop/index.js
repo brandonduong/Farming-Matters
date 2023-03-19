@@ -31,6 +31,8 @@ const Shop = (props) => {
     console.log("BUY CLICKED");
   };
 
+
+
   function displayBuyItems (){
     return(
       props.marketItems.map((item) => (
@@ -45,7 +47,7 @@ const Shop = (props) => {
           turn={props.turn}
           allTurnPrices={props.allTurnPrices}
           setItemSelected={setItemSelected}
-
+          seasonType={item.seasonType}
         />
       ))
       );
@@ -76,8 +78,6 @@ const Shop = (props) => {
       ))
       );
   }
-  
-
 
   return (
     <>
@@ -90,7 +90,7 @@ const Shop = (props) => {
             <div className="all-shop">
             <div className="empty-placeholder"></div>
               <div className="shop-component">
-                <div></div>
+                  <div className="empty-placeholder"></div>
                   
                   <div className="header">
                       <p className="center shop-heading">Shop</p>
@@ -110,16 +110,13 @@ const Shop = (props) => {
                         </select>
                       </div>
                       <div className="Info">
-                        <p>Season: PLACEHOLDER</p>
+                        <p>Season: {props.season}</p>
                       </div>
                       <div className="Info">
 
-                        <p>Money: $PLACEHOLDER</p>
+                        <p>Money: ${props.money.toFixed(2)}</p>
                       </div>
-
-                      
                     </div>
-                  
                   </div>
                   <div className="market-options">
                         <button type="button"  className={"market-button"  + (showBuy ? " active" : "")}  onClick={displayBuy}>
@@ -133,16 +130,11 @@ const Shop = (props) => {
                       displaySellItems()
                     }
                   </div>
-                  
-
-                  
-                
               </div>
             <div className="empty-placeholder"></div>
             <div className="display-more"> 
                     <h1>More Information:</h1>
-                    <h2>{itemSelected != "" ? itemSelected : "No Item selected"}</h2>
-                    <DetailedItem item={itemSelected}/>
+                    <DetailedItem item={itemSelected} {...props} />
             </div>
           </div>
           </div>
