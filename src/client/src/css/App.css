@@ -237,46 +237,6 @@
   background-color: darkseagreen;
 }
 
-.settings-button {
-  position: absolute;
-  bottom: 150px;
-  right: 50px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  border-radius: 45px;
-  padding: 10px 30px;
-  background-color: rgba(255, 255, 255);
-  color: black;
-  font-size: large;
-  z-index: 10;
-}
-
-.settings-component {
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.65);
-  color: black;
-  height: 70%;
-  width: 60%;
-  top: 15%;
-  margin: auto;
-  border-radius: 30px;
-}
-
-.settings-heading {
-  margin-bottom: 10px;
-  color: rgb(0, 0, 0) !important;
-}
-
-.settings {
-  position: absolute;
-  top: 0px;
-  background-color: rgba(0, 0, 0, 0.632);
-  color: black;
-  height: 100vh;
-  width: 100vw;
-  font-weight: bold;
-  z-index: 11;
-}
-
 #close-button {
   position: absolute;
   top: -10px;
@@ -292,9 +252,9 @@
 }
 
 #close-button:hover {
-  padding: 9px 18px 11px 18px;
-  top: -14px;
-  right: -14px;
+  padding: 6px 16px 10px 16px;
+  top: -13px;
+  right: -13px;
   font-size: x-large;
   transition: 250ms;
 }

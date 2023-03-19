@@ -1,0 +1,92 @@
+.settings-button {
+  position: absolute;
+  bottom: 150px;
+  right: 50px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  z-index: 10;
+  transition: 150ms;
+}
+
+.settings-button:hover {
+  padding: 12px 33px;
+  bottom: 149px;
+  right: 45px;
+  transition: 300ms;
+  font-weight: bold;
+}
+
+.settings-component {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.65);
+  color: black;
+  height: 60%;
+  width: 50%;
+  top: 15%;
+  margin: auto;
+  border-radius: 30px;
+  padding: 30px;
+}
+
+.settings-heading {
+  margin-bottom: 10px;
+  color: rgb(0, 0, 0) !important;
+}
+
+.settings {
+  position: absolute;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.632);
+  color: black;
+  height: 100vh;
+  width: 100vw;
+  font-weight: bold;
+  z-index: 11;
+}
+
+.settings-header {
+  text-align: initial;
+}
+
+.withdraw-btn {
+  margin-top: 12px;
+  padding: 15px 20px;
+  border-radius: 45px;
+  border: 3px solid rgba(255, 255, 255, 0);
+  background-color: white;
+  font-weight: lighter;
+  font-size: smaller;
+  transition: 150ms;
+}
+
+.withdraw-btn:hover {
+  padding: 15px 14px;
+  border-radius: 45px;
+  border: 3px solid rgb(255, 255, 255);
+  font-weight: bold;
+  transition: 150ms;
+}
+
+@media (max-width: 800px) {
+  .withdraw-btn {
+    display: block;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: white;
+    margin: 15px auto !important;
+    text-align: center;
+    transition: 150ms;
+  }
+
+  .withdraw-btn:hover {
+    padding: 10px;
+    border-radius: 45px;
+    font-weight: bold;
+    transition: 150ms;
+  }
+}
