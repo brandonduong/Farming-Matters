@@ -17,10 +17,7 @@ import { TreeModel } from "./components/models/TreeModel";
 import { FlowerModel } from "./components/models/FlowerModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import { shopItemsList } from "./components/Shop/constants";
-import {
-  generateNTurnPriceState,
-  GameLogic,
-} from "./components/GameLogic/GameLogic";
+import { generateNTurnPriceState, GameLogic } from "./components/GameLogic/GameLogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
@@ -29,11 +26,11 @@ import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
-import SeasonTransition from "./components/GameLogic/SeasonTransition";
+// import SeasonTransition from "./components/GameLogic/SeasonTransition";
 
-const globalInventoryState = {};
-const insuredItems = {};
-export const globalInventoryContext = React.createContext({});
+const globalInventoryState = [];
+// const insuredItems = {};
+export const globalInventoryContext = React.createContext([]);
 // export const globalInsuredContext = React.createContext();
 
 /**
@@ -50,7 +47,7 @@ export const Game = () => {
   const [landscape, setLandscape] = useState([]);
   const [farmBuildings, setFarmBuildings] = useState([]);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
-  const [insuredState, setInsuredState] = useState(insuredItems);
+  // const [insuredState, setInsuredState] = useState(insuredItems);
   const marketItems = [];
   const [accessToConsultant, setAccessToConsultant] = useState(false);
   const [consultantStatement, setConsultantStatement] = useState("");
@@ -61,21 +58,20 @@ export const Game = () => {
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
   }
-  let nTurnItemPrices = generateNTurnPriceState(
-    10,
-    itemFluctuation,
-    marketItems
-  );
+  let nTurnItemPrices = generateNTurnPriceState(10, itemFluctuation, marketItems);
   const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
+  let inventory = [];
 
   // constructor for inventory
-  let getNames = {};
-  let getNamesInsurance = {};
-  for (let i = 0; i < marketItems.length; i++) {
-    let currentName = marketItems[i].name;
-    getNames[currentName] = 0;
-    getNamesInsurance[currentName] = 0;
-  }
+  // let getNames = {};
+  // let getNamesInsurance = {};
+  // for (let i = 0; i < marketItems.length; i++) {
+  //   let currentName = marketItems[i].name;
+  //   getNames[currentName] = 0;
+  //   getNamesInsurance[currentName] = 0;
+  // }
+
+
 
   let currentPrices = [];
   for (let i = 0; i < marketItems.length; i++) {
@@ -94,7 +90,7 @@ export const Game = () => {
         money: money,
         decisionType: decisionType,
         inventory: inventoryState,
-        insuredCrops: insuredState,
+        // insuredCrops: insuredState,
         sellPrices: allTurnPrices[turn],
         consultant: [accessToConsultant, consultantStatement],
       });
@@ -102,12 +98,12 @@ export const Game = () => {
   }, [turn]);
 
   useEffect(() => {
-    setInventoryState(getNames);
+    setInventoryState(inventory);
   }, []);
 
-  useEffect(() => {
-    setInsuredState(getNamesInsurance);
-  }, []);
+  // useEffect(() => {
+  //   setInsuredState(getNamesInsurance);
+  // }, []);
 
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {
@@ -269,8 +265,8 @@ export const Game = () => {
           value={{
             inventoryState,
             setInventoryState,
-            insuredState,
-            setInsuredState,
+            // insuredState,
+            // setInsuredState,
             turn,
           }}
         >

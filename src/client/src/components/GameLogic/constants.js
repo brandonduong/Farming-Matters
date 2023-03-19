@@ -65,71 +65,86 @@ export const itemFluctuation = [
   {
     id: 0,
     name: "Rice",
+    price: 100,
     fluctuationFactor: 2,
   },
   {
     id: 1,
     name: "Carrot",
+    price: 200,
     fluctuationFactor: 1.5,
   },
   {
     id: 2,
     name: "Orange",
+    price: 150,
     fluctuationFactor: 2.5,
   },
   {
     id: 3,
     name: "Lettuce",
+    price: 150,
     fluctuationFactor: 2.1,
   },
   {
     id: 4,
     name: "Tomato",
+    price: 120,
     fluctuationFactor: 2.1,
   },
   {
     id: 5,
     name: "Watermelon",
+    price: 175,
     fluctuationFactor: 3.0,
   },
   {
     id: 6,
     name: "Wheat",
+    price: 175,
     fluctuationFactor: 2.1,
   },
   {
     id: 7,
     name: "Pumpkin",
+    price: 175,
     fluctuationFactor: 1.9,
   },
   {
     id: 8,
     name: "Beet",
+    price: 175,
     fluctuationFactor: 2.1,
   },
   {
     id: 9,
     name: "Berries",
+    price: 175,
     fluctuationFactor: 2.1,
   },
   {
     id: 10,
     name: "Mushroom",
+    price: 175,
     fluctuationFactor: 3.0,
   },
   {
     id: 11,
     name: "Wintermelon",
+    price: 175,
     fluctuationFactor: 2.1,
-  },
+  },    
   {
     id: 12,
     name: "Fertilizer",
+    price: 50,
     fluctuationFactor: 3.0,
   },
   {
     id: 13,
     name: "Pesticide",
+    price: 40,
     fluctuationFactor: 2.1,
-  },
+  },   
 ];
+

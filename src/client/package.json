@@ -5,6 +5,7 @@
   "dependencies": {
     "@react-three/drei": "^9.40.0",
     "@react-three/fiber": "^8.9.1",
+    "@stdlib/stats-base-dists-normal": "^0.0.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -71,7 +72,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5001/",
+  "proxy": "http://localhost:4001/",
   "devDependencies": {
     "jest-watch-typeahead": "^0.6.5"
   }

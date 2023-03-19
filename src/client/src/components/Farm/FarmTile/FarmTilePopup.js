@@ -7,20 +7,20 @@ import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
 const FarmTilePopup = (props) => {
   function onClick(seedNum, plantName) {
     props.setPlantedSeed(seedNum);
-    removeItem(props.inventoryState, plantName, 1);
+    // removeItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
   }
 
   function harvestPlant(plantName) {
     props.setPlantedSeed(0);
     props.setFertilizerAmount(0);
-    addItem(props.inventoryState, plantName, 1);
+    // addItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
   }
 
   function applyFertilizer() {
     props.setFertilizerAmount(props.fertilizerAmount + 1);
-    removeItem(props.inventoryState, "Fertilizer", 1);
+    // removeItem(props.inventoryState, "Fertilizer", 1);
   }
 
   function buyPlot() {
@@ -39,10 +39,10 @@ const FarmTilePopup = (props) => {
       plants[i].plantableSeasons &&
       plants[i].plantableSeasons.includes(season)
     ) {
-      let hasEnough =
-        parseInt(getItemCount(props.inventoryState, plants[i].name)) > 0;
-      let isPlant = checkIfItemIsPlant(plants[i].name, plants);
-      if (hasEnough && isPlant) {
+      // let hasEnough =
+      //   parseInt(getItemCount(props.inventoryState, plants[i].name)) > 0;
+      // let isPlant = checkIfItemIsPlant(plants[i].name, plants);
+      if (true) {
         seedsPresent = true;
         plantButtons.push(
           <div
@@ -94,16 +94,18 @@ const FarmTilePopup = (props) => {
             <h4>Harvest</h4>
           </button>
         ) : (
-          parseInt(getItemCount(props.inventoryState, "Fertilizer")) > 0 && (
+          // parseInt(getItemCount(props.inventoryState, "Fertilizer")) > 0 && 
+          true
+          (
             <button
               className="tile-popup-info-item"
               type="button"
               onClick={() => applyFertilizer()}
             >
-              <h4>
+              {/* <h4>
                 Apply Fertilizer (
                 {parseInt(getItemCount(props.inventoryState, "Fertilizer"))})
-              </h4>
+              </h4> */}
             </button>
           )
         )}

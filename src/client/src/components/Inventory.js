@@ -1,38 +1,69 @@
-
-//TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
-
 export function getItems(inventory){ 
-  return Object.keys(inventory);
-}
-
-export function getItemCount(inventory,item){
-  //console.log(inventory[item]);
-  return inventory[item];
-}
-
-export function addItem(inventory,item,count){
-  inventory[item] = parseInt(inventory[item]) + parseInt(count); 
-  return inventory;
-}
-
-export function removeItem(inventory,item,count){
-  if (parseInt(inventory[item]) < parseInt(count)) {
-    console.log("Not enough items");
+  let itemList = []
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if (!itemList.includes(currItem.name)){
+      itemList.push(currItem.name);
+    }
   }
-  else{
-    inventory[item] = parseInt(inventory[item]) - parseInt(count);
-  }
+  return itemList;
 }
 
-export function addInsuredItem(insuredItems,item,count){
-  insuredItems[item] = parseInt(insuredItems[item]) + parseInt(count); 
+export function addItem(inventory,item){
+  inventory.push(item);
 }
 
-export function removeInsuredItem(insuredItems,item,count){
-  if (parseInt(insuredItems[item]) < parseInt(count)) {
-    console.log("Not enough items");
+
+export function removeItem(inventory,item){
+  inventory.remove(item)
+}
+
+// gets the count of crops with the same insurance contracts
+export function getSameCropContractCount(inventory,item){
+  const itemName = item.name;
+  const floorPrice = item.insuranceInfo
+  let sameContractCount = 0;
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if (currItem.name == itemName && currItem.insuranceInfo == floorPrice){
+      sameContractCount++;
+    }
   }
-  else{
-    insuredItems[item] = parseInt(insuredItems[item]) - parseInt(count);
+  return sameContractCount;
+}
+
+// gets crop count 
+export function getCropCount(inventory, crop){
+  let cropCount = 0;
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if (currItem.name == crop && currItem.type == "crop"){
+      cropCount++;
+    }
   }
+  return cropCount;
+}
+
+// gets seed count
+export function getSeedCount(inventory,seed){
+  let seedCount = 0;
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if (currItem.name == seed && currItem.type == "seed"){
+      seedCount++;
+    }
+  }
+  return seedCount;
+}
+
+// get item count (for all non-plants)
+export function getItemCount(inventory,tool){
+  let toolCount = 0;
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if (currItem.name == tool && currItem.type == "tool"){
+      toolCount++;
+    }
+  }
+  return toolCount;
 }
