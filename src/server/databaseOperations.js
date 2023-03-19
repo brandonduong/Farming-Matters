@@ -1,10 +1,9 @@
 const runQuery = async (database, sql) => {
   let result;
   try {
-    console.log(sql);
     result = await database.query(sql);
   } catch (err) {
-    console.log(err);
+    console.log(`Error occured during query. Query: ${sql} \n Error: ${err}`);
   }
 
   return result;
@@ -21,7 +20,7 @@ const createUserTable = async (database, userId) => {
   return await runQuery(database, sql);
 };
 
-const deleteUserTable = async (databse, userId) => {
+const deleteUserTable = async (database, userId) => {
   let sql = "DROP TABLE LoggedActions_" + userId;
 
   return await runQuery(database, sql);

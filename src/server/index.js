@@ -79,15 +79,14 @@ app.post("/private/saveGame", async (req, res) => {
 app.get("/private/loadGame", async (req, res) => {
   let userId = req.headers.userid;
   let gameState = await databaseOperations.loadGame(db, userId);
-  console.log("gamestate: ", gameState[0][0]);
-  console.log("gamestate: ", typeof gameState[0][0]);
+  // console.log("gamestate: ", gameState[0][0]);
+  // console.log("gamestate: ", typeof gameState[0][0]);
   res.json(gameState[0][0]);
 });
 
-app.get("/private/deleteUserTable", async (req, res) => {
+app.delete("/private/deleteUserTable", async (req, res) => {
   let userId = req.headers.userid;
   let deletedTable = await databaseOperations.deleteUserTable(db, userId);
-  console.log("result delete: ", deletedTable);
   res.status(200).send();
 });
 

@@ -57,7 +57,7 @@ export const Game = () => {
   const [consultantStatement, setConsultantStatement] = useState("");
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
-  const [backgroundMusicVolume, setBackgroundVolume] = useState(10);
+  const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
 
   for (let i = 1; i < shopItemsList.length; i++) {
