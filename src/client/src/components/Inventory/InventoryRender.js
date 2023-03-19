@@ -22,9 +22,25 @@ const InventoryRender = (props) => {
           currInventory.push(currItem);
         }
       }
-      logData("Inventory count", {
+
+      let season;
+      if (props.turn % 3 === 0) {
+        season = "Fall";
+      } else if (props.turn % 3 === 1) {
+        season = "Winter";
+      } else if (props.turn % 3 === 2) {
+        season = "Spring";
+      } else {
+        season = "Summer";
+      }
+
+      logData({
+        actionType: "Inventory count",
         turn: props.turn,
-        inventory: currInventory,
+        season: season,
+        isExperimental: true,
+        balance: props.money,
+        details: { inventory: currInventory },
       });
     }
   }

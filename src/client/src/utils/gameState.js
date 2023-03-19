@@ -7,11 +7,6 @@ export const saveGame = async (gameData) => {
 
   try {
     idToken = auth.currentUser ? await auth.currentUser.getIdToken(true) : "";
-  } catch (error) {
-    console.error(error);
-  }
-
-  try {
     userId = auth.currentUser ? await auth.currentUser.uid : "";
   } catch (error) {
     console.error(error);
@@ -36,11 +31,6 @@ export const retrieveSavedGame = async () => {
 
   try {
     idToken = auth.currentUser ? await auth.currentUser.getIdToken(true) : "";
-  } catch (error) {
-    console.error(error);
-  }
-
-  try {
     userId = auth.currentUser ? await auth.currentUser.uid : "";
   } catch (error) {
     console.error(error);
@@ -55,5 +45,10 @@ export const retrieveSavedGame = async () => {
     },
   };
 
-  await fetch("/private/loadGame", requestOptions);
+  let gameState;
+  gameState = await fetch("/private/loadGame", requestOptions);
+  gameState = gameState.json().then((currentGameState) => {
+    return currentGameState;
+  });
+  return gameState;
 };

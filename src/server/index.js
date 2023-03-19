@@ -4,7 +4,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const { allowSingleSession } = require("./socket/allowSingleSession");
 const { auth } = require("./firebase");
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 let db;
 
 const PORT = process.env.PORT || 5001;
@@ -34,59 +34,54 @@ function checkAuth(req, res, next) {
 
 app.use("/private", checkAuth);
 
-app.get("/private/connectToDatabase", (req, res) => {
-  db = mysql.createConnection({
-    host: "localhost",
-    user: "capstone",
-    password: "farming-matters",
-    database: "testFarmingMatters",
-  });
-  // // setTimeout(res.status(200).send(), 5000);
-  // console.log("1: ", new Date().toLocaleString());
-  // sleep(5000);
-  // console.log("2: ", new Date().toLocaleString());
+app.get("/private/connectToDatabase", async (req, res) => {
+  try {
+    db = await mysql.createConnection({
+      host: "localhost",
+      user: "capstone",
+      password: "farming-matters",
+      database: "testFarmingMatters",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send();
+  }
+
+  if (db) {
+    let userId = req.headers.userid;
+    // Only creates a user table if it does not exist in the database
+    await databaseOperations.createUserTable(db, userId);
+  }
   res.status(200).send();
 });
 
-app.post("/private/actions", (req, res) => {
+app.post("/private/logactions", async (req, res) => {
   let userId = req.body.userId;
-  let action = req.body.action;
-  // let loggedActions =
-  console.log(req.body);
-
-  // Only creates a user table if it does not exist in the database
-  databaseOperations.createUserTable(db, userId);
+  let data = req.body.data;
+  console.log("data: ", data);
 
   // Log actions
-  databaseOperations.logData(db, userId, JSON.stringify(action));
+  await databaseOperations.logData(db, userId, JSON.stringify(data));
 
   res.status(200).send();
 });
 
-app.post("/private/saveGame", (req, res) => {
+app.post("/private/saveGame", async (req, res) => {
   let userId = req.body.userId;
   let data = req.body.gameData;
 
   // Only creates a user table if it does not exist in the database
-  databaseOperations.saveGame(db, userId, data);
+  await databaseOperations.saveGame(db, userId, data);
 
   res.status(200).send();
 });
 
-app.get("/private/loadGame", (req, res) => {
+app.get("/private/loadGame", async (req, res) => {
   let userId = req.headers.userid;
-
-  // Only creates a user table if it does not exist in the database
-  async function waitQuery() {
-    let gameState = await databaseOperations.loadGame(db, userId);
-
-    console.log(gameState);
-    res.status(200).send(gameState);
-  }
-  waitQuery();
-
-  // console.log("Game state: ", gameState);
-  // console.log("db:  ", new Date().toLocaleString());
+  let gameState = await databaseOperations.loadGame(db, userId);
+  console.log("gamestate: ", gameState[0][0]);
+  console.log("gamestate: ", typeof gameState[0][0]);
+  res.json(gameState[0][0]);
 });
 
 //app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));

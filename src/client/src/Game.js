@@ -27,7 +27,7 @@ import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
 import { SEASONS } from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
-import { saveGame } from "./utils/gameState";
+import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
 import bgMusic from "./assets/bg_music.mp3";
 import { GameSettings } from "./components/GameSettings";
@@ -89,16 +89,18 @@ export const Game = () => {
   }
 
   useEffect(() => {
-    saveGame({
-      turn: turn,
-      season: season,
-      money: money,
-      decisionType: decisionType,
-      inventory: inventoryState,
-      insuredCrops: insuredState,
-      sellPrices: allTurnPrices[turn],
-      consultant: [accessToConsultant, consultantStatement],
-    });
+    if (turn > 1) {
+      saveGame({
+        turn: turn,
+        season: season,
+        money: money,
+        decisionType: decisionType,
+        inventory: inventoryState,
+        insuredCrops: insuredState,
+        sellPrices: allTurnPrices[turn],
+        consultant: [accessToConsultant, consultantStatement],
+      });
+    }
   }, [turn]);
 
   useEffect(() => {
@@ -130,10 +132,16 @@ export const Game = () => {
     );
 
     if (isEventHappening) {
-      logData("CatastrophicEvent", {
+      logData({
+        actionType: "Catastrophic Event",
         turn: turn,
-        isEventHappeningNextSeason: isEventHappeningNextSeason,
-        eventType: eventType,
+        season: season,
+        isExperimental: false,
+        balance: money,
+        details: {
+          isEventHappeningNextSeason: isEventHappeningNextSeason,
+          eventType: eventType,
+        },
       });
     }
   }, [season]);
@@ -150,10 +158,17 @@ export const Game = () => {
           season
         );
       setConsultantStatement(statement);
-      logData("ConsultantAdvice", {
+
+      logData({
+        actionType: "Consultant Advice",
         turn: turn,
-        statement: statement,
-        isEventHappeningNextSeason: isEventHappening,
+        season: season,
+        isExperimental: true,
+        balance: money,
+        details: {
+          // using statement instead of consultantStatement because I cant access the updated value
+          statement: statement,
+        },
       });
     } else {
       setConsultantStatement("");
@@ -162,30 +177,14 @@ export const Game = () => {
 
   // // This effect will create a connection to the database once this component loads
   useEffect(() => {
-    createConnection();
-    //   console.log("1: ", new Date().toLocaleString());
-    //   setTimeout(() => {
-    //     console.log("2: ", new Date().toLocaleString());
-    //     let gameState = retrieveSavedGame();
-    //     console.log(gameState);
-    //   }, 5000);
-    //   // let connection;
-    //   // const databaseSetup = async () => {
-    //   //   connection = await createConnection();
-    //   //   console.log("Client: ", connection);
-    //   //   console.log("Client:  ", new Date().toLocaleString());
-    //   //   return connection;
-    //   // };
-    //   // databaseSetup().then((value) => {
-    //   //   console.log(value);
-    //   // });
-    //   // .then(() => {
-    //   //   console.log("test: ", connection);
-    //   //   // const gameState = retrieveSavedGame();
-    //   // console.log("Gamestate: ", retrieveSavedGame());
-    //   // });
-    //   // console.log("Client2:  ", new Date().toLocaleString());
-    //   // console.log(retrieveSavedGame());
+    const initalizeGameState = async () => {
+      await createConnection();
+      retrieveSavedGame().then((gameState) => {
+        console.log(gameState);
+        // console.log(gameState.json());
+      });
+    };
+    initalizeGameState();
   }, []);
 
   function randomXYCircle(maxRadius, minRadius) {
@@ -340,7 +339,11 @@ export const Game = () => {
             setVolume={setBackgroundVolume}
           />
 
-          <InventoryRender marketItems={marketItems} />
+          <InventoryRender
+            marketItems={marketItems}
+            money={money}
+            turn={turn}
+          />
           <Shop
             money={money}
             setMoney={setMoney}
