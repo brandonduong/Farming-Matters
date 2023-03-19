@@ -29,6 +29,7 @@ import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
+import SeasonTransition from "./components/GameLogic/SeasonTransition";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -142,6 +143,8 @@ export const Game = () => {
       });
     }
   }, [season]);
+
+
 
   useEffect(() => {
     if (accessToConsultant) {
@@ -298,12 +301,13 @@ export const Game = () => {
 
                 {farmBuildings}
                 {landscape}
-                {VisualGameLogic.generateVisualEnvironment(
+                {turn > 3 ? VisualGameLogic.generateVisualEnvironment(
                   turn,
                   season,
                   isEventHappening,
                   typeOfCatastrophicEvent
-                )}
+                ): <></>}
+                
               </ModelProvider>
 
               <OrbitControls
@@ -323,6 +327,7 @@ export const Game = () => {
             setTurn={setTurn}
           />
 
+          {isEventHappening && turn > 3 ? console.log(isEventHappening) : <></>}
           <AvatarMenu
             accessToConsultant={accessToConsultant}
             setAccessToConsultant={setAccessToConsultant}

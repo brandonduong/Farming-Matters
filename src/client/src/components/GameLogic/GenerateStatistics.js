@@ -27,6 +27,7 @@ function generateEventHappening() {
     isEventHappening = true;
   }
 
+  generatedForCurrentSeason = true;
   return pEventHappening;
 }
 

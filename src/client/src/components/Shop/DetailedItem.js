@@ -52,6 +52,9 @@ const DetailedItem = (props) => {
 
 
   function priceIncreaseOrDecrease(){
+    if (itemName == ""){
+      return;
+    }
     const currentPrice = props.allTurnPrices[props.turn].itemName;
     const pastPrice = props.allTurnPrices[props.turn - 1].itemName;
 
