@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import SliderBar from "./SliderBar";
-import "./settings.css";
 
 export const GameSettings = (props) => {
   const [showSettings, setSettings] = useState(false);

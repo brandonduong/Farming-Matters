@@ -1,6 +1,5 @@
 import React from "react";
 import Sound from "react-sound";
-import { useState } from "react";
 
 export class BackgroundMusic extends React.Component {
   render() {

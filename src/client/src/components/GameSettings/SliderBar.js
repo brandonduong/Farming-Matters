@@ -1,5 +1,4 @@
 import ReactSlider from "react-slider";
-import "./slider.css";
 
 const SliderBar = (props) => {
   let value = props.value;

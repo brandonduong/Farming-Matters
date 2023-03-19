@@ -33,14 +33,6 @@ function checkAuth(req, res, next) {
 }
 
 app.use("/private", checkAuth);
-/************************/
-
-// // Temp function for dealy
-// function databaseDelay(i) {
-//   setTimeout(function () {
-//     // Add tasks to do
-//   }, 20000);
-// }
 
 app.get("/private/connectToDatabase", (req, res) => {
   db = mysql.createConnection({
