@@ -26,6 +26,7 @@ function changeSeasonBaseEnvironment(currentSeason) {
     case "Fall":
       return SeasonalEvents.HeavyRain();
     case "Winter":
+      console.log("SNOW STORM INCOMING");
       return SeasonalEvents.SnowStorm();
     case "Spring":
       break;
@@ -64,7 +65,7 @@ function generateVisualEnvironment(
       <ambientLight intensity={changeSeasonAmbience(currentSeason)} />
       <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
-      <PerspectiveCamera makeDefault fov={70} position={[10, 5, 0]} />
+      <PerspectiveCamera makeDefault fov={90} position={ [0, 5, 5]} />
       {eventHappening > 0.5 ? (
         changeSeasonBaseEnvironment(currentSeason)
       ) : (

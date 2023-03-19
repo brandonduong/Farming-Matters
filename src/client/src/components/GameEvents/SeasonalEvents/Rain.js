@@ -13,7 +13,7 @@ const RainDrops = (props) => {
 
     useFrame((state, delta) => {
 		if (mesh.current.position.y >-5) {
-			mesh.current.position.y -= Math.random()*0.25;
+			mesh.current.position.y -= Math.random()*0.55;
 		}else{  
 			mesh.current.position.y = 12.5;
 			mesh.current.position.needsUpdate = true;
