@@ -59,7 +59,7 @@ export const gameEvents = {
 };
 export const eventProbabilities = [];
 
-export const EVENT_OCCUR_THRESHOLD = 0.6;
+export const EVENT_OCCUR_THRESHOLD = 0.85;
 
 export const itemFluctuation = [
   {

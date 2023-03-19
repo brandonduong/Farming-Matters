@@ -11,9 +11,8 @@ const SeasonTransition = (props) => {
     }
 
     function findStatement(){
-        console.log("FIND STATEMENT")
         for (let i = 0; i < seasonTransition.length; i++){
-            console.log(props.typeOfCatastrophicEvent, Object.keys(seasonTransition[i])[0])
+            console.log("HERE: ", props.typeOfCatastrophicEvent, Object.keys(seasonTransition[i])[0])
             if (props.typeOfCatastrophicEvent == Object.keys(seasonTransition[i])[0]){
                 return seasonTransition[i][Object.keys(seasonTransition[i])[0]];
             }

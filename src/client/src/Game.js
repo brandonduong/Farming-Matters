@@ -125,27 +125,33 @@ export const Game = () => {
   useEffect(() => {
     setAccessToConsultant(false);
     const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
-    console.log("EVENT HAPPENING IS ", isEventHappeningNextSeason);
+    console.log("EVENT HAPPENING IS ", isEventHappeningNextSeason, isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD );
     //setIsEventHappening(isEventHappeningNextSeason);
 
     //setTypeOfCatastrophicEvent(
     //  GameLogic.GenerateStatistics.getEventType()
     //);
 
-    if (isEventHappeningNextSeason ){
+    if (isEventHappeningNextSeason >  EVENT_OCCUR_THRESHOLD ){
       setIsEventHappening(true);
     }else{
       setIsEventHappening(false);
     }
 
+
+  }, [season]);
+
+  useEffect(() => {
     //Sesonal Events
-    if (isEventHappening > EVENT_OCCUR_THRESHOLD){
+    if (isEventHappening){
       setTypeOfCatastrophicEvent(Object.keys(gameEvents["Season"][season])[0]);
       setDisplayTransition(true);
     }else{
       setTypeOfCatastrophicEvent("");
     }
     console.log(typeOfCatastrophicEvent);
+
+        
 
     if (isEventHappening) {
       logData({
@@ -155,12 +161,13 @@ export const Game = () => {
         isExperimental: false,
         balance: money,
         details: {
-          isEventHappeningNextSeason: isEventHappeningNextSeason,
+          isEventHappeningNextSeason: isEventHappening,
           eventType: eventType,
         },
       });
     }
-  }, [season]);
+
+  },[isEventHappening]);
 
 
 
