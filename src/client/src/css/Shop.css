@@ -30,23 +30,31 @@
   
   .all-shop {
     display: grid;
-    grid-template-rows: 100vh;
+    grid-template-rows: 5vh 90vh;
+    grid-template-columns: auto;
+    margin-top: 2.5%;
+    justify-items: center;
+  }
+
+  .shop-grid{
+    display: grid;
+    grid-template-rows: 90vh;
     grid-template-columns: 0.25fr 4fr 0.25fr 2fr 0.25fr;
   }
+
   .shop-component {
     display: grid;
-    grid-template-columns: 15% auto;
-    grid-template-rows: 10%  90%;
+    grid-template-columns: auto;
+    grid-template-rows: 10%  10% 90%;
     position: relative;
     background-color: rgba(255, 255, 255, 0.65);
     color: green;
     height: 90%;
     width: auto;
-    top: 5%;
     border-radius: 30px;
-
-
   }
+
+
 
   .display-more{
     display: grid;
@@ -57,10 +65,15 @@
     color: green;
     height: 90%;
     width: 10fr;
-    top: 5%;
     border-radius: 30px;
 
 
+  }
+
+  .title{
+    font-size: 2em;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 92.5%
   }
   
 .header{
@@ -77,8 +90,9 @@
 
 .market-options{
     display: grid;
-    grid-template-rows: 1.1fr 1.1fr;
-    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-columns: 5fr 5fr;
+    background-color: white;
 }
 
   .shop-heading {
@@ -100,9 +114,8 @@
 
 
   .shop-items {
-    height: 80%;
+    height: 90%;
     width: 95%;
-    margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
@@ -114,6 +127,9 @@
     /* border: "1px solid transparent"; */
     border-radius: 15px;
     justify-content: center;
+    background-color: white;
+    height: 10em;
+    width: 10em;
 
   }
 
@@ -144,13 +160,23 @@
   
   .market-button {
     border: 1px solid rgba(255, 255, 255, 0);
-    border-radius: 45px;
+
     background-color: rgba(255, 255, 255);
     color: black;
     font-size: large;
-    height: 20%;
   }
   
+ .buy-button{
+  -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%);
+  clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%);
+ } 
+
+ .sell-button{
+  -webkit-clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%);
+  clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%)
+ } 
+
+
   .insurance-button{
     height: 40px;
     width: 100px;
@@ -178,6 +204,11 @@
     -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
     clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%);
   }
+
+  .spring-item:before{
+    background-color: white;
+  }
+
 
   .summer-item{
     background-color: lightcoral;

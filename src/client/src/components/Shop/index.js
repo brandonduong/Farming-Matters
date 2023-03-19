@@ -88,57 +88,58 @@ const Shop = (props) => {
           </button>
           <div className="shop">
             <div className="all-shop">
-            <div className="empty-placeholder"></div>
-              <div className="shop-component">
-                  <div className="empty-placeholder"></div>
-                  
-                  <div className="header">
-                      <p className="center shop-heading">Shop</p>
-                      <div className="header-tools">
-                      <div className="filter">
-                        <label>Filters: </label> <select name="filters">
-                          <optgroup label="Season Filters">
-                            <option value="Fall">Fall</option>
-                            <option value="Winter">Winter</option>
-                            <option value="Spring">Spring</option>
-                            <option value="Summer">Summer</option>
-                          </optgroup>
-                          <optgroup label="Item Filters">
-                            <option label="LowToHigh">Lowest to Highest price</option>
-                            <option label="HighToLow">Highest to Lowest price</option>
-                          </optgroup>
-                        </select>
-                      </div>
-                      <div className="Info">
-                        <p>Season: {props.season}</p>
-                      </div>
-                      <div className="Info">
+              <div className="title">Shop</div>
+              <div className="shop-grid">
+                <div className="empty-placeholder"></div>
+                <div className="shop-component">
+                    <div div className="market-options">
+                          <button type="button"  className={"market-button buy-button"  + (showBuy ? " active" : "")}  onClick={displayBuy} >
+                          Buy </button>
+                          <button type="button" className={"market-button sell-button" +  (showSell ? " active" : "")} onClick={displaySell}> Sell </button>
+                    </div>
+                    <div className="header">
+                        <div className="header-tools">
+                        <div className="filter">
+                          <label>Filters: </label> <select name="filters">
+                            <optgroup label="Season Filters">
+                              <option value="Fall">Fall</option>
+                              <option value="Winter">Winter</option>
+                              <option value="Spring">Spring</option>
+                              <option value="Summer">Summer</option>
+                            </optgroup>
+                            <optgroup label="Item Filters">
+                              <option label="LowToHigh">Lowest to Highest price</option>
+                              <option label="HighToLow">Highest to Lowest price</option>
+                            </optgroup>
+                          </select>
+                        </div>
+                        <div className="Info">
+                          <p>Season: {props.season}</p>
+                        </div>
+                        <div className="Info">
 
-                        <p>Money: ${props.money.toFixed(2)}</p>
+                          <p>Money: ${props.money.toFixed(2)}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="market-options">
-                        <button type="button"  className={"market-button"  + (showBuy ? " active" : "")}  onClick={displayBuy}>
-                        Buy </button>
-                        <button type="button" className={"market-button" +  (showSell ? " active" : "")} onClick={displaySell}> Sell </button>
-                  </div>
-                  <div className="shop-items">
-                    {showBuy ? 
-                      displayBuyItems()
-                    : 
-                      displaySellItems()
-                    }
-                  </div>
+                   
+                    <div className="shop-items">
+                      {showBuy ? 
+                        displayBuyItems()
+                      : 
+                        displaySellItems()
+                      }
+                    </div>
+                </div>
+              <div className="empty-placeholder"></div>
+              <div className="display-more"> 
+                      <h1>More Information:</h1>
+                      <DetailedItem item={itemSelected} {...props} />
               </div>
-            <div className="empty-placeholder"></div>
-            <div className="display-more"> 
-                    <h1>More Information:</h1>
-                    <DetailedItem item={itemSelected} {...props} />
+              </div>
             </div>
-          </div>
-          </div>
-          <div className="empty-placeholder"></div>
+            
+            </div>
         </div>
       ) : (
         <button type="button" className="shop-button" onClick={displayShop}>
