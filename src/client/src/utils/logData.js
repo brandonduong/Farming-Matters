@@ -1,6 +1,6 @@
 import { auth } from "./firebase";
 
-export const logData = async (action, data) => {
+export const logData = async (data) => {
   let idToken = "";
   let userId = "";
 
@@ -22,8 +22,8 @@ export const logData = async (action, data) => {
       "Content-Type": "application/json",
       AuthToken: idToken,
     },
-    body: JSON.stringify({ userId, action: { action, ...data } }),
+    body: JSON.stringify({ userId, data }),
   };
 
-  await fetch("/private/actions", requestOptions);
+  await fetch("/private/logactions", requestOptions);
 };

@@ -32,11 +32,7 @@ const FarmTile = (props) => {
     click(!clicked);
     props.setClickedTile([props.x, props.z]);
 
-    //Log data to the server
-    logData("Tile clicked", {
-      x: props.x,
-      z: props.z,
-    });
+    console.log(owned);
   }
 
   // Log when a seed is planted
@@ -44,11 +40,24 @@ const FarmTile = (props) => {
     if (plantedSeed !== 0) {
       setTurnPlanted(props.turn);
 
-      logData("Seed planted", {
-        x: props.x,
-        z: props.z,
-        seedNum: plantedSeed,
-        turnPlanted: props.turn,
+      let season;
+      if (props.turn % 3 === 0) {
+        season = "Fall";
+      } else if (props.turn % 3 === 1) {
+        season = "Winter";
+      } else if (props.turn % 3 === 2) {
+        season = "Spring";
+      } else {
+        season = "Summer";
+      }
+
+      logData({
+        actionType: "Seed planted",
+        turn: props.turn,
+        season: season,
+        isExperimental: true,
+        balance: props.money,
+        details: { x: props.x, z: props.z, seedNum: plantedSeed },
       });
     }
   }, [plantedSeed]);
