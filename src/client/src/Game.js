@@ -13,7 +13,6 @@ import { CoopModel } from "./components/models/CoopModel";
 import { WindModel } from "./components/models/WindModel";
 import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
-import { TreeModel } from "./components/models/TreeModel";
 import { FlowerModel } from "./components/models/FlowerModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import { shopItemsList } from "./components/Shop/constants";
@@ -195,16 +194,6 @@ export const Game = () => {
     const treeNum = 100;
 
     for (let i = 0; i < treeNum; i++) {
-      // Trees
-      initial.push(
-        <TreeModel
-          variant={Math.floor(Math.random() * 3)}
-          position={randomXYCircle(30, 11)}
-          key={`tree${i}`}
-          scale={Math.random() * 0.05 + 0.02}
-        />
-      );
-
       // Flowers
       initial.push(
         <FlowerModel
