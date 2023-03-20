@@ -120,3 +120,16 @@ export const shopItemsList = [
       image: require("../../assets/CropIcons/fertilizer.png"),
     }
   ];
+
+  export const quantityContent= [
+    {
+      id: 0,
+      name: "seed",
+      image: require("../../assets/CropIcons/seed.png")
+    },
+    {
+      id: 1,
+      name: "crop",
+      image: require("../../assets/CropIcons/crop.png")
+    }
+  ]

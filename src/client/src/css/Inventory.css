@@ -50,17 +50,23 @@
   margin: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 30px;
   overflow-y: scroll;
 }
 
-img {
+.item-image {
   width: 80px;
   height: 80px; 
   border: 1px solid white;
   border-radius: 60px;
   padding: 5px;
   margin-top: 5px;
+}
+
+.count-pics {
+  width: 20px;
+  height: 20px;
 }
 
 .item {
@@ -118,4 +124,16 @@ img {
   margin-block-start: 0;
   margin-block-end: 0;
 
+}
+
+.quant-grid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 0.5fr 1fr;
+}
+
+.quantity-info-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
+  grid-template-rows: auto;
 }
