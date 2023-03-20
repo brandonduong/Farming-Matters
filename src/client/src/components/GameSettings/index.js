@@ -4,21 +4,20 @@ import SliderBar from "./SliderBar";
 import { deleteLoggingTable } from "../../utils/withdraw";
 import { useAuth } from "../../utils/auth/hooks";
 import { deleteUser } from "firebase/auth";
-import { BsFillGearFill } from "react-icons/bs";
-import { IconContext } from "react-icons";
 
 export const GameSettings = (props) => {
   const { user, signOutHandler, socket, setIsLoggedIn } = useAuth();
   const [showSettings, setSettings] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  // Study - refers to deleting account and game data
-  // Game - refers to deleting account only
-  const [selectedWithdrawType, setSelectedWithdrawType] = useState(null);
+  // study - refers to deleting account and game data
+  // game - refers to deleting account only
+  const [selectedWithdrawType, setSelectedWithdrawType] = useState();
   const allDisplayPrompt = {
     study:
-      "Withdrawing from the study will delete the account and all play data that may be used for research. Are you sure you want to withdraw from the study?",
-    game: "Withdrawing from the game will delete the account but retain all play data that may be used for research. Are you sure you want to withdraw from the game?",
+      "Withdrawing from the study will delete the account and all play data that may be used for research.",
+    game: "Withdrawing from the game will delete the account but retain all play data that may be used for research. ",
   };
   const [currentDisplayPrompt, setCurrentDisplayPrompt] = useState(null);
 
@@ -26,8 +25,36 @@ export const GameSettings = (props) => {
     setSettings(!showSettings);
   };
 
+  const displayMoreInformation = (withdrawOption) => {
+    let selectedType = withdrawOption.toLowerCase();
+
+    let withdrawExcerpts = {
+      study:
+        "Players may choose to withdraw from the study. This will delete the player account. It will also delete all anonymized game data, that may have been used in research, associated with the account.",
+      game: "Players may choose to withdraw from the game. This will delete the player account; however, it will not delete the game data that may be used research. The game data is anonymized and will not be tied to any user information.",
+    };
+    return (
+      <div className="settings">
+        <div
+          className="dialog-modal"
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.91)" }}
+        >
+          <button
+            type="button"
+            id="close-button"
+            onClick={() => setShowModal(false)}
+          >
+            x
+          </button>
+          <p id="confirm-heading">Withdrawing from the {selectedType}</p>
+          <p id="withdraw-info">{withdrawExcerpts[selectedType]}</p>
+        </div>
+      </div>
+    );
+  };
+
   const handleWithdraw = async () => {
-    if (selectedWithdrawType == "study") {
+    if (selectedWithdrawType === "study") {
       await deleteLoggingTable();
       // ----------------------------------------------------------------
       // will also need to delete game state table entry--------------------------------
@@ -73,41 +100,70 @@ export const GameSettings = (props) => {
               <p className="settings-header" style={{ marginTop: "80px" }}>
                 Withdraw:
               </p>
-              <button
-                className="withdraw-btn"
-                onClick={() => {
-                  setConfirmDialog(true);
-                  setSelectedWithdrawType("study");
-                  setCurrentDisplayPrompt(allDisplayPrompt.study);
-                }}
-              >
-                Withdraw from the study
-              </button>
-              <button
-                className="withdraw-btn"
-                style={{ marginLeft: "10%" }}
-                onClick={() => {
-                  setConfirmDialog(true);
-                  setSelectedWithdrawType("game");
-                  setCurrentDisplayPrompt(allDisplayPrompt.game);
-                }}
-              >
-                Withdraw from the game
-              </button>
+              <div className="withdraw-btn-group">
+                <button
+                  className="withdraw-btn"
+                  onClick={() => {
+                    setConfirmDialog(true);
+                    // setShowModal(true);
+                    setSelectedWithdrawType("study");
+                    setCurrentDisplayPrompt(allDisplayPrompt.study);
+                  }}
+                >
+                  Withdraw from the study
+                </button>
+                <button
+                  className="more-info-btn"
+                  onClick={() => {
+                    setShowModal(true);
+                    setSelectedWithdrawType("study");
+                  }}
+                >
+                  i
+                </button>
+              </div>
+              <div className="withdraw-btn-group">
+                <button
+                  className="withdraw-btn"
+                  id="right-button"
+                  onClick={() => {
+                    setConfirmDialog(true);
+                    setSelectedWithdrawType("game");
+                    setCurrentDisplayPrompt(allDisplayPrompt.game);
+                  }}
+                >
+                  Withdraw from the game
+                </button>
+                <button
+                  className="more-info-btn"
+                  onClick={() => {
+                    setShowModal(true);
+                    setSelectedWithdrawType("game");
+                  }}
+                >
+                  i
+                </button>
+              </div>
             </div>
           </div>
+          {showModal ? displayMoreInformation(selectedWithdrawType) : null}
           {confirmDialog ? (
             <div className="settings">
-              <div className="confirm-dialog">
+              <div className="dialog-modal">
                 <p id="confirm-heading">Confirm</p>
                 <p id="confirm-prompt">
-                  <em>{currentDisplayPrompt}</em>
+                  <em>
+                    {currentDisplayPrompt} Are you sure you want to withdraw?
+                  </em>
                 </p>
                 <button
                   type="button"
                   className="confirm-dialog-btn"
                   id="confirm-dialog-cancel-btn"
-                  onClick={() => setConfirmDialog(false)}
+                  onClick={() => {
+                    setConfirmDialog(false);
+                    setSelectedWithdrawType(null);
+                  }}
                 >
                   Cancel
                 </button>
