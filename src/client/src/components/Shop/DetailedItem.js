@@ -89,7 +89,7 @@ const DetailedItem = (props) => {
         type: isPlant ? "seed" : "tool",
         // null represents no insurance
         floorPrice: (insuranceFloorPrice == 0 && insuranceQuantity == 0) ? null : insuranceFloorPrice,
-        cropExpiry: props.turn + 5
+        // cropExpiry: props.turn + 5
       } 
       console.log(itemName);
       for (let i = 0; i < itemQuantity; i++){

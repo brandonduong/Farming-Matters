@@ -47,6 +47,8 @@ export const Game = () => {
   const [landscape, setLandscape] = useState([]);
   const [farmBuildings, setFarmBuildings] = useState([]);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
+  const [plantedSeeds, setPlantedSeeds] = useState([]);
+
   // const [insuredState, setInsuredState] = useState(insuredItems);
   const marketItems = [];
   const [accessToConsultant, setAccessToConsultant] = useState(false);
@@ -70,8 +72,6 @@ export const Game = () => {
   //   getNames[currentName] = 0;
   //   getNamesInsurance[currentName] = 0;
   // }
-
-
 
   let currentPrices = [];
   for (let i = 0; i < marketItems.length; i++) {
@@ -265,6 +265,8 @@ export const Game = () => {
           value={{
             inventoryState,
             setInventoryState,
+            plantedSeeds,
+            setPlantedSeeds,
             // insuredState,
             // setInsuredState,
             turn,

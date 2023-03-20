@@ -8,15 +8,45 @@ const FarmTilePopup = (props) => {
   function onClick(seedNum, plantName) {
     props.setPlantedSeed(seedNum);
     // removeItem(props.inventoryState, plantName, 1);
+
+    // To plant a seed:
+    //  1. Get and remove selected seed from inventory (first entry that matches selected type and floor price to plant)
+    //  2. Based on type (tomato, carrot, etc.), get corresponding seedNum from constants
+    //  3. props.setPlantedSeed(seedNum) -> to actually put the seed on the the grid visually
+    //  4. Make the object to push to plantedSeeds:
+    //    const newSeed = {
+    //      name: itemName,
+    //      type: "seed",
+    //      floorPrice: <floorPrice from inventory>,
+    //      coords { x: props.x, z:props.z }
+    //    }
+    //   
+    //   setPlantedSeeds([...plantedSeeds, newSeed])
     props.setClickedTile(null);
   }
 
   function harvestPlant(plantName) {
     props.setPlantedSeed(0);
     props.setFertilizerAmount(0);
-    // addItem(props.inventoryState, plantName, 1);
+    // To add a harvested crop to inventory:
+    //  1. Get and remove the entry in plantedSeeds corresponding to the x,z clicked (note : x,z is available easily through props.x, props.z)
+    //  2. build the object to push to the inventory: 
+    //    const newItem = {
+    //      name: itemName,
+    //      type: "crop",
+    //      floorPrice: <The floor price obtained from plantedSeeds>,
+    //      cropExpiry: props.turn + 5
+    //    }
+    // addItem(props.inventoryState, <new object you made>, 1);
     props.setClickedTile(null);
   }
+
+  // For selling:
+  //  1. Shop screen: Show all crops in inventory (have a tile for each crop)
+  //  2. When a tile is clicked, show the popup allowing user to choose selling price and quantity
+  //  3. If selling price is an insured price, just check the same data structure used in the inventory to see if the quantity for the given floor price exists (sum all quantities in the table with the same floor price)
+  //  4. If selling price is market price, just check that the quantity of all crops of that type exists (sum all quantities in the table)
+  //  5. Remove the specified number of items from the inventory according to the selected floor price. Sort the list so that the items that will expire first are sold first.
 
   function applyFertilizer() {
     props.setFertilizerAmount(props.fertilizerAmount + 1);
