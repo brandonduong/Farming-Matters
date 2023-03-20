@@ -1,31 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 import { plants } from "./constants";
 import { getItemCount, addItem, removeItem } from "../../Inventory";
 import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
 
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {
-  function onClick(seedNum, plantName) {
-    props.setPlantedSeed(seedNum);
+  function newTile() {
+    return props.grid.filter((tile) => {
+      return tile.x === props.x && tile.z === props.z;
+    })[0];
+  }
+
+  function updatedGrid(updatedTile) {
+    var newGrid = props.grid.map((tile) =>
+      updatedTile.x === tile.x && updatedTile.z === tile.z ? updatedTile : tile
+    );
+    props.setGrid(newGrid);
+  }
+
+  function plantSeed(seedNum, plantName) {
+    var updatedTile = newTile();
+    updatedTile.plantedSeed = seedNum;
+    updatedGrid(updatedTile);
+
     removeItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
   }
 
   function harvestPlant(plantName) {
-    props.setPlantedSeed(0);
-    props.setFertilizerAmount(0);
+    var updatedTile = newTile();
+    updatedTile.plantedSeed = 0;
+    updatedTile.fertilizerAmount = 0;
+    updatedGrid(updatedTile);
     addItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
   }
 
   function applyFertilizer() {
-    props.setFertilizerAmount(props.fertilizerAmount + 1);
+    var updatedTile = newTile();
+    updatedTile.fertilizerAmount = updatedTile.fertilizerAmount + 1;
+    updatedGrid(updatedTile);
     removeItem(props.inventoryState, "Fertilizer", 1);
   }
 
   function buyPlot() {
     props.setMoney(props.money - props.price);
-    props.setOwned(true);
+    var updatedTile = newTile();
+    updatedTile.owned = true;
+    updatedGrid(updatedTile);
     props.setClickedTile(null);
   }
 
@@ -52,7 +74,7 @@ const FarmTilePopup = (props) => {
             <button
               className="tile-popup-button"
               type="button"
-              onClick={() => onClick(i, plants[i].name)}
+              onClick={() => plantSeed(i, plants[i].name)}
               key={"plant" + i}
             >
               <h4>{plants[i].name}</h4>

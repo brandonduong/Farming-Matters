@@ -1,0 +1,271 @@
+.settings-button {
+  position: absolute;
+  bottom: 150px;
+  right: 50px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  z-index: 10;
+  transition: 150ms;
+}
+
+.settings-button:hover {
+  padding: 12px 33px;
+  bottom: 149px;
+  right: 45px;
+  transition: 300ms;
+  font-weight: bold;
+}
+
+.settings-component {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.65);
+  color: black;
+  height: 60%;
+  width: 50%;
+  top: 15%;
+  margin: auto;
+  border-radius: 30px;
+  padding: 30px;
+}
+
+.settings-heading {
+  margin-bottom: 10px;
+  margin-top: -10px;
+  color: rgb(0, 0, 0) !important;
+  padding-top: 0px;
+}
+
+.settings {
+  position: absolute;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.632);
+  color: black;
+  height: 100vh;
+  width: 100vw;
+  font-weight: bold;
+  z-index: 11;
+}
+
+.settings-header {
+  text-align: initial;
+}
+
+.withdraw-btn-group {
+  display: inline-flex;
+  text-align: center;
+  align-items: center;
+}
+
+.withdraw-btn {
+  margin-top: 20px;
+  padding: 15px 20px;
+  border-radius: 45px;
+  border: 3px solid rgba(255, 255, 255, 0);
+  background-color: white;
+  font-weight: lighter;
+  font-size: smaller;
+  transition: 150ms;
+}
+
+.withdraw-btn:hover {
+  padding: 15px 14.4px;
+  border-radius: 45px;
+  border: 3px solid rgb(255, 255, 255);
+  font-weight: bold;
+  transition: 150ms;
+}
+
+#right-button {
+  margin-left: 50px;
+}
+
+#right-button:hover {
+  margin-left: 50.6px;
+}
+
+.more-info-btn {
+  margin-left: -2px;
+  border-radius: 20px;
+  padding: 4px 9px;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: white;
+  font-weight: bold;
+  transition: 150ms;
+}
+
+.more-info-btn:hover {
+  padding: 1px 8.3px;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: medium;
+  transition: 150ms;
+}
+
+#withdraw-info {
+  font-size: medium;
+  font-weight: normal;
+  margin-top: 10%;
+}
+
+@media (max-width: 1000px) {
+  .withdraw-btn {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: white;
+    margin: 7px auto !important;
+    text-align: center;
+    transition: 150ms;
+  }
+
+  .withdraw-btn:hover {
+    cursor: pointer;
+    padding: 8.6px 4.5px;
+    border-radius: 45px;
+    font-weight: bold;
+    transition: 150ms;
+  }
+
+  #right-button {
+    margin-top: 0px;
+    margin-left: auto;
+  }
+
+  .more-info-btn {
+    margin-top: -20px;
+    padding-top: 0px;
+    margin-left: -2px;
+    border-radius: 20px;
+    padding: 4px 9px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: white;
+    font-weight: bold;
+    transition: 150ms;
+  }
+
+  .more-info-btn:hover {
+    padding: 1px 8.2px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: 150ms;
+  }
+
+  .withdraw-btn-group {
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+  }
+
+  #withdraw-info {
+    font-size: medium;
+    font-weight: normal;
+    margin-top: 18%;
+  }
+}
+
+#confirm-heading {
+  margin-top: 0px;
+  font-size: large;
+}
+
+#confirm-prompt {
+  font-weight: lighter;
+  font-size: medium;
+}
+
+.dialog-modal {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  height: 30%;
+  width: 40%;
+  top: 30%;
+  margin: auto;
+  border-radius: 30px;
+  padding: 30px;
+}
+
+.confirm-dialog-btn {
+  width: 25%;
+  margin-top: 50px;
+  padding: 10px 15px;
+  border-radius: 45px;
+  border: 1px solid rgb(0, 0, 0);
+  background-color: white;
+  font-weight: lighter;
+  font-size: smaller;
+  transition: 150ms;
+}
+
+.confirm-dialog-btn:hover {
+  margin-top: 48px;
+  padding: 12px 16px;
+  border-radius: 45px;
+  border: 1px solid rgb(0, 0, 0);
+  font-weight: bold;
+  transition: 150ms;
+}
+
+#confirm-dialog-cancel-btn {
+  border: 1px solid rgb(104, 202, 255);
+}
+
+#confirm-dialog-cancel-btn:hover {
+  background-color: rgb(104, 202, 255);
+  color: white;
+}
+
+#confirm-dialog-confirm-btn {
+  border: 1px solid rgb(223, 35, 35);
+}
+
+#confirm-dialog-confirm-btn:hover {
+  background-color: rgb(223, 35, 35);
+  color: white;
+}
+
+@media (max-width: 800px) {
+  .dialog-modal {
+    height: 40%;
+    top: 25%;
+  }
+
+  #confirm-heading {
+    font-size: medium;
+  }
+
+  .confirm-dialog-btn {
+    width: 75px;
+    display: block;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgb(0, 0, 0);
+    background-color: white;
+    text-align: center;
+    transition: 150ms;
+  }
+
+  .confirm-dialog-btn:hover {
+    padding: 11px;
+    border-radius: 45px;
+    font-weight: bold;
+    transition: 150ms;
+  }
+
+  #confirm-dialog-cancel-btn {
+    margin: 50px auto 0px auto !important;
+  }
+
+  #confirm-dialog-confirm-btn {
+    margin: 20px auto 0px auto !important;
+  }
+
+  #confirm-prompt {
+    font-size: small;
+  }
+}

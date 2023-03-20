@@ -13,7 +13,6 @@ import { CoopModel } from "./components/models/CoopModel";
 import { WindModel } from "./components/models/WindModel";
 import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
-import { TreeModel } from "./components/models/TreeModel";
 import { FlowerModel } from "./components/models/FlowerModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import { shopItemsList } from "./components/Shop/constants";
@@ -30,6 +29,8 @@ import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
 import SeasonTransition from "./components/GameLogic/SeasonTransition";
+import bgMusic from "./assets/bg_music.mp3";
+import { GameSettings } from "./components/GameSettings";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -56,6 +57,7 @@ export const Game = () => {
   const [consultantStatement, setConsultantStatement] = useState("");
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
+  const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
   const [eventType, setEventType] = useState("");
   const [displayTransition, setDisplayTransition] = useState(false);
@@ -223,16 +225,6 @@ export const Game = () => {
     const treeNum = 100;
 
     for (let i = 0; i < treeNum; i++) {
-      // Trees
-      initial.push(
-        <TreeModel
-          variant={Math.floor(Math.random() * 3)}
-          position={randomXYCircle(30, 11)}
-          key={`tree${i}`}
-          scale={Math.random() * 0.05 + 0.02}
-        />
-      );
-
       // Flowers
       initial.push(
         <FlowerModel
@@ -361,6 +353,11 @@ export const Game = () => {
             consultantStatement={consultantStatement}
           />
 
+          <GameSettings
+            volume={backgroundMusicVolume}
+            setVolume={setBackgroundVolume}
+          />
+
           <InventoryRender
             marketItems={marketItems}
             money={money}
@@ -376,7 +373,7 @@ export const Game = () => {
           ></Shop>
         </globalInventoryContext.Provider>
       }
-      <BackgroundMusic />
+      <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
     </>
   );
 };
