@@ -10,11 +10,8 @@
   position: relative;
   background-color: rgba(255, 255, 255, 0.65);
   color: green;
-  padding-bottom: 10px;
-  height: 70%;
-  width: 60%;
-  top: 15%;
-  margin: auto;
+  height: 90%;
+  width: 100%;
   border-radius: 30px;
 }
 
@@ -83,11 +80,6 @@
   margin-top: -3%;
 }
 
-#inventory-title {
-  color: white;
-  margin-bottom: 10px;
-}
-
 .quantity-title {
   color: white;
   height: 100%;
@@ -136,4 +128,20 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
   grid-template-rows: auto;
+}
+
+.inventory-grid{
+  display: grid;
+  grid-template-rows: 90vh;
+  grid-template-columns: 0.15fr 6fr 0.25fr 4fr 0.15fr
+}
+
+.all-inventory-grid{
+  display: grid;
+  grid-template-rows: 5vh 85vh;
+}
+
+.inventory-title-label{
+  font-size: 2em;
+  background-color: rgba(255, 255, 255, 0.65);
 }

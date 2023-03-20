@@ -4,7 +4,7 @@ import { addItem, getItemCount } from "../Inventory";
 import { checkIfItemIsPlant, getItemFluctuation } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
-import { shopItemsList } from "./constants";
+import { quantityContent, shopItemsList } from "./constants";
 import { itemFluctuation } from "../GameLogic/constants";
 
 const DetailedItem = (props) => {
@@ -18,10 +18,9 @@ const DetailedItem = (props) => {
   const [totalCost, setTotalCost] = useState(0);
   const [itemName, setItemName] = useState("");
   const [itemType, setItemType] = useState("");
-  const [itemImg, setItemImg] = useState("");
+  const [itemImg, setItemImg] = useState(quantityContent[1].image);
   const [itemPrice, setItemPrice] = useState("");
   // const [itemInsuranceList, setItemInsuranceList] = useState("");
-  const [itemFloorPrice, setItemFloorPrice] = useState("");
   const [isPriceIncrease, setIsPriceIncrease] = useState(false);
 
   function determineSeason(turnNumber) {
@@ -76,6 +75,9 @@ const DetailedItem = (props) => {
   }
   useEffect(() => {
     setItemDetails(); 
+    setItemQuantity(0);
+    setInsuranceFloorPrice(0);
+    setInsuranceQuantity(0);
     priceIncreaseOrDecrease();
   }, [props.item]);
 
@@ -84,20 +86,20 @@ const DetailedItem = (props) => {
       let currInventory = inventoryState;
       props.setMoney(props.money - totalCost);
       let isPlant = checkIfItemIsPlant(itemName,plants);
-      let currItem = {
-        name: itemName,
-        type: isPlant ? "seed" : "tool",
-        // null represents no insurance
-        floorPrice: (insuranceFloorPrice == 0 && insuranceQuantity == 0) ? null : insuranceFloorPrice,
-        // cropExpiry: props.turn + 5
-      } 
       console.log(itemName);
       for (let i = 0; i < itemQuantity; i++){
+        let currItem = {
+          name: itemName,
+          type: isPlant ? "seed" : "tool",
+          floorPrice: (insuranceFloorPrice == 0 && insuranceQuantity == 0) ? null : insuranceFloorPrice,
+          //cropExpiry: props.turn + 5
+        } 
         addItem(currInventory,currItem);
       }
       setInventoryState(currInventory);
-      console.log(inventoryState);
       setItemQuantity(0);
+      setInsuranceFloorPrice(0);
+      setInsuranceQuantity(0);
       logData({
         actionType: "Item Bought",
         turn: props.turn,
@@ -109,6 +111,8 @@ const DetailedItem = (props) => {
     } else {
       console.log("Not enough money to buy crop");
     }
+    console.log(inventoryState)
+    setTotalCost(0);
   }
 
   function currentItemTotalCost(){

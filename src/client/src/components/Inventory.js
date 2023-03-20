@@ -19,16 +19,16 @@ export function removeItem(inventory,item){
 }
 
 // gets the count of crops with the same insurance contracts
-export function getSameCropContractCount(inventory,item){
-  const itemName = item.name;
-  const floorPrice = item.insuranceInfo
+export function getSameCropContractCount(contracts,itemName,floor,expiry,type){
   let sameContractCount = 0;
-  for (let i = 0; i < inventory.length; i++){
-    let currItem = inventory[i];
-    if (currItem.name == itemName && currItem.insuranceInfo == floorPrice){
+  for (let i = 0; i < contracts.length; i++){
+    let currItem = contracts[i];
+    let hasSameContract =  currItem.name == itemName && currItem.floorPrice == floor && currItem.expiry == expiry && currItem.type == type;
+    if (hasSameContract){
       sameContractCount++;
     }
   }
+  console.log(sameContractCount)
   return sameContractCount;
 }
 
@@ -66,4 +66,36 @@ export function getItemCount(inventory,tool){
     }
   }
   return toolCount;
+}
+
+export function getAllItemContracts(inventory,itemName){
+  let itemContracts = []
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if (currItem.name == itemName){
+      itemContracts.push(currItem);
+    }
+  }
+  return itemContracts;
+}
+
+export function getUniqueContracts(inventory,itemName){
+  let floorPrices = [];
+  let expiries = [];
+  let uniqueContracts = []; 
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if(currItem.name == itemName){
+      if (!floorPrices.includes(currItem.floorPrice)){
+        floorPrices.push(currItem.floorPrice);
+        uniqueContracts.push(currItem);
+      } else {
+        if (!expiries.includes(currItem.cropExpiry)){
+          expiries.push(currItem.cropExpiry);
+          uniqueContracts.push(currItem);
+        }
+      }
+    }
+  }
+  return uniqueContracts;
 }
