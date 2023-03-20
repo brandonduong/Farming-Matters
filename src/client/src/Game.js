@@ -28,6 +28,8 @@ import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
+import bgMusic from "./assets/bg_music.mp3";
+import { GameSettings } from "./components/GameSettings";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -54,6 +56,7 @@ export const Game = () => {
   const [consultantStatement, setConsultantStatement] = useState("");
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
+  const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
 
   for (let i = 1; i < shopItemsList.length; i++) {
@@ -320,6 +323,11 @@ export const Game = () => {
             consultantStatement={consultantStatement}
           />
 
+          <GameSettings
+            volume={backgroundMusicVolume}
+            setVolume={setBackgroundVolume}
+          />
+
           <InventoryRender
             marketItems={marketItems}
             money={money}
@@ -334,7 +342,7 @@ export const Game = () => {
           ></Shop>
         </globalInventoryContext.Provider>
       }
-      <BackgroundMusic />
+      <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
     </>
   );
 };
