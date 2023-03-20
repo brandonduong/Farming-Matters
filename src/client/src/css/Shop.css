@@ -28,18 +28,24 @@
     font-weight: bold;
   }
   
+
+
   .all-shop {
     display: grid;
-    grid-template-rows: 5vh 90vh;
-    grid-template-columns: auto;
+    grid-template-rows: 5vh 85vh;
+    /* grid-template-columns: 80%; */
     margin-top: 2.5%;
-    justify-items: center;
+    margin-left: 5%;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid white;
+    border-radius: 25px;
   }
 
   .shop-grid{
     display: grid;
     grid-template-rows: 90vh;
-    grid-template-columns: 0.25fr 4fr 0.25fr 2fr 0.25fr;
+    grid-template-columns: 0.15fr 6fr 0.25fr 4fr 0.15fr;
   }
 
   .shop-component {
@@ -72,8 +78,7 @@
 
   .title{
     font-size: 2em;
-    background-color: rgba(255, 255, 255, 0.65);
-    width: 92.5%
+    
   }
   
 .header{
@@ -93,6 +98,8 @@
     grid-template-rows: auto;
     grid-template-columns: 5fr 5fr;
     background-color: white;
+    border: 1px solid white;
+    border-radius: 30px;
 }
 
   .shop-heading {
@@ -120,6 +127,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     overflow-y: scroll;
+    margin-left: 5%;
   }
   
   .shop-item {
@@ -164,16 +172,18 @@
     background-color: rgba(255, 255, 255);
     color: black;
     font-size: large;
+    border-radius: 30px;
   }
   
  .buy-button{
-  -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%);
-  clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%);
+  /* -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
+  /* clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
  } 
 
  .sell-button{
-  -webkit-clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%);
-  clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%)
+
+ /* -webkit-clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%);*/
+ /* clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%) */
  } 
 
 
@@ -189,8 +199,8 @@
 
   .fall-item{
     background-color: lightsalmon;
-    -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
-    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%);
+    -webkit-clip-path: polygon(0% 35%, 0% 100%, 100% 100%, 100% 100%, 100% -60%);
+    clip-path: polygon(0% 35%, 0% 100%, 100% 100%, 100% 100%, 100% -60%);
   }
 
   .winter-item{

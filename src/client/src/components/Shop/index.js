@@ -90,7 +90,7 @@ const Shop = (props) => {
             <div className="all-shop">
               <div className="title">Shop</div>
               <div className="shop-grid">
-                <div className="empty-placeholder"></div>
+              <div className="empty-div"></div>
                 <div className="shop-component">
                     <div div className="market-options">
                           <button type="button"  className={"market-button buy-button"  + (showBuy ? " active" : "")}  onClick={displayBuy} >
@@ -131,11 +131,13 @@ const Shop = (props) => {
                       }
                     </div>
                 </div>
-              <div className="empty-placeholder"></div>
+
+              <div className="empty-div"></div>
               <div className="display-more"> 
                       <h1>More Information:</h1>
-                      <DetailedItem item={itemSelected} {...props} />
+                      <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} />
               </div>
+              <div className="empty-div"></div>
               </div>
             </div>
             
