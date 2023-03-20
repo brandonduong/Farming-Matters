@@ -48,6 +48,13 @@ export const Game = () => {
   const [farmBuildings, setFarmBuildings] = useState([]);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
   const [plantedSeeds, setPlantedSeeds] = useState([]);
+  
+  // TODO: move to constants.js
+  defaultCropInfo = {
+    tomato: []
+  }
+  const [cropInfo, setCropInfo] = useState(defaultCropInfo);
+
 
   // const [insuredState, setInsuredState] = useState(insuredItems);
   const marketItems = [];
@@ -267,6 +274,8 @@ export const Game = () => {
             setInventoryState,
             plantedSeeds,
             setPlantedSeeds,
+            cropInfo,
+            setCropInfo,
             // insuredState,
             // setInsuredState,
             turn,

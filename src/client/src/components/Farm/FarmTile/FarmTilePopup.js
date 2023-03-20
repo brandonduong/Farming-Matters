@@ -9,6 +9,8 @@ const FarmTilePopup = (props) => {
     props.setPlantedSeed(seedNum);
     // removeItem(props.inventoryState, plantName, 1);
 
+    // Summary: get seed from inventory, plant it, record it in plantedSeeds
+
     // To plant a seed:
     //  1. Get and remove selected seed from inventory (first entry that matches selected type and floor price to plant)
     //  2. Based on type (tomato, carrot, etc.), get corresponding seedNum from constants
@@ -28,6 +30,8 @@ const FarmTilePopup = (props) => {
   function harvestPlant(plantName) {
     props.setPlantedSeed(0);
     props.setFertilizerAmount(0);
+    // Summary: get entry from plantedSeeds (by x,z), then push an object to the inventory with the harvested crop, and update cropInfo (also, see the .txt file for cropInfo stuff)
+
     // To add a harvested crop to inventory:
     //  1. Get and remove the entry in plantedSeeds corresponding to the x,z clicked (note : x,z is available easily through props.x, props.z)
     //  2. build the object to push to the inventory: 
@@ -47,6 +51,9 @@ const FarmTilePopup = (props) => {
   //  3. If selling price is an insured price, just check the same data structure used in the inventory to see if the quantity for the given floor price exists (sum all quantities in the table with the same floor price)
   //  4. If selling price is market price, just check that the quantity of all crops of that type exists (sum all quantities in the table)
   //  5. Remove the specified number of items from the inventory according to the selected floor price. Sort the list so that the items that will expire first are sold first.
+
+
+  
 
   function applyFertilizer() {
     props.setFertilizerAmount(props.fertilizerAmount + 1);
