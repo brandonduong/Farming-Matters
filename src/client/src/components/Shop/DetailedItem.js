@@ -4,7 +4,7 @@ import { addInsuredItem, addItem, getItemCount } from "../Inventory";
 import { checkIfItemIsPlant } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
-import { shopItemsList } from "./constants";
+import { shopItemsList, add_img_location, minus_img_location} from "./constants";
 
 const DetailedItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
@@ -13,6 +13,8 @@ const DetailedItem = (props) => {
   const { inventoryState, insuredState } = React.useContext(
     globalInventoryContext
   );
+
+  const [insuranceOption, setInsuranceOption] = useState(false);
   
   const [totalItemCost, setTotalItemCost] = useState(0);
   const [totalInsuranceCost, setTotalInsuranceCost] = useState(0);
@@ -166,41 +168,70 @@ const DetailedItem = (props) => {
       </div>
 
       <div className="purchase-info">
-          <label htmlFor="itemQuantity" >Item Quantity: </label>
-          <input
-            type="number"
-            name="itemQuantity"
-            min="0"
-            max="5"
-            value={itemQuantity}
-            onChange={(e) => setItemQuantity(e.target.value)}
-          ></input>
-       
+        <div className="quantity-grid">
+            <label htmlFor="itemQuantity" >Item Quantity: </label>
+            <div className="quantity-input-grid">
+              <img src={minus_img_location} className="quantity-button" onClick={()=>{itemQuantity > 0 ? setItemQuantity(-1+parseInt(itemQuantity)) : setItemQuantity(parseInt(itemQuantity))}}/>
+              <input
+                type="number"
+                name="itemQuantity"
+                className="quantity-input-field"
+                min="0"
+                max="5"
+                value={itemQuantity}
+                onChange={(e) => setItemQuantity(e.target.value)}
+              ></input>
+              <img src={add_img_location} className="quantity-button" onClick={()=>{setItemQuantity(1+parseInt(itemQuantity))}}/>
+            </div>
+          </div>
 
-          <br></br>
+          <div className="insurance-toggle">
+            <label>Set insurance: </label>
+            
+          </div>
 
-          <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
-          <input
-            type="number"
-            name="itemQuantity"
-            min="0"
-            max="5"
-            value={insuranceFloorPrice}
-            onChange={(e) => setInsuranceFloorPrice(e.target.value)}
-          ></input>
-    
+          { insuranceOption ? 
+          <>
+          <div className="quantity-grid">
+            <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
+            <div className="quantity-input-grid">
+              <img src={minus_img_location} className="quantity-button" onClick={()=>{insuranceFloorPrice > 0 ? setInsuranceFloorPrice(-10+parseInt(insuranceFloorPrice)) : setInsuranceFloorPrice(parseInt(insuranceFloorPrice))}}/>
+              <input
+                type="number"
+                name="itemQuantity"
+                className="quantity-input-field"
+                min="0"
+                value={insuranceFloorPrice}
+                onChange={(e) => setInsuranceFloorPrice(e.target.value)}
+              ></input>
+              <img src={add_img_location} className="quantity-button" onClick={()=>{setInsuranceFloorPrice(10+parseInt(insuranceFloorPrice))}}/>
+            </div>
+          </div>
 
-          <br></br>
-          <label htmlFor="itemQuantity" >Insurance Quantity: </label>
-          <input
-            type="number"
-            name="itemQuantity"
-            min="0"
-            max="5"
-            value={insuranceQuantity}
-            onChange={(e) => setInsuranceQuantity(e.target.value)}
-          ></input>
-          <br></br>
+
+          <div className="quantity-grid">
+            <label htmlFor="itemQuantity" >Insurance Quantity: </label>
+            <div className="quantity-input-grid">
+              <img src={minus_img_location} className="quantity-button" onClick={()=>{insuranceQuantity > 0 ? setInsuranceQuantity(-1+parseInt(insuranceQuantity)) : setInsuranceQuantity(parseInt(insuranceQuantity))}}/>
+              <input
+                type="number"
+                name="itemQuantity"
+                min="0"
+                className="quantity-input-field"
+                max="5"
+                value={insuranceQuantity}
+                onChange={(e) => setInsuranceQuantity(e.target.value)}
+              ></input>
+              <img src={add_img_location} className="quantity-button" onClick={()=>{setInsuranceQuantity(1+parseInt(insuranceQuantity))}}/>
+            </div>
+          </div>
+          </>
+              :
+              <></>
+              }
+            
+         
+
      
       </div>
       <br></br>

@@ -13,13 +13,16 @@ const Shop = (props) => {
   const [showSell, setShowSell] = useState(false);
   const [itemSelected, setItemSelected] = useState("");
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
-  
+  const [filter, setFilter] = useState("All");
+  const seasonFilters = ["All", "Fall", "Winter", "Spring", "Summer"];
+  const priceFilters = ["LowToHigh", "HighToLow"];
   
 
   const displayShop = () => {
     setShowMenu(!showMenu);
     setShowBuy(!showBuy);
     setItemSelected("");
+    setFilter("All");
     
   };
 
@@ -34,24 +37,89 @@ const Shop = (props) => {
 
 
   function displayBuyItems (){
-    return(
-      props.marketItems.map((item) => (
-        <ShopItem
-          key={item.id}
-          id={item.id}
-          image={item.image}
-          name={item.name}
-          price={item.price}
-          money={props.money}
-          setMoney={props.setMoney}
-          turn={props.turn}
-          allTurnPrices={props.allTurnPrices}
-          setItemSelected={setItemSelected}
-          seasonType={item.seasonType}
-        />
-      ))
-      );
+    console.log(seasonFilters, filter);
+
+    if (filter == "All"){
+      return (props.marketItems.map(function (item)  {
+        console.log("ALL");
+          return(<ShopItem
+            key={item.id}
+            id={item.id}
+            image={item.image}
+            name={item.name}
+            price={item.price}
+            money={props.money}
+            setMoney={props.setMoney}
+            turn={props.turn}
+            allTurnPrices={props.allTurnPrices}
+            setItemSelected={setItemSelected}
+            seasonType={item.seasonType}
+          />)
+          
+      }));
+
+    } else if (seasonFilters.indexOf(filter) >= 0){
+      return (props.marketItems.map(function (item)  {
+        if (item.seasonType == filter){
+          return(<ShopItem
+            key={item.id}
+            id={item.id}
+            image={item.image}
+            name={item.name}
+            price={item.price}
+            money={props.money}
+            setMoney={props.setMoney}
+            turn={props.turn}
+            allTurnPrices={props.allTurnPrices}
+            setItemSelected={setItemSelected}
+            seasonType={item.seasonType}
+          />)
+          
+         }
+        }
+    
+      ));
+    }else if (priceFilters.indexOf(filter) >= 0){
+      const mappedMarketItems = props.marketItems;
+      if (filter == "LowToHigh"){
+        const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item1.price-item2.price);
+        return (sortedMarketItems.map(function (item)  {
+            return(<ShopItem
+              key={item.id}
+              id={item.id}
+              image={item.image}
+              name={item.name}
+              price={item.price}
+              money={props.money}
+              setMoney={props.setMoney}
+              turn={props.turn}
+              allTurnPrices={props.allTurnPrices}
+              setItemSelected={setItemSelected}
+              seasonType={item.seasonType}
+            />)
+           }
+        )); 
+      }else if (filter == "HighToLow"){
+        const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item2.price-item1.price);
+        return (sortedMarketItems.map(function (item)  {
+            return(<ShopItem
+              key={item.id}
+              id={item.id}
+              image={item.image}
+              name={item.name}
+              price={item.price}
+              money={props.money}
+              setMoney={props.setMoney}
+              turn={props.turn}
+              allTurnPrices={props.allTurnPrices}
+              setItemSelected={setItemSelected}
+              seasonType={item.seasonType}
+            />)
+           }
+        )); 
+      }
     }
+  }
 
   const displaySell = () => {
     if(showBuy){
@@ -88,7 +156,7 @@ const Shop = (props) => {
           </button>
           <div className="shop">
             <div className="all-shop">
-              <div className="title">Shop</div>
+              <div className="shop-title">Shop</div>
               <div className="shop-grid">
               <div className="empty-div"></div>
                 <div className="shop-component">
@@ -100,16 +168,18 @@ const Shop = (props) => {
                     <div className="header">
                         <div className="header-tools">
                         <div className="filter">
-                          <label>Filters: </label> <select name="filters">
+                          <label>Filters: </label> 
+                          <select name="filters" onChange={(e) => setFilter(e.target.value)}>
                             <optgroup label="Season Filters">
+                              <option value="All">All Seasons</option>
                               <option value="Fall">Fall</option>
                               <option value="Winter">Winter</option>
                               <option value="Spring">Spring</option>
                               <option value="Summer">Summer</option>
                             </optgroup>
                             <optgroup label="Item Filters">
-                              <option label="LowToHigh">Lowest to Highest price</option>
-                              <option label="HighToLow">Highest to Lowest price</option>
+                              <option value="LowToHigh">Lowest to Highest price</option>
+                              <option value="HighToLow">Highest to Lowest price</option>
                             </optgroup>
                           </select>
                         </div>

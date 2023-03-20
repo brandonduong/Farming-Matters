@@ -51,11 +51,11 @@
   .shop-component {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 10%  10% 90%;
+    grid-template-rows: 10% 7% 90%;
     position: relative;
     background-color: rgba(255, 255, 255, 0.65);
     color: green;
-    height: 90%;
+    height: 92.5%;
     width: auto;
     border-radius: 30px;
   }
@@ -69,14 +69,14 @@
     position: relative;
     background-color: rgba(255, 255, 255, 0.65);
     color: green;
-    height: 90%;
+    height: 92.5%;
     width: 10fr;
     border-radius: 30px;
 
 
   }
 
-  .title{
+  .shop-title{
     font-size: 2em;
     
   }
@@ -121,14 +121,39 @@
 
 
   .shop-items {
-    height: 90%;
-    width: 95%;
+    height: 87.5%;
+    width: 90%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     overflow-y: scroll;
-    margin-left: 5%;
+    margin-left: 2.5%;
+    background-color: rgb(0,0,0,0.15);
+    border: 1px solid;
+    border-radius: 30px;
+    padding-left: 1em;
+    padding-top: 1em;
+    padding-right: 1em;
   }
+
+  
+.shop-items::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+
+.shop-items::-webkit-scrollbar-track {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+.shop-items::-webkit-scrollbar-thumb {
+  background-color: rgb(0,0,0,0.5);
+  border-radius: 20px;
+  border: 3px solid rgb(0,0,0,0.5);
+}
   
   .shop-item {
     text-align: center;
@@ -136,9 +161,13 @@
     border-radius: 15px;
     justify-content: center;
     background-color: white;
-    height: 10em;
-    width: 10em;
+  }
 
+  .purchase-info{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: start;
+    justify-content: center;
   }
 
   
@@ -254,3 +283,39 @@
     font-size: 1.1em;
     color: grey;
   }
+
+
+.quantity-button{
+  height: 25px;
+  width: 25px
+}
+
+.quantity-grid{
+  display: grid;
+  grid-template-rows: 0.25fr 1fr;
+  justify-items: start;
+}
+
+.quantity-input-grid{
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+  align-items: center;
+}
+
+.quantity-input-field{
+  width: 5em;
+  height: 2em;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

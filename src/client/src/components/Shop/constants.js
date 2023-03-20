@@ -120,3 +120,6 @@ export const shopItemsList = [
       image: require("../../assets/CropIcons/fertilizer.png"),
     }
   ];
+
+export const minus_img_location = require("../../assets/minus_button.png");
+export const add_img_location = require("../../assets/add_button.png");
