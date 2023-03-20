@@ -326,7 +326,7 @@ export const Game = () => {
 
                 {farmBuildings}
                 {landscape}
-                {turn > 3 ? VisualGameLogic.generateVisualEnvironment(
+                {turn > 3 && isEventHappening ? VisualGameLogic.generateVisualEnvironment(
                   turn,
                   season,
                   isEventHappening,
