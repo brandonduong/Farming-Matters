@@ -1,3 +1,4 @@
+import Form  from 'react-bootstrap/Form';
 import React, { useEffect, useState } from "react";
 import { globalInventoryContext } from "../../Game";
 import { addInsuredItem, addItem, getItemCount } from "../Inventory";
@@ -185,9 +186,20 @@ const DetailedItem = (props) => {
             </div>
           </div>
 
-          <div className="insurance-toggle">
+
+          <div className="insurance-toggle-grid">
             <label>Set insurance: </label>
             
+            <div className="toggle-button">
+              <Form.Switch 
+                type="switch"
+                id="custom-switch"
+                onChange={(e) => {
+                  
+                  setInsuranceOption(e.target.checked)
+                }}
+              />
+            </div>
           </div>
 
           { insuranceOption ? 

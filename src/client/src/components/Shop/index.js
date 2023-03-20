@@ -132,7 +132,7 @@ const Shop = (props) => {
                     </div>
                     <div className="header">
                         <div className="header-tools">
-                        <div className="filter">
+                        <div className="filter-grid">
                           <label>Filters: </label> 
                           <select name="filters" onChange={(e) => setFilter(e.target.value)}>
                             <optgroup label="Season Filters">
@@ -169,7 +169,7 @@ const Shop = (props) => {
 
               <div className="empty-div"></div>
               <div className="display-more"> 
-                      <h1>More Information:</h1>
+                      <div className="display-more-title">More Information:</div>
                       <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} />
               </div>
               <div className="empty-div"></div>
