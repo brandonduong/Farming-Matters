@@ -105,7 +105,6 @@ export const GameSettings = (props) => {
                   className="withdraw-btn"
                   onClick={() => {
                     setConfirmDialog(true);
-                    // setShowModal(true);
                     setSelectedWithdrawType("study");
                     setCurrentDisplayPrompt(allDisplayPrompt.study);
                   }}
