@@ -161,6 +161,13 @@
     border-radius: 15px;
     justify-content: center;
     background-color: white;
+    height: fit-content;
+  }
+
+  .shop-item-name{
+    color: white;
+    margin-bottom: 0px
+    
   }
 
   .purchase-info{
@@ -203,6 +210,8 @@
     font-size: large;
     border-radius: 30px;
   }
+
+
   
  .buy-button{
   /* -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
@@ -262,7 +271,7 @@
   }
 
   .price{
-    font-size: 1.35em;
+    font-size: 2.25em;
   }
   .price-increase{
     color: green
@@ -272,6 +281,9 @@
     color: red
   }
 
+  .turn-1{
+    color: grey
+  }
   .individual-cost{
     font-size: 1.2em;
   }

@@ -86,9 +86,9 @@ const ShopItem = (props) => {
       <div className={(props.seasonType != "" ? props.seasonType.toLowerCase() : "other") + "-item"}>
       
       <img src={props.image} alt="crops" className="item-image"></img>
-      <p style={{ color: "white", margin: "5px" }}>
-        {props.name + " - $" + props.price}
-      </p>
+      <div className="shop-item-name" >
+        {props.name + " - $" + parseInt(props.price).toFixed(2)}
+      </div>
       </div>
       
     </div>

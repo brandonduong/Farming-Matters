@@ -24,7 +24,7 @@ const DetailedItem = (props) => {
   const [itemName, setItemName] = useState("");
   const [itemType, setItemType] = useState("");
   const [itemImg, setItemImg] = useState("");
-  const [itemPrice, setItemPrice] = useState("");
+  const [itemPrice, setItemPrice] = useState(0)
   const [itemInsuranceList, setItemInsuranceList] = useState("");
   const [itemFloorPrice, setItemFloorPrice] = useState("");
   const [isPriceIncrease, setIsPriceIncrease] = useState(false);
@@ -57,8 +57,8 @@ const DetailedItem = (props) => {
     if (itemName == ""){
       return;
     }
-    const currentPrice = props.allTurnPrices[props.turn].itemName;
-    const pastPrice = props.allTurnPrices[props.turn - 1].itemName;
+    const currentPrice = props.allTurnPrices[props.turn % props.allTurnPrices.length].itemName;
+    const pastPrice = props.allTurnPrices[(props.turn - 1) % props.allTurnPrices.length].itemName;
 
     if (currentPrice > pastPrice){
       setIsPriceIncrease(true);
@@ -76,7 +76,7 @@ const DetailedItem = (props) => {
     const currentItemIndex = shopItemsList[findItemIndex(props.item)];
     setItemType(currentItemIndex.seasonType);
     setItemImg(currentItemIndex.image);
-    setItemPrice(currentItemIndex.price);
+    setItemPrice(props.allTurnPrices[props.turn % props.allTurnPrices.length][props.item]);
     setItemInsuranceList([]); //UPDATE when insurance is done
   }
   useEffect(() => {
@@ -160,10 +160,10 @@ const DetailedItem = (props) => {
       <h2>{props.item != "" ? props.item : "Select an item to view more details ..."}</h2>
       <img src={itemImg} alt="crops" className="item-image"></img>
       <div className="details">
-        <div className="price">
-          <div className={"price " +(isPriceIncrease ? "price-increase" : "price-decrease")}>
-            Current Price: ${itemPrice}  {isPriceIncrease ? <span>&#8593;</span>: <span>&#8595;</span>}
-          </div>
+       
+          <div className={"price " +(props.turn == 1 ? "turn-1" : isPriceIncrease ? "price-increase" : "price-decrease")}>
+            Current Price: ${parseInt(itemPrice).toFixed(2)}  {props.turn == 1 ? ("-") : isPriceIncrease ? (<span>&#8593;</span>): (<span>&#8595;</span>)}
+          
         </div>
       </div>
 

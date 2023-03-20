@@ -37,43 +37,32 @@ const Shop = (props) => {
 
 
   function displayBuyItems (){
-    console.log(seasonFilters, filter);
+    console.log(props.allTurnPrices);
+    const shopItemRender = (item)=>(<ShopItem
+          key={item.id}
+          id={item.id}
+          image={item.image}
+          name={item.name}
+          price={props.allTurnPrices[props.turn % props.allTurnPrices.length][item.name]}
+          money={props.money}
+          setMoney={props.setMoney}
+          turn={props.turn}
+          allTurnPrices={props.allTurnPrices}
+          setItemSelected={setItemSelected}
+          seasonType={item.seasonType}
+        />);
 
     if (filter == "All"){
       return (props.marketItems.map(function (item)  {
         console.log("ALL");
-          return(<ShopItem
-            key={item.id}
-            id={item.id}
-            image={item.image}
-            name={item.name}
-            price={item.price}
-            money={props.money}
-            setMoney={props.setMoney}
-            turn={props.turn}
-            allTurnPrices={props.allTurnPrices}
-            setItemSelected={setItemSelected}
-            seasonType={item.seasonType}
-          />)
+          return(shopItemRender(item));
           
       }));
 
     } else if (seasonFilters.indexOf(filter) >= 0){
       return (props.marketItems.map(function (item)  {
         if (item.seasonType == filter){
-          return(<ShopItem
-            key={item.id}
-            id={item.id}
-            image={item.image}
-            name={item.name}
-            price={item.price}
-            money={props.money}
-            setMoney={props.setMoney}
-            turn={props.turn}
-            allTurnPrices={props.allTurnPrices}
-            setItemSelected={setItemSelected}
-            seasonType={item.seasonType}
-          />)
+          return(shopItemRender(item))
           
          }
         }
@@ -84,37 +73,13 @@ const Shop = (props) => {
       if (filter == "LowToHigh"){
         const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item1.price-item2.price);
         return (sortedMarketItems.map(function (item)  {
-            return(<ShopItem
-              key={item.id}
-              id={item.id}
-              image={item.image}
-              name={item.name}
-              price={item.price}
-              money={props.money}
-              setMoney={props.setMoney}
-              turn={props.turn}
-              allTurnPrices={props.allTurnPrices}
-              setItemSelected={setItemSelected}
-              seasonType={item.seasonType}
-            />)
+          return(shopItemRender(item))
            }
         )); 
       }else if (filter == "HighToLow"){
         const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item2.price-item1.price);
         return (sortedMarketItems.map(function (item)  {
-            return(<ShopItem
-              key={item.id}
-              id={item.id}
-              image={item.image}
-              name={item.name}
-              price={item.price}
-              money={props.money}
-              setMoney={props.setMoney}
-              turn={props.turn}
-              allTurnPrices={props.allTurnPrices}
-              setItemSelected={setItemSelected}
-              seasonType={item.seasonType}
-            />)
+          return(shopItemRender(item))
            }
         )); 
       }
