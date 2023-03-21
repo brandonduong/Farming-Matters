@@ -43,7 +43,7 @@ const Shop = (props) => {
           id={item.id}
           image={item.image}
           name={item.name}
-          price={props.allTurnPrices[props.turn % props.allTurnPrices.length][item.name]}
+          price={item.price}
           money={props.money}
           setMoney={props.setMoney}
           turn={props.turn}

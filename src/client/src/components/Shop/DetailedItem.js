@@ -73,7 +73,7 @@ const DetailedItem = (props) => {
     const currentItemIndex = shopItemsList[findItemIndex(props.item)];
     setItemType(currentItemIndex.seasonType);
     setItemImg(currentItemIndex.image);
-    setItemPrice(props.allTurnPrices[props.turn % props.allTurnPrices.length][props.item]);
+    setItemPrice(currentItemIndex.price);
   }
   useEffect(() => {
     setItemDetails(); 
