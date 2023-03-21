@@ -74,7 +74,6 @@ const DetailedItem = (props) => {
     setItemType(currentItemIndex.seasonType);
     setItemImg(currentItemIndex.image);
     setItemPrice(props.allTurnPrices[props.turn % props.allTurnPrices.length][props.item]);
-    setItemInsuranceList([]); //UPDATE when insurance is done
   }
   useEffect(() => {
     setItemDetails(); 
@@ -157,13 +156,12 @@ const DetailedItem = (props) => {
   }, [currentItemTotalCost, currentInsuranceCost]);
   return (
     <div className="detailed-item" key={props.id} >
-    <div className="detailed-item" key={props.id} >
       <h2>{props.item != "" ? props.item : "Select an item to view more details ..."}</h2>
       <img src={itemImg} alt="crops" className="item-image"></img>
       <div className="details">
        
           <div className={"price " +(props.turn == 1 ? "turn-1" : isPriceIncrease ? "price-increase" : "price-decrease")}>
-            Current Price: ${parseInt(itemPrice).toFixed(2)}  {props.turn == 1 ? ("-") : isPriceIncrease ? (<span>&#8593;</span>): (<span>&#8595;</span>)}
+            Current Price: ${parseFloat(itemPrice).toFixed(2)}  {props.turn == 1 ? ("-") : isPriceIncrease ? (<span>&#8593;</span>): (<span>&#8595;</span>)}
           
         </div>
       </div>
@@ -202,7 +200,7 @@ const DetailedItem = (props) => {
             </div>
           </div>
 
-          { insuranceOption ? 
+          { insuranceOption && checkIfItemIsPlant(props.item,plants) ? 
           <>
           <div className="quantity-grid">
             <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
@@ -234,7 +232,7 @@ const DetailedItem = (props) => {
                 value={insuranceQuantity}
                 onChange={(e) => setInsuranceQuantity(e.target.value)}
               ></input>
-              <img src={add_img_location} className="quantity-button" onClick={()=>{setInsuranceQuantity(1+parseInt(insuranceQuantity))}}/>
+              <img src={add_img_location} className="quantity-button" onClick={()=>{(insuranceQuantity < itemQuantity) ? setInsuranceQuantity(1+parseInt(insuranceQuantity)) : setInsuranceQuantity(parseInt(insuranceQuantity))}}/>
             </div>
           </div>
           </>
@@ -272,7 +270,6 @@ const DetailedItem = (props) => {
         <button disabled={props.money < totalCost} onClick={() => purchase()}>Purchase</button>
       </div>
     </div>
-  );
+    );
 };
-
 export default DetailedItem;

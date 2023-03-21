@@ -208,8 +208,6 @@ const FarmTile = (props) => {
                 price={props.price}
                 inventoryState={props.inventoryState}
                 fertilizerAmount={fertilizerAmount}
-                x={props.x}
-                z={props.z}
               />
             )}
         </Html>

@@ -26,7 +26,7 @@ import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
-// import SeasonTransition from "./components/GameLogic/SeasonTransition";
+import SeasonTransition from "./components/GameLogic/SeasonTransition"
 import bgMusic from "./assets/bg_music.mp3";
 import { GameSettings } from "./components/GameSettings";
 

@@ -32,7 +32,7 @@ const ShopItem = (props) => {
       
       <img src={props.image} alt="crops" className="item-image"></img>
       <div className="shop-item-name" >
-        {props.name + " - $" + parseInt(props.price).toFixed(2)}
+        {props.name + " - $" + parseFloat(props.price).toFixed(2)}
       </div>
       </div>
       

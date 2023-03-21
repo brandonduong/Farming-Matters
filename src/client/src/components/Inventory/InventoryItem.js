@@ -85,7 +85,7 @@ const InventoryItem = (props) => {
             <div className="empty"></div>
             <div className="seeds">
               <h3>Seed Contracts</h3>
-              <table >
+              <table className="table table-bordered">
                 <tr>
                   <td>Quantity</td>
                   <td>FloorPrice</td>
