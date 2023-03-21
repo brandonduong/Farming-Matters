@@ -248,92 +248,110 @@ export const Game = () => {
     );
   }
 
+  function loadGameUI() {
+    return (
+      <>
+        <globalInventoryContext.Provider
+          value={{
+            inventoryState,
+            setInventoryState,
+            insuredState,
+            setInsuredState,
+            turn,
+          }}
+        >
+          <InfoHeader
+            user={user}
+            money={money}
+            season={season}
+            turn={turn}
+            setSeason={setSeason}
+            setTurn={setTurn}
+          />
+          <div className="canvas-container">
+            <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
+              <ambientLight intensity={1} />
+              <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
+              <pointLight position={[-10, -10, -10]} />
+
+              <ModelProvider>
+                {/* Blue sky */}
+                <Sky distance={50} sunPosition={[10, 12, 0]} />
+
+                <FarmGrid
+                  position={[0, 0, 0]}
+                  turn={turn}
+                  money={money}
+                  setMoney={setMoney}
+                />
+
+                {farmBuildings}
+                {landscape}
+                {VisualGameLogic.generateVisualEnvironment(
+                  turn,
+                  season,
+                  isEventHappening,
+                  typeOfCatastrophicEvent
+                )}
+              </ModelProvider>
+
+              <OrbitControls
+                target={[0, 0, 0]}
+                maxPolarAngle={Math.PI / 3.5}
+                maxDistance={13}
+                screenSpacePanning={false}
+              />
+            </Canvas>
+          </div>
+          <InfoHeader
+            user={user}
+            money={money}
+            season={season}
+            turn={turn}
+            setSeason={setSeason}
+            setTurn={setTurn}
+          />
+
+          <AvatarMenu
+            accessToConsultant={accessToConsultant}
+            setAccessToConsultant={setAccessToConsultant}
+            money={money}
+            setMoney={setMoney}
+            consultantStatement={consultantStatement}
+          />
+
+          <GameSettings
+            volume={backgroundMusicVolume}
+            setVolume={setBackgroundVolume}
+          />
+
+          <InventoryRender
+            marketItems={marketItems}
+            money={money}
+            turn={turn}
+          />
+          <Shop
+            money={money}
+            setMoney={setMoney}
+            turn={turn}
+            allTurnPrices={allTurnPrices}
+            marketItems={marketItems}
+          ></Shop>
+        </globalInventoryContext.Provider>
+        <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+      </>
+    );
+  }
+
   return (
     <>
-      <globalInventoryContext.Provider
-        value={{
-          inventoryState,
-          setInventoryState,
-          insuredState,
-          setInsuredState,
-          turn,
-        }}
-      >
-        <InfoHeader
-          user={user}
-          money={money}
-          season={season}
-          turn={turn}
-          setSeason={setSeason}
-          setTurn={setTurn}
-        />
-        <div className="canvas-container">
-          <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
-            <ambientLight intensity={1} />
-            <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
-            <pointLight position={[-10, -10, -10]} />
-
-            <ModelProvider>
-              {/* Blue sky */}
-              <Sky distance={50} sunPosition={[10, 12, 0]} />
-
-              <FarmGrid
-                position={[0, 0, 0]}
-                turn={turn}
-                money={money}
-                setMoney={setMoney}
-              />
-
-              {farmBuildings}
-              {landscape}
-              {VisualGameLogic.generateVisualEnvironment(
-                turn,
-                season,
-                isEventHappening,
-                typeOfCatastrophicEvent
-              )}
-            </ModelProvider>
-
-            <OrbitControls
-              target={[0, 0, 0]}
-              maxPolarAngle={Math.PI / 3.5}
-              maxDistance={13}
-              screenSpacePanning={false}
-            />
-          </Canvas>
-        </div>
-        <InfoHeader
-          user={user}
-          money={money}
-          season={season}
-          turn={turn}
-          setSeason={setSeason}
-          setTurn={setTurn}
-        />
-
-        <AvatarMenu
-          accessToConsultant={accessToConsultant}
-          setAccessToConsultant={setAccessToConsultant}
-          money={money}
-          setMoney={setMoney}
-          consultantStatement={consultantStatement}
-        />
-
-        <GameSettings
-          volume={backgroundMusicVolume}
-          setVolume={setBackgroundVolume}
-        />
-
-        <InventoryRender marketItems={marketItems} money={money} turn={turn} />
-        <Shop
-          money={money}
-          setMoney={setMoney}
-          turn={turn}
-          allTurnPrices={allTurnPrices}
-          marketItems={marketItems}
-        ></Shop>
-      </globalInventoryContext.Provider>
-      <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+      {loading ? (
+        <>
+          <h1>Loading...</h1>
+        </>
+      ) : (
+        loadGameUI()
+      )}
     </>
   );
 };
