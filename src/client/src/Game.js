@@ -58,6 +58,7 @@ export const Game = () => {
   const [isEventHappening, setIsEventHappening] = useState(false);
   const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -101,25 +102,6 @@ export const Game = () => {
       });
     }
   }, [turn]);
-
-  useEffect(() => {
-    setInventoryState(getNames);
-  }, []);
-
-  useEffect(() => {
-    setInsuredState(getNamesInsurance);
-  }, []);
-
-  // This useEffect hook performs all operations needed on page load
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-  }, []);
-
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-    initializeLandscape();
-    initializeFarmBuildings();
-  }, []);
 
   useEffect(() => {
     setAccessToConsultant(false);
@@ -174,8 +156,14 @@ export const Game = () => {
     }
   }, [accessToConsultant]);
 
-  // // This effect will create a connection to the database once this component loads
+  // This effect runs when the page is first loaded
   useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    // for database connection
     const initalizeGameState = async () => {
       await createConnection();
       retrieveSavedGame().then((gameState) => {
@@ -184,6 +172,15 @@ export const Game = () => {
       });
     };
     initalizeGameState();
+
+    // initializing state variables
+    setInventoryState(getNames);
+    setInsuredState(getNamesInsurance);
+
+    // This useEffect hook performs all operations needed on page load
+    setDecisionType(Math.round(Math.random()));
+    initializeLandscape();
+    initializeFarmBuildings();
   }, []);
 
   function randomXYCircle(maxRadius, minRadius) {
@@ -251,9 +248,9 @@ export const Game = () => {
     );
   }
 
-  return (
-    <>
-      {
+  function loadGameUI() {
+    return (
+      <>
         <globalInventoryContext.Provider
           value={{
             inventoryState,
@@ -341,8 +338,20 @@ export const Game = () => {
             marketItems={marketItems}
           ></Shop>
         </globalInventoryContext.Provider>
-      }
-      <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+        <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+      </>
+    );
+  }
+
+  return (
+    <>
+      {loading ? (
+        <>
+          <h1>Loading...</h1>
+        </>
+      ) : (
+        loadGameUI()
+      )}
     </>
   );
 };
