@@ -51,7 +51,18 @@ export const Game = () => {
   
   // TODO: move to constants.js
   defaultCropInfo = {
-    tomato: []
+    Rice: [],
+    Carrot: [],
+    Orange: [],
+    Lettuce: [],
+    Tomato: [],
+    Watermelon: [],
+    Wheat: [],
+    Pumpkin:[],
+    Beat:[],
+    Berries:[],
+    Mushroom:[],
+    Wintermelon:[]
   }
   const [cropInfo, setCropInfo] = useState(defaultCropInfo);
 
@@ -276,8 +287,6 @@ export const Game = () => {
             setPlantedSeeds,
             cropInfo,
             setCropInfo,
-            // insuredState,
-            // setInsuredState,
             turn,
           }}
         >

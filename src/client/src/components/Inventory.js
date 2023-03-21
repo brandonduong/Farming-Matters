@@ -10,12 +10,40 @@ export function getItems(inventory){
 }
 
 export function addItem(inventory,item){
+  let itemName = item.name;
+  let type = item.type;
+  let floorPrice = item.floorPrice;
+  if (!itemName || !type || !floorPrice){
+    return;
+  }
+  if (type == 'crop'){
+    let cropExpiry = item.cropExpiry;
+    if (!cropExpiry){return;}
+  }
   inventory.push(item);
 }
 
 
 export function removeItem(inventory,item){
-  inventory.remove(item)
+  let itemName = item.name;
+  let type = item.type;
+  let floorPrice = item.floorPrice;
+  if (!itemName || !type || !floorPrice){
+    return;
+  }
+  // crops have an extra field called cropExpiry
+  let index = 0;
+  if (type == 'crop'){
+    let cropExpiry = item.cropExpiry;
+    if (!cropExpiry){return;}
+    index = inventory.findIndex(item => item.type == type && item.name == itemName && item.floorPrice == floorPrice && item.cropExpiry == cropExpiry)
+    // other items don't have cropExpiry
+  } else {
+     index = inventory.findIndex(item => item.type == type && item.name == itemName && item.floorPrice == floorPrice)     
+  }
+  if ((index >= 0) && (index < inventory.length)){
+      inventory = inventory.splice(index,1);
+  }
 }
 
 // gets the count of crops with the same insurance contracts
