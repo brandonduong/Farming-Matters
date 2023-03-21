@@ -33,18 +33,20 @@ const AvatarDialog = (props) =>{
        return ( 
 
                 <div className="dialog-grid">
-                    <div className="dialog-chat chat-bottom-left">
+                    <div className={"avatar dialog-avatar-" + props.getId()}> </div>
+                    <div className="box arrow-left">
+                        
                         <div className="avatar-info">
                             <h1> { props.getName() +" "+ props.getRole()} </h1> 
                             <h2> { props.getDescription() } </h2>
-                            <p>
-                                {props.statement}
-                            </p>
+                            <div className="dialog-statement">
+                                "{props.statement}"
+                            </div>
                             <button onClick={() => props.onExit()}>Close</button>
                         </div>
                         
                     </div>
-                    <div className={"avatar avatar-" + props.getId()}> </div>
+                    
                 </div>
             )
     }

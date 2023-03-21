@@ -187,7 +187,7 @@
   background: url("./img/icons8-administrator-94.png");
   background-size: 50px 50px;
   background-color: #fff;
-  margin: 15px auto;
+  margin: 0 auto;
 }
 
 .avatar-1 {
@@ -204,6 +204,36 @@
   margin: 15px auto;
 }
 
+.dialog-avatar-0 {
+  background: url("./img/icons8-administrator-94.png") no-repeat center;
+  background-size: 125px;
+  background-color: #fff;
+  margin: 0 auto;
+
+  width: 150px;
+  height: 150px;
+}
+
+.dialog-avatar-1 {
+  background: url("./img/icons8-account-96.png") no-repeat center;
+  background-size: 125px;
+  background-color: #fff;
+  margin: 0 auto;
+
+  width: 150px;
+  height: 150px;
+}
+
+.dialog-avatar-2 {
+  background: url("./img/icons8-user-female-skin-type-4-80.png") no-repeat center;
+  background-size: 125px;
+  background-color: #fff;
+  margin: 0 auto;
+
+  width: 150px;
+  height: 150px;
+}
+
 .dialog-background {
   position: absolute;
   top: 0px;
@@ -215,14 +245,13 @@
 
 .dialog-grid{
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: 1fr 0.5fr;
+  grid-template-columns: 0.5fr 1.5fr;
+  grid-template-rows: 5fr;
   align-self: self-end;
-  margin-top: 15%;
-  align-content: stretch;
-  justify-items: center;
-  justify-content: start;
-  align-items: center;
+  margin-top: 17.5%;
+  /* justify-items: center; */
+  align-items: start;
+  margin-left: 15%;
 }
 
 .dialog-chat {
@@ -262,6 +291,12 @@
 }
 
 
+.avatar-info{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: auto;
+}
+
 .avatar-info > h1 {
   font-size: 32px;
   margin: 0;
@@ -297,4 +332,32 @@
 .avatar-info > button:hover {
   border: 1px solid white;
   background-color: rgb(109, 5, 5);
+}
+
+.dialog-statement{
+  font-size: 1.5em;
+  font-style: italic;
+}
+
+
+/* Source: https://codepen.io/lideo/pen/KKGeQG */
+.box {
+  width: 75%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.65);
+  color: #fff;
+  padding: 2.5%;
+  position: relative;
+  float: left;
+}
+
+.box.arrow-left:after {
+  content: " ";
+  position: absolute;
+  left: -3.5em;
+  top: 2em;
+  border-top: 3em solid transparent;
+  border-right: 3.5em solid rgba(255, 255, 255,0.65);
+  border-left: none;
+  border-bottom: 3em solid transparent;
 }
