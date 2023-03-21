@@ -145,3 +145,24 @@
   font-size: 2em;
   background-color: rgba(255, 255, 255, 0.65);
 }
+
+table, th, td {
+  border:1px solid black;
+}
+
+.seeds {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 0.25fr 1fr;
+}
+
+.crops {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 0.25fr 1fr;
+}
+
+.Contracts {
+  display: grid;
+  grid-template-rows: 0.25fr 1fr 0.25fr 1fr;
+}

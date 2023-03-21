@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { plants } from "./constants";
-import { getItemCount, addItem, removeItem } from "../../Inventory";
+import { addItem, removeItem } from "../../Inventory";
 import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
 import { addItemToCropInfo, removePlant, addPlant } from "./FarmingHelpers";
 import { globalInventoryContext } from "../../../Game";

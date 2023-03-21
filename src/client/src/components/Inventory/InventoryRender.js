@@ -19,7 +19,6 @@ const InventoryRender = (props) => {
  // [{tomato:{seed:#,crop:#}},{fertilizer:#}]
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
-    setItemSelected("");
     if(isInventoryOpen){
       const items = getItems(inventoryState);     
       for (let i = 0; i < items.length; i++){
@@ -28,14 +27,14 @@ const InventoryRender = (props) => {
           let cropCount = getCropCount(inventoryState, items[i]);
           if ((seedCount > 0) || (cropCount > 0)){
             const plant = items[i];   
-            let pItem = {[plant]:{seed:seedCount,crop:cropCount}};
+            let pItem = {plant:{seed:seedCount,crop:cropCount}};
             currInventory.push(pItem);
           }
         } else {
           let itemCount = getItemCount(inventoryState, items[i]);
           if (itemCount > 0) {
             const itemName = items[i];
-            let cItem = {[itemName]:itemCount};
+            let cItem = {itemName:itemCount};
             currInventory.push(cItem);
           }
         }
@@ -112,7 +111,7 @@ const InventoryRender = (props) => {
               <div className="empty"></div>
               <div className="display-more"> 
                   <h1>More Information:</h1>
-                  <InventoryItem item={itemSelected} />
+                  <InventoryItem item={itemSelected} {...props} />
               </div>
               <div className="empty"></div>
           </div>

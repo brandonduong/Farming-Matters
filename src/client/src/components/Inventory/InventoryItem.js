@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { globalInventoryContext } from "../../Game";
-import { addItem, getAllItemContracts, getItemCount, getSameCropContractCount, getUniqueContracts } from "../Inventory";
+import { getSeedContractsCounts } from "../Inventory";
 import { checkIfItemIsPlant, getImage, getItemFluctuation } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
@@ -9,10 +9,9 @@ import { itemFluctuation } from "../GameLogic/constants";
 import { quantityContent } from "../Shop/constants";
 
 const InventoryItem = (props) => {
-  const { inventoryState } = React.useContext(globalInventoryContext);
+  const { inventoryState, cropInfo } = React.useContext(globalInventoryContext);
   const [itemName, setItemName] = useState();
   const [itemImg, setItemImg] = useState(quantityContent[1].image);
-  const  [insuranceContracts, setInsuranceContracts] = useState("");
 
   function findItemIndex(itemName){
     for (let i = 0; i < shopItemsList.length; i++){
@@ -30,31 +29,49 @@ const InventoryItem = (props) => {
     setItemName(props.item);
     const currentItemIndex = shopItemsList[findItemIndex(props.item)];
     setItemImg(currentItemIndex.image);
-    console.log(getUniqueContracts(inventoryState,props.item));
-    setInsuranceContracts(getUniqueContracts(inventoryState,props.item));
   }
 
   useEffect(() => {
     setItemDetails(); 
+    
   }, [props.item]);
   
-  let currentItemRender = []
-  console.log(insuranceContracts);
-  for (let i = 0; i < insuranceContracts.length; i++){
-    let currItem = insuranceContracts[i];
-    console.log("CURR ITEM IS: " + currItem.name)
-    let cropExpiry = currItem.cropExpiry;
-    let floorPrice = (currItem.floorPrice == null) ? "No Insurance" : currItem.floorPrice;
-    let seedCount = getSameCropContractCount(insuranceContracts, currItem.name, floorPrice, cropExpiry, 'seed');
-    let cropCount = getSameCropContractCount(insuranceContracts, currItem.name, floorPrice, cropExpiry, 'crop');
-    currentItemRender.push(
-      <div className="countInfo">
-        <p>Floor Price: {floorPrice}</p>
-        <p>Crop Expiry: {cropExpiry}</p>
-        <p>Seed Count: {seedCount}</p>
-        <p>Crop Count: {cropCount} </p>
-      </div>
+
+  let currentSeedRender = [];
+  let currentCropRender = [];
+  if (itemName){
+  
+  let seedCounts = getSeedContractsCounts(inventoryState,itemName);
+  let seedFloors = Object.keys(seedCounts);
+  let cropContracts = cropInfo[itemName];
+  console.log(seedFloors);
+  
+ 
+  for (let i = 0; i < seedFloors.length; i++){
+    let seedFloor = seedFloors[i];
+    let seedQuantity = seedCounts[seedFloor];
+    currentSeedRender.push(
+      <tr>
+        <td>{seedQuantity}</td>
+        <td>{seedFloor}</td> 
+      </tr>
   )}
+
+  // {floorPrice: itemFloorPrice, cropExpiry: itemCropExpiry, quantity: 1}
+  for (let i = 0; i < cropContracts.length; i++){
+    let cropFloor = cropContracts[i].floorPrice;
+    let cropExp = cropContracts[i].cropExpiry;
+    let cropQuantity = cropContracts[i].quantity;
+    currentCropRender.push(
+      <tr>
+        <td>{cropQuantity}</td>
+        <td>{cropFloor}</td> 
+        <td>{cropExp}</td>
+      </tr>
+  )}
+
+  }
+  
 
   return (
     <div className="detailed-item" key={props.id} >
@@ -63,7 +80,29 @@ const InventoryItem = (props) => {
       <div className="details">
         <h1>Contracts</h1>
         <div className="Contracts">
-          {currentItemRender}
+          <div className="empty"></div>
+          <div className="seeds">
+            <h3>Seed Contracts</h3>
+            <table >
+              <tr>
+                <td>Quantity</td>
+                <td>FloorPrice</td>
+              </tr>
+            {currentSeedRender}
+            </table>
+          </div>  
+          <div className="empty"></div>
+          <div className="crops">
+            <h3>Crop Contracts</h3>
+            <table >
+              <tr>
+                <td>Quantity</td>
+                <td>FloorPrice</td>
+                <td>Expiry</td>
+              </tr>
+            {currentCropRender}
+            </table>
+          </div>  
         </div>
       </div>
     </div>

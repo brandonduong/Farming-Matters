@@ -96,7 +96,7 @@ export function getItemCount(inventory,tool){
 }
 
 export function getAllItemContracts(inventory,itemName){
-  let itemContracts = []
+  let itemContracts = [];
   for (let i = 0; i < inventory.length; i++){
     let currItem = inventory[i];
     if (currItem.name == itemName){
@@ -106,23 +106,29 @@ export function getAllItemContracts(inventory,itemName){
   return itemContracts;
 }
 
-export function getUniqueContracts(inventory,itemName){
-  let floorPrices = [];
-  let expiries = [];
-  let uniqueContracts = []; 
+function getAllSeedContracts(inventory, itemName){
+  let seedContracts = [];
   for (let i = 0; i < inventory.length; i++){
     let currItem = inventory[i];
-    if(currItem.name == itemName){
-      if (!floorPrices.includes(currItem.floorPrice)){
-        floorPrices.push(currItem.floorPrice);
-        uniqueContracts.push(currItem);
-      } else {
-        if (!expiries.includes(currItem.cropExpiry)){
-          expiries.push(currItem.cropExpiry);
-          uniqueContracts.push(currItem);
-        }
-      }
-    }
+    if (currItem.name == itemName && currItem.type == 'seed'){
+      seedContracts.push(currItem);
+    } 
   }
-  return uniqueContracts;
+  return seedContracts;
+}
+
+export function getSeedContractsCounts(inventory,itemName){
+  let counts = {}
+  let floorPrices = [];
+  let allSeeds = getAllSeedContracts(inventory, itemName);
+  for (let i = 0; i < allSeeds.length; i++){
+      let currContract = allSeeds[i];
+      if (!floorPrices.includes(currContract.floorPrice)){
+          floorPrices.push(currContract.floorPrice);
+          counts[currContract["floorPrice"]] = 1;
+      } else {
+          counts[currContract["floorPrice"]] += 1;
+      }
+  }
+  return counts;
 }
