@@ -12,8 +12,7 @@ export function getItems(inventory){
 export function addItem(inventory,item){
   let itemName = item.name;
   let type = item.type;
-  let floorPrice = item.floorPrice;
-  if (!itemName || !type || !floorPrice){
+  if (!itemName || !type){
     return;
   }
   if (type == 'crop'){
@@ -28,7 +27,7 @@ export function removeItem(inventory,item){
   let itemName = item.name;
   let type = item.type;
   let floorPrice = item.floorPrice;
-  if (!itemName || !type || !floorPrice){
+  if (!itemName || !type){
     return;
   }
   // crops have an extra field called cropExpiry

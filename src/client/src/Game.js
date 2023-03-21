@@ -50,7 +50,7 @@ export const Game = () => {
   const [plantedSeeds, setPlantedSeeds] = useState([]);
   
   // TODO: move to constants.js
-  defaultCropInfo = {
+  let defaultCropInfo = {
     Rice: [],
     Carrot: [],
     Orange: [],

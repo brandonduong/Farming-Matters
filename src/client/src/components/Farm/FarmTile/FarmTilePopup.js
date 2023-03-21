@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { plants } from "./constants";
 import { getItemCount, addItem, removeItem } from "../../Inventory";
 import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
-import { addItemToCropInfo, removePlant } from "./FarmingHelpers";
+import { addItemToCropInfo, removePlant, addPlant } from "./FarmingHelpers";
+import { globalInventoryContext } from "../../../Game";
 
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {
@@ -72,9 +73,9 @@ const FarmTilePopup = (props) => {
     // plantedSeeds.remove(cropToHarvest);
     removePlant(currPlanted,cropToHarvest)
     const newItem = {
-      name: cropToHarvest.floorPrice,
+      name: cropToHarvest.name,
       type: 'crop',
-      floorPrice: cropFloor,
+      floorPrice: cropToHarvest.floorPrice,
       cropExpiry: 3
     }
     addItem(currIventory, newItem);
