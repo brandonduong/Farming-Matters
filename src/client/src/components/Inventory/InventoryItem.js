@@ -53,7 +53,7 @@ const InventoryItem = (props) => {
     currentSeedRender.push(
       <tr>
         <td>{seedQuantity}</td>
-        <td>{seedFloor}</td> 
+        <td>{(seedFloor == "null") ? "None" : seedFloor}</td> 
       </tr>
   )}
 
@@ -79,31 +79,37 @@ const InventoryItem = (props) => {
       <img src={itemImg} alt="crops" className="item-image"></img>
       <div className="details">
         <h1>Contracts</h1>
-        <div className="Contracts">
-          <div className="empty"></div>
-          <div className="seeds">
-            <h3>Seed Contracts</h3>
-            <table >
-              <tr>
-                <td>Quantity</td>
-                <td>FloorPrice</td>
-              </tr>
-            {currentSeedRender}
-            </table>
-          </div>  
-          <div className="empty"></div>
-          <div className="crops">
-            <h3>Crop Contracts</h3>
-            <table >
-              <tr>
-                <td>Quantity</td>
-                <td>FloorPrice</td>
-                <td>Expiry</td>
-              </tr>
-            {currentCropRender}
-            </table>
-          </div>  
-        </div>
+        {props.item ? 
+        <>
+          <div className="Contracts">
+            <div className="empty"></div>
+            <div className="seeds">
+              <h3>Seed Contracts</h3>
+              <table >
+                <tr>
+                  <td>Quantity</td>
+                  <td>FloorPrice</td>
+                </tr>
+              {currentSeedRender}
+              </table>
+            </div>  
+            <div className="empty"></div>
+            <div className="crops">
+              <h3>Crop Contracts</h3>
+              <table >
+                <tr>
+                  <td>Quantity</td>
+                  <td>FloorPrice</td>
+                  <td>Expiry</td>
+                </tr>
+              {currentCropRender}
+              </table>
+            </div>  
+          </div>
+        </> : 
+        ( 
+        <></>
+        )}
       </div>
     </div>
   );

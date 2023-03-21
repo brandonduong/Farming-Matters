@@ -19,6 +19,7 @@ const InventoryRender = (props) => {
  // [{tomato:{seed:#,crop:#}},{fertilizer:#}]
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
+    setItemSelected("");
     if(isInventoryOpen){
       const items = getItems(inventoryState);     
       for (let i = 0; i < items.length; i++){
