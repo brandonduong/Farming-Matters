@@ -55,6 +55,7 @@ export const Game = () => {
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -98,25 +99,6 @@ export const Game = () => {
       });
     }
   }, [turn]);
-
-  useEffect(() => {
-    setInventoryState(getNames);
-  }, []);
-
-  useEffect(() => {
-    setInsuredState(getNamesInsurance);
-  }, []);
-
-  // This useEffect hook performs all operations needed on page load
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-  }, []);
-
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-    initializeLandscape();
-    initializeFarmBuildings();
-  }, []);
 
   useEffect(() => {
     setAccessToConsultant(false);
@@ -171,8 +153,14 @@ export const Game = () => {
     }
   }, [accessToConsultant]);
 
-  // // This effect will create a connection to the database once this component loads
+  // This effect runs when the page is first loaded
   useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    // for database connection
     const initalizeGameState = async () => {
       await createConnection();
       retrieveSavedGame().then((gameState) => {
@@ -181,6 +169,15 @@ export const Game = () => {
       });
     };
     initalizeGameState();
+
+    // initializing state variables
+    setInventoryState(getNames);
+    setInsuredState(getNamesInsurance);
+
+    // This useEffect hook performs all operations needed on page load
+    setDecisionType(Math.round(Math.random()));
+    initializeLandscape();
+    initializeFarmBuildings();
   }, []);
 
   function randomXYCircle(maxRadius, minRadius) {
@@ -250,91 +247,86 @@ export const Game = () => {
 
   return (
     <>
-      {
-        <globalInventoryContext.Provider
-          value={{
-            inventoryState,
-            setInventoryState,
-            insuredState,
-            setInsuredState,
-            turn,
-          }}
-        >
-          <InfoHeader
-            user={user}
-            money={money}
-            season={season}
-            turn={turn}
-            setSeason={setSeason}
-            setTurn={setTurn}
-          />
-          <div className="canvas-container">
-            <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
-              <ambientLight intensity={1} />
-              <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
-              <pointLight position={[-10, -10, -10]} />
+      <globalInventoryContext.Provider
+        value={{
+          inventoryState,
+          setInventoryState,
+          insuredState,
+          setInsuredState,
+          turn,
+        }}
+      >
+        <InfoHeader
+          user={user}
+          money={money}
+          season={season}
+          turn={turn}
+          setSeason={setSeason}
+          setTurn={setTurn}
+        />
+        <div className="canvas-container">
+          <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
+            <ambientLight intensity={1} />
+            <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
+            <pointLight position={[-10, -10, -10]} />
 
-              <ModelProvider>
-                {/* Blue sky */}
-                <Sky distance={50} sunPosition={[10, 12, 0]} />
+            <ModelProvider>
+              {/* Blue sky */}
+              <Sky distance={50} sunPosition={[10, 12, 0]} />
 
-                <FarmGrid
-                  position={[0, 0, 0]}
-                  turn={turn}
-                  money={money}
-                  setMoney={setMoney}
-                />
-
-                {farmBuildings}
-                {landscape}
-                {VisualGameLogic.generateVisualEnvironment(
-                  turn,
-                  season,
-                  isEventHappening,
-                  typeOfCatastrophicEvent
-                )}
-              </ModelProvider>
-
-              <OrbitControls
-                target={[0, 0, 0]}
-                maxPolarAngle={Math.PI / 3.5}
-                maxDistance={13}
-                screenSpacePanning={false}
+              <FarmGrid
+                position={[0, 0, 0]}
+                turn={turn}
+                money={money}
+                setMoney={setMoney}
               />
-            </Canvas>
-          </div>
-          <InfoHeader
-            user={user}
-            money={money}
-            season={season}
-            turn={turn}
-            setSeason={setSeason}
-            setTurn={setTurn}
-          />
 
-          <AvatarMenu
-            accessToConsultant={accessToConsultant}
-            setAccessToConsultant={setAccessToConsultant}
-            money={money}
-            setMoney={setMoney}
-            consultantStatement={consultantStatement}
-          />
+              {farmBuildings}
+              {landscape}
+              {VisualGameLogic.generateVisualEnvironment(
+                turn,
+                season,
+                isEventHappening,
+                typeOfCatastrophicEvent
+              )}
+            </ModelProvider>
 
-          <InventoryRender
-            marketItems={marketItems}
-            money={money}
-            turn={turn}
-          />
-          <Shop
-            money={money}
-            setMoney={setMoney}
-            turn={turn}
-            allTurnPrices={allTurnPrices}
-            marketItems={marketItems}
-          ></Shop>
-        </globalInventoryContext.Provider>
-      }
-      <BackgroundMusic />
+            <OrbitControls
+              target={[0, 0, 0]}
+              maxPolarAngle={Math.PI / 3.5}
+              maxDistance={13}
+              screenSpacePanning={false}
+            />
+          </Canvas>
+        </div>
+        <InfoHeader
+          user={user}
+          money={money}
+          season={season}
+          turn={turn}
+          setSeason={setSeason}
+          setTurn={setTurn}
+        />
+
+        <AvatarMenu
+          accessToConsultant={accessToConsultant}
+          setAccessToConsultant={setAccessToConsultant}
+          money={money}
+          setMoney={setMoney}
+          consultantStatement={consultantStatement}
+        />
+
+        <InventoryRender marketItems={marketItems} money={money} turn={turn} />
+        <Shop
+          money={money}
+          setMoney={setMoney}
+          turn={turn}
+          allTurnPrices={allTurnPrices}
+          marketItems={marketItems}
+        ></Shop>
+
+        <BackgroundMusic />
+      </globalInventoryContext.Provider>
     </>
   );
 };
