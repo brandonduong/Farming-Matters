@@ -2,7 +2,7 @@ import "./css/App.css";
 import "./css/Inventory.css";
 import InfoHeader from "./components/InfoHeader";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Sky } from "@react-three/drei";
+import { OrbitControls, Sky, Stats } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
 import React, { useState, useEffect, useNavigate } from "react";
@@ -22,6 +22,7 @@ import {
 } from "./components/GameLogic/GameLogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
+import Avatar from "./components/Avatar/Avatar";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
 import { SEASONS, EVENT_OCCUR_THRESHOLD, gameEvents} from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
@@ -55,6 +56,8 @@ export const Game = () => {
   const marketItems = [];
   const [accessToConsultant, setAccessToConsultant] = useState(false);
   const [consultantStatement, setConsultantStatement] = useState("");
+  const [autoPrompt, setAutoPrompt] = useState(true);
+  const [isConsultantPrompt, setIsConsultantPrompt] = useState(true);
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
   const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
@@ -300,10 +303,11 @@ export const Game = () => {
             setTurn={setTurn}
           />
           <div className="canvas-container">
-            <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
+            <Canvas camera={{ fov: 70, position: [0, 5, 5] }} performance={{ min: 0.1 }} gl={{ antialias: false }}>
               <ambientLight intensity={1} />
-              <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
+              <spotLight position={[-10, -10, -10]} angle={-Math.PI/2} penumbra={0.1} />
               <pointLight position={[-10, -10, -10]} />
+              
 
               <ModelProvider>
                 {/* Blue sky */}
@@ -333,6 +337,7 @@ export const Game = () => {
                 maxDistance={13}
                 screenSpacePanning={false}
               />
+               <Stats showPanel={0} />
             </Canvas>
           </div>
           <InfoHeader
@@ -363,6 +368,23 @@ export const Game = () => {
             money={money}
             turn={turn}
           />
+          {autoPrompt? 
+          <div className="dialog-background">
+            <Avatar
+            avatarID={0}
+            isOpened={autoPrompt}
+            onExit={() => {setAutoPrompt(!autoPrompt)}}
+            accessToConsultant={accessToConsultant}
+            setAccessToConsultant={setAccessToConsultant}
+            money={money}
+            setMoney={setMoney}
+            consultantStatement={consultantStatement}
+            
+            />
+          </div>
+         : <></>  }
+
+          <InventoryRender marketItems={marketItems} />
           <Shop
             money={money}
             setMoney={setMoney}

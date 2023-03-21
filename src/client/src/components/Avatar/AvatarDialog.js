@@ -19,7 +19,8 @@ const AvatarDialog = (props) =>{
             return (
                 <div className="purchase-dialog">
                     <div className="purchase-consultant">
-                        <h1>Price: $ {purchasePrice} </h1>
+                        <h1>Purchase Consultant Advice </h1>
+                        <h2>Price: $ {purchasePrice} </h2>
                         <div className="purchase-tip">
                             <button type="button" className="purchase-button" onClick={() => props.purchaseConsultant()} disabled={!props.canPurchaseConsultant()}>Purchase</button>
                             <button className="close-button" onClick={() => props.onExit()}>Close</button>
