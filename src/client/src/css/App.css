@@ -140,7 +140,6 @@
   color: black;
   font-size: large;
   z-index: 10;
-  
 }
 
 .shop-button:hover {
@@ -204,7 +203,7 @@
 
 .item-image {
   width: 80px;
-  height: 80px; 
+  height: 80px;
   border: 1px solid white;
   border-radius: 60px;
   padding: 5px;
@@ -229,12 +228,33 @@
   font-size: large;
 }
 
-.insurance-button{
+.insurance-button {
   height: 40px;
   width: 100px;
 }
 
-
-.active{
+.active {
   background-color: darkseagreen;
+}
+
+#close-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 8px 15px 10px 15px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  z-index: 11;
+  transition: 150ms;
+}
+
+#close-button:hover {
+  padding: 6px 16px 10px 16px;
+  top: -13px;
+  right: -13px;
+  font-size: x-large;
+  transition: 250ms;
 }

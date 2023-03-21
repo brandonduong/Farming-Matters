@@ -1,0 +1,35 @@
+:root {
+  --main-color: rgb(224, 63, 51);
+  --main-color-hover: rgba(209, 113, 104, 0.375);
+  --track-color: #ddd;
+}
+
+.customSlider {
+  max-width: 80%;
+  margin: auto;
+}
+
+.customSlider-track {
+  top: 8px;
+  height: 6px;
+  border-radius: 5px;
+
+  background: var(--track-color);
+}
+
+.customSlider-track.customSlider-track-0 {
+  background: var(--main-color);
+}
+
+.customSlider-thumb {
+  cursor: pointer;
+  background: var(--main-color);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  outline: none;
+}
+
+.customSlider-thumb:hover {
+  box-shadow: 0 0 0 8px var(--main-color-hover);
+}
