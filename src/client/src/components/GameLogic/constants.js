@@ -1,8 +1,8 @@
 export const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
 export const avatarNames = [
-  ["Jerry", "the Consultant"],
-  ["Bob", "the tools smith"],
-  ["Alice", "the weather woman"],
+  ["Jerry", "Consultant"],
+  ["Bob", "Tools Smith"],
+  ["Alice", "Weather Woman"],
 ];
 
 export const consultantNames = [["Jerry", "the Consultant"]];
@@ -59,7 +59,7 @@ export const gameEvents = {
 };
 export const eventProbabilities = [];
 
-export const EVENT_OCCUR_THRESHOLD = 0.6;
+export const EVENT_OCCUR_THRESHOLD = 0.85;
 
 export const itemFluctuation = [
   {
@@ -148,3 +148,20 @@ export const itemFluctuation = [
   },   
 ];
 
+
+export const seasonTransition = [
+  {
+    "SnowStorm": 
+    "Oh dear it looks a severe Snow Storm has came in overnight. Crops that are not protected will be destroyed."
+  },
+  
+  {
+    "HeavyRain": "Oh dear it looks a severe Thunder Storm has came in overnight. Crops that are not protected will be destroyed."
+  },
+  {
+    "Drought": "Oh dear it looks a severe Drought has came in overnight. Crops that are not protected will be destroyed."
+  },
+  {
+    "Tornadoes": "Oh dear it looks a severe Tornado has came in overnight. Crops that are not protected will be destroyed."
+  }
+];

@@ -16,9 +16,6 @@ function generateRandomIndex(arr) {
 }
 
 function generateEventHappening() {
-  if (generatedForCurrentSeason) {
-    return isEventHappening;
-  }
 
   const pEventHappening = Math.random();
 
@@ -151,7 +148,7 @@ function seasonalEventStatementInserts(
     Object.keys(gameEvents["Season"][nextSeason])
   );
   console.log(randomEvent);
-  typeOfEvent = eventType;
+  typeOfEvent = randomEvent;
   let statement = gameEvents["Season"][nextSeason][randomEvent]["statement"];
 
   const SEASONAL_PROB_PADDING = 0.05;

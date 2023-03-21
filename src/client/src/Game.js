@@ -2,7 +2,7 @@ import "./css/App.css";
 import "./css/Inventory.css";
 import InfoHeader from "./components/InfoHeader";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Sky } from "@react-three/drei";
+import { OrbitControls, Sky, Stats } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
 import React, { useState, useEffect, useNavigate } from "react";
@@ -13,20 +13,22 @@ import { CoopModel } from "./components/models/CoopModel";
 import { WindModel } from "./components/models/WindModel";
 import { WellModel } from "./components/models/WellModel";
 import { FenceModel } from "./components/models/FenceModel";
-import { TreeModel } from "./components/models/TreeModel";
 import { FlowerModel } from "./components/models/FlowerModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import { shopItemsList } from "./components/Shop/constants";
 import { generateNTurnPriceState, GameLogic } from "./components/GameLogic/GameLogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
+import Avatar from "./components/Avatar/Avatar";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
-import { SEASONS } from "./components/GameLogic/constants";
+import { SEASONS, EVENT_OCCUR_THRESHOLD, gameEvents} from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
 // import SeasonTransition from "./components/GameLogic/SeasonTransition";
+import bgMusic from "./assets/bg_music.mp3";
+import { GameSettings } from "./components/GameSettings";
 
 const globalInventoryState = [];
 // const insuredItems = {};
@@ -71,9 +73,14 @@ export const Game = () => {
   const marketItems = [];
   const [accessToConsultant, setAccessToConsultant] = useState(false);
   const [consultantStatement, setConsultantStatement] = useState("");
+  const [autoPrompt, setAutoPrompt] = useState(true);
+  const [isConsultantPrompt, setIsConsultantPrompt] = useState(true);
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
+  const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [displayTransition, setDisplayTransition] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -136,12 +143,34 @@ export const Game = () => {
 
   useEffect(() => {
     setAccessToConsultant(false);
-    const isEventHappeningNextSeason =
-      GameLogic.GenerateStatistics.getEventHappening();
-    setIsEventHappening(isEventHappeningNextSeason);
-    const eventType = setTypeOfCatastrophicEvent(
-      GameLogic.GenerateStatistics.getEventType()
-    );
+    const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
+    console.log("EVENT HAPPENING IS ", isEventHappeningNextSeason, isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD );
+    //setIsEventHappening(isEventHappeningNextSeason);
+
+    //setTypeOfCatastrophicEvent(
+    //  GameLogic.GenerateStatistics.getEventType()
+    //);
+
+    if (isEventHappeningNextSeason >  EVENT_OCCUR_THRESHOLD ){
+      setIsEventHappening(true);
+    }else{
+      setIsEventHappening(false);
+    }
+
+
+  }, [season]);
+
+  useEffect(() => {
+    //Sesonal Events
+    if (isEventHappening){
+      setTypeOfCatastrophicEvent(Object.keys(gameEvents["Season"][season])[0]);
+      setDisplayTransition(true);
+    }else{
+      setTypeOfCatastrophicEvent("");
+    }
+    console.log(typeOfCatastrophicEvent);
+
+        
 
     if (isEventHappening) {
       logData({
@@ -151,12 +180,13 @@ export const Game = () => {
         isExperimental: false,
         balance: money,
         details: {
-          isEventHappeningNextSeason: isEventHappeningNextSeason,
+          isEventHappeningNextSeason: isEventHappening,
           eventType: eventType,
         },
       });
     }
-  }, [season]);
+
+  },[isEventHappening]);
 
 
 
@@ -212,16 +242,6 @@ export const Game = () => {
     const treeNum = 100;
 
     for (let i = 0; i < treeNum; i++) {
-      // Trees
-      initial.push(
-        <TreeModel
-          variant={Math.floor(Math.random() * 3)}
-          position={randomXYCircle(30, 11)}
-          key={`tree${i}`}
-          scale={Math.random() * 0.05 + 0.02}
-        />
-      );
-
       // Flowers
       initial.push(
         <FlowerModel
@@ -299,10 +319,11 @@ export const Game = () => {
             setTurn={setTurn}
           />
           <div className="canvas-container">
-            <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
+            <Canvas camera={{ fov: 70, position: [0, 5, 5] }} performance={{ min: 0.1 }} gl={{ antialias: false }}>
               <ambientLight intensity={1} />
-              <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
+              <spotLight position={[-10, -10, -10]} angle={-Math.PI/2} penumbra={0.1} />
               <pointLight position={[-10, -10, -10]} />
+              
 
               <ModelProvider>
                 {/* Blue sky */}
@@ -317,7 +338,7 @@ export const Game = () => {
 
                 {farmBuildings}
                 {landscape}
-                {turn > 3 ? VisualGameLogic.generateVisualEnvironment(
+                {turn > 3 && isEventHappening ? VisualGameLogic.generateVisualEnvironment(
                   turn,
                   season,
                   isEventHappening,
@@ -332,6 +353,7 @@ export const Game = () => {
                 maxDistance={13}
                 screenSpacePanning={false}
               />
+               <Stats showPanel={0} />
             </Canvas>
           </div>
           <InfoHeader
@@ -343,7 +365,7 @@ export const Game = () => {
             setTurn={setTurn}
           />
 
-          {isEventHappening && turn > 3 ? console.log(isEventHappening) : <></>}
+          {isEventHappening && turn > 3 ? <SeasonTransition typeOfCatastrophicEvent={typeOfCatastrophicEvent} displayTransition={displayTransition} setDisplayTransition={setDisplayTransition}/> : <></>}
           <AvatarMenu
             accessToConsultant={accessToConsultant}
             setAccessToConsultant={setAccessToConsultant}
@@ -352,11 +374,33 @@ export const Game = () => {
             consultantStatement={consultantStatement}
           />
 
+          <GameSettings
+            volume={backgroundMusicVolume}
+            setVolume={setBackgroundVolume}
+          />
+
           <InventoryRender
             marketItems={marketItems}
             money={money}
             turn={turn}
           />
+          {autoPrompt? 
+          <div className="dialog-background">
+            <Avatar
+            avatarID={0}
+            isOpened={autoPrompt}
+            onExit={() => {setAutoPrompt(!autoPrompt)}}
+            accessToConsultant={accessToConsultant}
+            setAccessToConsultant={setAccessToConsultant}
+            money={money}
+            setMoney={setMoney}
+            consultantStatement={consultantStatement}
+            
+            />
+          </div>
+         : <></>  }
+
+          <InventoryRender marketItems={marketItems} />
           <Shop
             money={money}
             setMoney={setMoney}
@@ -367,7 +411,7 @@ export const Game = () => {
           ></Shop>
         </globalInventoryContext.Provider>
       }
-      <BackgroundMusic />
+      <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
     </>
   );
 };

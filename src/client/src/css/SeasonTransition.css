@@ -1,0 +1,81 @@
+.season-transition {
+    position: absolute;
+    top: 0px;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100vh;
+    width: 100vw;
+    z-index: 3;
+  }
+
+.transition-grid{
+  display: grid;
+  grid-template-columns: 90%;
+  grid-template-rows: 1fr 1fr 2fr;
+  justify-content: center;
+  justify-items: center;
+  margin-top: 10%;
+}
+
+.transition-header{
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 0em 10em;
+  font-size: 5em;
+}
+
+.caution{
+  color: yellow;
+}
+
+.transition-title{
+  font-weight: bold;
+  color: red;
+}
+
+@keyframes slow {
+  from {
+    max-width: 5em;
+  }
+  to {
+    max-width: 10em;
+  }
+}
+
+.transition-box{
+  display: grid;
+  height: 100%;
+  width: 80%;
+  background-color: aqua;
+  border: 1px solid;
+  border-radius: 40px;
+  /* padding: 1.5em; */
+  align-items: center;
+
+} 
+
+.warning-msg{
+  margin: 10px 0 0 10px;
+           white-space: nowrap;
+           overflow: hidden;
+  width: 50em;
+  animation: type 4s steps(60, end); 
+}
+
+@keyframes type{ 
+  from { 
+       width: 0; 
+       } 
+   }
+
+
+.transition-button{
+  animation: fadeIn 3s;
+  animation-delay: 5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
