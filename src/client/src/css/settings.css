@@ -17,7 +17,7 @@
   bottom: 149px;
   right: 45px;
   transition: 300ms;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .settings-component {
@@ -62,35 +62,31 @@
 
 .withdraw-btn {
   margin-top: 20px;
-  padding: 15px 20px;
+  padding: 14px 20px;
   border-radius: 45px;
   border: 3px solid rgba(255, 255, 255, 0);
   background-color: white;
   font-weight: lighter;
-  font-size: smaller;
-  transition: 150ms;
+  font-size: 1rem;
+  transition-duration: 150ms;
 }
 
 .withdraw-btn:hover {
-  padding: 15px 14.4px;
+  padding: 16px 24px;
   border-radius: 45px;
   border: 3px solid rgb(255, 255, 255);
-  font-weight: bold;
-  transition: 150ms;
+  /* font-weight: bold; */
+  transition-duration: 250ms;
 }
 
 #right-button {
   margin-left: 50px;
 }
 
-#right-button:hover {
-  margin-left: 50.6px;
-}
-
 .more-info-btn {
   margin-left: -2px;
   border-radius: 20px;
-  padding: 4px 9px;
+  padding: 4px 10px;
   border: 1px solid rgb(255, 255, 255);
   background-color: white;
   font-weight: bold;
@@ -98,9 +94,8 @@
 }
 
 .more-info-btn:hover {
-  padding: 1px 8.3px;
-  cursor: pointer;
-  font-weight: bolder;
+  padding: 4px 11px;
+  /* font-weight: bolder; */
   font-size: medium;
   transition: 150ms;
 }
@@ -111,7 +106,16 @@
   margin-top: 10%;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
+  .settings-button {
+    padding: 10px 20px;
+    font-size: medium;
+  }
+
+  .withdraw-btns {
+    display: inline-grid;
+  }
+
   .withdraw-btn {
     display: block;
     padding: 10px 12px;
@@ -121,19 +125,18 @@
     margin: 7px auto !important;
     text-align: center;
     transition: 150ms;
+    font-size: 0.9rem;
   }
 
   .withdraw-btn:hover {
-    cursor: pointer;
-    padding: 8.6px 4.5px;
-    border-radius: 45px;
-    font-weight: bold;
+    padding: 12px 14px;
+    /* font-weight: bold; */
     transition: 150ms;
   }
 
   #right-button {
     margin-top: 0px;
-    margin-left: auto;
+    margin-left: 0px;
   }
 
   .more-info-btn {
@@ -141,7 +144,7 @@
     padding-top: 0px;
     margin-left: -2px;
     border-radius: 20px;
-    padding: 4px 9px;
+    padding: 4px 10px;
     border: 1px solid rgb(255, 255, 255);
     background-color: white;
     font-weight: bold;
@@ -149,8 +152,7 @@
   }
 
   .more-info-btn:hover {
-    padding: 1px 8.2px;
-    cursor: pointer;
+    padding: 5px 12px;
     font-weight: bolder;
     transition: 150ms;
   }
