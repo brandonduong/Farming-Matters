@@ -7,6 +7,7 @@ import { logData } from "../../utils/logData";
 import { shopItemsList } from "../Shop/constants";
 import { itemFluctuation } from "../GameLogic/constants";
 import { quantityContent } from "../Shop/constants";
+import Table from "react-bootstrap/Table"
 
 const InventoryItem = (props) => {
   const { inventoryState, cropInfo } = React.useContext(globalInventoryContext);
@@ -84,25 +85,29 @@ const InventoryItem = (props) => {
             <div className="empty"></div>
             <div className="seeds">
               <h3>Seed Contracts</h3>
-              <table className="table table-bordered">
+              <Table className="table table-bordered">
+                <thead>
                 <tr>
-                  <td>Quantity</td>
-                  <td>FloorPrice</td>
+                  <th>Quantity</th>
+                  <th>FloorPrice</th>
                 </tr>
-              {currentSeedRender}
-              </table>
+                </thead>
+                <tbody>{currentSeedRender}</tbody>
+              </Table>
             </div>  
             <div className="empty"></div>
             <div className="crops">
               <h3>Crop Contracts</h3>
-              <table >
+              <Table className="table table-bordered">
+              <thead>
                 <tr>
-                  <td>Quantity</td>
-                  <td>FloorPrice</td>
-                  <td>Expiry</td>
+                  <th>Quantity</th>
+                  <th>FloorPrice</th>
+                  <th>Expiry</th>
                 </tr>
-              {currentCropRender}
-              </table>
+              </thead>
+              <tbody>{currentCropRender}</tbody>
+              </Table>
             </div>  
           </div>
         </> : 
