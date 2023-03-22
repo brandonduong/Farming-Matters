@@ -192,9 +192,10 @@ const DetailedItem = (props) => {
           </div>
 
 
+          { checkIfItemIsPlant(props.item,plants) ? 
+          <>
           <div className="insurance-toggle-grid">
             <label>Set insurance: </label>
-            
             <div className="toggle-button">
               <Form.Switch 
                 type="switch"
@@ -205,9 +206,8 @@ const DetailedItem = (props) => {
                 }}
               />
             </div>
-          </div>
-
-          { insuranceOption && checkIfItemIsPlant(props.item,plants) ? 
+          </div> 
+          {insuranceOption ? (
           <>
           <div className="quantity-grid">
             <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
@@ -240,8 +240,9 @@ const DetailedItem = (props) => {
                 onChange={(e) => setInsuranceQuantity(e.target.value)}
               ></input>
               <img src={add_img_location} className="quantity-button" onClick={()=>{(insuranceQuantity < itemQuantity) ? setInsuranceQuantity(1+parseInt(insuranceQuantity)) : setInsuranceQuantity(parseInt(insuranceQuantity))}}/>
-            </div>
+            </div> 
           </div>
+          </>) : (<></>)}
           </>
               :
               <></>
