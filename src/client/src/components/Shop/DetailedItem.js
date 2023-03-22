@@ -137,7 +137,7 @@ const DetailedItem = (props) => {
     }
     let insuranceCost = 0;
       if (insuranceFloorPrice != 0 && insuranceQuantity != 0){
-        let mean_price = props.allTurnPrices[props.turn][itemName];
+        let mean_price = props.allTurnPrices[props.turn % props.allTurnPrices.length][itemName];
         let sd_price = getItemFluctuation(itemName, itemFluctuation);
         const admin_fee = 0.1;
         let normDist = new Normal(mean_price,sd_price);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { globalInventoryContext } from "../../Game";
-import { getSeedContractsCounts } from "../Inventory";
+import { getItemCount, getSeedContractsCounts } from "../Inventory";
 import { checkIfItemIsPlant, getImage, getItemFluctuation } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
@@ -78,7 +78,7 @@ const InventoryItem = (props) => {
       <img src={itemImg} alt="crops" className="item-image"></img>
       <div className="details">
         <h1>Contracts</h1>
-        {props.item ? 
+        {props.item && checkIfItemIsPlant(props.item,plants) ? 
         <>
           <div className="Contracts">
             <div className="empty"></div>
@@ -107,7 +107,10 @@ const InventoryItem = (props) => {
           </div>
         </> : 
         ( 
-        <></>
+        <>
+          <h1>Quantity: </h1>
+          <h3>{getItemCount(inventoryState,props.item)}</h3>
+        </>
         )}
       </div>
     </div>
