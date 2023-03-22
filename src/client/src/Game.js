@@ -32,6 +32,7 @@ import bgMusic from "./assets/bg_music.mp3";
 import { GameSettings } from "./components/GameSettings";
 
 const PLOT_SIZE = 4;
+const FARM_TILE_INFO_SEPARATOR = "|";
 const globalInventoryState = {};
 const insuredItems = {};
 export const globalInventoryContext = React.createContext({});
@@ -59,6 +60,8 @@ export const Game = () => {
   const [isEventHappening, setIsEventHappening] = useState(false);
   const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
+  const initialGrid = [];
+  const [grid, setGrid] = useState([]);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -104,19 +107,10 @@ export const Game = () => {
         insuredCrops: insuredState,
         sellPrices: allTurnPrices[turn],
         consultant: [accessToConsultant, consultantStatement],
-        farmGrid: savableGrid.toString(),
+        farmGrid: savableGrid.join(FARM_TILE_INFO_SEPARATOR),
       });
     }
   }, [turn]);
-
-  const initialGrid = [];
-  const [grid, setGrid] = useState([]);
-
-  useEffect(() => {
-    if (!initialGrid.length) {
-      intializeFarmLand();
-    }
-  }, []);
 
   function addFarmLand(x, y, owned, price = 1000) {
     // Add 4x4 grid of land at position x and y
@@ -229,10 +223,28 @@ export const Game = () => {
   useEffect(() => {
     const initalizeGameState = async () => {
       await createConnection();
-      retrieveSavedGame().then((gameState) => {
-        console.log(gameState);
-        // console.log(gameState.json());
-      });
+      retrieveSavedGame()
+        .then((gameState) => {
+          console.log(gameState);
+          // console.log(gameState.json());
+          if (!initialGrid.length) {
+            const loadedGrid = gameState.farmGrid.split(
+              FARM_TILE_INFO_SEPARATOR
+            );
+            for (let i = 0; i < loadedGrid.length; i++) {
+              initialGrid.push(JSON.parse(loadedGrid[i]));
+            }
+            console.log("loading saved grid");
+            setGrid(initialGrid);
+          }
+        })
+        .catch((err) => {
+          // error loading game data
+          console.log("error loading game data:", err);
+          if (!initialGrid.length) {
+            intializeFarmLand();
+          }
+        });
     };
     initalizeGameState();
   }, []);
