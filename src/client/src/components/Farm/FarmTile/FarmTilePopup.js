@@ -157,7 +157,7 @@ const FarmTilePopup = (props) => {
   for (let i = 1; i < plants.length; i++) {
     seed = plants[i];
 
-    const seedsInInventory = getSeedContractsCounts(props.inventoryState, seed.name);
+    const seedsInInventory = getSeedContractsCounts(props.inventoryState, seed.name); 
     const seedContracts = getAllSeedContracts(props.inventoryState, seed.name);
     const insurancePrices = Object.keys(seedsInInventory)
     const isSeedInInventory = (insurancePrices.length > 0)
@@ -176,11 +176,17 @@ const FarmTilePopup = (props) => {
         let priceLabel = price ?? 'None';
         
         priceButtons.push(
+          <div className="seed-popup">
+            <div className="qt-label">
+            Quantity:{seedsInInventory[price]}
+            </div>
+          <div className="empty"></div>
           <button
               onClick={() => plantSeed(seedName, price)}
             > 
               {priceLabel}
             </button>
+            </div>
         )  
       }
 

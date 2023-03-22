@@ -43,10 +43,7 @@ const InventoryItem = (props) => {
   
   let seedCounts = getSeedContractsCounts(inventoryState,itemName);
   let seedFloors = Object.keys(seedCounts);
-  let cropContracts = cropInfo[itemName];
-  console.log(seedFloors);
-  
- 
+
   for (let i = 0; i < seedFloors.length; i++){
     let seedFloor = seedFloors[i];
     let seedQuantity = seedCounts[seedFloor];
@@ -57,19 +54,21 @@ const InventoryItem = (props) => {
       </tr>
   )}
 
-  // {floorPrice: itemFloorPrice, cropExpiry: itemCropExpiry, quantity: 1}
-  for (let i = 0; i < cropContracts.length; i++){
-    let cropFloor = cropContracts[i].floorPrice;
-    let cropExp = cropContracts[i].cropExpiry;
-    let cropQuantity = cropContracts[i].quantity;
-    currentCropRender.push(
-      <tr>
-        <td>{cropQuantity}</td>
-        <td>{cropFloor}</td> 
-        <td>{cropExp}</td>
-      </tr>
-  )}
-
+    if(cropInfo[itemName]){
+        // {floorPrice: itemFloorPrice, cropExpiry: itemCropExpiry, quantity: 1}
+      let cropContracts = cropInfo[itemName];
+      for (let i = 0; i < cropContracts.length; i++){
+      let cropFloor = cropContracts[i].floorPrice;
+      let cropExp = cropContracts[i].cropExpiry;
+      let cropQuantity = cropContracts[i].quantity;
+      currentCropRender.push(
+        <tr>
+          <td>{cropQuantity}</td>
+          <td>{cropFloor}</td> 
+          <td>{cropExp}</td>
+        </tr>
+      )}
+    }
   }
   
 
