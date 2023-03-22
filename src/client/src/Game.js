@@ -31,6 +31,7 @@ import { BackgroundMusic } from "./components/BackgroundMusic";
 import bgMusic from "./assets/bg_music.mp3";
 import { GameSettings } from "./components/GameSettings";
 
+const PLOT_SIZE = 4;
 const globalInventoryState = {};
 const insuredItems = {};
 export const globalInventoryContext = React.createContext({});
@@ -89,6 +90,11 @@ export const Game = () => {
 
   useEffect(() => {
     if (turn > 1) {
+      const savableGrid = [];
+      for (let i = 0; i < grid.length; i++) {
+        savableGrid.push(JSON.stringify(grid[i]));
+      }
+
       saveGame({
         turn: turn,
         season: season,
@@ -98,9 +104,54 @@ export const Game = () => {
         insuredCrops: insuredState,
         sellPrices: allTurnPrices[turn],
         consultant: [accessToConsultant, consultantStatement],
+        farmGrid: savableGrid.toString(),
       });
     }
   }, [turn]);
+
+  const initialGrid = [];
+  const [grid, setGrid] = useState([]);
+
+  useEffect(() => {
+    if (!initialGrid.length) {
+      intializeFarmLand();
+    }
+  }, []);
+
+  function addFarmLand(x, y, owned, price = 1000) {
+    // Add 4x4 grid of land at position x and y
+    for (let i = x; i < x + PLOT_SIZE; i++) {
+      for (let o = y; o < y + PLOT_SIZE; o++) {
+        initialGrid.push({
+          x: i,
+          z: o,
+          owned,
+          price,
+          plantedSeed: 0,
+          fertilizerAmount: 0,
+        });
+      }
+    }
+  }
+
+  function intializeFarmLand() {
+    // Default unlocked farm land
+    addFarmLand(-3.5, -3.5, true);
+    addFarmLand(-3.5, 1.5, true);
+    addFarmLand(1.5, 1.5, true);
+    addFarmLand(1.5, -3.5, true);
+
+    // Default locked farm land
+    addFarmLand(-8.5, -3.5, false);
+    addFarmLand(-8.5, 1.5, false);
+    addFarmLand(6.5, -3.5, false);
+    addFarmLand(6.5, 1.5, false);
+    addFarmLand(1.5, 6.5, false);
+    //addFarmLand(1.5, -8.5, false);
+    addFarmLand(-3.5, 6.5, false);
+    //addFarmLand(-3.5, -8.5, false);
+    setGrid(initialGrid);
+  }
 
   useEffect(() => {
     setInventoryState(getNames);
@@ -286,6 +337,8 @@ export const Game = () => {
                   turn={turn}
                   money={money}
                   setMoney={setMoney}
+                  grid={grid}
+                  setGrid={setGrid}
                 />
 
                 {farmBuildings}
