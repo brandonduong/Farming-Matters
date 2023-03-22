@@ -14,6 +14,22 @@
   justify-content: center;
   justify-items: center;
   margin-top: 10%;
+  position: relative;
+  z-index: 1;
+
+}
+.background-img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* width: max-content; */
+  opacity: 0.5;
+  margin: 0;
+  border: 0px;
+  border-radius: 0;
+  padding: 0;
 }
 
 .transition-header{
@@ -58,6 +74,8 @@
            white-space: nowrap;
            overflow: hidden;
   width: 50em;
+  font-size: 1.5em;
+  font-display: center;
   animation: type 4s steps(60, end); 
 }
 

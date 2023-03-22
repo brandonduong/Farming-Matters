@@ -29,25 +29,25 @@ export const gameEvents = {
     Winter: {
       SnowStorm: {
         statement:
-          "A snow storm is following along, make sure to be prepared as it will %statistic%",
+          "Brrrrrr! I heard a Snow Storm may or may not follow along. In the worst case make sure to be prepared as I think it will %statistic%",
       },
     },
     Spring: {
       HeavyRain: {
         statement:
-          "Heavy rain is following along, make sure to be prepared as it will %statistic%",
+          "Heavy rain may or may not follow along. In the worst case make sure to be prepared as I think it will %statistic%",
       },
     },
     Summer: {
       Drought: {
         statement:
-          "A severe drought is following along, make sure to be prepared as it will %statistic%",
+          "A severe drought may or may not follow along. In the worst case make sure to be prepared as I think it will %statistic%",
       },
     },
     Fall: {
       Tornadoes: {
         statement:
-          "A big tornado is headed your way, make sure to be prepared as it will %statistic%",
+          "A big tornado may or may not follow along. In the worst case make sure to be prepared as I think it will %statistic%",
       },
     },
   },
@@ -151,3 +151,11 @@ export const seasonTransition = [
     "Tornadoes": "Oh dear it looks a severe Tornado has came in overnight. Crops that are not protected will be destroyed."
   }
 ];
+
+export const fallIcon =  require("../../assets/SeasonIcons/fall_icon.png");
+export const winterIcon =  require("../../assets/SeasonIcons/winter_icon.png");
+export const springIcon =  require("../../assets/SeasonIcons/spring_icon.png");
+export const summerIcon =  require("../../assets/SeasonIcons/summer_icon.png");
+
+export const underwaterImg = require("../../assets/SeasonTransitions/Underwater_event.png");
+export const heavyRainImg = require("../../assets/SeasonTransitions/Rain_storm.png");

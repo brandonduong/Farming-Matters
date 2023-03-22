@@ -129,6 +129,7 @@ export const Game = () => {
 
   useEffect(() => {
     setAccessToConsultant(false);
+    setAutoPrompt(true);
     const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
     console.log("EVENT HAPPENING IS ", isEventHappeningNextSeason, isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD );
     //setIsEventHappening(isEventHappeningNextSeason);
@@ -171,6 +172,7 @@ export const Game = () => {
         },
       });
     }
+
 
   },[isEventHappening]);
 
@@ -368,7 +370,7 @@ export const Game = () => {
             money={money}
             turn={turn}
           />
-          {autoPrompt? 
+          {autoPrompt && !displayTransition ? 
           <div className="dialog-background">
             <Avatar
             avatarID={0}

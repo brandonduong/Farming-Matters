@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { seasonTransition } from "./constants";
 import { Stats, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas, useFrame } from '@react-three/fiber'
+import { underwaterImg, heavyRainImg } from "./constants";
+
 
 const SeasonTransition = (props) => {
     const [displayTransition, setDisplayTransition] = useState(props.displayTransition);
@@ -25,9 +27,9 @@ const SeasonTransition = (props) => {
         <>
             { props.displayTransition ?
                 <>
-                    <div className="season-transition">
-                        <div className="transition-grid">
-                            <img className="transition-img"></img>
+                    <div className="season-transition" >
+                        <img className="background-img" src={heavyRainImg}></img>
+                        <div className="transition-grid" >
                             <div className="transition-header">
                                     <span className="caution">&#9888;</span>
                                     <div className="transition-title">Breaking News!</div>
