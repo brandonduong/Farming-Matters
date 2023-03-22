@@ -77,9 +77,9 @@ const InventoryItem = (props) => {
       <h2>{props.item != "" ? props.item : "Select an item to view more details ..."}</h2>
       <img src={itemImg} alt="crops" className="item-image"></img>
       <div className="details">
-        <h1>Contracts</h1>
         {props.item && checkIfItemIsPlant(props.item,plants) ? 
         <>
+          <h1>Contracts</h1>
           <div className="Contracts">
             <div className="empty"></div>
             <div className="seeds">
@@ -108,7 +108,7 @@ const InventoryItem = (props) => {
         </> : 
         ( 
         <>
-          <h1>Quantity: </h1>
+          <h3>Quantity: </h3>
           <h3>{getItemCount(inventoryState,props.item)}</h3>
         </>
         )}
