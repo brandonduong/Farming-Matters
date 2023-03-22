@@ -8,16 +8,15 @@ import { globalInventoryContext } from "../../../Game";
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {
   const { inventoryState, setInventoryState, plantedSeeds, setPlantedSeeds, cropInfo, setCropInfo} = React.useContext(globalInventoryContext);
-  function onClick(seedNum, plantName) {
-    let currIventory = inventoryState;
-    let currPlanted = plantedSeeds;
+    // let currIventory = inventoryState;
+    // let currPlanted = plantedSeeds;
     // Summary: get seed from inventory, plant it, record it in plantedSeeds
 
     // To plant a seed:
     //  1. Get and remove selected seed from inventory (first entry that matches selected type and floor price to plant)
     // for now just planting highest floor price
-    const seeds = inventoryState.filter(item => (item.type == 'seed' && item.name == plantName));
-    seeds.sort((a, b) => b.floorPrice-a.floorPrice);
+    // const seeds = inventoryState.filter(item => (item.type == 'seed' && item.name == plantName));
+    // seeds.sort((a, b) => b.floorPrice-a.floorPrice);
 
     // for (let i = 0; i < inventoryState; i++){
     //   let currIventory = inventoryState;
@@ -29,22 +28,22 @@ const FarmTilePopup = (props) => {
     //     break;
     //   }
     // }
-    let removeSeed = seeds[0];
-    removeItem(currIventory, removeSeed);
-    setInventoryState(currIventory);
+    // let removeSeed = seeds[0];
+    // removeItem(currIventory, removeSeed);
+    // setInventoryState(currIventory);
     //  2. Based on type (tomato, carrot, etc.), get corresponding seedNum from constants
     //  3. props.setPlantedSeed(seedNum) -> to actually put the seed on the the grid visually
-    props.setPlantedSeed(seedNum);
-    const newSeed = {
-      name: removeSeed.name,
-      type: 'seed',
-      floorPrice: removeSeed.floorPrice,
-      coords: {
-        x: props.x,
-        z: props.z
-      }
-    }
-    addPlant(currPlanted,newSeed);
+    // props.setPlantedSeed(seedNum);
+    // const newSeed = {
+    //   name: removeSeed.name,
+    //   type: 'seed',
+    //   floorPrice: removeSeed.floorPrice,
+    //   coords: {
+    //     x: props.x,
+    //     z: props.z
+    //   }
+    // }
+    // addPlant(currPlanted,newSeed);
 
     //  4. Make the object to push to plantedSeeds:
     //    const newSeed = {
@@ -54,7 +53,7 @@ const FarmTilePopup = (props) => {
     //      coords { x: props.x, z:props.z }
     //    }
     //   
-    setPlantedSeeds(currPlanted);
+    // setPlantedSeeds(currPlanted);
   function newTile() {
     return props.grid.filter((tile) => {
       return tile.x === props.x && tile.z === props.z;
@@ -262,6 +261,5 @@ const FarmTilePopup = (props) => {
       </button>
     </div>
   );
-};
 }
 export default FarmTilePopup;

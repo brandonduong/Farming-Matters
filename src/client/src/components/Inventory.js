@@ -106,7 +106,7 @@ export function getAllItemContracts(inventory,itemName){
   return itemContracts;
 }
 
-function getAllSeedContracts(inventory, itemName){
+export function getAllSeedContracts(inventory, itemName){
   let seedContracts = [];
   for (let i = 0; i < inventory.length; i++){
     let currItem = inventory[i];
@@ -115,6 +115,17 @@ function getAllSeedContracts(inventory, itemName){
     } 
   }
   return seedContracts;
+}
+
+export function getAllCropContracts(inventory, itemName){
+  let cropContracts = [];
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if (currItem.name == itemName && currItem.type == 'crop'){
+      cropContracts.push(currItem);
+    } 
+  }
+  return cropContracts;
 }
 
 export function getSeedContractsCounts(inventory,itemName){
