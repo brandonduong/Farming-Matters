@@ -1,6 +1,6 @@
 import React from "react";
 import { plants } from "./constants";
-import { addItem, removeItem } from "../../Inventory";
+import { addItem, getAllSeedContracts, getSeedContractsCounts, removeItem } from "../../Inventory";
 import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
 import { addItemToCropInfo, removePlant, addPlant } from "./FarmingHelpers";
 import { globalInventoryContext } from "../../../Game";
@@ -67,12 +67,17 @@ const FarmTilePopup = (props) => {
     props.setGrid(newGrid);
   }
 
-  function plantSeed(seedNum, plantName) {
+  function plantSeed(seedName, floorPrice) {
     var updatedTile = newTile();
-    updatedTile.plantedSeed = seedNum;
+    updatedTile.plantedSeed = seed;
     updatedGrid(updatedTile);
 
-    removeItem(props.inventoryState, plantName, 1);
+    const seedToRemove = {
+      name: seedName,
+      type: 'seed',
+      floorPrice: floorPrice,
+    }
+    removeItem(props.inventoryState, seedToRemove);
     props.setClickedTile(null);
   }
 
@@ -146,33 +151,54 @@ const FarmTilePopup = (props) => {
   const plantButtons = [];
   var season = Math.floor((props.turn - 1) / 3) % 4;
   var seedsPresent = false;
+  let seed;
+
   // Only get buttons for in-season seeds
-  for (let i = 0; i < plants.length; i++) {
+  for (let i = 1; i < plants.length; i++) {
+    seed = plants[i];
+
+    const seedsInInventory = getSeedContractsCounts(props.inventoryState, seed.name);
+    const seedContracts = getAllSeedContracts(props.inventoryState, seed.name);
+    const insurancePrices = Object.keys(seedsInInventory)
+    const isSeedInInventory = (insurancePrices.length > 0)
     if (
-      plants[i].plantableSeasons &&
-      plants[i].plantableSeasons.includes(season)
+      seed.plantableSeasons &&
+      seed.plantableSeasons.includes(season) &&
+      isSeedInInventory
     ) {
-      // let hasEnough =
-      //   parseInt(getItemCount(props.inventoryState, plants[i].name)) > 0;
-      // let isPlant = checkIfItemIsPlant(plants[i].name, plants);
-      if (true) {
-        seedsPresent = true;
-        plantButtons.push(
-          <div
-            className="tile-popup-info-item tile-popup-button-item"
-            key={"plantdiv" + i}
-          >
-            <button
-              className="tile-popup-button"
-              type="button"
-              onClick={() => plantSeed(i, plants[i].name)}
-              key={"plant" + i}
-            >
-              <h4>{plants[i].name}</h4>
+      let seedName = seedContracts[0].name; 
+      seedsPresent = true;
+      let priceButtons = []
+      for (let i = 0; i < insurancePrices.length; i++){
+        let price = insurancePrices[i];
+        
+        price = !isNaN(price) ? parseInt(price) : null;
+        let priceLabel = price ?? 'None';
+        
+        priceButtons.push(
+          <button
+              onClick={() => plantSeed(seedName, price)}
+            > 
+              {priceLabel}
             </button>
-          </div>
-        );
+        )  
       }
+
+      plantButtons.push(
+        <div
+          className="tile-popup-info-item tile-popup-button-item"
+          style={{display: 'flex', flexDirection: 'column'}}
+          key={"plantdiv" + i}
+        >
+          <div
+            className="tile-popup-button"
+            key={"plant" + i}
+          >
+            <h4>{seed.name}</h4>
+          </div>
+          {priceButtons}
+        </div>
+      );
     }
   }
 
@@ -184,7 +210,7 @@ const FarmTilePopup = (props) => {
   const plantInfo = (
     <div>
       <div className="tile-popup-info-item">
-        <h2 className="tile-popup-title">{plants[props.plantedSeed].name}</h2>
+        <h2 className="tile-popup-title">{props.plantedSeed?.name ?? 'Nothing'}</h2>
       </div>
       <div className="tile-popup-info">
         <div className="tile-popup-info-item">
@@ -194,21 +220,20 @@ const FarmTilePopup = (props) => {
         <div className="tile-popup-info-item">
           <h4 className="tile-popup-info-title">Day Complete: </h4>
           {props.turnPlanted +
-            plants[props.plantedSeed].growthLength -
+            props.plantedSeed?.growthLength ?? 0 -
             props.fertilizerAmount}
         </div>
         {props.turn - props.turnPlanted + props.fertilizerAmount >=
-        plants[props.plantedSeed].growthLength ? (
+        props.plantedSeed?.growthLength ? (
           <button
             className="tile-popup-info-item"
             type="button"
-            onClick={() => harvestPlant(plants[props.plantedSeed].name)}
+            onClick={() => harvestPlant(props.plantedSeed?.name ?? 'Nothing')}
           >
             <h4>Harvest</h4>
           </button>
         ) : (
           // parseInt(getItemCount(props.inventoryState, "Fertilizer")) > 0 && 
-          true
           (
             <button
               className="tile-popup-info-item"

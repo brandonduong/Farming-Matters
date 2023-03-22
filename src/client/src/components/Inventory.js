@@ -23,23 +23,25 @@ export function addItem(inventory,item){
 }
 
 
-export function removeItem(inventory,item){
-  let itemName = item.name;
-  let type = item.type;
-  let floorPrice = item.floorPrice;
+export function removeItem(inventory,itemToRemove){
+  let itemName = itemToRemove.name;
+  let type = itemToRemove.type;
+  let floorPrice = itemToRemove.floorPrice;
+  
   if (!itemName || !type){
     return;
   }
   // crops have an extra field called cropExpiry
   let index = 0;
   if (type == 'crop'){
-    let cropExpiry = item.cropExpiry;
+    let cropExpiry = itemToRemove.cropExpiry;
     if (!cropExpiry){return;}
-    index = inventory.findIndex(item => item.type == type && item.name == itemName && item.floorPrice == floorPrice && item.cropExpiry == cropExpiry)
+    index = inventory.findIndex(item => (item.type == type && item.name == itemName && item.floorPrice == floorPrice && item.cropExpiry == cropExpiry))
     // other items don't have cropExpiry
   } else {
-     index = inventory.findIndex(item => item.type == type && item.name == itemName && item.floorPrice == floorPrice)     
+    index = inventory.findIndex(item => (item.type == type && item.name == itemName && item.floorPrice == floorPrice))     
   }
+
   if ((index >= 0) && (index < inventory.length)){
       inventory = inventory.splice(index,1);
   }
@@ -55,7 +57,6 @@ export function getSameCropContractCount(contracts,itemName,floor,expiry,type){
       sameContractCount++;
     }
   }
-  console.log(sameContractCount)
   return sameContractCount;
 }
 

@@ -8,7 +8,7 @@ export const shopItemsList = [
     },
     {
       id: 1,
-      name: "Rice",
+      name: "rice",
       price: 100,
       seasonType: "Spring",
       // from https://www.flaticon.com/free-icon/rice
@@ -16,7 +16,7 @@ export const shopItemsList = [
     },
     {
       id: 2,
-      name: "Carrot",
+      name: "carrot",
       price: 200,
       seasonType: "Spring",
       // from https://www.flaticon.com/free-icon/carrot
@@ -24,7 +24,7 @@ export const shopItemsList = [
     },
     {
       id: 3,
-      name: "Orange",
+      name: "orange",
       price: 150,
       seasonType: "Spring",
       // from https://www.flaticon.com/free-icon/orange
@@ -32,7 +32,7 @@ export const shopItemsList = [
     },
     {
       id: 4,
-      name: "Lettuce",
+      name: "lettuce",
       price: 150,
       seasonType: "Summer",
       // from https://www.flaticon.com/free-icon/lettuce
@@ -40,7 +40,7 @@ export const shopItemsList = [
     },
     {
       id: 5,
-      name: "Tomato",
+      name: "tomato",
       price: 125,
       seasonType: "Summer",
       // from https://www.flaticon.com/free-icon/tomato
@@ -48,7 +48,7 @@ export const shopItemsList = [
     },
     {
       id: 6,
-      name: "Watermelon",
+      name: "watermelon",
       price: 175,
       seasonType: "Summer",
       // from https://www.flaticon.com/free-icon/watermelon
@@ -56,7 +56,7 @@ export const shopItemsList = [
     },
     {
       id: 7,
-      name: "Wheat",
+      name: "wheat",
       price: 175,
       seasonType: "Fall",
       // from https://www.flaticon.com/free-icon/wheat
@@ -64,7 +64,7 @@ export const shopItemsList = [
     },
     {
       id: 8,
-      name: "Pumpkin",
+      name: "pumpkin",
       price: 175,
       seasonType: "Fall",
       // from https://www.flaticon.com/free-icons/pumpkin
@@ -72,7 +72,7 @@ export const shopItemsList = [
     },
     {
       id: 9,
-      name: "Beet",
+      name: "beet",
       price: 175,
       seasonType: "Fall",
       // from https://www.flaticon.com/free-icons/beet
@@ -81,7 +81,7 @@ export const shopItemsList = [
     // Winter
     {
       id: 10,
-      name: "Berries",
+      name: "berries",
       price: 175,
       seasonType: "Winter",
       // from https://www.flaticon.com/free-icons/berries
@@ -89,7 +89,7 @@ export const shopItemsList = [
     },
     {
       id: 11,
-      name: "Mushroom",
+      name: "mushroom",
       price: 175,
       seasonType: "Winter",
       // from https://www.flaticon.com/free-icons/mushroom
@@ -97,7 +97,7 @@ export const shopItemsList = [
     },
     {
       id: 12,
-      name: "Wintermelon",
+      name: "wintermelon",
       price: 175,
       seasonType: "Winter",
       // modified the watermelon pic

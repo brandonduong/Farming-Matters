@@ -89,12 +89,19 @@ const DetailedItem = (props) => {
       props.setMoney(props.money - totalCost);
       let isPlant = checkIfItemIsPlant(itemName,plants);
       console.log(itemName);
-      for (let i = 0; i < itemQuantity; i++){
+      for (let i = 0; i < insuranceQuantity; i++){
         let currItem = {
           name: itemName,
           type: isPlant ? "seed" : "tool",
-          floorPrice: (insuranceFloorPrice == 0 && insuranceQuantity == 0) ? null : insuranceFloorPrice,
-          //cropExpiry: props.turn + 5
+          floorPrice: insuranceFloorPrice,
+        } 
+        addItem(currInventory,currItem);
+      }
+      for (let i = 0; i < itemQuantity - insuranceQuantity; i++){
+        let currItem = {
+          name: itemName,
+          type: isPlant ? "seed" : "tool",
+          floorPrice: null,
         } 
         addItem(currInventory,currItem);
       }

@@ -49,7 +49,7 @@ export const Game = () => {
   const [landscape, setLandscape] = useState([]);
   const [farmBuildings, setFarmBuildings] = useState([]);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
-  const [plantedSeeds, setPlantedSeeds] = useState([]);
+  const [grid, setGrid] = useState([]);
   
   // TODO: move to constants.js
   let defaultCropInfo = {
@@ -303,8 +303,8 @@ export const Game = () => {
           value={{
             inventoryState,
             setInventoryState,
-            plantedSeeds,
-            setPlantedSeeds,
+            grid,
+            setGrid,
             cropInfo,
             setCropInfo,
             turn,
