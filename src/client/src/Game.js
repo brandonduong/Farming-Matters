@@ -124,6 +124,7 @@ export const Game = () => {
           price,
           plantedSeed: 0,
           fertilizerAmount: 0,
+          turnPlanted: 0,
         });
       }
     }
@@ -224,6 +225,7 @@ export const Game = () => {
             }
             console.log("loading saved grid");
             setGrid(initialGrid);
+            setTurn(gameState.turn);
           }
         })
         .catch((err) => {

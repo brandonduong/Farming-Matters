@@ -33,6 +33,7 @@ function FarmGrid(props) {
             setGrid={props.setGrid}
             owned={tile.owned}
             price={tile.price}
+            turnPlanted={tile.turnPlanted}
             colors={SEASON_COLORS}
             inventoryState={inventoryState}
             VisualGameLogic={props.VisualGameLogic}

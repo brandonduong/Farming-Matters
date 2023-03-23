@@ -21,6 +21,7 @@ const FarmTilePopup = (props) => {
   function plantSeed(seedNum, plantName) {
     var updatedTile = newTile();
     updatedTile.plantedSeed = seedNum;
+    updatedTile.turnPlanted = props.turn;
     updatedGrid(updatedTile);
 
     removeItem(props.inventoryState, plantName, 1);
@@ -31,6 +32,7 @@ const FarmTilePopup = (props) => {
     var updatedTile = newTile();
     updatedTile.plantedSeed = 0;
     updatedTile.fertilizerAmount = 0;
+    updatedTile.turnPlanted = 0;
     updatedGrid(updatedTile);
     addItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
