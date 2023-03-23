@@ -30,6 +30,7 @@ import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
 import bgMusic from "./assets/bg_music.mp3";
 import { GameSettings } from "./components/GameSettings";
+import { GrassModel } from "./components/models/GrassModel";
 
 const PLOT_SIZE = 4;
 const FARM_TILE_INFO_SEPARATOR = "|";
@@ -257,16 +258,33 @@ export const Game = () => {
 
   function initializeLandscape() {
     const initial = [];
-    const treeNum = 100;
+    const flowerNum = 100;
+    const grassNum = 100;
 
-    for (let i = 0; i < treeNum; i++) {
+    for (let i = 0; i < flowerNum; i++) {
       // Flowers
       initial.push(
         <FlowerModel
           variant={Math.floor(Math.random() * 2)}
-          position={randomXYCircle(30, 11)}
+          position={randomXYCircle(30, 13)}
           key={`flower${i}`}
           scale={Math.random() * 0.03 + 0.02}
+        />
+      );
+    }
+
+    for (let i = 0; i < grassNum; i++) {
+      // Grass
+      initial.push(
+        <GrassModel
+          variant={Math.floor(Math.random() * 1)}
+          position={randomXYCircle(30, 13)}
+          key={`grass${i}`}
+          scale={[
+            Math.random() * 0.03 + 0.05,
+            Math.random() * 0.01 + 0.01,
+            Math.random() * 0.03 + 0.05,
+          ]}
         />
       );
     }
