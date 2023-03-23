@@ -7,6 +7,52 @@ import { globalInventoryContext } from "../../../Game";
 
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {  
+    // let currIventory = inventoryState;
+    // let currPlanted = plantedSeeds;
+    // Summary: get seed from inventory, plant it, record it in plantedSeeds
+
+    // To plant a seed:
+    //  1. Get and remove selected seed from inventory (first entry that matches selected type and floor price to plant)
+    // for now just planting highest floor price
+    // const seeds = inventoryState.filter(item => (item.type == 'seed' && item.name == plantName));
+    // seeds.sort((a, b) => b.floorPrice-a.floorPrice);
+
+    // for (let i = 0; i < inventoryState; i++){
+    //   let currIventory = inventoryState;
+    //   let currItem = inventoryState[i];
+    //   let isItem = currItem.type == 'seed' && currItem.name == plantName;
+    //   if (isItem){
+    //     removeItem(currIventory,currItem);
+    //     setInventoryState(currIventory);
+    //     break;
+    //   }
+    // }
+    // let removeSeed = seeds[0];
+    // removeItem(currIventory, removeSeed);
+    // setInventoryState(currIventory);
+    //  2. Based on type (tomato, carrot, etc.), get corresponding seedNum from constants
+    //  3. props.setPlantedSeed(seedNum) -> to actually put the seed on the the grid visually
+    // props.setPlantedSeed(seedNum);
+    // const newSeed = {
+    //   name: removeSeed.name,
+    //   type: 'seed',
+    //   floorPrice: removeSeed.floorPrice,
+    //   coords: {
+    //     x: props.x,
+    //     z: props.z
+    //   }
+    // }
+    // addPlant(currPlanted,newSeed);
+
+    //  4. Make the object to push to plantedSeeds:
+    //    const newSeed = {
+    //      name: itemName,
+    //      type: "seed",
+    //      floorPrice: <floorPrice from inventory>,
+    //      coords { x: props.x, z:props.z }
+    //    }
+    //   
+    // setPlantedSeeds(currPlanted);
   function newTile() {
     return props.grid.find((tile) => {
       return tile.x === props.x && tile.z === props.z;
@@ -14,7 +60,7 @@ const FarmTilePopup = (props) => {
   }
 
   function updatedGrid(updatedTile) {
-    var newGrid = props.grid.map((tile) => 
+    var newGrid = props.grid.map((tile) =>
       updatedTile.x === tile.x && updatedTile.z === tile.z ? updatedTile : tile
     );
 
@@ -23,7 +69,7 @@ const FarmTilePopup = (props) => {
 
   function plantSeed(seedName, floorPrice) {
     const seedToPlant = plants.find((plant) => plant.name == seedName);
-    const newSeedToPlant = {...seedToPlant, floorPrice}
+    seedToPlant.floorPrice = floorPrice;
 
     const itemToRemove = {
       name: seedName,
@@ -32,7 +78,7 @@ const FarmTilePopup = (props) => {
     }
   
     var updatedTile = newTile();
-    updatedTile.plantedSeed = newSeedToPlant;
+    updatedTile.plantedSeed = seedToPlant;
     updatedGrid(updatedTile);
     
     removeItem(props.inventoryState, itemToRemove);
@@ -54,7 +100,7 @@ const FarmTilePopup = (props) => {
     }
     addItem(props.inventoryState, newItem);
     
-    addItemToCropInfo(props.cropInfo, props.setCropInfo, newItem);
+    addItemToCropInfo(props.cropInfo, newItem);
     //setCropInfo(props.cropInfo);
     
 

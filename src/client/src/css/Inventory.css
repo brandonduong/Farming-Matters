@@ -151,6 +151,7 @@ table, th, td {
 }
 
 .seeds {
+  margin-top: 20%;
   display: grid;
   justify-content: center;
   grid-template-rows: 0.25fr 1fr;
@@ -164,5 +165,10 @@ table, th, td {
 
 .Contracts {
   display: grid;
-  grid-template-rows: 0.25fr 1fr 0.25fr 1fr;
+  grid-template-rows: 0.25fr 1fr 0.05fr 1fr;
+}
+
+.contracts-scroll {
+  max-height: 23em;
+  overflow: auto;
 }

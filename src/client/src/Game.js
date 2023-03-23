@@ -129,6 +129,8 @@ export const Game = () => {
   //   setInsuredState(getNamesInsurance);
   // }, []);
 
+  useEffect(() => console.log(grid), [grid])
+
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {
     setDecisionType(Math.round(Math.random()));

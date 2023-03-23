@@ -88,7 +88,6 @@ const DetailedItem = (props) => {
       let currInventory = inventoryState;
       props.setMoney(props.money - totalCost);
       let isPlant = checkIfItemIsPlant(itemName,plants);
-      console.log(itemName);
       for (let i = 0; i < insuranceQuantity; i++){
         let currItem = {
           name: itemName,
@@ -120,7 +119,6 @@ const DetailedItem = (props) => {
     } else {
       console.log("Not enough money to buy crop");
     }
-    console.log(inventoryState)
     setTotalCost(0);
   }
 

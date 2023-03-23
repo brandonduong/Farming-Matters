@@ -31,13 +31,11 @@ const Shop = (props) => {
       setShowBuy(!showBuy);
       setShowSell(!showSell);
     }
-    console.log("BUY CLICKED");
   };
 
 
 
   function displayBuyItems (){
-    console.log(props.allTurnPrices);
     const shopItemRender = (item)=>(<ShopItem
           key={item.id}
           id={item.id}
@@ -54,7 +52,6 @@ const Shop = (props) => {
 
     if (filter == "All"){
       return (props.marketItems.map(function (item)  {
-        console.log("ALL");
           return(shopItemRender(item));
           
       }));

@@ -81,34 +81,36 @@ const InventoryItem = (props) => {
         {props.item && checkIfItemIsPlant(props.item,plants) ? 
         <>
           <h1>Contracts</h1>
-          <div className="Contracts">
-            <div className="empty"></div>
-            <div className="seeds">
-              <h3>Seed Contracts</h3>
-              <Table className="table table-bordered">
+          <div className="contracts-scroll">
+            <div className="Contracts">
+              <div className="empty"></div>
+              <div className="seeds">
+                <h3>Seed Contracts</h3>
+                <Table className="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th>Quantity</th>
+                    <th>FloorPrice</th>
+                  </tr>
+                  </thead>
+                  <tbody>{currentSeedRender}</tbody>
+                </Table>
+              </div>  `
+              <div className="empty"></div>
+              <div className="crops">
+                <h3>Crop Contracts</h3>
+                <Table className="table table-bordered">
                 <thead>
-                <tr>
-                  <th>Quantity</th>
-                  <th>FloorPrice</th>
-                </tr>
+                  <tr>
+                    <th>Quantity</th>
+                    <th>FloorPrice</th>
+                    <th>Expiry</th>
+                  </tr>
                 </thead>
-                <tbody>{currentSeedRender}</tbody>
-              </Table>
-            </div>  
-            <div className="empty"></div>
-            <div className="crops">
-              <h3>Crop Contracts</h3>
-              <Table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Quantity</th>
-                  <th>FloorPrice</th>
-                  <th>Expiry</th>
-                </tr>
-              </thead>
-              <tbody>{currentCropRender}</tbody>
-              </Table>
-            </div>  
+                <tbody>{currentCropRender}</tbody>
+                </Table>
+              </div>  
+            </div>
           </div>
         </> : 
         ( 
