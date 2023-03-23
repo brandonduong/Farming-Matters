@@ -79,7 +79,10 @@ const FarmTilePopup = (props) => {
               onClick={() => plantSeed(i, plants[i].name)}
               key={"plant" + i}
             >
-              <h4>{plants[i].name}</h4>
+              <h4>
+                {plants[i].name} (
+                {parseInt(getItemCount(props.inventoryState, plants[i].name))})
+              </h4>
             </button>
           </div>
         );
@@ -144,7 +147,7 @@ const FarmTilePopup = (props) => {
           disabled={!(props.money >= props.price)}
           onClick={() => buyPlot()}
         >
-          <h4>Buy Plot</h4>
+          <h4>Buy Plot (${props.price})</h4>
         </button>
       </div>
     </>

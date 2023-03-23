@@ -1,5 +1,6 @@
 import { SignOutButton } from "./SignOutButton";
 
+const MAX_TURNS = 50;
 const InfoHeader = (props) => {
   const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
 
@@ -23,7 +24,10 @@ const InfoHeader = (props) => {
       </div>
       <div className="season info-header-item">{props.season}</div>
       <div className="info-header-item">
-        Day:&nbsp;<div className="info-header-item-value">{props.turn}</div>
+        Day:&nbsp;
+        <div className="info-header-item-value">
+          {props.turn} / {MAX_TURNS}
+        </div>
       </div>
       <div className="info-header-item">
         <button

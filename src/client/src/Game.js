@@ -44,7 +44,7 @@ export const globalInventoryContext = React.createContext({});
 export const Game = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
-  const [user, setUser] = useState("Brandon");
+  const [user, setUser] = useState("Test");
   const [money, setMoney] = useState(10000);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
@@ -223,9 +223,10 @@ export const Game = () => {
             for (let i = 0; i < loadedGrid.length; i++) {
               initialGrid.push(JSON.parse(loadedGrid[i]));
             }
-            console.log("loading saved grid");
+
             setGrid(initialGrid);
             setTurn(gameState.turn);
+            setMoney(gameState.money);
           }
         })
         .catch((err) => {
