@@ -207,6 +207,8 @@ const FarmTile = (props) => {
                 owned={owned}
                 price={props.price}
                 inventoryState={props.inventoryState}
+                cropInfo={props.cropInfo}
+                setCropInfo={props.setCropInfo}
                 fertilizerAmount={fertilizerAmount}
               />
             )}

@@ -1,22 +1,29 @@
-export function addItemToCropInfo(cropInfo,item){ 
+export function addItemToCropInfo(cropInfo, item){
     let itemName = item.name;
     let itemFloorPrice = item.floorPrice;
     let itemCropExpiry = item.cropExpiry;
     let cropContracts = cropInfo[itemName];
-    let match = "";
-    let matchIndex = null;
+    let match = null;
+    let matchIndex = -1;
     for (let i = 0; i < cropContracts.length; i++){
         let currContract = cropContracts[i];
         if (currContract.floorPrice == itemFloorPrice && currContract.cropExpiry == itemCropExpiry){
-            match = currContract[i];
+            match = currContract;
             matchIndex = i;
             break;
         }
     }
-    if(match != "" && matchIndex != null){
+
+    if(match && matchIndex >= 0){
         cropInfo[itemName][matchIndex].quantity += 1;
-    } else{
-        let newContract = {floorPrice: itemFloorPrice, cropExpiry: itemCropExpiry, quantity: 1};
+        
+    } else {
+        let newContract = {
+            floorPrice: itemFloorPrice, 
+            cropExpiry: itemCropExpiry, 
+            quantity: 1
+        };
+        
         cropInfo[itemName].push(newContract);
     }
 }

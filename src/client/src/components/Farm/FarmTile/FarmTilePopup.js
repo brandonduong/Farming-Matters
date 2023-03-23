@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { plants } from "./constants";
 import { addItem, getAllSeedContracts, getSeedContractsCounts, removeItem } from "../../Inventory";
 import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
@@ -6,8 +6,7 @@ import { addItemToCropInfo, removePlant, addPlant } from "./FarmingHelpers";
 import { globalInventoryContext } from "../../../Game";
 
 //TODO: Make popup go away on blur
-const FarmTilePopup = (props) => {
-  const { inventoryState, setInventoryState, plantedSeeds, setPlantedSeeds, cropInfo, setCropInfo} = React.useContext(globalInventoryContext);
+const FarmTilePopup = (props) => {  
     // let currIventory = inventoryState;
     // let currPlanted = plantedSeeds;
     // Summary: get seed from inventory, plant it, record it in plantedSeeds
@@ -55,56 +54,54 @@ const FarmTilePopup = (props) => {
     //   
     // setPlantedSeeds(currPlanted);
   function newTile() {
-    return props.grid.filter((tile) => {
+    return props.grid.find((tile) => {
       return tile.x === props.x && tile.z === props.z;
-    })[0];
+    });
   }
 
   function updatedGrid(updatedTile) {
     var newGrid = props.grid.map((tile) =>
       updatedTile.x === tile.x && updatedTile.z === tile.z ? updatedTile : tile
     );
+
     props.setGrid(newGrid);
   }
 
   function plantSeed(seedName, floorPrice) {
-    var updatedTile = newTile();
-    updatedTile.plantedSeed = seed;
-    updatedGrid(updatedTile);
+    const seedToPlant = plants.find((plant) => plant.name == seedName);
+    seedToPlant.floorPrice = floorPrice;
 
-    const seedToRemove = {
+    const itemToRemove = {
       name: seedName,
       type: 'seed',
       floorPrice: floorPrice,
     }
-    removeItem(props.inventoryState, seedToRemove);
+  
+    var updatedTile = newTile();
+    updatedTile.plantedSeed = seedToPlant;
+    updatedGrid(updatedTile);
+    
+    removeItem(props.inventoryState, itemToRemove);
     props.setClickedTile(null);
   }
 
-  function harvestPlant(plantName) {
-    let currIventory = inventoryState;
-    let currPlanted = plantedSeeds;
-    let currCrops = cropInfo;
-
-    props.setPlantedSeed(0);
-    props.setFertilizerAmount(0);
+  function harvestPlant() {
     // Summary: get entry from plantedSeeds (by x,z), then push an object to the inventory with the harvested crop, and update cropInfo (also, see the .txt file for cropInfo stuff)
-
+    
     // To add a harvested crop to inventory:
     //  1. Get and remove the entry in plantedSeeds corresponding to the x,z clicked (note : x,z is available easily through props.x, props.z)
-    const cropToHarvest = plantedSeeds.find(item => (item.type == 'seed' && item.name == plantName && item.coords.x == props.x && item.coords.z == props.z));
-    // plantedSeeds.remove(cropToHarvest);
-    removePlant(currPlanted,cropToHarvest)
+    const cropToHarvest = props.grid.find(tile => (tile.x == props.x && tile.z == props.z)).plantedSeed;
+    
     const newItem = {
       name: cropToHarvest.name,
       type: 'crop',
       floorPrice: cropToHarvest.floorPrice,
       cropExpiry: 3
     }
-    addItem(currIventory, newItem);
-    setInventoryState(currIventory);
-    addItemToCropInfo(currCrops,newItem);
-    setCropInfo(currCrops);
+    addItem(props.inventoryState, newItem);
+    
+    addItemToCropInfo(props.cropInfo, props.setCropInfo, newItem);
+    //setCropInfo(props.cropInfo);
     
 
     //  2. build the object to push to the inventory: 
@@ -116,10 +113,9 @@ const FarmTilePopup = (props) => {
     //    }
     // addItem(props.inventoryState, <new object you made>, 1);
     var updatedTile = newTile();
-    updatedTile.plantedSeed = 0;
+    updatedTile.plantedSeed = null;
     updatedTile.fertilizerAmount = 0;
     updatedGrid(updatedTile);
-    addItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
   }
 
@@ -159,6 +155,7 @@ const FarmTilePopup = (props) => {
 
     const seedsInInventory = getSeedContractsCounts(props.inventoryState, seed.name);
     const seedContracts = getAllSeedContracts(props.inventoryState, seed.name);
+    
     const insurancePrices = Object.keys(seedsInInventory)
     const isSeedInInventory = (insurancePrices.length > 0)
     if (
@@ -171,7 +168,6 @@ const FarmTilePopup = (props) => {
       let priceButtons = []
       for (let i = 0; i < insurancePrices.length; i++){
         let price = insurancePrices[i];
-        
         price = !isNaN(price) ? parseInt(price) : null;
         let priceLabel = price ?? 'None';
         

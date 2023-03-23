@@ -6,9 +6,8 @@ const PLOT_SIZE = 4;
 const SEASON_COLORS = ["#a67a47", "#a1a09f", "#7efc5b", "#77c761"]; // Fall, Winter, Spring, Summer
 
 function FarmGrid(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  let { inventoryState, grid, setGrid } = useContext(globalInventoryContext);
-
+  let { inventoryState, grid, setGrid, cropInfo, setCropInfo } = useContext(globalInventoryContext);
+  
   const [clickedTile, setClickedTile] = useState(null);
   const initialGrid = [];
   
@@ -77,6 +76,8 @@ function FarmGrid(props) {
             price={tile.price}
             colors={SEASON_COLORS}
             inventoryState={inventoryState}
+            cropInfo={cropInfo}
+            setCropInfo={setCropInfo}
             VisualGameLogic={props.VisualGameLogic}
           />
         ))}

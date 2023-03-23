@@ -53,21 +53,20 @@ export const Game = () => {
   
   // TODO: move to constants.js
   let defaultCropInfo = {
-    Rice: [],
-    Carrot: [],
-    Orange: [],
-    Lettuce: [],
-    Tomato: [],
-    Watermelon: [],
-    Wheat: [],
-    Pumpkin:[],
-    Beat:[],
-    Berries:[],
-    Mushroom:[],
-    Wintermelon:[]
+    rice: [],
+    carrot: [],
+    orange: [],
+    lettuce: [],
+    tomato: [],
+    watermelon: [],
+    wheat: [],
+    pumpkin:[],
+    beet:[],
+    berries:[],
+    mushroom:[],
+    wintermelon:[]
   }
   const [cropInfo, setCropInfo] = useState(defaultCropInfo);
-
 
   // const [insuredState, setInsuredState] = useState(insuredItems);
   const marketItems = [];
@@ -192,7 +191,7 @@ export const Game = () => {
 
   useEffect(() => {
     if (accessToConsultant) {
-      console.log(allTurnPrices);
+      //console.log(allTurnPrices);
       const statement =
         GameLogic.GenerateStatistics.generateConsultantStatement(
           decisionType,
@@ -296,6 +295,8 @@ export const Game = () => {
     );
   }
 
+  useEffect(() => {console.log('game cropInfo:'); console.log(cropInfo)}, [cropInfo])
+  
   return (
     <>
       {
@@ -303,10 +304,10 @@ export const Game = () => {
           value={{
             inventoryState,
             setInventoryState,
-            grid,
-            setGrid,
             cropInfo,
             setCropInfo,
+            grid,
+            setGrid,
             turn,
           }}
         >
