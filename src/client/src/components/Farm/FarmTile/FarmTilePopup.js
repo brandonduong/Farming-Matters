@@ -153,7 +153,7 @@ const FarmTilePopup = (props) => {
   for (let i = 1; i < plants.length; i++) {
     seed = plants[i];
 
-    const seedsInInventory = getSeedContractsCounts(props.inventoryState, seed.name);
+    const seedsInInventory = getSeedContractsCounts(props.inventoryState, seed.name); 
     const seedContracts = getAllSeedContracts(props.inventoryState, seed.name);
     
     const insurancePrices = Object.keys(seedsInInventory)
@@ -172,11 +172,17 @@ const FarmTilePopup = (props) => {
         let priceLabel = price ?? 'None';
         
         priceButtons.push(
+          <div className="seed-popup">
+            <div className="qt-label">
+            Quantity:{seedsInInventory[price]}
+            </div>
+          <div className="empty"></div>
           <button
               onClick={() => plantSeed(seedName, price)}
             > 
               {priceLabel}
             </button>
+            </div>
         )  
       }
 
@@ -218,6 +224,10 @@ const FarmTilePopup = (props) => {
           {props.turnPlanted +
             props.plantedSeed?.growthLength ?? 0 -
             props.fertilizerAmount}
+        </div>
+        <div className="tile-popup-info-item">
+          <h4 className="tile-popup-info-title">Floor Price: </h4>
+          {props.plantSeed?.floorPrice ?? 'None'}
         </div>
         {props.turn - props.turnPlanted + props.fertilizerAmount >=
         props.plantedSeed?.growthLength ? (

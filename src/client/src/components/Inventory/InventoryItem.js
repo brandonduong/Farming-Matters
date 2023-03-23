@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { globalInventoryContext } from "../../Game";
-import { getSeedContractsCounts } from "../Inventory";
+import { getItemCount, getSeedContractsCounts } from "../Inventory";
 import { checkIfItemIsPlant, getImage, getItemFluctuation } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
 import { shopItemsList } from "../Shop/constants";
 import { itemFluctuation } from "../GameLogic/constants";
 import { quantityContent } from "../Shop/constants";
+import Table from "react-bootstrap/Table"
 
 const InventoryItem = (props) => {
   const { inventoryState, cropInfo } = React.useContext(globalInventoryContext);
@@ -43,10 +44,7 @@ const InventoryItem = (props) => {
   
   let seedCounts = getSeedContractsCounts(inventoryState,itemName);
   let seedFloors = Object.keys(seedCounts);
-  let cropContracts = cropInfo[itemName];
-  console.log(seedFloors);
-  
- 
+
   for (let i = 0; i < seedFloors.length; i++){
     let seedFloor = seedFloors[i];
     let seedQuantity = seedCounts[seedFloor];
@@ -57,19 +55,21 @@ const InventoryItem = (props) => {
       </tr>
   )}
 
-  // {floorPrice: itemFloorPrice, cropExpiry: itemCropExpiry, quantity: 1}
-  for (let i = 0; i < cropContracts.length; i++){
-    let cropFloor = cropContracts[i].floorPrice;
-    let cropExp = cropContracts[i].cropExpiry;
-    let cropQuantity = cropContracts[i].quantity;
-    currentCropRender.push(
-      <tr>
-        <td>{cropQuantity}</td>
-        <td>{cropFloor}</td> 
-        <td>{cropExp}</td>
-      </tr>
-  )}
-
+    if(cropInfo[itemName]){
+        // {floorPrice: itemFloorPrice, cropExpiry: itemCropExpiry, quantity: 1}
+      let cropContracts = cropInfo[itemName];
+      for (let i = 0; i < cropContracts.length; i++){
+      let cropFloor = cropContracts[i].floorPrice;
+      let cropExp = cropContracts[i].cropExpiry;
+      let cropQuantity = cropContracts[i].quantity;
+      currentCropRender.push(
+        <tr>
+          <td>{cropQuantity}</td>
+          <td>{cropFloor}</td> 
+          <td>{cropExp}</td>
+        </tr>
+      )}
+    }
   }
   
 
@@ -78,37 +78,44 @@ const InventoryItem = (props) => {
       <h2>{props.item != "" ? props.item : "Select an item to view more details ..."}</h2>
       <img src={itemImg} alt="crops" className="item-image"></img>
       <div className="details">
-        <h1>Contracts</h1>
-        {props.item ? 
+        {props.item && checkIfItemIsPlant(props.item,plants) ? 
         <>
+          <h1>Contracts</h1>
           <div className="Contracts">
             <div className="empty"></div>
             <div className="seeds">
               <h3>Seed Contracts</h3>
-              <table className="table table-bordered">
+              <Table className="table table-bordered">
+                <thead>
                 <tr>
-                  <td>Quantity</td>
-                  <td>FloorPrice</td>
+                  <th>Quantity</th>
+                  <th>FloorPrice</th>
                 </tr>
-              {currentSeedRender}
-              </table>
+                </thead>
+                <tbody>{currentSeedRender}</tbody>
+              </Table>
             </div>  
             <div className="empty"></div>
             <div className="crops">
               <h3>Crop Contracts</h3>
-              <table >
+              <Table className="table table-bordered">
+              <thead>
                 <tr>
-                  <td>Quantity</td>
-                  <td>FloorPrice</td>
-                  <td>Expiry</td>
+                  <th>Quantity</th>
+                  <th>FloorPrice</th>
+                  <th>Expiry</th>
                 </tr>
-              {currentCropRender}
-              </table>
+              </thead>
+              <tbody>{currentCropRender}</tbody>
+              </Table>
             </div>  
           </div>
         </> : 
         ( 
-        <></>
+        <>
+          <h3>Quantity: </h3>
+          <h3>{getItemCount(inventoryState,props.item)}</h3>
+        </>
         )}
       </div>
     </div>
