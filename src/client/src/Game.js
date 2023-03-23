@@ -129,7 +129,11 @@ export const Game = () => {
   //   setInsuredState(getNamesInsurance);
   // }, []);
 
-  useEffect(() => console.log(grid), [grid])
+  useEffect(() => {
+    console.log(grid);
+    console.log(inventoryState);
+    console.log(cropInfo);
+}, [grid])
 
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {

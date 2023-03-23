@@ -59,7 +59,7 @@ const InventoryItem = (props) => {
         // {floorPrice: itemFloorPrice, cropExpiry: itemCropExpiry, quantity: 1}
       let cropContracts = cropInfo[itemName];
       for (let i = 0; i < cropContracts.length; i++){
-      let cropFloor = cropContracts[i].floorPrice;
+      let cropFloor = cropContracts[i].floorPrice? cropContracts[i].floorPrice : "None";
       let cropExp = cropContracts[i].cropExpiry;
       let cropQuantity = cropContracts[i].quantity;
       currentCropRender.push(
