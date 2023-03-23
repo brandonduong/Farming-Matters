@@ -5,7 +5,7 @@ export function addItemToCropInfo(cropInfo, item){
     let cropContracts = cropInfo[itemName];
     let match = null;
     let matchIndex = -1;
-    for (let i = 0; i < cropContracts.length; i++){
+    for (let i = 0; i < cropContracts?.length; i++){
         let currContract = cropContracts[i];
         if (currContract.floorPrice == itemFloorPrice && currContract.cropExpiry == itemCropExpiry){
             match = currContract;
