@@ -38,7 +38,12 @@ import droughtMusic from "./assets/Insects.mp3";
 
 import { GameSettings } from "./components/GameSettings";
 import SnowFlakes from "./components/GameEvents/SeasonalEvents/Snow";
+import { GrassModel } from "./components/models/GrassModel";
+import EndGamePopup from "./components/EndGamePopup/EndGamePopup";
 
+const PLOT_SIZE = 4;
+const MAX_TURNS = 48;
+const FARM_TILE_INFO_SEPARATOR = "|";
 const globalInventoryState = {};
 const insuredItems = {};
 export const globalInventoryContext = React.createContext({});
@@ -50,7 +55,7 @@ export const globalInventoryContext = React.createContext({});
 export const Game = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
-  const [user, setUser] = useState("Brandon");
+  const [user, setUser] = useState("Test");
   const [money, setMoney] = useState(10000);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
@@ -71,6 +76,9 @@ export const Game = () => {
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
   const [eventType, setEventType] = useState("");
   const [displayTransition, setDisplayTransition] = useState(false);
+  const initialGrid = [];
+  const [grid, setGrid] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -102,6 +110,11 @@ export const Game = () => {
 
   useEffect(() => {
     if (turn > 1) {
+      const savableGrid = [];
+      for (let i = 0; i < grid.length; i++) {
+        savableGrid.push(JSON.stringify(grid[i]));
+      }
+
       saveGame({
         turn: turn,
         season: season,
@@ -111,28 +124,46 @@ export const Game = () => {
         insuredCrops: insuredState,
         sellPrices: allTurnPrices[turn],
         consultant: [accessToConsultant, consultantStatement],
+        farmGrid: savableGrid.join(FARM_TILE_INFO_SEPARATOR),
       });
     }
   }, [turn]);
 
-  useEffect(() => {
-    setInventoryState(getNames);
-  }, []);
+  function addFarmLand(x, y, owned, price = 250) {
+    // Add 4x4 grid of land at position x and y
+    for (let i = x; i < x + PLOT_SIZE; i++) {
+      for (let o = y; o < y + PLOT_SIZE; o++) {
+        initialGrid.push({
+          x: i,
+          z: o,
+          owned,
+          price,
+          plantedSeed: 0,
+          fertilizerAmount: 0,
+          turnPlanted: 0,
+        });
+      }
+    }
+  }
 
-  useEffect(() => {
-    setInsuredState(getNamesInsurance);
-  }, []);
+  function intializeFarmLand() {
+    // Default unlocked farm land
+    addFarmLand(-3.5, -3.5, true);
+    addFarmLand(-3.5, 1.5, true);
+    addFarmLand(1.5, 1.5, true);
+    addFarmLand(1.5, -3.5, true);
 
-  // This useEffect hook performs all operations needed on page load
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-  }, []);
-
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-    initializeLandscape();
-    initializeFarmBuildings();
-  }, []);
+    // Default locked farm land
+    addFarmLand(-8.5, -3.5, false);
+    addFarmLand(-8.5, 1.5, false);
+    addFarmLand(6.5, -3.5, false);
+    addFarmLand(6.5, 1.5, false);
+    addFarmLand(1.5, 6.5, false);
+    //addFarmLand(1.5, -8.5, false);
+    addFarmLand(-3.5, 6.5, false);
+    //addFarmLand(-3.5, -8.5, false);
+    setGrid(initialGrid);
+  }
 
   useEffect(() => {
     setAccessToConsultant(false);
@@ -214,16 +245,51 @@ export const Game = () => {
     }
   }, [accessToConsultant]);
 
-  // // This effect will create a connection to the database once this component loads
+  // This effect runs when the page is first loaded
   useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    // for database connection
     const initalizeGameState = async () => {
       await createConnection();
-      retrieveSavedGame().then((gameState) => {
-        console.log(gameState);
-        // console.log(gameState.json());
-      });
+      retrieveSavedGame()
+        .then((gameState) => {
+          console.log(gameState);
+          // console.log(gameState.json());
+          if (!initialGrid.length) {
+            const loadedGrid = gameState.farmGrid.split(
+              FARM_TILE_INFO_SEPARATOR
+            );
+            for (let i = 0; i < loadedGrid.length; i++) {
+              initialGrid.push(JSON.parse(loadedGrid[i]));
+            }
+
+            setGrid(initialGrid);
+            setTurn(gameState.turn);
+            setMoney(gameState.money);
+          }
+        })
+        .catch((err) => {
+          // error loading game data
+          console.log("error loading game data:", err);
+          if (!initialGrid.length) {
+            intializeFarmLand();
+          }
+        });
     };
     initalizeGameState();
+
+    // initializing state variables
+    setInventoryState(getNames);
+    setInsuredState(getNamesInsurance);
+
+    // This useEffect hook performs all operations needed on page load
+    setDecisionType(Math.round(Math.random()));
+    initializeLandscape();
+    initializeFarmBuildings();
   }, []);
 
   function randomXYCircle(maxRadius, minRadius) {
@@ -234,16 +300,33 @@ export const Game = () => {
 
   function initializeLandscape() {
     const initial = [];
-    const treeNum = 100;
+    const flowerNum = 100;
+    const grassNum = 100;
 
-    for (let i = 0; i < treeNum; i++) {
+    for (let i = 0; i < flowerNum; i++) {
       // Flowers
       initial.push(
         <FlowerModel
           variant={Math.floor(Math.random() * 2)}
-          position={randomXYCircle(30, 11)}
+          position={randomXYCircle(30, 13)}
           key={`flower${i}`}
           scale={Math.random() * 0.03 + 0.02}
+        />
+      );
+    }
+
+    for (let i = 0; i < grassNum; i++) {
+      // Grass
+      initial.push(
+        <GrassModel
+          variant={Math.floor(Math.random() * 1)}
+          position={randomXYCircle(30, 13)}
+          key={`grass${i}`}
+          scale={[
+            Math.random() * 0.03 + 0.05,
+            Math.random() * 0.01 + 0.01,
+            Math.random() * 0.03 + 0.05,
+          ]}
         />
       );
     }
@@ -291,9 +374,9 @@ export const Game = () => {
     );
   }
 
-  return (
-    <>
-      {
+  function loadGameUI() {
+    return (
+      <>
         <globalInventoryContext.Provider
           value={{
             inventoryState,
@@ -327,6 +410,8 @@ export const Game = () => {
                   turn={turn}
                   money={money}
                   setMoney={setMoney}
+                  grid={grid}
+                  setGrid={setGrid}
                 />
 
                 {farmBuildings}
@@ -356,6 +441,7 @@ export const Game = () => {
             turn={turn}
             setSeason={setSeason}
             setTurn={setTurn}
+            MAX_TURNS={MAX_TURNS}
           />
 
           {isEventHappening && turn > 3 && displayTransition ? <SeasonTransition typeOfCatastrophicEvent={typeOfCatastrophicEvent} displayTransition={displayTransition} setDisplayTransition={setDisplayTransition} season={season}/> : <></>}
@@ -373,6 +459,8 @@ export const Game = () => {
             soundEffectVolume={soundEffectsVolume}
             setSoundEffectsVolume={setSoundEffectsVolume}
           />
+
+          {turn >= MAX_TURNS && <EndGamePopup money={money} />}
 
           <InventoryRender
             marketItems={marketItems}
@@ -405,9 +493,24 @@ export const Game = () => {
             season={season}
           ></Shop>
         </globalInventoryContext.Provider>
-      }
-      <BackgroundMusic volume={backgroundMusicVolume} music={ bgMusic} />
-      <BackgroundMusic volume={soundEffectsVolume} music={displayTransition ? (typeOfCatastrophicEvent == "SnowStorm" ? winterMusic : displayTransition &&typeOfCatastrophicEvent == "HeavyRain" ? rainMusic :  typeOfCatastrophicEvent == "Drought" ? droughtMusic : typeOfCatastrophicEvent == "Tornadoes" ? torandoMusic : ""): ""} />
+        <BackgroundMusic volume={backgroundMusicVolume} music={ bgMusic} />
+        <BackgroundMusic volume={soundEffectsVolume} music={displayTransition ? (typeOfCatastrophicEvent == "SnowStorm" ? winterMusic : displayTransition &&typeOfCatastrophicEvent == "HeavyRain" ? rainMusic :  typeOfCatastrophicEvent == "Drought" ? droughtMusic : typeOfCatastrophicEvent == "Tornadoes" ? torandoMusic : ""): ""} />
+          <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+        </>
+      
+     
+    );
+  }
+
+  return (
+    <>
+      {loading ? (
+        <>
+          <h1>Loading...</h1>
+        </>
+      ) : (
+        loadGameUI()
+      )}
     </>
   );
 };
