@@ -31,7 +31,13 @@ import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
 import SeasonTransition from "./components/GameLogic/SeasonTransition";
 import bgMusic from "./assets/bg_music.mp3";
+import winterMusic from "./assets/Winter.mp3";
+import rainMusic from "./assets/Flood.mp3";
+import torandoMusic from "./assets/Tornado.mp3";
+import droughtMusic from "./assets/Insects.mp3";
+
 import { GameSettings } from "./components/GameSettings";
+import SnowFlakes from "./components/GameEvents/SeasonalEvents/Snow";
 
 const globalInventoryState = {};
 const insuredItems = {};
@@ -61,6 +67,7 @@ export const Game = () => {
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
   const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
+  const [soundEffectsVolume, setSoundEffectsVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
   const [eventType, setEventType] = useState("");
   const [displayTransition, setDisplayTransition] = useState(false);
@@ -174,7 +181,7 @@ export const Game = () => {
     }
 
 
-  },[isEventHappening]);
+  },[isEventHappening, season]);
 
 
 
@@ -351,7 +358,7 @@ export const Game = () => {
             setTurn={setTurn}
           />
 
-          {isEventHappening && turn > 3 ? <SeasonTransition typeOfCatastrophicEvent={typeOfCatastrophicEvent} displayTransition={displayTransition} setDisplayTransition={setDisplayTransition}/> : <></>}
+          {isEventHappening && turn > 3 && displayTransition ? <SeasonTransition typeOfCatastrophicEvent={typeOfCatastrophicEvent} displayTransition={displayTransition} setDisplayTransition={setDisplayTransition} season={season}/> : <></>}
           <AvatarMenu
             accessToConsultant={accessToConsultant}
             setAccessToConsultant={setAccessToConsultant}
@@ -363,6 +370,8 @@ export const Game = () => {
           <GameSettings
             volume={backgroundMusicVolume}
             setVolume={setBackgroundVolume}
+            soundEffectVolume={soundEffectsVolume}
+            setSoundEffectsVolume={setSoundEffectsVolume}
           />
 
           <InventoryRender
@@ -370,7 +379,7 @@ export const Game = () => {
             money={money}
             turn={turn}
           />
-          {autoPrompt && !displayTransition ? 
+          {(!displayTransition || turn == 1) && autoPrompt ? 
           <div className="dialog-background">
             <Avatar
             avatarID={0}
@@ -397,7 +406,8 @@ export const Game = () => {
           ></Shop>
         </globalInventoryContext.Provider>
       }
-      <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+      <BackgroundMusic volume={backgroundMusicVolume} music={ bgMusic} />
+      <BackgroundMusic volume={soundEffectsVolume} music={displayTransition ? (typeOfCatastrophicEvent == "SnowStorm" ? winterMusic : displayTransition &&typeOfCatastrophicEvent == "HeavyRain" ? rainMusic :  typeOfCatastrophicEvent == "Drought" ? droughtMusic : typeOfCatastrophicEvent == "Tornadoes" ? torandoMusic : ""): ""} />
     </>
   );
 };

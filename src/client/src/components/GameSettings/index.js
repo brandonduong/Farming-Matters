@@ -41,7 +41,7 @@ export const GameSettings = (props) => {
         >
           <button
             type="button"
-            id="close-button"
+            className="close-button"
             onClick={() => setShowModal(false)}
           >
             x
@@ -85,7 +85,7 @@ export const GameSettings = (props) => {
         <>
           <div className="settings">
             <div className="settings-component">
-              <button type="button" id="close-button" onClick={displaySettings}>
+              <button type="button" className="close-button" onClick={displaySettings}>
                 x
               </button>
               <p className="center settings-heading">Settings</p>

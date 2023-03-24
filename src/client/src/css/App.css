@@ -1,6 +1,8 @@
 .App {
   text-align: center;
   min-height: 100vh;
+  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .tile-popup {
@@ -129,7 +131,7 @@
   }
 }
 
-#close-button {
+.close-button {
   position: absolute;
   top: -10px;
   right: -10px;
@@ -143,7 +145,7 @@
   transition: 150ms;
 }
 
-#close-button:hover {
+.close-button:hover {
   padding: 6px 16px 10px 16px;
   top: -13px;
   right: -13px;

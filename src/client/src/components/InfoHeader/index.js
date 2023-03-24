@@ -3,6 +3,8 @@ import { fallIcon } from "../GameLogic/constants";
 import { winterIcon } from "../GameLogic/constants";
 import { springIcon } from "../GameLogic/constants";
 import { summerIcon } from "../GameLogic/constants";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 
 const InfoHeader = (props) => {
   const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
@@ -36,14 +38,18 @@ const InfoHeader = (props) => {
       <div className="info-header-item">
         Day:&nbsp;<div className="info-header-item-value">{props.turn}</div>
       </div>
-      <div className="info-header-item">
-        <button
+      <div className="info-header-item gap-4">
+     
+        <Button
           className="info-header-button"
           type="button"
+          variant="danger"
+          size="lg"
           onClick={() => endTurn()}
         >
           End Turn
-        </button>
+        </Button>
+     
       </div>
     </div>
   );

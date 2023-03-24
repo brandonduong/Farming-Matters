@@ -13,7 +13,7 @@ const Shop = (props) => {
   const [showSell, setShowSell] = useState(false);
   const [itemSelected, setItemSelected] = useState("");
   const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState(props.season);
   const seasonFilters = ["All", "Fall", "Winter", "Spring", "Summer"];
   const priceFilters = ["LowToHigh", "HighToLow"];
   
@@ -22,7 +22,7 @@ const Shop = (props) => {
     setShowMenu(!showMenu);
     setShowBuy(!showBuy);
     setItemSelected("");
-    setFilter("All");
+    //setFilter("All");
     
   };
 

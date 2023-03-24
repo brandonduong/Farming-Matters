@@ -1,4 +1,6 @@
 import { useAuth } from "../../utils/auth/hooks";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 
 export const SignOutButton = () => {
   const { user, signOutHandler, socket, setIsLoggedIn } = useAuth();
@@ -10,12 +12,15 @@ export const SignOutButton = () => {
   };
 
   return (
-    <button
+
+    <Button
       className="info-header-button"
       type="button"
+      variant="light"
+      size="lg"
       onClick={handleSignOut}
     >
       Sign Out
-    </button>
+    </Button>
   );
 };

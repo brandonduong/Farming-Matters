@@ -143,23 +143,6 @@
   background-color: rgb(64, 130, 42);
 }
 
-.close-button {
-  border: 1px solid rgba(255, 255, 255, 0);
-  border-radius: 45px;
-  padding: 0;
-  background-color: rgb(219, 28, 28);
-  color: white;
-  font-size: large;
-  align-self: end;
-  justify-self: start;
-  margin: 10px;
-
-  width: 120px;
-  height: 60px;
-}
-.close-button:hover {
-  background-color: rgba(74, 23, 23, 0.855);
-}
 
 .avatar-grid {
   transform: translateY(0); /* here */
@@ -304,7 +287,7 @@
 
 .avatar-info{
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: auto;
 }
 

@@ -6,6 +6,8 @@ import { checkIfItemIsPlant } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
 import { shopItemsList, add_img_location, minus_img_location} from "./constants";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 
 const DetailedItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
@@ -172,7 +174,7 @@ const DetailedItem = (props) => {
         <div className="quantity-grid">
             <label htmlFor="itemQuantity" >Item Quantity: </label>
             <div className="quantity-input-grid">
-              <img src={minus_img_location} className="quantity-button" onClick={()=>{itemQuantity > 0 ? setItemQuantity(-1+parseInt(itemQuantity)) : setItemQuantity(parseInt(itemQuantity))}}/>
+            <Button className="quantity-button" onClick={()=>{itemQuantity > 0 ? setItemQuantity(-1+parseInt(itemQuantity)) : setItemQuantity(parseInt(itemQuantity))}}>-</Button>
               <input
                 type="number"
                 name="itemQuantity"
@@ -182,7 +184,7 @@ const DetailedItem = (props) => {
                 value={itemQuantity}
                 onChange={(e) => setItemQuantity(e.target.value)}
               ></input>
-              <img src={add_img_location} className="quantity-button" onClick={()=>{setItemQuantity(1+parseInt(itemQuantity))}}/>
+              <Button className="quantity-button" onClick={()=>{setItemQuantity(1+parseInt(itemQuantity))}}>+</Button> 
             </div>
           </div>
 
@@ -207,7 +209,7 @@ const DetailedItem = (props) => {
           <div className="quantity-grid">
             <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
             <div className="quantity-input-grid">
-              <img src={minus_img_location} className="quantity-button" onClick={()=>{insuranceFloorPrice > 0 ? setInsuranceFloorPrice(-10+parseInt(insuranceFloorPrice)) : setInsuranceFloorPrice(parseInt(insuranceFloorPrice))}}/>
+            <Button className="quantity-button" onClick={()=>{insuranceFloorPrice > 0 ? setInsuranceFloorPrice(-10+parseInt(insuranceFloorPrice)) : setInsuranceFloorPrice(parseInt(insuranceFloorPrice))}}>-</Button>
               <input
                 type="number"
                 name="itemQuantity"
@@ -216,7 +218,7 @@ const DetailedItem = (props) => {
                 value={insuranceFloorPrice}
                 onChange={(e) => setInsuranceFloorPrice(e.target.value)}
               ></input>
-              <img src={add_img_location} className="quantity-button" onClick={()=>{setInsuranceFloorPrice(10+parseInt(insuranceFloorPrice))}}/>
+              <Button className="quantity-button" onClick={()=>{setInsuranceFloorPrice(10+parseInt(insuranceFloorPrice))}} > +</Button>
             </div>
           </div>
 
@@ -224,7 +226,7 @@ const DetailedItem = (props) => {
           <div className="quantity-grid">
             <label htmlFor="itemQuantity" >Insurance Quantity: </label>
             <div className="quantity-input-grid">
-              <img src={minus_img_location} className="quantity-button" onClick={()=>{insuranceQuantity > 0 ? setInsuranceQuantity(-1+parseInt(insuranceQuantity)) : setInsuranceQuantity(parseInt(insuranceQuantity))}}/>
+              <Button className="quantity-button" onClick={()=>{insuranceQuantity > 0 ? setInsuranceQuantity(-1+parseInt(insuranceQuantity)) : setInsuranceQuantity(parseInt(insuranceQuantity))}}> -</Button>
               <input
                 type="number"
                 name="itemQuantity"
@@ -234,7 +236,7 @@ const DetailedItem = (props) => {
                 value={insuranceQuantity}
                 onChange={(e) => setInsuranceQuantity(e.target.value)}
               ></input>
-              <img src={add_img_location} className="quantity-button" onClick={()=>{setInsuranceQuantity(1+parseInt(insuranceQuantity))}}/>
+              <Button className="quantity-button" onClick={()=>{setInsuranceQuantity(1+parseInt(insuranceQuantity))}}> +</Button>
             </div>
           </div>
           </>
@@ -264,7 +266,7 @@ const DetailedItem = (props) => {
       </div>
 
       <div className="purchase">
-        <button>Purchase</button>
+        <Button variant="success">Purchase</Button>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { addInsuredItem, addItem, getItemCount } from "../Inventory";
 import { checkIfItemIsPlant } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
+import {seasonIconMapping} from "../GameLogic/constants";
 
 const ShopItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
@@ -11,6 +12,7 @@ const ShopItem = (props) => {
   const { inventoryState, insuredState } = React.useContext(
     globalInventoryContext
   );
+  
 
   function determineSeason(turnNumber) {
     let season;
@@ -82,7 +84,9 @@ const ShopItem = (props) => {
   return (
     <div className="shop-item "key={props.id} onClick={()=> {props.setItemSelected(props.name)}}>
       
-      <div className="season-label">{props.seasonType}</div>
+      <div className="season-display">
+        <img className="season-icon-display" src={seasonIconMapping[props.seasonType]}></img>
+      </div>
       <div className={(props.seasonType != "" ? props.seasonType.toLowerCase() : "other") + "-item"}>
       
       <img src={props.image} alt="crops" className="item-image"></img>
