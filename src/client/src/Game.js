@@ -31,8 +31,10 @@ import { BackgroundMusic } from "./components/BackgroundMusic";
 import bgMusic from "./assets/bg_music.mp3";
 import { GameSettings } from "./components/GameSettings";
 import { GrassModel } from "./components/models/GrassModel";
+import EndGamePopup from "./components/EndGamePopup/EndGamePopup";
 
 const PLOT_SIZE = 4;
+const MAX_TURNS = 48;
 const FARM_TILE_INFO_SEPARATOR = "|";
 const globalInventoryState = {};
 const insuredItems = {};
@@ -114,7 +116,7 @@ export const Game = () => {
     }
   }, [turn]);
 
-  function addFarmLand(x, y, owned, price = 1000) {
+  function addFarmLand(x, y, owned, price = 250) {
     // Add 4x4 grid of land at position x and y
     for (let i = x; i < x + PLOT_SIZE; i++) {
       for (let o = y; o < y + PLOT_SIZE; o++) {
@@ -396,6 +398,7 @@ export const Game = () => {
             turn={turn}
             setSeason={setSeason}
             setTurn={setTurn}
+            MAX_TURNS={MAX_TURNS}
           />
 
           <AvatarMenu
@@ -410,6 +413,8 @@ export const Game = () => {
             volume={backgroundMusicVolume}
             setVolume={setBackgroundVolume}
           />
+
+          {turn >= MAX_TURNS && <EndGamePopup money={money} />}
 
           <InventoryRender
             marketItems={marketItems}

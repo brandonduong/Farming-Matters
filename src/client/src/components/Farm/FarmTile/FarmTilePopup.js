@@ -121,7 +121,7 @@ const FarmTilePopup = (props) => {
   }
 
   if (!seedsPresent) {
-    plantButtons.push(<h4>No seeds</h4>);
+    plantButtons.push(<h4 className="tile-popup-warn">No plantable seeds</h4>);
   }
 
   // Plant info for when a seed is currently planted
