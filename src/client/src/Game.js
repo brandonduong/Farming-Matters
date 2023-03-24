@@ -31,9 +31,9 @@ import bgMusic from "./assets/bg_music.mp3";
 import { GameSettings } from "./components/GameSettings";
 
 const globalInventoryState = [];
-// const insuredItems = {};
+
 export const globalInventoryContext = React.createContext([]);
-// export const globalInsuredContext = React.createContext();
+
 
 /**
  * Contains all of the game logic and graphics related code.
@@ -86,7 +86,7 @@ export const Game = () => {
   }
   let nTurnItemPrices = generateNTurnPriceState(10, itemFluctuation, marketItems);
   const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
-  let inventory = [];
+  let inventory = [{name: 'pumpkin', type: 'crop', floorPrice: 50, cropExpiry: 3},{name: 'tomato', type: 'crop', floorPrice: 50, cropExpiry: 3},{name: 'pumpkin', type: 'crop', floorPrice: null, cropExpiry: 3}];
 
   // constructor for inventory
   // let getNames = {};

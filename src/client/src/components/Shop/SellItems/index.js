@@ -10,7 +10,7 @@ export const SellItems = () => {
     const cropNames = ['tomato', 'pumpkin'];
 
     return(
-        <div>
+        <div style={{display: 'flex'}}>
             { 
                 cropNames.map((name) => 
                     <SellTile 

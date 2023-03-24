@@ -188,13 +188,15 @@ const Shop = (props) => {
                       </div>
                     </div>
                    
-                    <div className="shop-items">
+                    
                       {showBuy ? 
-                        displayBuyItems()
+                        (<div className="shop-items">
+                          {displayBuyItems()}
+                        </div>)
                       : 
                         <SellItems />
                       }
-                    </div>
+                    
                 </div>
 
               <div className="empty-div"></div>
