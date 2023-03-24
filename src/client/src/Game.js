@@ -76,7 +76,7 @@ export const Game = () => {
   const [isConsultantPrompt, setIsConsultantPrompt] = useState(true);
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
-  const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
+  const [backgroundMusicVolume, setBackgroundVolume] = useState(0);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
   const [eventType, setEventType] = useState("");
   const [displayTransition, setDisplayTransition] = useState(false);

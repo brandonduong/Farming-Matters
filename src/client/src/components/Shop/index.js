@@ -28,6 +28,7 @@ const Shop = (props) => {
 
   const  displayBuy =  () => {
     if(showSell){
+      // setFilter("All");
       setShowBuy(!showBuy);
       setShowSell(!showSell);
     }
@@ -91,22 +92,58 @@ const Shop = (props) => {
   };
 
   function displaySellItems (){
-    const currentInventory = inventoryState;
-    return(
-      props.marketItems.map((item) => (
-        <InventoryItem
-          key={item.id}
-          id={item.id}
-          image={item.image}
-          name={item.name}
-          price={item.price}
-          money={props.money}
-          setMoney={props.setMoney}
-          turn={props.turn}
-          allTurnPrices={props.allTurnPrices}
-        />
-      ))
-      );
+    // const currentInventory = inventoryState;
+    const sellRender = (item)=>{
+    if (item.seasonType != ""){
+
+    return (
+      <ShopItem
+      key={item.id}
+      id={item.id}
+      image={item.image}
+      name={item.name}
+      price={props.allTurnPrices[props.turn % props.allTurnPrices.length][item.name]}
+      money={props.money}
+      setMoney={props.setMoney}
+      turn={props.turn}
+      allTurnPrices={props.allTurnPrices}
+      setItemSelected={setItemSelected}
+      seasonType={item.seasonType}
+    />)
+  };
+    }
+  
+
+if (filter == "All"){
+  return (props.marketItems.map(function (item)  {
+      return(sellRender(item));
+  }));
+
+} else if (seasonFilters.indexOf(filter) >= 0){
+  return (props.marketItems.map(function (item)  {
+    if (item.seasonType == filter){
+      return(sellRender(item))
+      
+     }
+    }
+
+  ));
+}else if (priceFilters.indexOf(filter) >= 0){
+  const mappedMarketItems = props.marketItems;
+  if (filter == "LowToHigh"){
+    const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item1.price-item2.price);
+    return (sortedMarketItems.map(function (item)  {
+      return(sellRender(item))
+       }
+    )); 
+  }else if (filter == "HighToLow"){
+    const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item2.price-item1.price);
+    return (sortedMarketItems.map(function (item)  {
+      return(sellRender(item))
+       }
+    )); 
+  }
+}
   }
 
   return (
@@ -167,7 +204,7 @@ const Shop = (props) => {
               <div className="empty-div"></div>
               <div className="display-more"> 
                       <div className="display-more-title">More Information:</div>
-                      <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} />
+                      {showBuy ? <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} /> : <InventoryItem item={itemSelected} setItemSelected={itemSelected} {...props}/>}
               </div>
               <div className="empty-div"></div>
               </div>

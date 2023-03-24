@@ -172,3 +172,13 @@ table, th, td {
   max-height: 23em;
   overflow: auto;
 }
+
+.insurance-buttons {
+  margin: 0 auto;
+}
+
+.quantity-grid {
+  display: grid;
+  grid-template-rows: 0.25fr 1fr;
+  justify-items: center;
+}

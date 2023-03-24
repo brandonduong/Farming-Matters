@@ -74,11 +74,11 @@ const DetailedItem = (props) => {
     setItemType(currentItemIndex.seasonType);
     setItemImg(currentItemIndex.image);
     setItemPrice(currentItemIndex.price);
+    setInsuranceFloorPrice(currentItemIndex.price);
   }
   useEffect(() => {
     setItemDetails(); 
     setItemQuantity(0);
-    setInsuranceFloorPrice(0);
     setInsuranceQuantity(0);
     priceIncreaseOrDecrease();
   }, [props.item]);
@@ -145,6 +145,7 @@ const DetailedItem = (props) => {
         insuranceCost = fair_premium * insuranceQuantity;
         
       }
+      console.log(insuranceCost);
       setTotalInsuranceCost(insuranceCost);
   }
 
