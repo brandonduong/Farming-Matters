@@ -1,18 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
-import { shopItemsList } from "./constants";
-import {globalInventoryContext} from "../../Game";
 import InventoryItem from "./InventoryItem";
 import DetailedItem from "./DetailedItem"
-
+import { SellItems } from "./SellItems"
 
 const Shop = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
   const [itemSelected, setItemSelected] = useState("");
-  const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
   const [filter, setFilter] = useState("All");
   const seasonFilters = ["All", "Fall", "Winter", "Spring", "Summer"];
   const priceFilters = ["LowToHigh", "HighToLow"];
@@ -94,56 +91,55 @@ const Shop = (props) => {
   function displaySellItems (){
     // const currentInventory = inventoryState;
     const sellRender = (item)=>{
-    if (item.seasonType != ""){
-
-    return (
-      <ShopItem
-      key={item.id}
-      id={item.id}
-      image={item.image}
-      name={item.name}
-      price={props.allTurnPrices[props.turn % props.allTurnPrices.length][item.name]}
-      money={props.money}
-      setMoney={props.setMoney}
-      turn={props.turn}
-      allTurnPrices={props.allTurnPrices}
-      setItemSelected={setItemSelected}
-      seasonType={item.seasonType}
-    />)
-  };
+      if (item.seasonType != ""){
+        return (
+          <ShopItem
+          key={item.id}
+          id={item.id}
+          image={item.image}
+          name={item.name}
+          price={props.allTurnPrices[props.turn % props.allTurnPrices.length][item.name]}
+          money={props.money}
+          setMoney={props.setMoney}
+          turn={props.turn}
+          allTurnPrices={props.allTurnPrices}
+          setItemSelected={setItemSelected}
+          seasonType={item.seasonType}
+        />
+        )
+      };
     }
   
 
-if (filter == "All"){
-  return (props.marketItems.map(function (item)  {
-      return(sellRender(item));
-  }));
+    if (filter == "All"){
+      return (props.marketItems.map(function (item)  {
+          return(sellRender(item));
+      }));
 
-} else if (seasonFilters.indexOf(filter) >= 0){
-  return (props.marketItems.map(function (item)  {
-    if (item.seasonType == filter){
-      return(sellRender(item))
-      
-     }
+    } else if (seasonFilters.indexOf(filter) >= 0){
+      return (props.marketItems.map(function (item)  {
+        if (item.seasonType == filter){
+          return(sellRender(item))  
+        }
+        }
+
+      ));
+    } else if (priceFilters.indexOf(filter) >= 0){
+      const mappedMarketItems = props.marketItems;
+      if (filter == "LowToHigh"){
+        const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item1.price-item2.price);
+        return (sortedMarketItems.map(function (item)  {
+          return(sellRender(item))
+          }
+        )); 
+      } else if (filter == "HighToLow"){
+        const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item2.price-item1.price);
+        return (sortedMarketItems.map(function (item)  {
+          return(sellRender(item))
+          }
+        )); 
+      }
     }
-
-  ));
-}else if (priceFilters.indexOf(filter) >= 0){
-  const mappedMarketItems = props.marketItems;
-  if (filter == "LowToHigh"){
-    const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item1.price-item2.price);
-    return (sortedMarketItems.map(function (item)  {
-      return(sellRender(item))
-       }
-    )); 
-  }else if (filter == "HighToLow"){
-    const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item2.price-item1.price);
-    return (sortedMarketItems.map(function (item)  {
-      return(sellRender(item))
-       }
-    )); 
-  }
-}
   }
 
   return (
@@ -196,7 +192,7 @@ if (filter == "All"){
                       {showBuy ? 
                         displayBuyItems()
                       : 
-                        displaySellItems()
+                        <SellItems />
                       }
                     </div>
                 </div>
@@ -204,7 +200,9 @@ if (filter == "All"){
               <div className="empty-div"></div>
               <div className="display-more"> 
                       <div className="display-more-title">More Information:</div>
-                      {showBuy ? <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} /> : <InventoryItem item={itemSelected} setItemSelected={itemSelected} {...props}/>}
+                      {showBuy ? 
+                        <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} /> 
+                        : <InventoryItem item={itemSelected} setItemSelected={itemSelected} {...props}/>}
               </div>
               <div className="empty-div"></div>
               </div>

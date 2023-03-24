@@ -163,6 +163,8 @@ const FarmTilePopup = (props) => {
   }
 
   // Plant info for when a seed is currently planted
+  console.log('planted seed:')
+  console.log(props.plantedSeed)  
   const plantInfo = (
     <div>
       <div className="tile-popup-info-item">
@@ -181,7 +183,7 @@ const FarmTilePopup = (props) => {
         </div>
         <div className="tile-popup-info-item">
           <h4 className="tile-popup-info-title">Floor Price: </h4>
-          {props.plantSeed?.floorPrice ?? 'None'}
+          {props.plantedSeed?.floorPrice ?? 'None'}
         </div>
         {props.turn - props.turnPlanted + props.fertilizerAmount >=
         props.plantedSeed?.growthLength ? (

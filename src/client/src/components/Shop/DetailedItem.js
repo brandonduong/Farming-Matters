@@ -106,7 +106,7 @@ const DetailedItem = (props) => {
       }
       setInventoryState(currInventory);
       setItemQuantity(0);
-      setInsuranceFloorPrice(0);
+      
       setInsuranceQuantity(0);
       logData({
         actionType: "Item Bought",
@@ -116,6 +116,8 @@ const DetailedItem = (props) => {
         balance: props.money,
         details: { name: props.name, quantity: itemQuantity },
       });
+
+      setItemDetails();
     } else {
       console.log("Not enough money to buy crop");
     }
@@ -145,7 +147,7 @@ const DetailedItem = (props) => {
         insuranceCost = fair_premium * insuranceQuantity;
         
       }
-      console.log(insuranceCost);
+      insuranceCost = (insuranceCost > 1 || !insuranceQuantity) ? insuranceCost : 1
       setTotalInsuranceCost(insuranceCost);
   }
 
@@ -155,7 +157,7 @@ const DetailedItem = (props) => {
 
   useEffect(() =>{
     currentInsuranceCost();
-  }, [insuranceQuantity])
+  }, [insuranceQuantity, insuranceFloorPrice])
 
   useEffect(() => {
     currentTotalCost();

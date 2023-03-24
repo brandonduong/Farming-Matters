@@ -133,7 +133,6 @@ const InventoryItem = (props) => {
     )  
   }
 
-
   return (
     <>
       <div className="detailed-item" key={props.id} >
@@ -144,7 +143,7 @@ const InventoryItem = (props) => {
         </div>
         <div className="market-price-button">
           <div className="quantity-grid">
-            <label htmlFor="itemQuantity" >Market Price: {currMarketPrice.toFixed(2)}</label>
+            <label htmlFor="itemQuantity" >Market Price: {currMarketPrice?.toFixed(2)}</label>
             <div className="quantity-input-grid">
               <img src={minus_img_location} className="quantity-button" onClick={()=>{(sellMarketQuantity > 0) ? setSellMarketQuantity(-1+parseInt(sellMarketQuantity)) : setSellMarketQuantity(parseInt(sellMarketQuantity))}}/>
               <input
