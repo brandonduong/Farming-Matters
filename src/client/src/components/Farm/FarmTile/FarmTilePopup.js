@@ -2,9 +2,12 @@ import React from "react";
 import { plants } from "./constants";
 import { getItemCount, addItem, removeItem } from "../../Inventory";
 import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
+import { logData } from "../../../utils/logData";
 
+const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {
+  const seasonName = SEASONS[(SEASONS.indexOf(props.season) + 1) % 4];
   function newTile() {
     return props.grid.filter((tile) => {
       return tile.x === props.x && tile.z === props.z;
@@ -21,6 +24,7 @@ const FarmTilePopup = (props) => {
   function plantSeed(seedNum, plantName) {
     var updatedTile = newTile();
     updatedTile.plantedSeed = seedNum;
+    updatedTile.turnPlanted = props.turn;
     updatedGrid(updatedTile);
 
     removeItem(props.inventoryState, plantName, 1);
@@ -31,9 +35,19 @@ const FarmTilePopup = (props) => {
     var updatedTile = newTile();
     updatedTile.plantedSeed = 0;
     updatedTile.fertilizerAmount = 0;
+    updatedTile.turnPlanted = 0;
     updatedGrid(updatedTile);
     addItem(props.inventoryState, plantName, 1);
     props.setClickedTile(null);
+
+    logData({
+      actionType: "Harvested plant",
+      turn: props.turn,
+      season: seasonName,
+      isExperimental: true,
+      balance: props.money,
+      details: { x: props.x, z: props.z },
+    });
   }
 
   function applyFertilizer() {
@@ -41,6 +55,15 @@ const FarmTilePopup = (props) => {
     updatedTile.fertilizerAmount = updatedTile.fertilizerAmount + 1;
     updatedGrid(updatedTile);
     removeItem(props.inventoryState, "Fertilizer", 1);
+
+    logData({
+      actionType: "Applied fertilizer",
+      turn: props.turn,
+      season: seasonName,
+      isExperimental: true,
+      balance: props.money,
+      details: { x: props.x, z: props.z },
+    });
   }
 
   function buyPlot() {
@@ -49,6 +72,15 @@ const FarmTilePopup = (props) => {
     updatedTile.owned = true;
     updatedGrid(updatedTile);
     props.setClickedTile(null);
+
+    logData({
+      actionType: "Bought land",
+      turn: props.turn,
+      season: seasonName,
+      isExperimental: true,
+      balance: props.money,
+      details: { x: props.x, z: props.z },
+    });
   }
 
   // Buttons for planting seeds
@@ -77,7 +109,10 @@ const FarmTilePopup = (props) => {
               onClick={() => plantSeed(i, plants[i].name)}
               key={"plant" + i}
             >
-              <h4>{plants[i].name}</h4>
+              <h4>
+                {plants[i].name} (
+                {parseInt(getItemCount(props.inventoryState, plants[i].name))})
+              </h4>
             </button>
           </div>
         );
@@ -142,7 +177,7 @@ const FarmTilePopup = (props) => {
           disabled={!(props.money >= props.price)}
           onClick={() => buyPlot()}
         >
-          <h4>Buy Plot</h4>
+          <h4>Buy Plot (${props.price})</h4>
         </button>
       </div>
     </>

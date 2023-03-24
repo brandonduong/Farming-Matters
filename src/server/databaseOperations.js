@@ -64,10 +64,11 @@ const saveGame = async (database, userId, gameData) => {
            inventory = '${JSON.stringify(gameData["inventory"])}',
            insured_crops = '${JSON.stringify(gameData["insuredCrops"])}',
            sell_prices = '${JSON.stringify(gameData["sellPrices"])}',
-           consultant = '${gameData["consultant"]}'
+           consultant = '${gameData["consultant"]}',
+           farmGrid = '${gameData["farmGrid"]}'
            where user_id = '${userId}'`;
     } else {
-      sql = `insert into GAMESTATE (user_id, turn, season, money, decision_type, inventory, insured_crops, sell_prices, consultant)
+      sql = `insert into GAMESTATE (user_id, turn, season, money, decision_type, inventory, insured_crops, sell_prices, consultant, farmGrid)
       values ('${userId}', ${gameData["turn"]}, '${gameData["season"]}', ${
         gameData["money"]
       }, ${gameData["decisionType"]}, '${JSON.stringify(
@@ -75,7 +76,7 @@ const saveGame = async (database, userId, gameData) => {
       )}',
          '${JSON.stringify(gameData["insuredCrops"])}', '${JSON.stringify(
         gameData["sellPrices"]
-      )}', '${gameData["consultant"]}')`;
+      )}', '${gameData["consultant"]}', '${gameData["farmGrid"]}')`;
     }
 
     return await runQuery(database, sql);
