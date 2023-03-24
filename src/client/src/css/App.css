@@ -9,6 +9,7 @@
   border-radius: 1rem;
   padding: 1rem;
   position: relative;
+  font-size: 1rem;
 }
 
 .tile-popup-info {
@@ -35,16 +36,27 @@
   margin: 0;
 }
 
+.tile-popup-warn {
+  margin: 0;
+}
+
 .tile-popup-cancel {
   position: absolute;
   top: -5px;
   right: -5px;
   padding: 0 0.2rem;
+  font-weight: bold;
 }
 
 .tile-popup-button {
-  height: 100%;
   width: 100%;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+  white-space: nowrap;
+}
+
+.tile-popup-button > h4 {
+  margin: 1rem;
 }
 
 .canvas-container {
@@ -68,7 +80,6 @@
 }
 
 .info-header-item {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,13 +87,9 @@
 
 .info-header-button {
   height: 100%;
-  width: 100%;
+  width: 10rem;
   font-weight: bold;
   font-size: 1rem;
-}
-
-.info-header-item-value {
-  font-weight: normal;
 }
 
 .align-left {

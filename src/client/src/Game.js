@@ -116,7 +116,7 @@ export const Game = () => {
     }
   }, [turn]);
 
-  function addFarmLand(x, y, owned, price = 1000) {
+  function addFarmLand(x, y, owned, price = 250) {
     // Add 4x4 grid of land at position x and y
     for (let i = x; i < x + PLOT_SIZE; i++) {
       for (let o = y; o < y + PLOT_SIZE; o++) {
