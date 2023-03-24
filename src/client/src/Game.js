@@ -32,6 +32,7 @@ import bgMusic from "./assets/bg_music.mp3";
 import { GameSettings } from "./components/GameSettings";
 import { GrassModel } from "./components/models/GrassModel";
 import EndGamePopup from "./components/EndGamePopup/EndGamePopup";
+import { useAuth } from "./utils/auth/hooks";
 
 const PLOT_SIZE = 4;
 const MAX_TURNS = 48;
@@ -47,7 +48,8 @@ export const globalInventoryContext = React.createContext({});
 export const Game = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
-  const [user, setUser] = useState("Test");
+  const { user } = useAuth();
+  const [userName, setuserName] = useState(user.displayName.substring(0, 10));
   const [money, setMoney] = useState(10000);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
@@ -347,7 +349,7 @@ export const Game = () => {
           }}
         >
           <InfoHeader
-            user={user}
+            user={userName}
             money={money}
             season={season}
             turn={turn}
@@ -392,7 +394,7 @@ export const Game = () => {
             </Canvas>
           </div>
           <InfoHeader
-            user={user}
+            user={userName}
             money={money}
             season={season}
             turn={turn}
