@@ -1,6 +1,5 @@
 import { SignOutButton } from "./SignOutButton";
 
-const MAX_TURNS = 50;
 const InfoHeader = (props) => {
   const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
 
@@ -17,7 +16,7 @@ const InfoHeader = (props) => {
     <div className="info-header">
       <div className="username info-header-item">{props.user}</div>
       <div className="info-header-item">
-        <SignOutButton />
+        <SignOutButton header={true} />
       </div>
       <div className="money info-header-item">
         ${parseFloat(props.money).toFixed(2)}
@@ -26,7 +25,7 @@ const InfoHeader = (props) => {
       <div className="info-header-item">
         Day:&nbsp;
         <div className="info-header-item-value">
-          {props.turn} / {MAX_TURNS}
+          {props.turn} / {props.MAX_TURNS}
         </div>
       </div>
       <div className="info-header-item">

@@ -1,6 +1,6 @@
 import { useAuth } from "../../utils/auth/hooks";
 
-export const SignOutButton = () => {
+export const SignOutButton = (props) => {
   const { user, signOutHandler, socket, setIsLoggedIn } = useAuth();
   const handleSignOut = () => {
     signOutHandler();
@@ -11,7 +11,7 @@ export const SignOutButton = () => {
 
   return (
     <button
-      className="info-header-button"
+      className={props.header ? "info-header-button" : "end-game-button"}
       type="button"
       onClick={handleSignOut}
     >
