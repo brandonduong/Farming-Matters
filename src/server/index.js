@@ -80,18 +80,7 @@ app.get("/private/loadGame", async (req, res) => {
   let userId = req.headers.userid;
   let gameState = await databaseOperations.loadGame(db, userId);
   if (!gameState) {
-    console.log("empty gamestate: ", gameState);
-    // gameStateInitial = {
-    //   user_id: 'PwpSHqTgx3agW9ldnPpwXvzE8Wd2',
-    //   turn: 2,
-    //   season: 'Fall',
-    //   money: 10000,
-    //   decision_type: '1',
-    //   inventory: '{"Rice":0,"Carrot":0,"Orange":0,"Lettuce":0,"Tomato":0,"Watermelon":0,"Wheat":0,"Pumpkin":0,"Beet":0,"Berries":0,"Mushroom":0,"Wintermelon":0,"Fertilizer":0,"Pesticide":0}',
-    //   sell_prices: '{"Rice":99.53890495728959,"Carrot":197.34744228373398,"Orange":148.25914037392022,"Lettuce":147.4463402477227,"Tomato":121.80296834576347,"Watermelon":170.45256410072594,"Wheat":174.77724685806294,"Pumpkin":173.2730706392309,"Beet":174.67291891624566,"Berries":176.044052755136,"Mushroom":174.22785424927028,"Wintermelon":177.24181643735852,"Fertilizer":52.00451116951531,"Pesticide":36.79115837282045}',
-    //   insured_crops: '{"Rice":0,"Carrot":0,"Orange":0,"Lettuce":0,"Tomato":0,"Watermelon":0,"Wheat":0,"Pumpkin":0,"Beet":0,"Berries":0,"Mushroom":0,"Wintermelon":0,"Fertilizer":0,"Pesticide":0}',
-    //   consultant: 'false,'
-    // }
+    // console.log("empty gamestate: ", gameState);
     res.json();
   } else {
     console.log("gamestate: ", gameState);

@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import SliderBar from "./SliderBar";
 import { deleteLoggingTable } from "../../utils/withdraw";
+import { resetGame } from "../../utils/gameState";
 import { useAuth } from "../../utils/auth/hooks";
 import { deleteUser } from "firebase/auth";
 
@@ -56,9 +57,8 @@ export const GameSettings = (props) => {
   const handleWithdraw = async () => {
     if (selectedWithdrawType === "study") {
       await deleteLoggingTable();
-      // ----------------------------------------------------------------
-      // will also need to delete game state table entry--------------------------------
-      // --------------------------------------------------------
+      // method for deleting the gamestate table
+      await resetGame();
     }
 
     // sign out before deleting account so there's no issue signing out when account doesn't exist
