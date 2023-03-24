@@ -44,7 +44,7 @@ const InfoHeader = (props) => {
       <div className="info-header-item gap-4">
      
         <Button
-          className="info-header-button"
+          id="info-header-button"
           type="button"
           variant="danger"
           size="lg"

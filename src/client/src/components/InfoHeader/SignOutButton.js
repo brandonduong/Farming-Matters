@@ -14,7 +14,7 @@ export const SignOutButton = (props) => {
   return (
 
     <Button
-      className={props.header ? "info-header-button" : "end-game-button"}
+      id={props.header ? "info-header-button" : "end-game-button"}
       type="button"
       variant="light"
       size="lg"
