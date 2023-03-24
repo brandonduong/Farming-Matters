@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { seasonTransition } from "./constants";
 import { Stats, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas, useFrame } from '@react-three/fiber'
-import { underwaterImg, heavyRainImg, winterImg } from "./constants";
+import { underwaterImg, heavyRainImg, winterImg, torandoImg } from "./constants";
 
 
 const SeasonTransition = (props) => {
@@ -28,13 +28,9 @@ const SeasonTransition = (props) => {
             { true ?
                 <>
                     <div className="season-transition" >
-                        <img className="background-img-winter" src={winterImg}></img>
-                        
-                        
+                        <img className="background-img-winter" src={props.typeOfCatastrophicEvent == "SnowStorm" ? winterImg : props.typeOfCatastrophicEvent == "HeavyRain" ? heavyRainImg :  props.typeOfCatastrophicEvent == "Drought" ? underwaterImg : props.typeOfCatastrophicEvent == "Tornadoes" ? torandoImg : ""}></img>
                         <div className="season-transition-component" >
-                        
                             <div className="transition-box">
-
                                 <div className="transition-header">
                                         <span className="caution">&#9888;</span>
                                         <div className="transition-title">Breaking News!</div>
@@ -42,10 +38,8 @@ const SeasonTransition = (props) => {
                                 <div className="warning-msg-box">
                                     <div className="warning-msg">
                                         "{findStatement()}"
-                                    </div>
-                                    
+                                    </div>      
                                 </div>
-                                   
                             </div>
                             <button type="button" id="season-transition-close" className="close-button" onClick={()=> exitTransition()}>x</button>   
                         </div>

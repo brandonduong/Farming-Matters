@@ -177,5 +177,6 @@ export const seasonIconMapping = {
 }
 
 export const underwaterImg = require("../../assets/SeasonTransitions/Underwater_event.png");
-export const heavyRainImg = require("../../assets/SeasonTransitions/Rain_storm-2.png");
+export const heavyRainImg = require("../../assets/SeasonTransitions/Rain_storm-3.png");
 export const winterImg = require("../../assets/SeasonTransitions/Winter_event2.png");
+export const torandoImg = require("../../assets/SeasonTransitions/Tornado-2.png");
