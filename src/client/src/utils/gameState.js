@@ -52,3 +52,26 @@ export const retrieveSavedGame = async () => {
   });
   return gameState;
 };
+
+export const resetGame = async () => {
+  let idToken = "";
+  let userId = "";
+
+  try {
+    idToken = auth.currentUser ? await auth.currentUser.getIdToken(true) : "";
+    userId = auth.currentUser ? await auth.currentUser.uid : "";
+  } catch (error) {
+    console.error(error);
+  }
+
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      AuthToken: idToken,
+      UserId: userId,
+    },
+  };
+
+  await fetch("/private/deleteGame", requestOptions);
+};

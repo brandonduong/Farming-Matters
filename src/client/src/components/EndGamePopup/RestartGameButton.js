@@ -1,5 +1,10 @@
+import { resetGame } from "../../utils/gameState";
+
 export const RestartGameButton = (props) => {
-  const handleRestartGame = () => {};
+  const handleRestartGame = async () => {
+    await resetGame();
+    window.location.reload(true);
+  };
 
   return (
     <button

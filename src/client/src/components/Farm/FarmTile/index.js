@@ -29,8 +29,6 @@ const FarmTile = (props) => {
     e.stopPropagation();
     click(!clicked);
     props.setClickedTile([props.x, props.z]);
-
-    console.log(owned);
   }
 
   // Log when a seed is planted

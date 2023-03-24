@@ -85,6 +85,12 @@ const saveGame = async (database, userId, gameData) => {
   }
 };
 
+const deleteGame = async (database, userId) => {
+  let sql = `DELETE FROM GAMESTATE WHERE user_id='${userId}'`;
+
+  return await runQuery(database, sql);
+};
+
 const loadGame = async (database, userId) => {
   let sql = `SELECT * FROM GAMESTATE WHERE user_id='${userId}'`;
 
@@ -97,4 +103,5 @@ module.exports = {
   logData,
   saveGame,
   loadGame,
+  deleteGame,
 };
