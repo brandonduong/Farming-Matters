@@ -4,8 +4,13 @@ import ShopItem from "./ShopItem";
 import InventoryItem from "./InventoryItem";
 import DetailedItem from "./DetailedItem"
 import { SellItems } from "./SellItems"
+import { SellTile } from "./SellItems/SellTile";
+import { globalInventoryContext } from "../../Game";
+
 
 const Shop = (props) => {
+  const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
+
   const [showMenu, setShowMenu] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
@@ -90,7 +95,7 @@ const Shop = (props) => {
 
   function displaySellItems (){
     // const currentInventory = inventoryState;
-    const sellRender = (item)=>{
+    const sellRender = (item) => {
       if (item.seasonType != ""){
         return (
           <ShopItem
@@ -194,7 +199,7 @@ const Shop = (props) => {
                           {displayBuyItems()}
                         </div>)
                       : 
-                        <SellItems />
+                        <SellItems setItemSelected={setItemSelected}/>
                       }
                     
                 </div>
@@ -204,7 +209,7 @@ const Shop = (props) => {
                       <div className="display-more-title">More Information:</div>
                       {showBuy ? 
                         <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} /> 
-                        : <InventoryItem item={itemSelected} setItemSelected={itemSelected} {...props}/>}
+                        : <SellTile name={itemSelected} inventoryState={inventoryState} setInventoryState={setInventoryState}/>}
               </div>
               <div className="empty-div"></div>
               </div>
