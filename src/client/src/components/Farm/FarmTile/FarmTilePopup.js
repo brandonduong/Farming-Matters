@@ -163,8 +163,6 @@ const FarmTilePopup = (props) => {
   }
 
   // Plant info for when a seed is currently planted
-  console.log('planted seed:')
-  console.log(props.plantedSeed)  
   const plantInfo = (
     <div>
       <div className="tile-popup-info-item">
