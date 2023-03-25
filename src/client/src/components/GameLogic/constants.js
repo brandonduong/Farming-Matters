@@ -69,7 +69,7 @@ export const gameEvents = {
 };
 export const eventProbabilities = [];
 
-export const EVENT_OCCUR_THRESHOLD = 0.01;
+export const EVENT_OCCUR_THRESHOLD = 0.85;
 
 export const itemFluctuation = [
   {
@@ -179,4 +179,4 @@ export const seasonIconMapping = {
 export const underwaterImg = require("../../assets/SeasonTransitions/Underwater_event.png");
 export const heavyRainImg = require("../../assets/SeasonTransitions/Rain_storm-3.png");
 export const winterImg = require("../../assets/SeasonTransitions/Winter_event2.png");
-export const torandoImg = require("../../assets/SeasonTransitions/Tornado-2.png");
+export const torandoImg = require("../../assets/SeasonTransitions/Tornado-4.png");
