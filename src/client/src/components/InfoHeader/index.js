@@ -1,4 +1,10 @@
 import { SignOutButton } from "./SignOutButton";
+import { fallIcon } from "../GameLogic/constants";
+import { winterIcon } from "../GameLogic/constants";
+import { springIcon } from "../GameLogic/constants";
+import { summerIcon } from "../GameLogic/constants";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 
 const InfoHeader = (props) => {
   const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
@@ -21,21 +27,32 @@ const InfoHeader = (props) => {
       <div className="money info-header-item">
         ${parseFloat(props.money).toFixed(2)}
       </div>
-      <div className="season info-header-item">{props.season}</div>
+      
+      
+    
+      <div className="season info-header-item">
+      <img className="season-icon" src={props.season=="Fall" ? fallIcon : props.season =="Winter" ? winterIcon : props.season == "Spring"
+          ? springIcon : summerIcon
+        }></img>
+        {props.season}</div>
       <div className="info-header-item">
         Day:&nbsp;
         <div className="info-header-item-value">
           {props.turn} / {props.MAX_TURNS}
         </div>
       </div>
-      <div className="info-header-item">
-        <button
-          className="info-header-button"
+      <div className="info-header-item gap-4">
+     
+        <Button
+          id="info-header-button"
           type="button"
+          variant="danger"
+          size="lg"
           onClick={() => endTurn()}
         >
           End Turn
-        </button>
+        </Button>
+     
       </div>
     </div>
   );

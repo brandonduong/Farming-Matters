@@ -1,6 +1,9 @@
 import "./css/App.css";
 import "./css/Avatar.css";
 import "./css/Inventory.css";
+import "./css/Shop.css"
+import "./css/SeasonTransition.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/settings.css";
 import "./css/slider.css";
 import "./css/EndGame.css";

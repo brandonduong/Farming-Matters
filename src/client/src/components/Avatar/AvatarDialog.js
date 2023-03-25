@@ -19,10 +19,11 @@ const AvatarDialog = (props) =>{
             return (
                 <div className="purchase-dialog">
                     <div className="purchase-consultant">
-                        <h1>Price: $ {purchasePrice} </h1>
+                        <h1>Purchase Consultant Advice </h1>
+                        <h2>Price: $ {purchasePrice} </h2>
                         <div className="purchase-tip">
                             <button type="button" className="purchase-button" onClick={() => props.purchaseConsultant()} disabled={!props.canPurchaseConsultant()}>Purchase</button>
-                            <button className="close-button" onClick={() => props.onExit()}>Close</button>
+                            <button className="close-button" onClick={() => props.onExit()}>x</button>
                         </div>
                     </div>
                 </div>
@@ -31,14 +32,22 @@ const AvatarDialog = (props) =>{
 
     function generalDialog(){
        return ( 
-                <div className="dialog">
-                    <div className={"avatar avatar-" + props.getId()}> </div>
-                    <h1> { props.getName() +" "+ props.getRole()} </h1> 
-                    <h2> { props.getDescription() } </h2>
-                    <p>
-                        {props.statement}
-                    </p>
-                    <button onClick={() => props.onExit()}>Close</button>
+
+                <div className="dialog-grid">
+                    <div className={"avatar dialog-avatar-" + props.getId()}> </div>
+                    <div className="box arrow-left">
+                        
+                        <div className="avatar-info">
+                            <h1> { props.getName() +" the "+ props.getRole()} </h1> 
+                            <h2> { props.getDescription() } </h2>
+                            <div className="dialog-statement">
+                                "{props.statement}"
+                            </div>
+                            
+                        </div>
+                        <button className="close-button" onClick={() => props.onExit()}>x</button>
+                    </div>
+                    
                 </div>
             )
     }

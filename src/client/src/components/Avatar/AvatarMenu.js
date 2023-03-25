@@ -40,7 +40,7 @@ const AvatarMenu = (props) => {
           className={"avatar avatar-" + i}
           onClick={() => onAvatarClick(i)}
         ></button>
-        <div className="avatar-mini-name">{avatarNames[i][0]}</div>
+        <div className="avatar-mini-name">{avatarNames[i][1]}</div>
       </div>
     );
   }
