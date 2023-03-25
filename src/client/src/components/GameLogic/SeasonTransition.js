@@ -3,13 +3,49 @@ import { seasonTransition } from "./constants";
 import { Stats, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas, useFrame } from '@react-three/fiber'
 import { underwaterImg, heavyRainImg, winterImg, torandoImg } from "./constants";
+import { addItem } from "../Inventory";
+import { addItemToCropInfo } from "../Farm/FarmTile/FarmingHelpers";
 
 
 const SeasonTransition = (props) => {
-
+    const PLOT_SIZE = 2;
     function exitTransition(){
         console.log("EXIT BUTTON CLICKED");
         props.setDisplayTransition(false);
+    }
+
+    function newTile(x,z) {
+        return props.grid.find((tile) => {
+          return tile.x === x && tile.z === z;
+        });
+      }
+
+      function updatedGrid(updatedTile) {
+        var newGrid = props.grid.map((tile) =>
+          updatedTile.x === tile.x && updatedTile.z === tile.z ? updatedTile : tile
+        );
+    
+        props.setGrid(newGrid);
+      }
+
+    function elimanteFarm(){
+       console.log(props.grid);
+       for (let i = 0 ;i < props.grid.length; i++){
+        if (props.grid[i].plantedSeed){
+            const currentPlantedSeed = props.grid[i].plantedSeed;
+            if (currentPlantedSeed.floorPrice == null){
+      
+                var updatedTile = newTile(props.grid[i].x,props.grid[i].z);
+                updatedTile.plantedSeed = null;
+                updatedTile.fertilizerAmount = 0;
+                updatedTile.turnPlanted = 0;
+                updatedGrid(updatedTile);
+
+                
+            }      
+        }
+        
+       }
     }
 
     function findStatement(){
@@ -43,7 +79,7 @@ const SeasonTransition = (props) => {
                             </div>
                             <button type="button" id="season-transition-close" className="close-button" onClick={()=> exitTransition()}>x</button>   
                         </div>
-                      
+                        {elimanteFarm()}
                     </div>
                 </>
                 : 
