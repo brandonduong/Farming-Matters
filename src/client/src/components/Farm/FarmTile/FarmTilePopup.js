@@ -95,7 +95,7 @@ const FarmTilePopup = (props) => {
   //  5. Remove the specified number of items from the inventory according to the selected floor price. Sort the list so that the items that will expire first are sold first.
 
   function applyFertilizer() {
-    props.setFertilizerAmount(props.fertilizerAmount + 1);
+    // props.setFertilizerAmount(props.fertilizerAmount + 1);
     // removeItem(props.inventoryState, "Fertilizer", 1);
     var updatedTile = newTile();
     updatedTile.fertilizerAmount = updatedTile.fertilizerAmount + 1;
@@ -283,7 +283,7 @@ const FarmTilePopup = (props) => {
         buyInfo
       )}
       <button
-        className="close-button"
+        className="farm-tile-close"
         type="button"
         onClick={() => props.setClickedTile(null)}
       >
