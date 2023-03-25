@@ -84,7 +84,6 @@ const InventoryItem = (props) => {
           <h1>Contracts</h1>
           <div className="contracts-scroll">
             <div className="Contracts">
-              <div className="empty"></div>
               <div className="seeds">
                 <h3>Seed Contracts</h3>
                 <Table className="table table-bordered">
@@ -96,8 +95,7 @@ const InventoryItem = (props) => {
                   </thead>
                   <tbody>{currentSeedRender}</tbody>
                 </Table>
-              </div>  `
-              <div className="empty"></div>
+              </div>  
               <div className="crops">
                 <h3>Crop Contracts</h3>
                 <Table className="table table-bordered">

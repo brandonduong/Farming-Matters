@@ -166,3 +166,26 @@
   margin-right: 0.5rem;
   margin-top: 0;
 }
+
+.farm-tile-close{
+  top: -25px;
+  right: -25px;
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 8px 15px 10px 15px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  font-weight: bold;
+  z-index: 11;
+  transition: 150ms;
+}
+
+.farm-tile-close:hover{
+  padding: 6px 16px 10px 16px;
+  top: -25px;
+  right: -25px;
+  font-size: x-large;
+  transition: 250ms;
+}
