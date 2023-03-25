@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky, Stats } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
-import React, { useState, useEffect, useNavigate } from "react";
+import React, { useState, useEffect } from "react";
 import { ModelProvider } from "./components/models/ModelContext";
 import { BarnModel } from "./components/models/BarnModel";
 import { SiloModel } from "./components/models/SiloModel";
@@ -20,6 +20,7 @@ import { generateNTurnPriceState, GameLogic } from "./components/GameLogic/GameL
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import Avatar from "./components/Avatar/Avatar";
+import StartGameAvatar from "./components/StartGamePopup/StartGameAvatar";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
 import {
   SEASONS,
@@ -40,6 +41,8 @@ import { GameSettings } from "./components/GameSettings";
 import SnowFlakes from "./components/GameEvents/SeasonalEvents/Snow";
 import { GrassModel } from "./components/models/GrassModel";
 import EndGamePopup from "./components/EndGamePopup/EndGamePopup";
+import { useAuth } from "./utils/auth/hooks";
+import Tutorial from "./components/StartGamePopup/Tutorial";
 
 const globalInventoryState = [];
 
@@ -55,7 +58,8 @@ const FARM_TILE_INFO_SEPARATOR = "|";
 export const Game = ({season, setSeason}) => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
-  const [user, setUser] = useState("Test");
+  const { user } = useAuth();
+  const [userName] = useState(user.displayName.substring(0, 10));
   const [money, setMoney] = useState(2500);
   //const [season, setSeason] = useState("");
   const [turn, setTurn] = useState(1);
@@ -98,6 +102,7 @@ export const Game = ({season, setSeason}) => {
   const [loading, setLoading] = useState(false);
   const [gameStateJustloaded,setGameStateJustloaded ] = useState(false);
   const [loadedTurn, setLoadedTurn] = useState(1);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -428,14 +433,6 @@ export const Game = ({season, setSeason}) => {
             setMoney
           }}
         >
-          <InfoHeader
-            user={user}
-            money={money}
-            season={season}
-            turn={turn}
-            setSeason={setSeason}
-            setTurn={setTurn}
-          />
           <div className="canvas-container">
             <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
               <ambientLight intensity={1} />
@@ -483,7 +480,7 @@ export const Game = ({season, setSeason}) => {
             </Canvas>
           </div>
           <InfoHeader
-            user={user}
+            user={userName}
             money={money}
             season={season}
             turn={turn}
@@ -492,15 +489,35 @@ export const Game = ({season, setSeason}) => {
             MAX_TURNS={MAX_TURNS}
           />
 
-          {isEventHappening && turn > 3 && displayTransition ? 
-          <SeasonTransition 
-            typeOfCatastrophicEvent={typeOfCatastrophicEvent} 
-            displayTransition={displayTransition} 
-            setDisplayTransition={setDisplayTransition} 
-            season={season}
-            grid={grid}
-          /> : 
-          <></>}
+          {turn <= 1 ? (
+            <StartGameAvatar
+              userName={userName}
+              showTutorial={showTutorial}
+              setShowTutorial={setShowTutorial}
+            />
+          ) : null}
+          {showTutorial ? <Tutorial setShowTutorial={setShowTutorial} /> : null}
+          <button
+            type="button"
+            className="guide-button"
+            onClick={() => setShowTutorial(!showTutorial)}
+          >
+            Guide
+          </button>
+
+          {isEventHappening && turn > 3 && displayTransition ? (
+            <SeasonTransition
+              typeOfCatastrophicEvent={typeOfCatastrophicEvent}
+              displayTransition={displayTransition}
+              setDisplayTransition={setDisplayTransition}
+              season={season}
+              grid={grid}
+              inventoryState={inventoryState}
+              cropInfo={cropInfo}
+            />
+          ) : (
+            <></>
+          )}
           <AvatarMenu
             accessToConsultant={accessToConsultant}
             setAccessToConsultant={setAccessToConsultant}
@@ -512,7 +529,7 @@ export const Game = ({season, setSeason}) => {
           <GameSettings
             volume={backgroundMusicVolume}
             setVolume={setBackgroundVolume}
-            soundEffectVolume={soundEffectsVolume}
+            soundEffectsVolume={soundEffectsVolume}
             setSoundEffectsVolume={setSoundEffectsVolume}
           />
 
@@ -580,7 +597,7 @@ export const Game = ({season, setSeason}) => {
     <>
       {loading ? (
         <>
-          <h1>Loading...</h1>
+          <h1 style={{ paddingTop: "10%" }}>Loading...</h1>
         </>
       ) : (
         loadGameUI()

@@ -45,7 +45,7 @@
   margin: 15% auto;
 
   /* border: 1px solid #000; */
-  
+
   border-radius: 100%;
 }
 .avatar-menu {
@@ -222,7 +222,8 @@
 }
 
 .dialog-avatar-2 {
-  background: url("./img/icons8-user-female-skin-type-4-80.png") no-repeat center;
+  background: url("./img/icons8-user-female-skin-type-4-80.png") no-repeat
+    center;
   background-size: 125px;
   background-color: #fff;
   margin: 0 auto;
@@ -235,13 +236,13 @@
   position: absolute;
   top: 0px;
   left: 0%;
-  background-color: rgba(0, 0, 0, 0.90);
+  background-color: rgba(0, 0, 0, 0.9);
   height: 100vh;
   width: 100vw;
-  z-index: 12;
+  z-index: 5;
 }
 
-.dialog-grid{
+.dialog-grid {
   display: grid;
   grid-template-columns: 0.5fr 2fr;
   grid-template-rows: 5fr;
@@ -249,13 +250,12 @@
   margin-top: 15%;
   /* justify-items: center; */
   align-items: start;
-  margin-left: 10%;
+  margin-left: 5%;
 }
 
 .dialog-chat {
   display: grid;
   position: relative;
-  
 
   grid-template-columns: auto;
   grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr 0.25fr;
@@ -270,10 +270,7 @@
 
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 50px 50px 50px 0px;
-
 }
-
-
 
 .chat-bottom-left:before {
   content: "";
@@ -288,8 +285,7 @@
   bottom: -65px;
 }
 
-
-.avatar-info{
+.avatar-info {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: auto;
@@ -332,21 +328,21 @@
   background-color: rgb(109, 5, 5);
 }
 
-.dialog-statement{
+.dialog-statement {
   font-size: 1.5em;
   font-style: italic;
 }
-
 
 /* Source: https://codepen.io/lideo/pen/KKGeQG */
 .box {
   width: 75%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.65);
-  color: #fff;
-  padding: 2.5%;
+  background-color: rgb(255 255 255 / 80%);
+  color: #000000;
+  padding: 3%;
   position: relative;
   float: left;
+  border-radius: 25px;
 }
 
 .box.arrow-left:after {
@@ -355,7 +351,7 @@
   left: -3.5em;
   top: 2em;
   border-top: 3em solid transparent;
-  border-right: 3.5em solid rgba(255, 255, 255,0.65);
+  border-right: 3.5em solid rgba(255, 255, 255, 0.65);
   border-left: none;
   border-bottom: 3em solid transparent;
 }

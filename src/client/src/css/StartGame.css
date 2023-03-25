@@ -1,0 +1,95 @@
+.next-button {
+  position: absolute;
+  bottom: -20px;
+  right: 0px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 8px 18px 10px 18px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  z-index: 15;
+  transition: 150ms;
+}
+
+.next-button:hover {
+  padding: 6px 15px 6px 15px;
+  bottom: -25px;
+  right: -8px;
+  font-size: x-large;
+  transition: 250ms;
+}
+
+.modal-screen {
+  position: absolute;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.632);
+  color: black;
+  height: 100vh;
+  width: 100vw;
+  /* font-weight: bold; */
+  z-index: 25;
+}
+
+.modal-component {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.65);
+  color: black;
+  height: 60%;
+  width: 50%;
+  top: 15%;
+  margin: auto;
+  border-radius: 30px;
+  padding: 30px;
+}
+
+#tutorial-modal {
+  font-size: 0.9em;
+  background-color: rgba(255, 255, 255, 0.86);
+  height: 80%;
+  width: 80%;
+  top: 5%;
+}
+
+.rules {
+  font-size: 1.1em;
+}
+
+@media (max-width: 800px) {
+  .rules {
+    font-size: 0.8em;
+  }
+}
+
+.guide-button {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  z-index: 1;
+  transition: 150ms;
+}
+
+.guide-button:hover {
+  padding: 12px 33px;
+  top: 25px;
+  right: 35px;
+  transition: 300ms;
+  /* font-weight: bold; */
+}
+
+@media (max-width: 1100px) {
+  .guide-button {
+    padding: 10px 20px;
+    font-size: medium;
+  }
+
+  .guide-button:hover {
+    padding: 10px 22px;
+  }
+}

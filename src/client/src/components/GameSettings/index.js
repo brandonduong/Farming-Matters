@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import SliderBar from "./SliderBar";
 import { deleteLoggingTable } from "../../utils/withdraw";
+import { resetGame } from "../../utils/gameState";
 import { useAuth } from "../../utils/auth/hooks";
 import { deleteUser } from "firebase/auth";
 
@@ -56,9 +57,8 @@ export const GameSettings = (props) => {
   const handleWithdraw = async () => {
     if (selectedWithdrawType === "study") {
       await deleteLoggingTable();
-      // ----------------------------------------------------------------
-      // will also need to delete game state table entry--------------------------------
-      // --------------------------------------------------------
+      // method for deleting the gamestate table
+      await resetGame();
     }
 
     // sign out before deleting account so there's no issue signing out when account doesn't exist
@@ -85,7 +85,11 @@ export const GameSettings = (props) => {
         <>
           <div className="settings">
             <div className="settings-component">
-              <button type="button" className="close-button" onClick={displaySettings}>
+              <button
+                type="button"
+                className="close-button"
+                onClick={displaySettings}
+              >
                 x
               </button>
               <p className="center settings-heading">Settings</p>
@@ -93,10 +97,11 @@ export const GameSettings = (props) => {
               <SliderBar value={props.volume} setValue={props.setVolume} />
               <p className="settings-header" style={{ marginTop: "65px" }}>
                 Sound Effects Volume:
-                <br></br>
-                {/* <em>don't modify as it's not implemented yet</em> */}
               </p>
-              <SliderBar />
+              <SliderBar
+                value={props.soundEffectsVolume}
+                setValue={props.setSoundEffectsVolume}
+              />
               <p className="settings-header" style={{ marginTop: "80px" }}>
                 Withdraw:
               </p>
