@@ -1,11 +1,12 @@
 import Form  from 'react-bootstrap/Form';
 import React, { useEffect, useState } from "react";
 import { globalInventoryContext } from "../../Game";
-import { addInsuredItem, addItem, getItemCount } from "../Inventory";
-import { checkIfItemIsPlant } from "../GameLogic/GameLogic";
+import { addItem, getItemCount } from "../Inventory";
+import { checkIfItemIsPlant, getItemFluctuation } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
-import { shopItemsList, add_img_location, minus_img_location} from "./constants";
+import { quantityContent, shopItemsList } from "./constants";
+import { itemFluctuation } from "../GameLogic/constants";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 
@@ -13,23 +14,18 @@ const DetailedItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
   const [insuranceQuantity, setInsuranceQuantity] = useState(0);
   const [insuranceFloorPrice, setInsuranceFloorPrice] = useState(0);
-  const { inventoryState, insuredState } = React.useContext(
-    globalInventoryContext
-  );
+  const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
 
   const [insuranceOption, setInsuranceOption] = useState(false);
-  
+  let Normal = require( '@stdlib/stats-base-dists-normal' ).Normal;
   const [totalItemCost, setTotalItemCost] = useState(0);
   const [totalInsuranceCost, setTotalInsuranceCost] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
-
-
   const [itemName, setItemName] = useState("");
   const [itemType, setItemType] = useState("");
-  const [itemImg, setItemImg] = useState("");
+  const [itemImg, setItemImg] = useState(quantityContent[1].image);
   const [itemPrice, setItemPrice] = useState(0)
-  const [itemInsuranceList, setItemInsuranceList] = useState("");
-  const [itemFloorPrice, setItemFloorPrice] = useState("");
+  // const [itemInsuranceList, setItemInsuranceList] = useState("");
   const [isPriceIncrease, setIsPriceIncrease] = useState(false);
 
   function determineSeason(turnNumber) {
@@ -75,24 +71,45 @@ const DetailedItem = (props) => {
       return;
     }
     setItemName(props.item);
-
+    console.log("ITEM: " + itemName)
     const currentItemIndex = shopItemsList[findItemIndex(props.item)];
     setItemType(currentItemIndex.seasonType);
     setItemImg(currentItemIndex.image);
-    setItemPrice(props.allTurnPrices[props.turn % props.allTurnPrices.length][props.item]);
-    setItemInsuranceList([]); //UPDATE when insurance is done
+    setItemPrice(currentItemIndex.price);
+    setInsuranceFloorPrice(currentItemIndex.price);
   }
   useEffect(() => {
     setItemDetails(); 
+    setItemQuantity(0);
+    setInsuranceQuantity(0);
     priceIncreaseOrDecrease();
   }, [props.item]);
 
-  function buy() {
-    if (itemQuantity * props.price <= props.money) {
-      props.setMoney(props.money - itemQuantity * props.price);
-      addItem(inventoryState, props.name, itemQuantity);
+  function purchase() {
+    if (totalCost <= props.money) {
+      let currInventory = inventoryState;
+      props.setMoney(props.money - totalCost);
+      let isPlant = checkIfItemIsPlant(itemName,plants);
+      for (let i = 0; i < insuranceQuantity; i++){
+        let currItem = {
+          name: itemName,
+          type: isPlant ? "seed" : "tool",
+          floorPrice: insuranceFloorPrice,
+        } 
+        addItem(currInventory,currItem);
+      }
+      for (let i = 0; i < itemQuantity - insuranceQuantity; i++){
+        let currItem = {
+          name: itemName,
+          type: isPlant ? "seed" : "tool",
+          floorPrice: null,
+        } 
+        addItem(currInventory,currItem);
+      }
+      setInventoryState(currInventory);
       setItemQuantity(0);
-
+      
+      setInsuranceQuantity(0);
       logData({
         actionType: "Item Bought",
         turn: props.turn,
@@ -101,59 +118,48 @@ const DetailedItem = (props) => {
         balance: props.money,
         details: { name: props.name, quantity: itemQuantity },
       });
+
+      setItemDetails();
     } else {
       console.log("Not enough money to buy crop");
     }
-  }
-
-  function purchaseInsurance() {
-    //insurance quantity is a string according to typeof
-    // insurance is 1/4 of market price
-    const insurancePrice = props.price / 4;
-    let hasEnoughMoney = insuranceQuantity * insurancePrice <= props.money;
-    let hasEnoughItems =
-      parseInt(insuranceQuantity) + getItemCount(insuredState, props.name) <=
-      getItemCount(inventoryState, props.name);
-    if (hasEnoughMoney && hasEnoughItems) {
-      props.setMoney(
-        props.money - parseInt(insuranceQuantity) * insurancePrice
-      );
-      addInsuredItem(insuredState, props.name, insuranceQuantity);
-      setInsuranceQuantity(0);
-
-      logData({
-        actionType: "Insurance Bought",
-        turn: props.turn,
-        season: determineSeason(props.turn),
-        isExperimental: true,
-        balance: props.money,
-        details: {
-          name: props.name,
-          quantity: insuranceQuantity,
-          price: props.price,
-        },
-      });
-    } else {
-      console.log(
-        "Not enough money to purchase insurance or not enough items to ensure"
-      );
-    }
+    setTotalCost(0);
   }
 
   function currentItemTotalCost(){
-    setTotalItemCost(itemPrice*itemQuantity );
+    setTotalItemCost(itemPrice*itemQuantity);
   }
   useEffect(() => {
     currentItemTotalCost();
   }, [itemPrice, itemQuantity]);
 
   function currentInsuranceCost(){
-    //FILL IN 
+    if (itemName == ''){
+      return;
+    }
+    let insuranceCost = 0;
+      if (insuranceFloorPrice != 0 && insuranceQuantity != 0){
+        let mean_price = props.allTurnPrices[props.turn % props.allTurnPrices.length][itemName];
+        let sd_price = getItemFluctuation(itemName, itemFluctuation);
+        const admin_fee = 0.1;
+        let normDist = new Normal(mean_price,sd_price);
+        let prob_payout = normDist.cdf(parseFloat(insuranceFloorPrice));
+        let expected_payout = prob_payout * Math.abs(mean_price-insuranceFloorPrice);
+        let fair_premium =  expected_payout / (1.0 - admin_fee);
+        insuranceCost = fair_premium * insuranceQuantity;
+        
+      }
+      insuranceCost = (insuranceCost > 1 || !insuranceQuantity) ? insuranceCost : 1
+      setTotalInsuranceCost(insuranceCost);
   }
 
   function currentTotalCost(){
     setTotalCost(totalItemCost + totalInsuranceCost);
   }
+
+  useEffect(() =>{
+    currentInsuranceCost();
+  }, [insuranceQuantity, insuranceFloorPrice])
 
   useEffect(() => {
     currentTotalCost();
@@ -165,7 +171,7 @@ const DetailedItem = (props) => {
       <div className="details">
        
           <div className={"price " +(props.turn == 1 ? "turn-1" : isPriceIncrease ? "price-increase" : "price-decrease")}>
-            Current Price: ${parseInt(itemPrice).toFixed(2)}  {props.turn == 1 ? ("-") : isPriceIncrease ? (<span>&#8593;</span>): (<span>&#8595;</span>)}
+            Current Price: ${parseFloat(itemPrice).toFixed(2)}  {props.turn == 1 ? ("-") : isPriceIncrease ? (<span>&#8593;</span>): (<span>&#8595;</span>)}
           
         </div>
       </div>
@@ -189,9 +195,10 @@ const DetailedItem = (props) => {
           </div>
 
 
+          { checkIfItemIsPlant(props.item,plants) ? 
+          <>
           <div className="insurance-toggle-grid">
             <label>Set insurance: </label>
-            
             <div className="toggle-button">
               <Form.Switch 
                 type="switch"
@@ -202,9 +209,8 @@ const DetailedItem = (props) => {
                 }}
               />
             </div>
-          </div>
-
-          { insuranceOption ? 
+          </div> 
+          {insuranceOption ? (
           <>
           <div className="quantity-grid">
             <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
@@ -236,9 +242,10 @@ const DetailedItem = (props) => {
                 value={insuranceQuantity}
                 onChange={(e) => setInsuranceQuantity(e.target.value)}
               ></input>
-              <Button className="quantity-button" onClick={()=>{setInsuranceQuantity(1+parseInt(insuranceQuantity))}}> +</Button>
+              <Button className="quantity-button" onClick={()=>{(insuranceQuantity < itemQuantity) ? setInsuranceQuantity(1+parseInt(insuranceQuantity)) : setInsuranceQuantity(parseInt(insuranceQuantity))}}> +</Button>
             </div>
           </div>
+          </>) : (<></>)}
           </>
               :
               <></>
@@ -250,26 +257,30 @@ const DetailedItem = (props) => {
       </div>
       <br></br>
       <div className="cost-summary">
-        <div className="individual-cost">
-          Total Item Cost: ${totalItemCost.toFixed(2)}
-        </div>
-        <div className="individual-cost">
-          Total Insurance Cost: ${totalInsuranceCost.toFixed(2)}
-        </div>
+        { checkIfItemIsPlant(itemName,plants) ? (
+        <>
+          <div className="individual-cost">
+            Total Item Cost: ${totalItemCost.toFixed(2)}
+          </div>
+            <div className="individual-cost">
+              Total Insurance Cost: ${totalInsuranceCost.toFixed(2)}
+            </div>
+        </>
+        ) : (
+          <></>
+        )} 
         <div className="total-cost">
          Total Cost: ${totalCost.toFixed(2)}
         </div>
-
         <div className="left-over-cost">
          Left Over Cost: ${(props.money - totalCost).toFixed(2)}
         </div>
       </div>
 
       <div className="purchase">
-        <Button variant="success">Purchase</Button>
+        <Button disabled={props.money < totalCost} onClick={() => purchase()}>Purchase</Button>
       </div>
     </div>
-  );
+    );
 };
-
 export default DetailedItem;

@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import FarmTile from "./FarmTile";
 import { globalInventoryContext, marketItems } from "../../Game";
 
 const SEASON_COLORS = ["#a67a47", "#a1a09f", "#7efc5b", "#77c761"]; // Fall, Winter, Spring, Summer
 
 function FarmGrid(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  let { inventoryState } = React.useContext(globalInventoryContext);
-
+  let { inventoryState, grid, setGrid, cropInfo, setCropInfo } = useContext(globalInventoryContext);
+  
   const [clickedTile, setClickedTile] = useState(null);
 
   function getColor() {
@@ -33,9 +32,10 @@ function FarmGrid(props) {
             setGrid={props.setGrid}
             owned={tile.owned}
             price={tile.price}
-            turnPlanted={tile.turnPlanted}
             colors={SEASON_COLORS}
             inventoryState={inventoryState}
+            cropInfo={cropInfo}
+            setCropInfo={setCropInfo}
             VisualGameLogic={props.VisualGameLogic}
           />
         ))}

@@ -68,3 +68,20 @@ export function checkIfItemIsPlant(name, plants) {
   }
   return false;
 }
+
+export function getItemFluctuation(name, items) {
+  for (let i = 0; i < items.length; i++){
+    if (items[i].name == name){
+      return items[i].fluctuationFactor;
+    }
+  }
+}
+
+export function getImage(name, shopItemsList){
+  for (let i = 0; i < shopItemsList.length; i++){
+    if (shopItemsList[i].name == name) {
+      return shopItemsList[i].image;
+    }
+  }
+  return "";
+}

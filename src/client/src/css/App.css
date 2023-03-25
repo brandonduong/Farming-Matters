@@ -17,6 +17,9 @@
 .tile-popup-info {
   display: flex;
   justify-content: center;
+  height: max-content;
+  width: max-content;
+  column-gap: 3em;
 }
 
 .tile-popup-info-item {

@@ -24,6 +24,7 @@ const FarmTile = (props) => {
   const owned = props.owned;
   const fertilizerAmount = props.fertilizerAmount;
   const plantedSeed = props.plantedSeed;
+  const [turnPlanted, setTurnPlanted] = useState(null);
 
   function onClick(e) {
     e.stopPropagation();
@@ -33,7 +34,9 @@ const FarmTile = (props) => {
 
   // Log when a seed is planted
   useEffect(() => {
-    if (plantedSeed !== 0) {
+    if (plantedSeed) {
+      setTurnPlanted(props.turn);
+
       let season;
       if (props.turn % 3 === 0) {
         season = "Fall";
@@ -51,7 +54,7 @@ const FarmTile = (props) => {
         season: season,
         isExperimental: true,
         balance: props.money,
-        details: { x: props.x, z: props.z, seedNum: plantedSeed },
+        details: { x: props.x, z: props.z, seedInfo: plantedSeed },
       });
     }
   }, [plantedSeed]);
@@ -62,97 +65,97 @@ const FarmTile = (props) => {
       <RiceModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 1}
+        visible={plantedSeed?.name === 'rice'}
         scale={[0.02, 0.015, 0.02]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <CarrotModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 2}
+        visible={plantedSeed?.name === 'carrot'}
         scale={[0.03, 0.015, 0.03]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <OrangeModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 3}
+        visible={plantedSeed?.name === 'orange'}
         scale={[0.0075, 0.0075, 0.0075]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <LettuceModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 4}
+        visible={plantedSeed?.name === 'lettuce'}
         scale={[0.015, 0.02, 0.015]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <TomatoModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 5}
+        visible={plantedSeed?.name === 'tomato'}
         scale={[0.02, 0.01, 0.02]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <WatermelonModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 6}
+        visible={plantedSeed?.name === 'watermelon'}
         scale={[0.0125, 0.02, 0.015]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <WheatModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 7}
+        visible={plantedSeed?.name === 'wheat'}
         scale={[0.05, 0.01, 0.05]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <PumpkinModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 8}
+        visible={plantedSeed?.name === 'pumpkin'}
         scale={[0.0125, 0.02, 0.015]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <BeetModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 9}
+        visible={plantedSeed?.name === 'beet'}
         scale={[0.02, 0.015, 0.02]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <BerryModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 10}
+        visible={plantedSeed?.name === 'berries'}
         scale={[0.0075, 0.01, 0.01]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <MushroomModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 11}
+        visible={plantedSeed?.name === 'mushroom'}
         scale={[0.025, 0.025, 0.025]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
 
       <WinterModel
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
-        visible={plantedSeed === 12}
+        visible={plantedSeed?.name === 'wintermelon'}
         scale={[0.0125, 0.02, 0.015]}
-        stage={props.turn - props.turnPlanted + fertilizerAmount}
+        stage={props.turn - turnPlanted + fertilizerAmount}
       />
     </>
   );
@@ -161,11 +164,11 @@ const FarmTile = (props) => {
     <>
       {models}
       {plantedSeed &&
-      props.turn - props.turnPlanted + fertilizerAmount >=
-        plants[plantedSeed].growthLength ? (
-        <Sparkles size={5} position={position} scale={1.5} />
-      ) : (
-        <></>
+        props.turn - turnPlanted + fertilizerAmount >=
+          plants.find(plant => plant.name == plantedSeed.name)?.growthLength ? (
+          <Sparkles size={5} position={position} scale={1.5} />
+        ) : (
+          <></>
       )}
 
       {/* Grid outline */}
@@ -207,12 +210,14 @@ const FarmTile = (props) => {
                 setGrid={props.setGrid}
                 setClickedTile={props.setClickedTile}
                 turn={props.turn}
-                turnPlanted={props.turnPlanted}
+                turnPlanted={turnPlanted}
                 money={props.money}
                 setMoney={props.setMoney}
                 owned={owned}
                 price={props.price}
                 inventoryState={props.inventoryState}
+                cropInfo={props.cropInfo}
+                setCropInfo={props.setCropInfo}
                 fertilizerAmount={fertilizerAmount}
               />
             )}
