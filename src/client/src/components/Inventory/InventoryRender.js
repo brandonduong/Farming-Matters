@@ -117,8 +117,8 @@ const InventoryRender = (props) => {
               <div className="empty"></div>
           </div>
           </div>
-          <button className="inventory-button" onClick={() => onClick()}>
-            Close
+          <button id="inventory-close-button" className="close-button" onClick={() => onClick()}>
+            x
           </button>
         </div>
       ) : (

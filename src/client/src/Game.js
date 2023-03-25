@@ -55,13 +55,13 @@ const FARM_TILE_INFO_SEPARATOR = "|";
 /**
  * Contains all of the game logic and graphics related code.
  */
-export const Game = () => {
+export const Game = ({season, setSeason}) => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
   const { user } = useAuth();
   const [userName] = useState(user.displayName.substring(0, 10));
   const [money, setMoney] = useState(2500);
-  const [season, setSeason] = useState("Fall");
+  //const [season, setSeason] = useState("");
   const [turn, setTurn] = useState(1);
   const [decisionType, setDecisionType] = useState(0);
   const [landscape, setLandscape] = useState([]);
@@ -96,11 +96,12 @@ export const Game = () => {
   const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
   const [soundEffectsVolume, setSoundEffectsVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
-  const [eventType, setEventType] = useState("");
   const [displayTransition, setDisplayTransition] = useState(false);
   const initialGrid = [];
   const [grid, setGrid] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [gameStateJustloaded,setGameStateJustloaded ] = useState(false);
+  const [loadedTurn, setLoadedTurn] = useState(1);
   const [showTutorial, setShowTutorial] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
@@ -128,7 +129,7 @@ export const Game = () => {
   }
 
   useEffect(() => {
-    if (turn > 1) {
+    if (turn > loadedTurn){
       const savableGrid = [];
       for (let i = 0; i < grid.length; i++) {
         savableGrid.push(JSON.stringify(grid[i]));
@@ -144,9 +145,16 @@ export const Game = () => {
         sellPrices: allTurnPrices[turn],
         consultant: [accessToConsultant, consultantStatement],
         farmGrid: savableGrid.join(FARM_TILE_INFO_SEPARATOR),
+    
+
       });
     }
   }, [turn]);
+
+  function determineSeason(turnNum){
+    const seasonOrder = ["Fall", "Winter", "Spring", "Summer"];
+    return seasonOrder[Math.floor((turnNum - 1) / 3) % 4];
+  }
 
   function addFarmLand(x, y, owned, price = 500) {
     // Add 2x2 grid of land at position x and y
@@ -205,6 +213,9 @@ export const Game = () => {
     } else {
       setIsEventHappening(false);
     }
+    
+      
+
   }, [season]);
 
   useEffect(() => {
@@ -214,6 +225,7 @@ export const Game = () => {
       setDisplayTransition(true);
     } else {
       setTypeOfCatastrophicEvent("");
+      setDisplayTransition(false);
     }
     console.log(typeOfCatastrophicEvent);
 
@@ -226,15 +238,19 @@ export const Game = () => {
         balance: money,
         details: {
           isEventHappeningNextSeason: isEventHappening,
-          eventType: eventType,
+          typeOfCatastrophicEvent: typeOfCatastrophicEvent,
         },
       });
     }
-  }, [isEventHappening, season]);
 
+  },[isEventHappening, season]);
+
+
+
+/* Need to discuss with client about needing to log statements even if user didnt want to access it */
   useEffect(() => {
-    if (accessToConsultant) {
-      //console.log(allTurnPrices);
+    if (accessToConsultant && !gameStateJustloaded) {
+      console.log(allTurnPrices);
       const statement =
         GameLogic.GenerateStatistics.generateConsultantStatement(
           decisionType,
@@ -256,10 +272,12 @@ export const Game = () => {
           statement: statement,
         },
       });
-    } else {
-      setConsultantStatement("");
+    }else{
+      setGameStateJustloaded(false);
     }
-  }, [accessToConsultant]);
+  }, [accessToConsultant, season]);
+
+
 
   // This effect runs when the page is first loaded
   useEffect(() => {
@@ -269,6 +287,7 @@ export const Game = () => {
     }, 3000);
 
     // for database connection
+    const season = "";
     const initalizeGameState = async () => {
       await createConnection();
       retrieveSavedGame()
@@ -285,8 +304,20 @@ export const Game = () => {
 
             setGrid(initialGrid);
             setTurn(gameState.turn);
+            setLoadedTurn(gameState.turn);
             setMoney(gameState.money);
           }
+          setGameStateJustloaded(true);
+
+          //setSeason(determineSeason(gameState.turn));
+          const consultantState = gameState.consultant.split(",");
+          setAccessToConsultant(consultantState[0]);
+          setConsultantStatement(consultantState[1]);
+          setDecisionType(gameState.decision_type);
+          setSeason(gameState.season);
+          //setInventoryState(getNames);
+          //setInsuredState(getNamesInsurance);
+          
         })
         .catch((err) => {
           // error loading game data
@@ -299,7 +330,7 @@ export const Game = () => {
     initalizeGameState();
 
     // This useEffect hook performs all operations needed on page load
-    setDecisionType(Math.round(Math.random()));
+    //setDecisionType(Math.round(Math.random()));
     initializeLandscape();
     initializeFarmBuildings();
   }, []);
@@ -403,11 +434,7 @@ export const Game = () => {
           }}
         >
           <div className="canvas-container">
-            <Canvas
-              camera={{ fov: 70, position: [0, 5, 5] }}
-              performance={{ min: 0.1 }}
-              gl={{ antialias: false }}
-            >
+            <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
               <ambientLight intensity={1} />
               <spotLight
                 position={[-10, -10, -10]}
@@ -449,7 +476,7 @@ export const Game = () => {
                 maxDistance={13}
                 screenSpacePanning={false}
               />
-              <Stats showPanel={0} />
+            
             </Canvas>
           </div>
           <InfoHeader
@@ -484,6 +511,9 @@ export const Game = () => {
               displayTransition={displayTransition}
               setDisplayTransition={setDisplayTransition}
               season={season}
+              grid={grid}
+              inventoryState={inventoryState}
+              cropInfo={cropInfo}
             />
           ) : (
             <></>
@@ -510,24 +540,24 @@ export const Game = () => {
             money={money}
             turn={turn}
           />
-          {(!displayTransition || turn == 1) && autoPrompt ? (
-            <div className="dialog-background">
-              <Avatar
-                avatarID={0}
-                isOpened={autoPrompt}
-                onExit={() => {
-                  setAutoPrompt(!autoPrompt);
-                }}
-                accessToConsultant={accessToConsultant}
-                setAccessToConsultant={setAccessToConsultant}
-                money={money}
-                setMoney={setMoney}
-                consultantStatement={consultantStatement}
-              />
-            </div>
-          ) : (
-            <></>
-          )}
+          { autoPrompt && displayTransition == false && consultantStatement != ""? 
+          <div className="dialog-background">
+            <Avatar
+            avatarID={0}
+            isOpened={autoPrompt}
+            onExit={() => {setAutoPrompt(!autoPrompt)}}
+            accessToConsultant={accessToConsultant}
+            setAccessToConsultant={setAccessToConsultant}
+            money={money}
+            setMoney={setMoney}
+            consultantStatement={consultantStatement}
+            decisionType={decisionType}
+            turn={turn}
+            allTurnPrices={allTurnPrices}
+            season={season}
+            />
+          </div>
+         : <></>  }
 
           <InventoryRender marketItems={marketItems} />
           <Shop

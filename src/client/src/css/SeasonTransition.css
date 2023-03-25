@@ -152,12 +152,12 @@
       
       @-webkit-keyframes fadeIn-summer { 
         from { opacity: 0; top: 100% }
-        to { opacity: 0.85; top: 0%}
+        to { opacity: 0.7; top: 0%}
       }
       
       @keyframes fadeIn-summer {
         from { opacity: 0; top: 100% }
-        to { opacity: 1; top: 0%}
+        to { opacity: 0.7; top: 0%}
         }
 
 .transition-header{
@@ -227,7 +227,13 @@
   animation-delay: 2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  animation: close-button-delay 0s 5s forwards;
+  visibility: hidden;
 
+}
+
+@keyframes close-button-delay{
+  to   { visibility: visible; }
 }
 
 

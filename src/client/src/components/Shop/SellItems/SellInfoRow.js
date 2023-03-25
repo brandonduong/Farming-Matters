@@ -1,7 +1,9 @@
 import React from 'react'
+import Button from 'react-bootstrap/esm/Button';
 
 export const SellInfoRow = ({
     floorPrice,
+    currPrice,
     maxQuantity,
     selectedQuantities,
     setSelectedQuantities,
@@ -27,17 +29,24 @@ export const SellInfoRow = ({
     }; 
 
     return (
-        <div className="quantity-grid">
-            <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
-            <div>
-                {floorPrice} | {maxQuantity}
-            </div>
+        <tr>
+            {floorPrice == 'null' ? <td>{currPrice.toFixed(2)}</td> 
+            :(parseInt(floorPrice) < currPrice ? ( <td><div style={{display: 'flex', justifyContent: 'center'}}>
+                {floorPrice} <div style={{color: 'green'}}> &rarr; {currPrice.toFixed(2)}</div>
+            </div></td> ) : (
+                <td>{parseInt(floorPrice).toFixed(2)}</td>
+            ))
+            }
             
-            <div style={{display: 'flex'}}>
-                <div onClick={decreaseQuantity}>-</div>
-                <div>{currentQuantity}</div>
-                <div onClick={increaseQuantity}>+</div>
-            </div>
-        </div>
+            <td>{maxQuantity}</td>
+                
+            <td>
+                <div className='quantity-input-grid'>
+                    <Button className="sell-quantity-button" onClick={decreaseQuantity}>-</Button>
+                    <div>{currentQuantity}</div>
+                    <Button className="sell-quantity-button" onClick={increaseQuantity}>+</Button>
+                </div>
+            </td>
+        </tr>
     );
 }
