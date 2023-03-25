@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky } from "@react-three/drei";
 import FarmGrid from "./components/Farm/FarmGrid";
 import Shop from "./components/Shop";
-import React, { useState, useEffect, useNavigate } from "react";
+import React, { useState, useEffect } from "react";
 import { ModelProvider } from "./components/models/ModelContext";
 import { BarnModel } from "./components/models/BarnModel";
 import { SiloModel } from "./components/models/SiloModel";
@@ -22,6 +22,7 @@ import {
 } from "./components/GameLogic/GameLogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
+import StartGameAvatar from "./components/Avatar/StartGameAvatar";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
 import { SEASONS } from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
@@ -49,7 +50,7 @@ export const Game = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
   const { user } = useAuth();
-  const [userName, setuserName] = useState(user.displayName.substring(0, 10));
+  const [userName] = useState(user.displayName.substring(0, 10));
   const [money, setMoney] = useState(10000);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
@@ -348,14 +349,6 @@ export const Game = () => {
             turn,
           }}
         >
-          <InfoHeader
-            user={userName}
-            money={money}
-            season={season}
-            turn={turn}
-            setSeason={setSeason}
-            setTurn={setTurn}
-          />
           <div className="canvas-container">
             <Canvas camera={{ fov: 70, position: [0, 5, 5] }}>
               <ambientLight intensity={1} />
@@ -402,6 +395,8 @@ export const Game = () => {
             setTurn={setTurn}
             MAX_TURNS={MAX_TURNS}
           />
+
+          {turn <= 1 ? <StartGameAvatar userName={userName} /> : null}
 
           <AvatarMenu
             accessToConsultant={accessToConsultant}
