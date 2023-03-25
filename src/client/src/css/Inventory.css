@@ -10,11 +10,8 @@
   position: relative;
   background-color: rgba(255, 255, 255, 0.65);
   color: green;
-  padding-bottom: 10px;
-  height: 70%;
-  width: 60%;
-  top: 15%;
-  margin: auto;
+  height: 90%;
+  width: 100%;
   border-radius: 30px;
 }
 
@@ -57,17 +54,23 @@
   margin: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 30px;
   overflow-y: scroll;
 }
 
-img {
+.item-image {
   width: 80px;
   height: 80px; 
   border: 1px solid white;
   border-radius: 60px;
   padding: 5px;
   margin-top: 5px;
+}
+
+.count-pics {
+  width: 20px;
+  height: 20px;
 }
 
 .item {
@@ -82,11 +85,6 @@ img {
   color: white;
   font-size: large;
   margin-top: -3%;
-}
-
-#inventory-title {
-  color: white;
-  margin-bottom: 10px;
 }
 
 .quantity-title {
@@ -125,4 +123,69 @@ img {
   margin-block-start: 0;
   margin-block-end: 0;
 
+}
+
+.quant-grid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 0.5fr 1fr;
+}
+
+.quantity-info-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+
+.inventory-grid{
+  display: grid;
+  grid-template-rows: 90vh;
+  grid-template-columns: 0.15fr 6fr 0.25fr 4fr 0.15fr
+}
+
+.all-inventory-grid{
+  display: grid;
+  grid-template-rows: 5vh 85vh;
+}
+
+.inventory-title-label{
+  font-size: 2em;
+  background-color: rgba(255, 255, 255, 0.65);
+}
+
+table, th, td {
+  border:1px solid black;
+}
+
+.seeds {
+  margin-top: 20%;
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 0.25fr 1fr;
+}
+
+.crops {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 0.25fr 1fr;
+}
+
+.Contracts {
+  display: grid;
+  grid-template-rows: 0.25fr 1fr 0.05fr 1fr;
+}
+
+.contracts-scroll {
+  max-height: 23em;
+  overflow: auto;
+}
+
+.insurance-buttons {
+  margin: 0 auto;
+}
+
+.quantity-grid {
+  display: grid;
+  grid-template-rows: 0.25fr 1fr;
+  justify-items: center;
 }

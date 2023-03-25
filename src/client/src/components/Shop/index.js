@@ -1,19 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
-import { shopItemsList } from "./constants";
-import {globalInventoryContext} from "../../Game";
-import InventoryItem from "./InventoryItem";
 import DetailedItem from "./DetailedItem"
-
+import { SellItems } from "./SellItems"
+import { SellInfo} from "./SellItems/SellInfo";
+import { globalInventoryContext } from "../../Game";
 
 const Shop = (props) => {
+  const { inventoryState, setInventoryState, cropInfo, money, setMoney } = React.useContext(globalInventoryContext);
+
   const [showMenu, setShowMenu] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
   const [itemSelected, setItemSelected] = useState("");
-  const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
-  const [filter, setFilter] = useState(props.season);
+  const [filter, setFilter] = useState("All");
   const seasonFilters = ["All", "Fall", "Winter", "Spring", "Summer"];
   const priceFilters = ["LowToHigh", "HighToLow"];
   
@@ -28,22 +28,21 @@ const Shop = (props) => {
 
   const  displayBuy =  () => {
     if(showSell){
+      // setFilter("All");
       setShowBuy(!showBuy);
       setShowSell(!showSell);
     }
-    console.log("BUY CLICKED");
   };
 
 
 
   function displayBuyItems (){
-    console.log(props.allTurnPrices);
     const shopItemRender = (item)=>(<ShopItem
           key={item.id}
           id={item.id}
           image={item.image}
           name={item.name}
-          price={props.allTurnPrices[props.turn % props.allTurnPrices.length][item.name]}
+          price={item.price}
           money={props.money}
           setMoney={props.setMoney}
           turn={props.turn}
@@ -54,7 +53,6 @@ const Shop = (props) => {
 
     if (filter == "All"){
       return (props.marketItems.map(function (item)  {
-        console.log("ALL");
           return(shopItemRender(item));
           
       }));
@@ -94,22 +92,57 @@ const Shop = (props) => {
   };
 
   function displaySellItems (){
-    const currentInventory = inventoryState;
-    return(
-      props.marketItems.map((item) => (
-        <InventoryItem
+    // const currentInventory = inventoryState;
+    const sellRender = (item) => {
+      if (item.seasonType != ""){
+        return (
+          <ShopItem
           key={item.id}
           id={item.id}
           image={item.image}
           name={item.name}
-          price={item.price}
+          price={props.allTurnPrices[props.turn % props.allTurnPrices.length][item.name]}
           money={props.money}
           setMoney={props.setMoney}
           turn={props.turn}
           allTurnPrices={props.allTurnPrices}
+          setItemSelected={setItemSelected}
+          seasonType={item.seasonType}
         />
-      ))
-      );
+        )
+      };
+    }
+  
+
+    if (filter == "All"){
+      return (props.marketItems.map(function (item)  {
+          return(sellRender(item));
+      }));
+
+    } else if (seasonFilters.indexOf(filter) >= 0){
+      return (props.marketItems.map(function (item)  {
+        if (item.seasonType == filter){
+          return(sellRender(item))  
+        }
+        }
+
+      ));
+    } else if (priceFilters.indexOf(filter) >= 0){
+      const mappedMarketItems = props.marketItems;
+      if (filter == "LowToHigh"){
+        const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item1.price-item2.price);
+        return (sortedMarketItems.map(function (item)  {
+          return(sellRender(item))
+          }
+        )); 
+      } else if (filter == "HighToLow"){
+        const sortedMarketItems = [...mappedMarketItems].sort((item1,item2) => item2.price-item1.price);
+        return (sortedMarketItems.map(function (item)  {
+          return(sellRender(item))
+          }
+        )); 
+      }
+    }
   }
 
   return (
@@ -161,9 +194,14 @@ const Shop = (props) => {
                    
                     <div className="shop-items">
                       {showBuy ? 
-                        displayBuyItems()
+                          displayBuyItems()
                       : 
-                        displaySellItems()
+                        <SellItems 
+                          setItemSelected={setItemSelected}
+                          allTurnPrices={props.allTurnPrices}
+                          turn={props.turn}
+                          inventoryState={inventoryState}
+                        />
                       }
                     </div>
                 </div>
@@ -171,9 +209,20 @@ const Shop = (props) => {
               <div className="empty-div"></div>
               <div className="display-more"> 
                       <div className="display-more-title">More Information:</div>
-                      {itemSelected ?
-                        <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} />:
-                        <h3>Selected an item to find out more details!</h3>
+                      {showBuy ? 
+                        <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} /> 
+                        : <SellInfo 
+                            name={itemSelected} 
+                            inventoryState={inventoryState} 
+                            setInventoryState={setInventoryState}
+                            allTurnPrices={props.allTurnPrices}
+                            turn={props.turn}
+                            itemSelected={itemSelected}
+                            setItemSelected={setItemSelected}
+                            cropInfo={cropInfo}
+                            money={money}
+                            setMoney={setMoney}
+                          />
                       }
               </div>
               <div className="empty-div"></div>

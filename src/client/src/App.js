@@ -6,7 +6,9 @@ import "./css/SeasonTransition.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/settings.css";
 import "./css/slider.css";
+import "./css/FarmTile.css"
 import "./css/EndGame.css";
+
 import React, { useEffect, useState } from "react";
 import { LoginPage } from "./components/LoginPage";
 import { Route, Routes } from "react-router-dom";
