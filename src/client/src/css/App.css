@@ -35,19 +35,12 @@
 }
 
 .tile-popup-info-title {
-  margin: 0;
+  margin: 0 0.5rem;
+  white-space: nowrap;
 }
 
 .tile-popup-warn {
   margin: 0;
-}
-
-.tile-popup-cancel {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  padding: 0 0.2rem;
-  font-weight: bold;
 }
 
 .tile-popup-button {
@@ -57,8 +50,8 @@
   white-space: nowrap;
 }
 
-.tile-popup-button > h4 {
-  margin: 1rem;
+.tile-popup-info-number {
+  margin: 0;
 }
 
 .canvas-container {
@@ -89,11 +82,11 @@
 
 #info-header-button {
   height: 100%;
-  width: 10rem;
+  padding: 0 2rem;
   font-weight: bold;
   font-size: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 30px;
+  color: black;
 }
 
 .align-left {
@@ -150,6 +143,7 @@
   background-color: rgba(255, 255, 255);
   color: black;
   font-size: large;
+  font-weight: bold;
   z-index: 11;
   transition: 150ms;
 }
@@ -162,10 +156,10 @@
   transition: 250ms;
 }
 
-
-.season-icon{
+.season-icon {
   width: 50px;
   height: 50px;
   background-size: 20px;
-  margin-right: 5%;
+  margin-right: 0.5rem;
+  margin-top: 0;
 }
