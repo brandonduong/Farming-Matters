@@ -85,7 +85,11 @@ export const GameSettings = (props) => {
         <>
           <div className="settings">
             <div className="settings-component">
-              <button type="button" className="close-button" onClick={displaySettings}>
+              <button
+                type="button"
+                className="close-button"
+                onClick={displaySettings}
+              >
                 x
               </button>
               <p className="center settings-heading">Settings</p>
@@ -93,10 +97,11 @@ export const GameSettings = (props) => {
               <SliderBar value={props.volume} setValue={props.setVolume} />
               <p className="settings-header" style={{ marginTop: "65px" }}>
                 Sound Effects Volume:
-                <br></br>
-                {/* <em>don't modify as it's not implemented yet</em> */}
               </p>
-              <SliderBar />
+              <SliderBar
+                value={props.soundEffectsVolume}
+                setValue={props.setSoundEffectsVolume}
+              />
               <p className="settings-header" style={{ marginTop: "80px" }}>
                 Withdraw:
               </p>

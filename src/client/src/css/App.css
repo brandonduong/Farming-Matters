@@ -146,7 +146,7 @@
   right: -10px;
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 45px;
-  padding: 8px 15px 10px 15px;
+  padding: 8px 18px 10px 18px;
   background-color: rgba(255, 255, 255);
   color: black;
   font-size: large;
@@ -155,15 +155,14 @@
 }
 
 .close-button:hover {
-  padding: 6px 16px 10px 16px;
+  padding: 8px 22px 10px 22px;
   top: -13px;
   right: -13px;
   font-size: x-large;
   transition: 250ms;
 }
 
-
-.season-icon{
+.season-icon {
   width: 50px;
   height: 50px;
   background-size: 20px;

@@ -23,7 +23,7 @@ import {
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import Avatar from "./components/Avatar/Avatar";
-import StartGameAvatar from "./components/Avatar/StartGameAvatar";
+import StartGameAvatar from "./components/StartGamePopup/StartGameAvatar";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
 import {
   SEASONS,
@@ -40,7 +40,6 @@ import winterMusic from "./assets/Winter.mp3";
 import rainMusic from "./assets/Flood.mp3";
 import torandoMusic from "./assets/Tornado.mp3";
 import droughtMusic from "./assets/Insects.mp3";
-
 import { GameSettings } from "./components/GameSettings";
 import SnowFlakes from "./components/GameEvents/SeasonalEvents/Snow";
 import { GrassModel } from "./components/models/GrassModel";
@@ -86,6 +85,7 @@ export const Game = () => {
   const initialGrid = [];
   const [grid, setGrid] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -450,7 +450,13 @@ export const Game = () => {
             MAX_TURNS={MAX_TURNS}
           />
 
-          {turn <= 1 ? <StartGameAvatar userName={userName} /> : null}
+          {turn <= 1 ? (
+            <StartGameAvatar
+              userName={userName}
+              showTutorial={showTutorial}
+              setShowTutorial={setShowTutorial}
+            />
+          ) : null}
 
           {isEventHappening && turn > 3 && displayTransition ? (
             <SeasonTransition
@@ -473,7 +479,7 @@ export const Game = () => {
           <GameSettings
             volume={backgroundMusicVolume}
             setVolume={setBackgroundVolume}
-            soundEffectVolume={soundEffectsVolume}
+            soundEffectsVolume={soundEffectsVolume}
             setSoundEffectsVolume={setSoundEffectsVolume}
           />
 
@@ -503,6 +509,13 @@ export const Game = () => {
             <></>
           )}
 
+          <button
+            type="button"
+            className="guide-button"
+            onClick={() => setShowTutorial(!showTutorial)}
+          >
+            Guide
+          </button>
           <InventoryRender marketItems={marketItems} />
           <Shop
             money={money}
@@ -541,7 +554,7 @@ export const Game = () => {
     <>
       {loading ? (
         <>
-          <h1>Loading...</h1>
+          <h1 style={{ paddingTop: "10%" }}>Loading...</h1>
         </>
       ) : (
         loadGameUI()

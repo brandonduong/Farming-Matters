@@ -7,11 +7,7 @@ export const RestartGameButton = (props) => {
   };
 
   return (
-    <button
-      className={"end-game-button"}
-      type="button"
-      onClick={handleRestartGame}
-    >
+    <button id={"end-game-button"} type="button" onClick={handleRestartGame}>
       Restart Game
     </button>
   );
