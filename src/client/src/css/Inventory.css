@@ -160,7 +160,7 @@ table, th, td {
 }
 
 .seeds {
-  margin-top: 20%;
+  margin-top: 5%;
   display: grid;
   justify-content: center;
   grid-template-rows: 0.25fr 1fr;

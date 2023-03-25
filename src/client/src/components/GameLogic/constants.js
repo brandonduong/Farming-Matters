@@ -69,7 +69,7 @@ export const gameEvents = {
 };
 export const eventProbabilities = [];
 
-export const EVENT_OCCUR_THRESHOLD = 0.01;
+export const EVENT_OCCUR_THRESHOLD = 0.85;
 
 export const itemFluctuation = [
   {
@@ -150,12 +150,7 @@ export const itemFluctuation = [
     price: 50,
     fluctuationFactor: 3.0,
   },
-  {
-    id: 13,
-    name: "Pesticide",
-    price: 40,
-    fluctuationFactor: 2.1,
-  },   
+
 ];
 
 

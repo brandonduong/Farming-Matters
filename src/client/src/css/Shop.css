@@ -77,6 +77,8 @@
     height: 90%;
     width: 10fr;
     border-radius: 30px;
+    overflow: scroll;
+    overflow-x: hidden;
   }
 
   .display-more-title{
@@ -191,6 +193,11 @@
     max-height: 14em;
   }
 
+  .purchase{
+    padding-bottom: 1em;
+    padding-top:1em;
+  }
+
   .cost-summary{
     display: grid;
     grid-template-rows: auto;
@@ -219,6 +226,8 @@
     /* top: -5%; */
     /* position: relative; */
     background-color: white;
+    border-radius: 100%;
+    padding: 5px;
   }
   
   .item-image {

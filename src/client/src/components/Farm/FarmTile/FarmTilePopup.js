@@ -220,7 +220,7 @@ const FarmTilePopup = (props) => {
         </div>
         <div className="tile-popup-info-item">
           <h4 className="tile-popup-info-title">Floor Price: </h4>
-          {props.plantedSeed?.floorPrice ?? 'None'}
+          {props.plantedSeed?.floorPrice ?? 'No insurance'}
         </div>
         {props.turn - props.turnPlanted + props.fertilizerAmount >=
         props.plantedSeed?.growthLength ? (

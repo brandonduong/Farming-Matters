@@ -111,14 +111,6 @@ export const shopItemsList = [
       // modified the watermelon pic
       image: require("../../assets/CropIcons/pesticide.png"),
     },
-    {
-      id: 14,
-      name: "Pesticide",
-      price: 40,
-      seasonType: "",
-      // modified the watermelon pic
-      image: require("../../assets/CropIcons/fertilizer.png"),
-    }
   ];
 
   export const quantityContent= [

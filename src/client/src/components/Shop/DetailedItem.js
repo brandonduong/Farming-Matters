@@ -193,7 +193,10 @@ const DetailedItem = (props) => {
     currentTotalCost();
   }, [currentItemTotalCost, currentInsuranceCost]);
   return (
+   
     <div className="detailed-item" key={props.id} >
+       {props.item ? 
+       <>
       <h2>{props.item}</h2>
       <img src={itemImg} alt="crops" className="item-image"></img>
       <div className="details">
@@ -315,7 +318,11 @@ const DetailedItem = (props) => {
       <div className="purchase">
         <Button disabled={props.money < totalCost} onClick={() => purchase()}>Purchase</Button>
       </div>
+      </>:
+       <h2>Select an item to view more details ...</h2>
+       }
     </div>
+    
     );
 };
 export default DetailedItem;
