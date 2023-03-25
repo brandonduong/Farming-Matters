@@ -4,7 +4,7 @@ import ShopItem from "./ShopItem";
 import InventoryItem from "./InventoryItem";
 import DetailedItem from "./DetailedItem"
 import { SellItems } from "./SellItems"
-import { SellTile } from "./SellItems/SellTile";
+import { SellInfo} from "./SellItems/SellInfo";
 import { globalInventoryContext } from "../../Game";
 
 
@@ -193,15 +193,17 @@ const Shop = (props) => {
                       </div>
                     </div>
                    
-                    
+                    <div className="shop-items">
                       {showBuy ? 
-                        (<div className="shop-items">
-                          {displayBuyItems()}
-                        </div>)
+                          displayBuyItems()
                       : 
-                        <SellItems setItemSelected={setItemSelected}/>
+                        <SellItems 
+                          setItemSelected={setItemSelected}
+                          allTurnPrices={props.allTurnPrices}
+                          turn={props.turn}
+                        />
                       }
-                    
+                    </div>
                 </div>
 
               <div className="empty-div"></div>
@@ -209,7 +211,7 @@ const Shop = (props) => {
                       <div className="display-more-title">More Information:</div>
                       {showBuy ? 
                         <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} /> 
-                        : <SellTile name={itemSelected} inventoryState={inventoryState} setInventoryState={setInventoryState}/>}
+                        : <SellInfo name={itemSelected} inventoryState={inventoryState} setInventoryState={setInventoryState}/>}
               </div>
               <div className="empty-div"></div>
               </div>

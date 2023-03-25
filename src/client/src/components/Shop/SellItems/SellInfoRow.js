@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const SellTileRow = ({
+export const SellInfoRow = ({
     floorPrice,
     maxQuantity,
     selectedQuantities,

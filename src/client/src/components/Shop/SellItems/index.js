@@ -3,24 +3,22 @@ import { shopItemsList } from "../constants";
 import { globalInventoryContext } from "../../../Game";
 import { SellTile } from './SellTile';
 
-export const SellItems = ({ setItemSelected }) => {
-    const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
-
+export const SellItems = ({ setItemSelected, allTurnPrices, turn }) => {
     // 1. Get all crop names in inventory (get all unique occurences of item.name for item in inventoryState)
     const cropNames = ['tomato', 'pumpkin'];
 
     return(
-        <div style={{display: 'flex'}}>
+        <>
             { 
-                cropNames.map((name) => 
-                    (<div onClick={() => setItemSelected(name)}>{name}</div>)
-                    /*<SellTile 
+                cropNames.map((name, i) => 
+                    <SellTile 
+                        key={i}
                         name={name}
-                        inventoryState={inventoryState}
-                        setInventoryState={setInventoryState}
-                    />*/
+                        setItemSelected={setItemSelected}
+                        price={allTurnPrices[turn % allTurnPrices.length][name]}
+                    />
                 )
             }
-        </div>
+        </>
     )
 }
