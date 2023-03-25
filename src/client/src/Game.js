@@ -494,7 +494,7 @@ export const Game = () => {
           ></Shop>
         </globalInventoryContext.Provider>
         <BackgroundMusic volume={backgroundMusicVolume} music={ bgMusic} />
-        <BackgroundMusic volume={soundEffectsVolume} music={displayTransition ? (typeOfCatastrophicEvent == "SnowStorm" ? winterMusic : displayTransition &&typeOfCatastrophicEvent == "HeavyRain" ? rainMusic :  typeOfCatastrophicEvent == "Drought" ? droughtMusic : typeOfCatastrophicEvent == "Tornadoes" ? torandoMusic : ""): ""} />
+        <BackgroundMusic volume={soundEffectsVolume} music={displayTransition ? (turn > 3? (typeOfCatastrophicEvent == "SnowStorm" ? winterMusic : displayTransition &&typeOfCatastrophicEvent == "HeavyRain" ? rainMusic :  typeOfCatastrophicEvent == "Drought" ? droughtMusic : typeOfCatastrophicEvent == "Tornadoes" ? torandoMusic : ""): ""): ""} />
           <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
         </>
       
