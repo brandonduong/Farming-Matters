@@ -63,6 +63,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 1}
+        scale={[0.02, 0.015, 0.02]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -70,6 +71,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 2}
+        scale={[0.03, 0.015, 0.03]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -77,6 +79,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 3}
+        scale={[0.0075, 0.0075, 0.0075]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -84,6 +87,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 4}
+        scale={[0.015, 0.02, 0.015]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -91,6 +95,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 5}
+        scale={[0.02, 0.01, 0.02]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -98,6 +103,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 6}
+        scale={[0.0125, 0.02, 0.015]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -105,6 +111,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 7}
+        scale={[0.05, 0.01, 0.05]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -112,6 +119,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 8}
+        scale={[0.0125, 0.02, 0.015]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -119,6 +127,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 9}
+        scale={[0.02, 0.015, 0.02]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -126,6 +135,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 10}
+        scale={[0.0075, 0.01, 0.01]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -133,6 +143,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 11}
+        scale={[0.025, 0.025, 0.025]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
 
@@ -140,6 +151,7 @@ const FarmTile = (props) => {
         position={position}
         rotation={[0, -Math.PI / 2, Math.PI / 2]}
         visible={plantedSeed === 12}
+        scale={[0.0125, 0.02, 0.015]}
         stage={props.turn - props.turnPlanted + fertilizerAmount}
       />
     </>
@@ -151,14 +163,14 @@ const FarmTile = (props) => {
       {plantedSeed &&
       props.turn - props.turnPlanted + fertilizerAmount >=
         plants[plantedSeed].growthLength ? (
-        <Sparkles size={3} position={position} scale={0.75} />
+        <Sparkles size={5} position={position} scale={1.5} />
       ) : (
         <></>
       )}
 
       {/* Grid outline */}
       <mesh rotation={[0, 0, 0]} position={[props.x - 0.5, 0, props.z - 0.5]}>
-        <gridHelper args={[1, 1, "#004500", "#004500"]} position={[0, 0, 0]} />
+        <gridHelper args={[2, 1, "#004500", "#004500"]} position={[0, 0, 0]} />
       </mesh>
 
       <mesh
@@ -170,7 +182,7 @@ const FarmTile = (props) => {
         onPointerOver={() => hover(true)}
         onPointerOut={() => hover(false)}
       >
-        <planeGeometry args={[1, 1]} />
+        <planeGeometry args={[2, 2]} />
         <meshStandardMaterial
           color={
             hovered

@@ -14,12 +14,5 @@ export function LettuceModel(props) {
     }
   }
 
-  return (
-    <primitive
-      object={getModel()}
-      {...props}
-      scale={0.01}
-      rotation-x={Math.PI / 2}
-    />
-  );
+  return <primitive object={getModel()} {...props} rotation-x={Math.PI / 2} />;
 }

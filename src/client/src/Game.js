@@ -41,7 +41,7 @@ import SnowFlakes from "./components/GameEvents/SeasonalEvents/Snow";
 import { GrassModel } from "./components/models/GrassModel";
 import EndGamePopup from "./components/EndGamePopup/EndGamePopup";
 
-const PLOT_SIZE = 4;
+const PLOT_SIZE = 2;
 const MAX_TURNS = 48;
 const FARM_TILE_INFO_SEPARATOR = "|";
 const globalInventoryState = {};
@@ -56,7 +56,7 @@ export const Game = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
   const [user, setUser] = useState("Test");
-  const [money, setMoney] = useState(10000);
+  const [money, setMoney] = useState(2500);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
   const [decisionType, setDecisionType] = useState(0);
@@ -129,10 +129,10 @@ export const Game = () => {
     }
   }, [turn]);
 
-  function addFarmLand(x, y, owned, price = 250) {
-    // Add 4x4 grid of land at position x and y
-    for (let i = x; i < x + PLOT_SIZE; i++) {
-      for (let o = y; o < y + PLOT_SIZE; o++) {
+  function addFarmLand(x, y, owned, price = 500) {
+    // Add 2x2 grid of land at position x and y
+    for (let i = x; i <= x + PLOT_SIZE; i += PLOT_SIZE) {
+      for (let o = y; o <= y + PLOT_SIZE; o += PLOT_SIZE) {
         initialGrid.push({
           x: i,
           z: o,
@@ -148,19 +148,19 @@ export const Game = () => {
 
   function intializeFarmLand() {
     // Default unlocked farm land
-    addFarmLand(-3.5, -3.5, true);
-    addFarmLand(-3.5, 1.5, true);
-    addFarmLand(1.5, 1.5, true);
-    addFarmLand(1.5, -3.5, true);
+    addFarmLand(-3, -3, true);
+    addFarmLand(-3, 2, true);
+    addFarmLand(2, 2, true);
+    addFarmLand(2, -3, true);
 
     // Default locked farm land
-    addFarmLand(-8.5, -3.5, false);
-    addFarmLand(-8.5, 1.5, false);
-    addFarmLand(6.5, -3.5, false);
-    addFarmLand(6.5, 1.5, false);
-    addFarmLand(1.5, 6.5, false);
+    addFarmLand(-8, -3, false);
+    addFarmLand(-8, 2, false);
+    addFarmLand(7, -3, false);
+    addFarmLand(7, 2, false);
+    addFarmLand(2, 7, false);
+    addFarmLand(-3, 7, false);
     //addFarmLand(1.5, -8.5, false);
-    addFarmLand(-3.5, 6.5, false);
     //addFarmLand(-3.5, -8.5, false);
     setGrid(initialGrid);
   }
