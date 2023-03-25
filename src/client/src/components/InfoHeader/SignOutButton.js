@@ -1,4 +1,6 @@
 import { useAuth } from "../../utils/auth/hooks";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 
 export const SignOutButton = (props) => {
   const { user, signOutHandler, socket, setIsLoggedIn } = useAuth();
@@ -10,12 +12,15 @@ export const SignOutButton = (props) => {
   };
 
   return (
-    <button
-      className={props.header ? "info-header-button" : "end-game-button"}
+
+    <Button
+      id={props.header ? "info-header-button" : "end-game-button"}
       type="button"
+      variant="light"
+      size="lg"
       onClick={handleSignOut}
     >
       Sign Out
-    </button>
+    </Button>
   );
 };

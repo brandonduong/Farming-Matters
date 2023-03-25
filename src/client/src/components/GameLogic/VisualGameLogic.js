@@ -24,13 +24,14 @@ function removePlantedSeeds(plantedSeeds, seed) {
 function changeSeasonBaseEnvironment(currentSeason) {
   switch (currentSeason) {
     case "Fall":
-      return SeasonalEvents.HeavyRain();
+      //return SeasonalEvents.Floods();
     case "Winter":
-      return SeasonalEvents.SnowStorm();
+      //console.log("SNOW STORM INCOMING");
+      //return SeasonalEvents.SnowStorm();
     case "Spring":
-      break;
+      //return SeasonalEvents.Floods();
     case "Summer":
-      break;
+      //return SeasonalEvents.Floods();
   }
 }
 
@@ -64,7 +65,7 @@ function generateVisualEnvironment(
       <ambientLight intensity={changeSeasonAmbience(currentSeason)} />
       <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
-      <PerspectiveCamera makeDefault fov={70} position={[10, 5, 0]} />
+      <PerspectiveCamera makeDefault fov={90} position={ [0, 5, 5]} />
       {eventHappening > 0.5 ? (
         changeSeasonBaseEnvironment(currentSeason)
       ) : (

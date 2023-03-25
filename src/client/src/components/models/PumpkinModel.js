@@ -20,7 +20,7 @@ export function PumpkinModel(props) {
     <primitive
       object={getModel()}
       {...props}
-      scale={0.008}
+      scale={props.scale}
       rotation-x={Math.PI / 2}
     />
   );

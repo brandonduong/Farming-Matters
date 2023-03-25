@@ -4,6 +4,7 @@ import { addInsuredItem, addItem, getItemCount } from "../Inventory";
 import { checkIfItemIsPlant } from "../GameLogic/GameLogic";
 import { plants } from "../Farm/FarmTile/constants";
 import { logData } from "../../utils/logData";
+import {seasonIconMapping} from "../GameLogic/constants";
 
 const ShopItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
@@ -11,8 +12,9 @@ const ShopItem = (props) => {
   const { inventoryState, insuredState } = React.useContext(
     globalInventoryContext
   );
+  
 
-  function determineSeasion(turnNumber) {
+  function determineSeason(turnNumber) {
     let season;
     if (props.turn % 3 === 0) {
       season = "Fall";
@@ -35,7 +37,7 @@ const ShopItem = (props) => {
       logData({
         actionType: "Item Bought",
         turn: props.turn,
-        season: determineSeasion(props.turn),
+        season: determineSeason(props.turn),
         isExperimental: true,
         balance: props.money,
         details: { name: props.name, quantity: itemQuantity },
@@ -63,7 +65,7 @@ const ShopItem = (props) => {
       logData({
         actionType: "Insurance Bought",
         turn: props.turn,
-        season: determineSeasion(props.turn),
+        season: determineSeason(props.turn),
         isExperimental: true,
         balance: props.money,
         details: {
@@ -80,52 +82,19 @@ const ShopItem = (props) => {
   }
 
   return (
-    <div className="shop-item" key={props.id}>
+    <div className="shop-item "key={props.id} onClick={()=> {props.setItemSelected(props.name)}}>
+      
+      <div className="season-display">
+        <img className="season-icon-display" src={seasonIconMapping[props.seasonType]}></img>
+      </div>
+      <div className={(props.seasonType != "" ? props.seasonType.toLowerCase() : "other") + "-item"}>
+      
       <img src={props.image} alt="crops" className="item-image"></img>
-      <p style={{ color: "white", margin: "5px" }}>
-        {props.name + " - $" + props.price}
-      </p>
-      <label htmlFor="itemQuantity" style={{ color: "white" }}>
-        Quantity:
-      </label>
-      <input
-        type="number"
-        name="itemQuantity"
-        min="1"
-        max="5"
-        style={{ width: "15%", margin: "0px 2%" }}
-        value={itemQuantity}
-        onChange={(e) => setItemQuantity(e.target.value)}
-      ></input>
-      <button onClick={() => buy()}>Buy</button>
-      <br></br>
-      {checkIfItemIsPlant(props.name, plants) ? (
-        <>
-          <label htmlFor="insuranceQuantity" style={{ color: "white" }}>
-            Quantity:
-          </label>
-          <input
-            id="insurance"
-            type="number"
-            name="insuranceQuantity"
-            min="1"
-            max="5"
-            style={{ width: "15%", margin: "0px 2%" }}
-            value={insuranceQuantity}
-            onChange={(event_insurance) =>
-              setInsuranceQuantity(event_insurance.target.value)
-            }
-          ></input>
-          <button
-            className="insurance-button"
-            onClick={() => purchaseInsurance()}
-          >
-            Purchase Insurance
-          </button>
-        </>
-      ) : (
-        <></>
-      )}
+      <div className="shop-item-name" >
+        {props.name + " - $" + parseInt(props.price).toFixed(2)}
+      </div>
+      </div>
+      
     </div>
   );
 };
