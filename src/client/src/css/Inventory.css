@@ -150,7 +150,9 @@
 
 .inventory-title-label{
   font-size: 2em;
+  height: 95%;
   background-color: rgba(255, 255, 255, 0.65);
+  color: green;
 }
 
 table, th, td {
