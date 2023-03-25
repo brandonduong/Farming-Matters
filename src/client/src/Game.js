@@ -24,7 +24,11 @@ import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import Avatar from "./components/Avatar/Avatar";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
-import { SEASONS, EVENT_OCCUR_THRESHOLD, gameEvents} from "./components/GameLogic/constants";
+import {
+  SEASONS,
+  EVENT_OCCUR_THRESHOLD,
+  gameEvents,
+} from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
@@ -168,34 +172,35 @@ export const Game = () => {
   useEffect(() => {
     setAccessToConsultant(false);
     setAutoPrompt(true);
-    const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
-    console.log("EVENT HAPPENING IS ", isEventHappeningNextSeason, isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD );
+    const isEventHappeningNextSeason =
+      GameLogic.GenerateStatistics.getEventHappening();
+    console.log(
+      "EVENT HAPPENING IS ",
+      isEventHappeningNextSeason,
+      isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD
+    );
     //setIsEventHappening(isEventHappeningNextSeason);
 
     //setTypeOfCatastrophicEvent(
     //  GameLogic.GenerateStatistics.getEventType()
     //);
 
-    if (isEventHappeningNextSeason >  EVENT_OCCUR_THRESHOLD ){
+    if (isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD) {
       setIsEventHappening(true);
-    }else{
+    } else {
       setIsEventHappening(false);
     }
-
-
   }, [season]);
 
   useEffect(() => {
     //Sesonal Events
-    if (isEventHappening){
+    if (isEventHappening) {
       setTypeOfCatastrophicEvent(Object.keys(gameEvents["Season"][season])[0]);
       setDisplayTransition(true);
-    }else{
+    } else {
       setTypeOfCatastrophicEvent("");
     }
     console.log(typeOfCatastrophicEvent);
-
-        
 
     if (isEventHappening) {
       logData({
@@ -210,11 +215,7 @@ export const Game = () => {
         },
       });
     }
-
-
-  },[isEventHappening, season]);
-
-
+  }, [isEventHappening, season]);
 
   useEffect(() => {
     if (accessToConsultant) {
@@ -395,11 +396,18 @@ export const Game = () => {
             setTurn={setTurn}
           />
           <div className="canvas-container">
-            <Canvas camera={{ fov: 70, position: [0, 5, 5] }} performance={{ min: 0.1 }} gl={{ antialias: false }}>
+            <Canvas
+              camera={{ fov: 70, position: [0, 5, 5] }}
+              performance={{ min: 0.1 }}
+              gl={{ antialias: false }}
+            >
               <ambientLight intensity={1} />
-              <spotLight position={[-10, -10, -10]} angle={-Math.PI/2} penumbra={0.1} />
+              <spotLight
+                position={[-10, -10, -10]}
+                angle={-Math.PI / 2}
+                penumbra={0.1}
+              />
               <pointLight position={[-10, -10, -10]} />
-              
 
               <ModelProvider>
                 {/* Blue sky */}
@@ -416,13 +424,16 @@ export const Game = () => {
 
                 {farmBuildings}
                 {landscape}
-                {turn > 3 && isEventHappening ? VisualGameLogic.generateVisualEnvironment(
-                  turn,
-                  season,
-                  isEventHappening,
-                  typeOfCatastrophicEvent
-                ): <></>}
-                
+                {turn > 3 && isEventHappening ? (
+                  VisualGameLogic.generateVisualEnvironment(
+                    turn,
+                    season,
+                    isEventHappening,
+                    typeOfCatastrophicEvent
+                  )
+                ) : (
+                  <></>
+                )}
               </ModelProvider>
 
               <OrbitControls
@@ -431,7 +442,7 @@ export const Game = () => {
                 maxDistance={13}
                 screenSpacePanning={false}
               />
-               <Stats showPanel={0} />
+              <Stats showPanel={0} />
             </Canvas>
           </div>
           <InfoHeader
@@ -444,7 +455,16 @@ export const Game = () => {
             MAX_TURNS={MAX_TURNS}
           />
 
-          {isEventHappening && turn > 3 && displayTransition ? <SeasonTransition typeOfCatastrophicEvent={typeOfCatastrophicEvent} displayTransition={displayTransition} setDisplayTransition={setDisplayTransition} season={season}/> : <></>}
+          {isEventHappening && turn > 3 && displayTransition ? (
+            <SeasonTransition
+              typeOfCatastrophicEvent={typeOfCatastrophicEvent}
+              displayTransition={displayTransition}
+              setDisplayTransition={setDisplayTransition}
+              season={season}
+            />
+          ) : (
+            <></>
+          )}
           <AvatarMenu
             accessToConsultant={accessToConsultant}
             setAccessToConsultant={setAccessToConsultant}
@@ -467,21 +487,24 @@ export const Game = () => {
             money={money}
             turn={turn}
           />
-          {(!displayTransition || turn == 1) && autoPrompt ? 
-          <div className="dialog-background">
-            <Avatar
-            avatarID={0}
-            isOpened={autoPrompt}
-            onExit={() => {setAutoPrompt(!autoPrompt)}}
-            accessToConsultant={accessToConsultant}
-            setAccessToConsultant={setAccessToConsultant}
-            money={money}
-            setMoney={setMoney}
-            consultantStatement={consultantStatement}
-            
-            />
-          </div>
-         : <></>  }
+          {(!displayTransition || turn == 1) && autoPrompt ? (
+            <div className="dialog-background">
+              <Avatar
+                avatarID={0}
+                isOpened={autoPrompt}
+                onExit={() => {
+                  setAutoPrompt(!autoPrompt);
+                }}
+                accessToConsultant={accessToConsultant}
+                setAccessToConsultant={setAccessToConsultant}
+                money={money}
+                setMoney={setMoney}
+                consultantStatement={consultantStatement}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
 
           <InventoryRender marketItems={marketItems} />
           <Shop
@@ -493,12 +516,27 @@ export const Game = () => {
             season={season}
           ></Shop>
         </globalInventoryContext.Provider>
-        <BackgroundMusic volume={backgroundMusicVolume} music={ bgMusic} />
-        <BackgroundMusic volume={soundEffectsVolume} music={displayTransition ? (turn > 3? (typeOfCatastrophicEvent == "SnowStorm" ? winterMusic : displayTransition &&typeOfCatastrophicEvent == "HeavyRain" ? rainMusic :  typeOfCatastrophicEvent == "Drought" ? droughtMusic : typeOfCatastrophicEvent == "Tornadoes" ? torandoMusic : ""): ""): ""} />
-          <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
-        </>
-      
-     
+        <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+        <BackgroundMusic
+          volume={soundEffectsVolume}
+          music={
+            displayTransition
+              ? turn > 3
+                ? typeOfCatastrophicEvent == "SnowStorm"
+                  ? winterMusic
+                  : displayTransition && typeOfCatastrophicEvent == "HeavyRain"
+                  ? rainMusic
+                  : typeOfCatastrophicEvent == "Drought"
+                  ? droughtMusic
+                  : typeOfCatastrophicEvent == "Tornadoes"
+                  ? torandoMusic
+                  : ""
+                : ""
+              : ""
+          }
+        />
+        <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+      </>
     );
   }
 
