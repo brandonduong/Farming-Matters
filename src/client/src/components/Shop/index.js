@@ -13,7 +13,7 @@ const Shop = (props) => {
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
   const [itemSelected, setItemSelected] = useState("");
-  const [filter, setFilter] = useState(props.season);
+  const [filter, setFilter] = useState("All");
   const seasonFilters = ["All", "Fall", "Winter", "Spring", "Summer"];
   const priceFilters = ["LowToHigh", "HighToLow"];
   

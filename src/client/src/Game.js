@@ -293,10 +293,6 @@ export const Game = () => {
     };
     initalizeGameState();
 
-    // initializing state variables
-    setInventoryState(getNames);
-    setInsuredState(getNamesInsurance);
-
     // This useEffect hook performs all operations needed on page load
     setDecisionType(Math.round(Math.random()));
     initializeLandscape();
