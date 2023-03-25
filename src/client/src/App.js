@@ -21,6 +21,9 @@ const App = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
   // This useEffect hook performs all operations needed on page load
+
+  const [season, setSeason] = useState("Fall");
+
   return (
     <div className="App">
       <AuthProvider>
@@ -32,7 +35,8 @@ const App = () => {
             path="play"
             element={
               <PrivateRoute>
-                <Game />
+                
+                <Game season={season} setSeason={setSeason} />
               </PrivateRoute>
             }
           />
