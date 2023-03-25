@@ -8,7 +8,7 @@ const Tutorial = ({ setShowTutorial }) => {
         <br></br>
         <div className="rules">
           <p>
-            <strong>Goal:</strong> To earn $15,000 in 5 years &#40;48 turns&#41;
+            <strong>Goal:</strong> To earn $15,000 in 4 years &#40;48 turns&#41;
           </p>
           <ol style={{ textAlign: "initial" }}>
             <li>
@@ -51,7 +51,6 @@ const Tutorial = ({ setShowTutorial }) => {
                 <li>Tool Smith</li>
                 <li>Local Guide</li>
                 <li>Insurance</li>
-                <li>Pesticide</li>
                 <li>Fertilizer</li>
               </ul>
               Learn more about them as you play and clicking the 'i' icon for

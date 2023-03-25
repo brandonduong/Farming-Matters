@@ -5,7 +5,7 @@ const Consultant = ({ userName, showTutorial, setShowTutorial }) => {
   const [showStartGame, setShowStartGame] = useState(true);
   const statement = `Hi ${userName}, welcome to Farming Matters! You are a farmer and have been as long as you can remember. \
   As you have gotten older, your body is no longer able to keep up with the demand of running a farm. You are looking to retire and to do that, 
-  you need save up $15000 dollars in 5 years (48 turns). Through your journey to retirement, there will be various tool available to \
+  you need save up $15000 dollars in 4 years (48 turns). Through your journey to retirement, there will be various tool available to \
    to help aid in your early retirement plan!`;
 
   return (
