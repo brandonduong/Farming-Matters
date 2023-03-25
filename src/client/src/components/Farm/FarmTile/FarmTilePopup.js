@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
 import { plants } from "./constants";
-import { addItem, getAllSeedContracts, getSeedContractsCounts, removeItem } from "../../Inventory";
+import { addItem, getAllSeedContracts, getSeedContractsCounts, removeItem, getToolCount } from "../../Inventory";
 import { checkIfItemIsPlant } from "../../GameLogic/GameLogic";
 import { addItemToCropInfo, removePlant, addPlant } from "./FarmingHelpers";
 import { globalInventoryContext } from "../../../Game";
+import { logData } from "../../../utils/logData";
+import Button from "react-bootstrap/esm/Button";
 
+const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
 //TODO: Make popup go away on blur
-const FarmTilePopup = (props) => {  
+const FarmTilePopup = (props) => {
+  const seasonName = SEASONS[(SEASONS.indexOf(props.season) + 1) % 4];
   function newTile() {
     return props.grid.find((tile) => {
       return tile.x === props.x && tile.z === props.z;
@@ -69,8 +73,18 @@ const FarmTilePopup = (props) => {
     var updatedTile = newTile();
     updatedTile.plantedSeed = null;
     updatedTile.fertilizerAmount = 0;
+    updatedTile.turnPlanted = 0;
     updatedGrid(updatedTile);
     props.setClickedTile(null);
+
+    logData({
+      actionType: "Harvested plant",
+      turn: props.turn,
+      season: seasonName,
+      isExperimental: true,
+      balance: props.money,
+      details: { x: props.x, z: props.z },
+    });
   }
 
   // For selling:
@@ -86,7 +100,23 @@ const FarmTilePopup = (props) => {
     var updatedTile = newTile();
     updatedTile.fertilizerAmount = updatedTile.fertilizerAmount + 1;
     updatedGrid(updatedTile);
-    removeItem(props.inventoryState, "Fertilizer", 1);
+
+    const fertilizer = {
+      name: 'Fertilizer',
+      type: 'tool',
+      floorPrice: 0
+    }
+
+    removeItem(props.inventoryState, fertilizer);
+
+    logData({
+      actionType: "Applied fertilizer",
+      turn: props.turn,
+      season: seasonName,
+      isExperimental: true,
+      balance: props.money,
+      details: { x: props.x, z: props.z },
+    });
   }
 
   function buyPlot() {
@@ -95,6 +125,15 @@ const FarmTilePopup = (props) => {
     updatedTile.owned = true;
     updatedGrid(updatedTile);
     props.setClickedTile(null);
+
+    logData({
+      actionType: "Bought land",
+      turn: props.turn,
+      season: seasonName,
+      isExperimental: true,
+      balance: props.money,
+      details: { x: props.x, z: props.z },
+    });
   }
 
   // Buttons for planting seeds
@@ -159,7 +198,7 @@ const FarmTilePopup = (props) => {
   }
 
   if (!seedsPresent) {
-    plantButtons.push(<h4>No seeds</h4>);
+    plantButtons.push(<h4 className="tile-popup-warn">No plantable seeds</h4>);
   }
 
   // Plant info for when a seed is currently planted
@@ -171,7 +210,7 @@ const FarmTilePopup = (props) => {
       <div className="tile-popup-info">
         <div className="tile-popup-info-item">
           <h4 className="tile-popup-info-title">Day Planted: </h4>
-          {props.turnPlanted}
+          <h4 className="tile-popup-info-number">{props.turnPlanted}</h4>
         </div>
         <div className="tile-popup-info-item">
           <h4 className="tile-popup-info-title">Day Complete: </h4>
@@ -185,26 +224,30 @@ const FarmTilePopup = (props) => {
         </div>
         {props.turn - props.turnPlanted + props.fertilizerAmount >=
         props.plantedSeed?.growthLength ? (
-          <button
-            className="tile-popup-info-item"
+          <Button
+          className={"tile-popup-button"}
             type="button"
+            variant="light"
+            size="lg"
             onClick={() => harvestPlant(props.plantedSeed?.name ?? 'Nothing')}
           >
             <h4>Harvest</h4>
-          </button>
+          </Button>
         ) : (
-          // parseInt(getItemCount(props.inventoryState, "Fertilizer")) > 0 && 
-          (
-            <button
-              className="tile-popup-info-item"
+          parseInt(getToolCount(props.inventoryState, "Fertilizer")) > 0 && (
+            <Button
+              className={"tile-popup-button"}
               type="button"
+              variant="light"
+              size="lg"
               onClick={() => applyFertilizer()}
             >
-              {/* <h4>
+              {<h4>
                 Apply Fertilizer (
-                {parseInt(getItemCount(props.inventoryState, "Fertilizer"))})
-              </h4> */}
-            </button>
+                {parseInt(getToolCount(props.inventoryState, "Fertilizer"))})
+                </h4>
+                }
+            </Button>
           )
         )}
       </div>
@@ -215,13 +258,15 @@ const FarmTilePopup = (props) => {
   const buyInfo = (
     <>
       <div className="tile-popup-info">
-        <button
+        <Button
+          className={"tile-popup-button"}
           type="button"
-          disabled={!(props.money >= props.price)}
+          variant="light"
+          size="lg"
           onClick={() => buyPlot()}
         >
-          <h4>Buy Plot</h4>
-        </button>
+          <h4>Buy Plot (${props.price})</h4>
+        </Button>
       </div>
     </>
   );
@@ -238,7 +283,7 @@ const FarmTilePopup = (props) => {
         buyInfo
       )}
       <button
-        className="tile-popup-cancel"
+        className="close-button"
         type="button"
         onClick={() => props.setClickedTile(null)}
       >

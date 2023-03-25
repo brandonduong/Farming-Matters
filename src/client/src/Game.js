@@ -21,19 +21,33 @@ import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import Avatar from "./components/Avatar/Avatar";
 import { VisualGameLogic } from "./components/GameLogic/VisualGameLogic";
-import { SEASONS, EVENT_OCCUR_THRESHOLD, gameEvents} from "./components/GameLogic/constants";
+import {
+  SEASONS,
+  EVENT_OCCUR_THRESHOLD,
+  gameEvents,
+} from "./components/GameLogic/constants";
 import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
 import SeasonTransition from "./components/GameLogic/SeasonTransition"
 import bgMusic from "./assets/bg_music.mp3";
+import winterMusic from "./assets/Winter.mp3";
+import rainMusic from "./assets/Flood.mp3";
+import torandoMusic from "./assets/Tornado.mp3";
+import droughtMusic from "./assets/Insects.mp3";
 import { GameSettings } from "./components/GameSettings";
+import SnowFlakes from "./components/GameEvents/SeasonalEvents/Snow";
+import { GrassModel } from "./components/models/GrassModel";
+import EndGamePopup from "./components/EndGamePopup/EndGamePopup";
 
 const globalInventoryState = [];
 
 export const globalInventoryContext = React.createContext([]);
 
+const PLOT_SIZE = 2;
+const MAX_TURNS = 48;
+const FARM_TILE_INFO_SEPARATOR = "|";
 
 /**
  * Contains all of the game logic and graphics related code.
@@ -41,15 +55,14 @@ export const globalInventoryContext = React.createContext([]);
 export const Game = () => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
-  const [user, setUser] = useState("Brandon");
-  const [money, setMoney] = useState(10000);
+  const [user, setUser] = useState("Test");
+  const [money, setMoney] = useState(2500);
   const [season, setSeason] = useState("Fall");
   const [turn, setTurn] = useState(1);
   const [decisionType, setDecisionType] = useState(0);
   const [landscape, setLandscape] = useState([]);
   const [farmBuildings, setFarmBuildings] = useState([]);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
-  const [grid, setGrid] = useState([]);
   
   // TODO: move to constants.js
   let defaultCropInfo = {
@@ -76,10 +89,14 @@ export const Game = () => {
   const [isConsultantPrompt, setIsConsultantPrompt] = useState(true);
   const [otherAvatarStatements, setOtherAvatarStatements] = useState([]);
   const [isEventHappening, setIsEventHappening] = useState(false);
-  const [backgroundMusicVolume, setBackgroundVolume] = useState(0);
+  const [backgroundMusicVolume, setBackgroundVolume] = useState(5);
+  const [soundEffectsVolume, setSoundEffectsVolume] = useState(5);
   const [typeOfCatastrophicEvent, setTypeOfCatastrophicEvent] = useState("");
   const [eventType, setEventType] = useState("");
   const [displayTransition, setDisplayTransition] = useState(false);
+  const initialGrid = [];
+  const [grid, setGrid] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
@@ -107,6 +124,11 @@ export const Game = () => {
 
   useEffect(() => {
     if (turn > 1) {
+      const savableGrid = [];
+      for (let i = 0; i < grid.length; i++) {
+        savableGrid.push(JSON.stringify(grid[i]));
+      }
+
       saveGame({
         turn: turn,
         season: season,
@@ -116,52 +138,79 @@ export const Game = () => {
         // insuredCrops: insuredState,
         sellPrices: allTurnPrices[turn],
         consultant: [accessToConsultant, consultantStatement],
+        farmGrid: savableGrid.join(FARM_TILE_INFO_SEPARATOR),
       });
     }
   }, [turn]);
 
+  function addFarmLand(x, y, owned, price = 500) {
+    // Add 2x2 grid of land at position x and y
+    for (let i = x; i <= x + PLOT_SIZE; i += PLOT_SIZE) {
+      for (let o = y; o <= y + PLOT_SIZE; o += PLOT_SIZE) {
+        initialGrid.push({
+          x: i,
+          z: o,
+          owned,
+          price,
+          plantedSeed: null,
+          fertilizerAmount: 0,
+          turnPlanted: 0,
+        });
+      }
+    }
+  }
 
-  // This useEffect hook performs all operations needed on page load
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-  }, []);
+  function intializeFarmLand() {
+    // Default unlocked farm land
+    addFarmLand(-3, -3, true);
+    addFarmLand(-3, 2, true);
+    addFarmLand(2, 2, true);
+    addFarmLand(2, -3, true);
 
-  useEffect(() => {
-    setDecisionType(Math.round(Math.random()));
-    initializeLandscape();
-    initializeFarmBuildings();
-  }, []);
+    // Default locked farm land
+    addFarmLand(-8, -3, false);
+    addFarmLand(-8, 2, false);
+    addFarmLand(7, -3, false);
+    addFarmLand(7, 2, false);
+    addFarmLand(2, 7, false);
+    addFarmLand(-3, 7, false);
+    //addFarmLand(1.5, -8.5, false);
+    //addFarmLand(-3.5, -8.5, false);
+    setGrid(initialGrid);
+  }
 
   useEffect(() => {
     setAccessToConsultant(false);
-    const isEventHappeningNextSeason = GameLogic.GenerateStatistics.getEventHappening();
-    console.log("EVENT HAPPENING IS ", isEventHappeningNextSeason, isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD );
+    setAutoPrompt(true);
+    const isEventHappeningNextSeason =
+      GameLogic.GenerateStatistics.getEventHappening();
+    console.log(
+      "EVENT HAPPENING IS ",
+      isEventHappeningNextSeason,
+      isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD
+    );
     //setIsEventHappening(isEventHappeningNextSeason);
 
     //setTypeOfCatastrophicEvent(
     //  GameLogic.GenerateStatistics.getEventType()
     //);
 
-    if (isEventHappeningNextSeason >  EVENT_OCCUR_THRESHOLD ){
+    if (isEventHappeningNextSeason > EVENT_OCCUR_THRESHOLD) {
       setIsEventHappening(true);
-    }else{
+    } else {
       setIsEventHappening(false);
     }
-
-
   }, [season]);
 
   useEffect(() => {
     //Sesonal Events
-    if (isEventHappening){
+    if (isEventHappening) {
       setTypeOfCatastrophicEvent(Object.keys(gameEvents["Season"][season])[0]);
       setDisplayTransition(true);
-    }else{
+    } else {
       setTypeOfCatastrophicEvent("");
     }
     console.log(typeOfCatastrophicEvent);
-
-        
 
     if (isEventHappening) {
       logData({
@@ -176,10 +225,7 @@ export const Game = () => {
         },
       });
     }
-
-  },[isEventHappening]);
-
-
+  }, [isEventHappening, season]);
 
   useEffect(() => {
     if (accessToConsultant) {
@@ -210,16 +256,51 @@ export const Game = () => {
     }
   }, [accessToConsultant]);
 
-  // // This effect will create a connection to the database once this component loads
+  // This effect runs when the page is first loaded
   useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    // for database connection
     const initalizeGameState = async () => {
       await createConnection();
-      retrieveSavedGame().then((gameState) => {
-        console.log(gameState);
-        // console.log(gameState.json());
-      });
+      retrieveSavedGame()
+        .then((gameState) => {
+          console.log(gameState);
+          // console.log(gameState.json());
+          if (!initialGrid.length) {
+            const loadedGrid = gameState.farmGrid.split(
+              FARM_TILE_INFO_SEPARATOR
+            );
+            for (let i = 0; i < loadedGrid.length; i++) {
+              initialGrid.push(JSON.parse(loadedGrid[i]));
+            }
+
+            setGrid(initialGrid);
+            setTurn(gameState.turn);
+            setMoney(gameState.money);
+          }
+        })
+        .catch((err) => {
+          // error loading game data
+          console.log("error loading game data:", err);
+          if (!initialGrid.length) {
+            intializeFarmLand();
+          }
+        });
     };
     initalizeGameState();
+
+    // initializing state variables
+    setInventoryState(getNames);
+    setInsuredState(getNamesInsurance);
+
+    // This useEffect hook performs all operations needed on page load
+    setDecisionType(Math.round(Math.random()));
+    initializeLandscape();
+    initializeFarmBuildings();
   }, []);
 
   function randomXYCircle(maxRadius, minRadius) {
@@ -230,16 +311,33 @@ export const Game = () => {
 
   function initializeLandscape() {
     const initial = [];
-    const treeNum = 100;
+    const flowerNum = 200;
+    const grassNum = 200;
 
-    for (let i = 0; i < treeNum; i++) {
+    for (let i = 0; i < flowerNum; i++) {
       // Flowers
       initial.push(
         <FlowerModel
           variant={Math.floor(Math.random() * 2)}
-          position={randomXYCircle(30, 11)}
+          position={randomXYCircle(50, 13)}
           key={`flower${i}`}
           scale={Math.random() * 0.03 + 0.02}
+        />
+      );
+    }
+
+    for (let i = 0; i < grassNum; i++) {
+      // Grass
+      initial.push(
+        <GrassModel
+          variant={Math.floor(Math.random() * 1)}
+          position={randomXYCircle(50, 13)}
+          key={`grass${i}`}
+          scale={[
+            Math.random() * 0.03 + 0.05,
+            Math.random() * 0.01 + 0.01,
+            Math.random() * 0.03 + 0.05,
+          ]}
         />
       );
     }
@@ -287,16 +385,9 @@ export const Game = () => {
     );
   }
 
-  useEffect(() => {
-    console.log('game cropInfo:'); 
-    console.log(cropInfo)}, 
-    [cropInfo])
-    
-  useEffect(() => {console.log('game inventory:'); console.log(inventoryState)}, [inventoryState])
-  
-  return (
-    <>
-      {
+  function loadGameUI() {
+    return (
+      <>
         <globalInventoryContext.Provider
           value={{
             inventoryState,
@@ -319,11 +410,18 @@ export const Game = () => {
             setTurn={setTurn}
           />
           <div className="canvas-container">
-            <Canvas camera={{ fov: 70, position: [0, 5, 5] }} performance={{ min: 0.1 }} gl={{ antialias: false }}>
+            <Canvas
+              camera={{ fov: 70, position: [0, 5, 5] }}
+              performance={{ min: 0.1 }}
+              gl={{ antialias: false }}
+            >
               <ambientLight intensity={1} />
-              <spotLight position={[-10, -10, -10]} angle={-Math.PI/2} penumbra={0.1} />
+              <spotLight
+                position={[-10, -10, -10]}
+                angle={-Math.PI / 2}
+                penumbra={0.1}
+              />
               <pointLight position={[-10, -10, -10]} />
-              
 
               <ModelProvider>
                 {/* Blue sky */}
@@ -334,17 +432,22 @@ export const Game = () => {
                   turn={turn}
                   money={money}
                   setMoney={setMoney}
+                  grid={grid}
+                  setGrid={setGrid}
                 />
 
                 {farmBuildings}
                 {landscape}
-                {turn > 3 && isEventHappening ? VisualGameLogic.generateVisualEnvironment(
-                  turn,
-                  season,
-                  isEventHappening,
-                  typeOfCatastrophicEvent
-                ): <></>}
-                
+                {turn > 3 && isEventHappening ? (
+                  VisualGameLogic.generateVisualEnvironment(
+                    turn,
+                    season,
+                    isEventHappening,
+                    typeOfCatastrophicEvent
+                  )
+                ) : (
+                  <></>
+                )}
               </ModelProvider>
 
               <OrbitControls
@@ -353,7 +456,7 @@ export const Game = () => {
                 maxDistance={13}
                 screenSpacePanning={false}
               />
-               <Stats showPanel={0} />
+              <Stats showPanel={0} />
             </Canvas>
           </div>
           <InfoHeader
@@ -363,9 +466,19 @@ export const Game = () => {
             turn={turn}
             setSeason={setSeason}
             setTurn={setTurn}
+            MAX_TURNS={MAX_TURNS}
           />
 
-          {isEventHappening && turn > 3 ? <SeasonTransition typeOfCatastrophicEvent={typeOfCatastrophicEvent} displayTransition={displayTransition} setDisplayTransition={setDisplayTransition}/> : <></>}
+          {isEventHappening && turn > 3 && displayTransition ? (
+            <SeasonTransition
+              typeOfCatastrophicEvent={typeOfCatastrophicEvent}
+              displayTransition={displayTransition}
+              setDisplayTransition={setDisplayTransition}
+              season={season}
+            />
+          ) : (
+            <></>
+          )}
           <AvatarMenu
             accessToConsultant={accessToConsultant}
             setAccessToConsultant={setAccessToConsultant}
@@ -377,28 +490,35 @@ export const Game = () => {
           <GameSettings
             volume={backgroundMusicVolume}
             setVolume={setBackgroundVolume}
+            soundEffectVolume={soundEffectsVolume}
+            setSoundEffectsVolume={setSoundEffectsVolume}
           />
+
+          {turn >= MAX_TURNS && <EndGamePopup money={money} />}
 
           <InventoryRender
             marketItems={marketItems}
             money={money}
             turn={turn}
           />
-          {autoPrompt? 
-          <div className="dialog-background">
-            <Avatar
-            avatarID={0}
-            isOpened={autoPrompt}
-            onExit={() => {setAutoPrompt(!autoPrompt)}}
-            accessToConsultant={accessToConsultant}
-            setAccessToConsultant={setAccessToConsultant}
-            money={money}
-            setMoney={setMoney}
-            consultantStatement={consultantStatement}
-            
-            />
-          </div>
-         : <></>  }
+          {(!displayTransition || turn == 1) && autoPrompt ? (
+            <div className="dialog-background">
+              <Avatar
+                avatarID={0}
+                isOpened={autoPrompt}
+                onExit={() => {
+                  setAutoPrompt(!autoPrompt);
+                }}
+                accessToConsultant={accessToConsultant}
+                setAccessToConsultant={setAccessToConsultant}
+                money={money}
+                setMoney={setMoney}
+                consultantStatement={consultantStatement}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
 
           <InventoryRender marketItems={marketItems} />
           <Shop
@@ -410,8 +530,39 @@ export const Game = () => {
             season={season}
           ></Shop>
         </globalInventoryContext.Provider>
-      }
-      <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+        <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+        <BackgroundMusic
+          volume={soundEffectsVolume}
+          music={
+            displayTransition
+              ? turn > 3
+                ? typeOfCatastrophicEvent == "SnowStorm"
+                  ? winterMusic
+                  : displayTransition && typeOfCatastrophicEvent == "HeavyRain"
+                  ? rainMusic
+                  : typeOfCatastrophicEvent == "Drought"
+                  ? droughtMusic
+                  : typeOfCatastrophicEvent == "Tornadoes"
+                  ? torandoMusic
+                  : ""
+                : ""
+              : ""
+          }
+        />
+        <BackgroundMusic volume={backgroundMusicVolume} music={bgMusic} />
+      </>
+    );
+  }
+
+  return (
+    <>
+      {loading ? (
+        <>
+          <h1>Loading...</h1>
+        </>
+      ) : (
+        loadGameUI()
+      )}
     </>
   );
 };

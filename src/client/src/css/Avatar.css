@@ -6,6 +6,7 @@
   top: 15%;
   width: 15%;
   justify-content: center;
+  justify-items: center;
 }
 
 .avatar-overlay-dialog {
@@ -16,25 +17,22 @@
 }
 
 .avatar-grid {
+  padding-top: 5%;
   display: grid;
   grid-template-columns: 2fr;
   grid-template-rows: auto;
-
   width: 75px;
   height: 350px;
-
   background-color: rgba(255, 255, 255, 0.65);
- /*  border: 1px solid #000; */
-  border-radius: 25px;
+  /* border: 1px solid #000; */
+  border-radius: 30px;
   margin-left: 0%;
-  margin-top: 15%;
-
-  opacity: 0; /* here */
+  margin-top: 10%;
+  opacity: 0;
   min-width: 160px;
   z-index: 1;
-  transition: all 0.05s ease-in; /* here */
+  transition: all 0.05s ease-in;
   transform: translateY(-50px);
-
   background-color: rgba(255, 255, 255, 0.65);
 }
 
@@ -56,7 +54,7 @@
   background-color: transparent;
   border-color: transparent;
 
-  margin-top: -10%;
+  margin-top: -7.5%;
 }
 .avatar-selected {
   background-color: rgb(0, 0, 0, 0.4);
@@ -100,7 +98,7 @@
   background-color: rgba(255, 255, 255, 0.65);
   border: 1px solid #000;
   border-radius: 50px 50px 50px 0px;
-  margin-top: 15%;
+  margin-top: 10%;
   justify-content: center;
 }
 
@@ -145,23 +143,6 @@
   background-color: rgb(64, 130, 42);
 }
 
-.close-button {
-  border: 1px solid rgba(255, 255, 255, 0);
-  border-radius: 45px;
-  padding: 0;
-  background-color: rgb(219, 28, 28);
-  color: white;
-  font-size: large;
-  align-self: end;
-  justify-self: start;
-  margin: 10px;
-
-  width: 120px;
-  height: 60px;
-}
-.close-button:hover {
-  background-color: rgba(74, 23, 23, 0.855);
-}
 
 .avatar-grid {
   transform: translateY(0); /* here */
@@ -197,22 +178,22 @@
 }
 
 .avatar-0 {
-  background: url("./img/icons8-administrator-94.png");
+  background: url("./img/icons8-administrator-94.png") center;
   background-size: 50px 50px;
   background-color: #fff;
   margin: 0 auto;
 }
 
 .avatar-1 {
-  background: url("./img/icons8-account-96.png");
+  background: url("./img/icons8-account-96.png") center;
   background-size: 50px 50px;
   background-color: #fff;
   margin: 15px auto;
 }
 
 .avatar-2 {
-  background: url("./img/icons8-user-female-skin-type-4-80.png");
-  background-size: 50px 50px;
+  background: url("./img/icons8-user-female-skin-type-4-80.png") center;
+  background-size: 45px 45px;
   background-color: #fff;
   margin: 15px auto;
 }
@@ -258,10 +239,10 @@
 
 .dialog-grid{
   display: grid;
-  grid-template-columns: 0.5fr 1.5fr;
+  grid-template-columns: 0.5fr 2fr;
   grid-template-rows: 5fr;
   align-self: self-end;
-  margin-top: 17.5%;
+  margin-top: 15%;
   /* justify-items: center; */
   align-items: start;
   margin-left: 15%;
@@ -306,7 +287,7 @@
 
 .avatar-info{
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: auto;
 }
 

@@ -23,7 +23,7 @@ const AvatarDialog = (props) =>{
                         <h2>Price: $ {purchasePrice} </h2>
                         <div className="purchase-tip">
                             <button type="button" className="purchase-button" onClick={() => props.purchaseConsultant()} disabled={!props.canPurchaseConsultant()}>Purchase</button>
-                            <button className="close-button" onClick={() => props.onExit()}>Close</button>
+                            <button className="close-button" onClick={() => props.onExit()}>x</button>
                         </div>
                     </div>
                 </div>
@@ -38,14 +38,14 @@ const AvatarDialog = (props) =>{
                     <div className="box arrow-left">
                         
                         <div className="avatar-info">
-                            <h1> { props.getName() +" "+ props.getRole()} </h1> 
+                            <h1> { props.getName() +" the "+ props.getRole()} </h1> 
                             <h2> { props.getDescription() } </h2>
                             <div className="dialog-statement">
                                 "{props.statement}"
                             </div>
-                            <button onClick={() => props.onExit()}>Close</button>
+                            
                         </div>
-                        
+                        <button className="close-button" onClick={() => props.onExit()}>x</button>
                     </div>
                     
                 </div>

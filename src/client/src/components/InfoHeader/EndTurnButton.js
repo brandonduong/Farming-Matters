@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { globalInventoryContext } from "../../Game";
-import { removeItem } from "../Inventory";
+import Button from "react-bootstrap/Button";
+
 
 export const EndTurnButton = ({season, setSeason, turn, setTurn}) => {
     const SEASONS = ["Winter", "Spring", "Summer", "Fall"];
@@ -40,12 +41,14 @@ export const EndTurnButton = ({season, setSeason, turn, setTurn}) => {
     }
     
     return (
-        <button
-          className="info-header-button"
+        <Button
+          id="info-header-button"
           type="button"
+          variant="light"
+          size="lg"
           onClick={() => endTurn()}
         >
           End Turn
-        </button>
+        </Button>
     )
 }

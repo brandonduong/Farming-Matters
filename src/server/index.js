@@ -107,6 +107,12 @@ app.delete("/private/deleteUserTable", async (req, res) => {
   res.status(200).send();
 });
 
+app.delete("/private/deleteGame", async (req, res) => {
+  let userId = req.headers.userid;
+  await databaseOperations.deleteGame(db, userId);
+  res.status(200).send();
+});
+
 //app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));
 //app.post('/auth/createaccount',  (req, res) => createAccount(req.body.email, req.body.password, res));
 

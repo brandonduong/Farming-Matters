@@ -13,7 +13,7 @@ const Shop = (props) => {
   const [showBuy, setShowBuy] = useState(false);
   const [showSell, setShowSell] = useState(false);
   const [itemSelected, setItemSelected] = useState("");
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState(props.season);
   const seasonFilters = ["All", "Fall", "Winter", "Spring", "Summer"];
   const priceFilters = ["LowToHigh", "HighToLow"];
   
@@ -22,7 +22,7 @@ const Shop = (props) => {
     setShowMenu(!showMenu);
     setShowBuy(!showBuy);
     setItemSelected("");
-    setFilter("All");
+    //setFilter("All");
     
   };
 
@@ -149,11 +149,12 @@ const Shop = (props) => {
     <>
       {showMenu ? (
         <div>
-          <button type="button" className="shop-button" onClick={displayShop}>
-            Close
-          </button>
+         
           <div className="shop">
             <div className="all-shop">
+            <button type="button" id="shop-close" className="close-button" onClick={displayShop}>
+             x
+          </button>
               <div className="shop-title">Shop</div>
               <div className="shop-grid">
               <div className="empty-div"></div>

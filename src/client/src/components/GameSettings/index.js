@@ -41,7 +41,7 @@ export const GameSettings = (props) => {
         >
           <button
             type="button"
-            id="close-button"
+            className="close-button"
             onClick={() => setShowModal(false)}
           >
             x
@@ -85,7 +85,7 @@ export const GameSettings = (props) => {
         <>
           <div className="settings">
             <div className="settings-component">
-              <button type="button" id="close-button" onClick={displaySettings}>
+              <button type="button" className="close-button" onClick={displaySettings}>
                 x
               </button>
               <p className="center settings-heading">Settings</p>
@@ -94,54 +94,56 @@ export const GameSettings = (props) => {
               <p className="settings-header" style={{ marginTop: "65px" }}>
                 Sound Effects Volume:
                 <br></br>
-                <em>don't modify as it's not implemented yet</em>
+                {/* <em>don't modify as it's not implemented yet</em> */}
               </p>
               <SliderBar />
               <p className="settings-header" style={{ marginTop: "80px" }}>
                 Withdraw:
               </p>
-              <div className="withdraw-btn-group">
-                <button
-                  className="withdraw-btn"
-                  onClick={() => {
-                    setConfirmDialog(true);
-                    setSelectedWithdrawType("study");
-                    setCurrentDisplayPrompt(allDisplayPrompt.study);
-                  }}
-                >
-                  Withdraw from the study
-                </button>
-                <button
-                  className="more-info-btn"
-                  onClick={() => {
-                    setShowModal(true);
-                    setSelectedWithdrawType("study");
-                  }}
-                >
-                  i
-                </button>
-              </div>
-              <div className="withdraw-btn-group">
-                <button
-                  className="withdraw-btn"
-                  id="right-button"
-                  onClick={() => {
-                    setConfirmDialog(true);
-                    setSelectedWithdrawType("game");
-                    setCurrentDisplayPrompt(allDisplayPrompt.game);
-                  }}
-                >
-                  Withdraw from the game
-                </button>
-                <button
-                  className="more-info-btn"
-                  onClick={() => {
-                    setShowModal(true);
-                    setSelectedWithdrawType("game");
-                  }}
-                >
-                  i
-                </button>
+
+              <div className="withdraw-btns">
+                <div className="withdraw-btn-group">
+                  <button
+                    className="withdraw-btn"
+                    onClick={() => {
+                      setConfirmDialog(true);
+                      setSelectedWithdrawType("game");
+                      setCurrentDisplayPrompt(allDisplayPrompt.game);
+                    }}
+                  >
+                    Withdraw from the game
+                  </button>
+                  <button
+                    className="more-info-btn"
+                    onClick={() => {
+                      setShowModal(true);
+                      setSelectedWithdrawType("game");
+                    }}
+                  >
+                    i
+                  </button>
+                </div>
+                <div className="withdraw-btn-group" id="right-button">
+                  <button
+                    className="withdraw-btn"
+                    onClick={() => {
+                      setConfirmDialog(true);
+                      setSelectedWithdrawType("study");
+                      setCurrentDisplayPrompt(allDisplayPrompt.study);
+                    }}
+                  >
+                    Withdraw from the study
+                  </button>
+                  <button
+                    className="more-info-btn"
+                    onClick={() => {
+                      setShowModal(true);
+                      setSelectedWithdrawType("study");
+                    }}
+                  >
+                    i
+                  </button>
+                </div>
               </div>
             </div>
           </div>

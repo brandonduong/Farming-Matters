@@ -26,8 +26,8 @@ function changeSeasonBaseEnvironment(currentSeason) {
     case "Fall":
       //return SeasonalEvents.Floods();
     case "Winter":
-      console.log("SNOW STORM INCOMING");
-      return SeasonalEvents.SnowStorm();
+      //console.log("SNOW STORM INCOMING");
+      //return SeasonalEvents.SnowStorm();
     case "Spring":
       //return SeasonalEvents.Floods();
     case "Summer":

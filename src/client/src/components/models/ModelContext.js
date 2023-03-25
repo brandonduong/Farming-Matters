@@ -84,6 +84,7 @@ export function ModelProvider({ children }) {
   const tree3 = useGLTF("3dmodels/tree3.glb");
   const flower1 = useGLTF("3dmodels/flower1.glb");
   const flower2 = useGLTF("3dmodels/flower2.glb");
+  const grass = useGLTF("3dmodels/grass.glb");
 
   //Seasonal Events
   const tornado = useGLTF("3dmodels/animated_tornado.glb");
@@ -138,6 +139,7 @@ export function ModelProvider({ children }) {
     flower1,
     flower2,
     tornado,
+    grass,
   };
 
   return (

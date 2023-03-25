@@ -154,3 +154,14 @@ export function getCrops(inventory){
   }
   return cropList;
 }
+
+export function getToolCount(inventory, tool){
+  let count = 0;
+  for (let i = 0; i < inventory.length; i++){
+      let item = inventory[i];
+      if (item.name == tool){
+          count++;
+      }
+  }
+  return count;
+}

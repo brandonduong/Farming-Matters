@@ -1,6 +1,8 @@
 .App {
   text-align: center;
   min-height: 100vh;
+  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .tile-popup {
@@ -9,6 +11,7 @@
   border-radius: 1rem;
   padding: 1rem;
   position: relative;
+  font-size: 1rem;
 }
 
 .tile-popup-info {
@@ -35,19 +38,23 @@
 }
 
 .tile-popup-info-title {
+  margin: 0 0.5rem;
+  white-space: nowrap;
+}
+
+.tile-popup-warn {
   margin: 0;
 }
 
-.tile-popup-cancel {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  padding: 0 0.2rem;
+.tile-popup-button {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+  white-space: nowrap;
 }
 
-.tile-popup-button {
-  height: 100%;
-  width: 100%;
+.tile-popup-info-number {
+  margin: 0;
 }
 
 .canvas-container {
@@ -71,21 +78,18 @@
 }
 
 .info-header-item {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.info-header-button {
+#info-header-button {
   height: 100%;
-  width: 100%;
+  padding: 0 2rem;
   font-weight: bold;
   font-size: 1rem;
-}
-
-.info-header-item-value {
-  font-weight: normal;
+  border-radius: 30px;
+  color: black;
 }
 
 .align-left {
@@ -130,4 +134,35 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.close-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 8px 15px 10px 15px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  font-weight: bold;
+  z-index: 11;
+  transition: 150ms;
+}
+
+.close-button:hover {
+  padding: 6px 16px 10px 16px;
+  top: -13px;
+  right: -13px;
+  font-size: x-large;
+  transition: 250ms;
+}
+
+.season-icon {
+  width: 50px;
+  height: 50px;
+  background-size: 20px;
+  margin-right: 0.5rem;
+  margin-top: 0;
 }

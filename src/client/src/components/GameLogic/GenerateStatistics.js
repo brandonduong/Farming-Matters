@@ -77,17 +77,16 @@ function replaceStatisticInsert(stat, decisionType, statement, eventType) {
   console.log(stat);
   if (eventType == "Market") {
     if (decisionType == 0) {
-      statement = statement
-        .replace("%statistic%", "by %statistic% %")
-        .replace("%statistic%", Math.abs(stat * 100).toFixed(2));
+      statement = statement.replace("%statistic%", "with a  %statistic%\% chance").replace("%statistic%", Math.abs(stat * 100).toFixed(2));
     } else {
       statement = statement.replace("%statistic%", "");
     }
   } else if (eventType == "Season") {
     if (decisionType == 0) {
       statement = statement
-        .replace("%statistic%", "by %statistic% %")
+        .replace("%statistic%", "happen with a  %statistic% %")
         .replace("%statistic%", Math.abs(stat * 100).toFixed(2));
+        statement = statement + " chance";
     } else {
       statement = statement.replace("%statistic%", happenOrNotHappen(stat));
     }
