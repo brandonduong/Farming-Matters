@@ -6,7 +6,7 @@ function EndGamePopup(props) {
   return (
     <div className="end-game">
       <div className="end-game-box">
-        <h1>Year 5 Passed</h1>
+        <h1>Year 4 Passed</h1>
         <h2>
           You have finished with ${props.money} and{" "}
           {props.money >= MONEY_GOAL ? (
