@@ -105,7 +105,7 @@ const FarmTilePopup = (props) => {
             key={"plantdiv" + i}
           >
             <Button
-              className={"tile-popup-info-item tile-popup-button"}
+              className={"tile-popup-button"}
               type="button"
               variant="light"
               size="lg"
