@@ -18,18 +18,23 @@ export const CreateAccount = () => {
         const confirmPassword = e.target.confirmPassword.value;
 
         if (!email) {
-          setErrorMessage("Email is required.");
-          return;
+            setErrorMessage("Email is required.");
+            return;
 
         } else if (!password) {
-          setErrorMessage("Password is required.");
-          return;
+            setErrorMessage("Password is required.");
+            return;
           
         } else if (!displayName) {
-          setErrorMessage("Display name is required.");
-          return;
+            setErrorMessage("Display name is required.");
+            return;
+
+        } else if (displayName.length > 10) {
+            setErrorMessage("Display name must be 10 or less characters.");
+            return;
+
         } else if (password !== confirmPassword) {
-          setErrorMessage("Passwords do not match.");
+            setErrorMessage("Passwords do not match.");
           return;
         }
         

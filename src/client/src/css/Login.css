@@ -6,6 +6,15 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .reset-container {
+    width: 60%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+  }
   
   .form {
     margin-bottom: 98px;
@@ -21,6 +30,22 @@
     color: #D8000C;
 		background-color: #FFBABA;
     padding: 15px 30px 15px 30px;
+  }
+
+  .reset-error {
+    border: 1px solid;
+    color: #D8000C;
+		background-color: #FFBABA;
+    padding: 15px 30px 15px 30px;
+    margin-bottom: 30px;
+  }
+
+  .success {
+    border: 1px solid;
+    color: #ffffff;
+		background-color: #4a934a;
+    padding: 15px 30px 15px 30px;
+    margin-bottom: 60px;
   }
   
   .input-group {
