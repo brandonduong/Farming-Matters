@@ -70,11 +70,9 @@
     position: relative;
     background-color: rgba(255, 255, 255, 0.65);
     color: green;
-    height: 92.5%;
+    height: 90%;
     width: 10fr;
     border-radius: 30px;
-
-
   }
 
   .display-more-title{
@@ -171,6 +169,7 @@
     border-radius: 30px;
     justify-content: center;
     background-color: white;
+    height: fit-content;
   }
 
   .shop-item-name{

@@ -6,6 +6,7 @@ import "./css/SeasonTransition.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/settings.css";
 import "./css/slider.css";
+import "./css/FarmTile.css";
 import "./css/EndGame.css";
 import "./css/StartGame.css";
 import React, { useEffect, useState } from "react";

@@ -16,10 +16,7 @@ import { FenceModel } from "./components/models/FenceModel";
 import { FlowerModel } from "./components/models/FlowerModel";
 import InventoryRender from "./components/Inventory/InventoryRender";
 import { shopItemsList } from "./components/Shop/constants";
-import {
-  generateNTurnPriceState,
-  GameLogic,
-} from "./components/GameLogic/GameLogic";
+import { generateNTurnPriceState, GameLogic } from "./components/GameLogic/GameLogic";
 import { itemFluctuation } from "./components/GameLogic/constants";
 import AvatarMenu from "./components/Avatar/AvatarMenu";
 import Avatar from "./components/Avatar/Avatar";
@@ -34,7 +31,7 @@ import { logData } from "./utils/logData";
 import { createConnection } from "./utils/connectionDb";
 import { retrieveSavedGame, saveGame } from "./utils/gameState";
 import { BackgroundMusic } from "./components/BackgroundMusic";
-import SeasonTransition from "./components/GameLogic/SeasonTransition";
+import SeasonTransition from "./components/GameLogic/SeasonTransition"
 import bgMusic from "./assets/bg_music.mp3";
 import winterMusic from "./assets/Winter.mp3";
 import rainMusic from "./assets/Flood.mp3";
@@ -47,13 +44,13 @@ import EndGamePopup from "./components/EndGamePopup/EndGamePopup";
 import { useAuth } from "./utils/auth/hooks";
 import Tutorial from "./components/StartGamePopup/Tutorial";
 
+const globalInventoryState = [];
+
+export const globalInventoryContext = React.createContext([]);
+
 const PLOT_SIZE = 2;
 const MAX_TURNS = 48;
 const FARM_TILE_INFO_SEPARATOR = "|";
-const globalInventoryState = {};
-const insuredItems = {};
-export const globalInventoryContext = React.createContext({});
-// export const globalInsuredContext = React.createContext();
 
 /**
  * Contains all of the game logic and graphics related code.
@@ -70,7 +67,25 @@ export const Game = () => {
   const [landscape, setLandscape] = useState([]);
   const [farmBuildings, setFarmBuildings] = useState([]);
   const [inventoryState, setInventoryState] = useState(globalInventoryState);
-  const [insuredState, setInsuredState] = useState(insuredItems);
+  
+  // TODO: move to constants.js
+  let defaultCropInfo = {
+    rice: [],
+    carrot: [],
+    orange: [],
+    lettuce: [],
+    tomato: [],
+    watermelon: [],
+    wheat: [],
+    pumpkin:[],
+    beet:[],
+    berries:[],
+    mushroom:[],
+    wintermelon:[]
+  }
+  const [cropInfo, setCropInfo] = useState(defaultCropInfo);
+
+  // const [insuredState, setInsuredState] = useState(insuredItems);
   const marketItems = [];
   const [accessToConsultant, setAccessToConsultant] = useState(false);
   const [consultantStatement, setConsultantStatement] = useState("");
@@ -91,21 +106,17 @@ export const Game = () => {
   for (let i = 1; i < shopItemsList.length; i++) {
     marketItems.push(shopItemsList[i]);
   }
-  let nTurnItemPrices = generateNTurnPriceState(
-    10,
-    itemFluctuation,
-    marketItems
-  );
+  let nTurnItemPrices = generateNTurnPriceState(10, itemFluctuation, marketItems);
   const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
 
   // constructor for inventory
-  let getNames = {};
-  let getNamesInsurance = {};
-  for (let i = 0; i < marketItems.length; i++) {
-    let currentName = marketItems[i].name;
-    getNames[currentName] = 0;
-    getNamesInsurance[currentName] = 0;
-  }
+  // let getNames = {};
+  // let getNamesInsurance = {};
+  // for (let i = 0; i < marketItems.length; i++) {
+  //   let currentName = marketItems[i].name;
+  //   getNames[currentName] = 0;
+  //   getNamesInsurance[currentName] = 0;
+  // }
 
   let currentPrices = [];
   for (let i = 0; i < marketItems.length; i++) {
@@ -129,7 +140,7 @@ export const Game = () => {
         money: money,
         decisionType: decisionType,
         inventory: inventoryState,
-        insuredCrops: insuredState,
+        // insuredCrops: insuredState,
         sellPrices: allTurnPrices[turn],
         consultant: [accessToConsultant, consultantStatement],
         farmGrid: savableGrid.join(FARM_TILE_INFO_SEPARATOR),
@@ -146,7 +157,7 @@ export const Game = () => {
           z: o,
           owned,
           price,
-          plantedSeed: 0,
+          plantedSeed: null,
           fertilizerAmount: 0,
           turnPlanted: 0,
         });
@@ -223,7 +234,7 @@ export const Game = () => {
 
   useEffect(() => {
     if (accessToConsultant) {
-      console.log(allTurnPrices);
+      //console.log(allTurnPrices);
       const statement =
         GameLogic.GenerateStatistics.generateConsultantStatement(
           decisionType,
@@ -286,10 +297,6 @@ export const Game = () => {
         });
     };
     initalizeGameState();
-
-    // initializing state variables
-    setInventoryState(getNames);
-    setInsuredState(getNamesInsurance);
 
     // This useEffect hook performs all operations needed on page load
     setDecisionType(Math.round(Math.random()));
@@ -386,9 +393,13 @@ export const Game = () => {
           value={{
             inventoryState,
             setInventoryState,
-            insuredState,
-            setInsuredState,
+            cropInfo,
+            setCropInfo,
+            grid,
+            setGrid,
             turn,
+            money,
+            setMoney
           }}
         >
           <div className="canvas-container">

@@ -7,76 +7,76 @@ export const plants = [
   // Spring
   {
     id: 1,
-    name: "Rice",
+    name: "rice",
     growthLength: 1,
     plantableSeasons: [2],
   },
   {
     id: 2,
-    name: "Carrot",
+    name: "carrot",
     growthLength: 2,
     plantableSeasons: [2],
   },
   {
     id: 3,
-    name: "Orange",
+    name: "orange",
     growthLength: 3,
     plantableSeasons: [2],
   },
   // Summer
   {
     id: 4,
-    name: "Lettuce",
+    name: "lettuce",
     growthLength: 1,
     plantableSeasons: [3],
   },
   {
     id: 5,
-    name: "Tomato",
+    name: "tomato",
     growthLength: 2,
     plantableSeasons: [3],
   },
   {
     id: 6,
-    name: "Watermelon",
+    name: "watermelon",
     growthLength: 3,
     plantableSeasons: [3],
   },
   // Fall
   {
     id: 7,
-    name: "Wheat",
+    name: "wheat",
     growthLength: 1,
     plantableSeasons: [0],
   },
   {
     id: 8,
-    name: "Pumpkin",
+    name: "pumpkin",
     growthLength: 2,
     plantableSeasons: [0],
   },
   {
     id: 9,
-    name: "Beet",
+    name: "beet",
     growthLength: 3,
     plantableSeasons: [0],
   },
   // Winter
   {
     id: 10,
-    name: "Berries",
+    name: "berries",
     growthLength: 1,
     plantableSeasons: [1],
   },
   {
     id: 11,
-    name: "Mushroom",
+    name: "mushroom",
     growthLength: 2,
     plantableSeasons: [1],
   },
   {
     id: 12,
-    name: "Wintermelon",
+    name: "wintermelon",
     growthLength: 3,
     plantableSeasons: [1],
   },
