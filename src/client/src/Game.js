@@ -301,15 +301,15 @@ export const Game = () => {
 
   function initializeLandscape() {
     const initial = [];
-    const flowerNum = 100;
-    const grassNum = 100;
+    const flowerNum = 200;
+    const grassNum = 200;
 
     for (let i = 0; i < flowerNum; i++) {
       // Flowers
       initial.push(
         <FlowerModel
           variant={Math.floor(Math.random() * 2)}
-          position={randomXYCircle(30, 13)}
+          position={randomXYCircle(50, 13)}
           key={`flower${i}`}
           scale={Math.random() * 0.03 + 0.02}
         />
@@ -321,7 +321,7 @@ export const Game = () => {
       initial.push(
         <GrassModel
           variant={Math.floor(Math.random() * 1)}
-          position={randomXYCircle(30, 13)}
+          position={randomXYCircle(50, 13)}
           key={`grass${i}`}
           scale={[
             Math.random() * 0.03 + 0.05,
