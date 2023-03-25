@@ -498,6 +498,7 @@ export const Game = ({season, setSeason}) => {
             displayTransition={displayTransition} 
             setDisplayTransition={setDisplayTransition} 
             season={season}
+            grid={grid}
           /> : 
           <></>}
           <AvatarMenu
@@ -522,7 +523,7 @@ export const Game = ({season, setSeason}) => {
             money={money}
             turn={turn}
           />
-          { autoPrompt && displayTransition == false ? 
+          { autoPrompt && displayTransition == false && consultantStatement != ""? 
           <div className="dialog-background">
             <Avatar
             avatarID={0}
