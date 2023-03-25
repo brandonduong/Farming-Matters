@@ -9,20 +9,23 @@
     background-color: rgba(255, 255, 255);
     color: black;
     font-size: large;
-    z-index: 2;
-    
+    z-index: 0;
+    transition: 150ms;
+    width: 7em;
   }
   
   .shop-button:hover {
-    border: 1px solid white;
-    background-color: rgb(64, 130, 42);
+    padding: 12px 33px;
+    bottom: 49px;
+    right: 45px;
+    transition: 300ms;
   }
-  
+
   .shop {
     position: absolute;
     top: 0px;
     background-color: rgba(0, 0, 0, 0.9);
-    color: green;
+    color: black;
     height: 100vh;
     width: 100vw;
     font-weight: bold;
@@ -41,6 +44,7 @@
     border: 1px solid white;
     border-radius: 30px;
     position: relative;
+    z-index: 15;
   }
 
   .shop-grid{
@@ -55,7 +59,7 @@
     grid-template-rows: 10% 10% 90%;
     position: relative;
     background-color: rgba(255, 255, 255, 0.65);
-    color: green;
+    color: black;
     height: 92.5%;
     width: auto;
     border-radius: 30px;
@@ -69,7 +73,7 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     position: relative;
     background-color: rgba(255, 255, 255, 0.65);
-    color: green;
+    color: black;
     height: 92.5%;
     width: 10fr;
     border-radius: 30px;
@@ -185,9 +189,18 @@
     grid-template-rows: 1fr 1fr 1fr;
     justify-items: start;
     justify-content: center;
+    max-height: 14em;
   }
 
-  
+  .cost-summary{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    width: fit-content;
+    margin: auto;
+    justify-items: start;
+    color: green
+  }
   
   .shop-item:hover {
     box-shadow: 1px 1px 5px white;

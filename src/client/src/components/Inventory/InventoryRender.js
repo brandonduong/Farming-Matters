@@ -77,11 +77,12 @@ const InventoryRender = (props) => {
               Inventory
             </p>
             <div className="grid">{currentItemRender}</div>
+            <button id="inventory-close-button" className="close-button" onClick={() => onClick()}>
+            x
+          </button>
           </div>
 
-          <button className="inventory-button" onClick={() => onClick()}>
-            Close
-          </button>
+          
         </div>
       ) : (
         <button className="inventory-button" onClick={() => onClick()}>

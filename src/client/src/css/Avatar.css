@@ -83,7 +83,7 @@
   display: grid;
   grid-template-columns: 2fr;
   grid-template-rows: auto;
-  justify-content: center;
+  justify-items: center;
 }
 
 .purchase-dialog {
@@ -121,7 +121,7 @@
   font-size: 2em;
   margin-block-start: 0;
   margin-block-end: 0;
-  margin-top: 15%;
+
 }
 
 .purchase-button {
@@ -358,4 +358,17 @@
   border-right: 3.5em solid rgba(255, 255, 255,0.65);
   border-left: none;
   border-bottom: 3em solid transparent;
+}
+
+#purchase-consultant-info{
+  width: 2em;
+  height: 2.5em;
+}
+
+#consultant-info-tooltip{
+  position: absolute;
+  z-index: 2;
+  width: 40em;
+  height: 15em;
+  padding: 50px;
 }

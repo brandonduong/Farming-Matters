@@ -227,7 +227,13 @@
   animation-delay: 2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  animation: close-button-delay 0s 5s forwards;
+  visibility: hidden;
 
+}
+
+@keyframes close-button-delay{
+  to   { visibility: visible; }
 }
 
 

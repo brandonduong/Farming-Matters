@@ -22,7 +22,7 @@ const Shop = (props) => {
     setShowMenu(!showMenu);
     setShowBuy(!showBuy);
     setItemSelected("");
-    //setFilter("All");
+    setFilter(props.season);
     
   };
 
@@ -135,7 +135,7 @@ const Shop = (props) => {
                         <div className="header-tools">
                         <div className="filter-grid">
                           <label>Filters: </label> 
-                          <select name="filters" onChange={(e) => setFilter(e.target.value)}>
+                          <select name="filters"  value={filter} onChange={(e) => setFilter(e.target.value)}>
                             <optgroup label="Season Filters">
                               <option value="All">All Seasons</option>
                               <option value="Fall">Fall</option>
@@ -171,7 +171,10 @@ const Shop = (props) => {
               <div className="empty-div"></div>
               <div className="display-more"> 
                       <div className="display-more-title">More Information:</div>
-                      <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} />
+                      {itemSelected ?
+                        <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} />:
+                        <h3>Selected an item to find out more details!</h3>
+                      }
               </div>
               <div className="empty-div"></div>
               </div>
