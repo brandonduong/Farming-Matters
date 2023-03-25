@@ -24,7 +24,12 @@ const FarmTile = (props) => {
   const owned = props.owned;
   const fertilizerAmount = props.fertilizerAmount;
   const plantedSeed = props.plantedSeed;
+
+  useEffect(() => setTurnPlanted(props.defaultTurnPlanted) , [])
+  
   const [turnPlanted, setTurnPlanted] = useState(null);
+
+  //useEffect(() => updatedGrid(),[turnPlanted])
 
   function onClick(e) {
     e.stopPropagation();

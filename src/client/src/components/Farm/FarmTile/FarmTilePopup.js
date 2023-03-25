@@ -37,6 +37,7 @@ const FarmTilePopup = (props) => {
   
     var updatedTile = newTile();
     updatedTile.plantedSeed = newSeedToPlant;
+    updatedTile.turnPlanted = props.turn;
     updatedGrid(updatedTile);
     
     removeItem(props.inventoryState, itemToRemove);

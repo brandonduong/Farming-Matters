@@ -27,6 +27,7 @@ function FarmGrid(props) {
             money={props.money}
             setMoney={props.setMoney}
             plantedSeed={tile.plantedSeed}
+            defaultTurnPlanted={tile.turnPlanted}
             fertilizerAmount={tile.fertilizerAmount}
             grid={props.grid}
             setGrid={props.setGrid}
