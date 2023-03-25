@@ -35,20 +35,12 @@
 }
 
 .tile-popup-info-title {
-  margin: 0;
+  margin: 0 0.5rem;
+  white-space: nowrap;
 }
 
 .tile-popup-warn {
   margin: 0;
-}
-
-.tile-popup-cancel {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  padding: 0 0.35rem;
-  font-weight: bold;
-  border-radius: 30px;
 }
 
 .tile-popup-button {
@@ -58,8 +50,8 @@
   white-space: nowrap;
 }
 
-.tile-popup-button > h4 {
-  margin: 1rem;
+.tile-popup-info-number {
+  margin: 0;
 }
 
 .canvas-container {
@@ -151,6 +143,7 @@
   background-color: rgba(255, 255, 255);
   color: black;
   font-size: large;
+  font-weight: bold;
   z-index: 11;
   transition: 150ms;
 }
