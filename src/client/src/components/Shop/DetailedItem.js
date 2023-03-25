@@ -32,6 +32,34 @@ const DetailedItem = (props) => {
   const [itemFloorPrice, setItemFloorPrice] = useState("");
   const [isPriceIncrease, setIsPriceIncrease] = useState(false);
 
+  const [displayModal, setDisplayModal] = useState(false);
+
+  function displayToolTipModal(modalType){
+    const description = {
+      "insuranceFloorPrice": "The insurance floor price will enable you to set a minimum value you expect the receive for insuring an item. For example, if you bought a Tomato seed and want to sell a  harvested Tomato crop. If this tomato crop in the current market is worth less than what you expected, you should receive back the set floor price.",
+      "insuranceQuantity": "The insurance quantity represent the amount of items you have selected above (item quantity) that you would like to insure",
+    }
+
+    return(
+        <div
+        id="moredetails-info-tooltip"
+        className="dialog-modal"
+        style={{ backgroundColor: "rgba(255, 255, 255, 0.95)" }}
+      >
+          {description[modalType]}
+        <button
+          type="button"
+          className="close-button"
+          onClick={() => setDisplayModal(false)}
+        >
+          x
+        </button>
+      
+      </div>
+    );
+
+  }
+
   function determineSeason(turnNumber) {
     let season;
     if (props.turn % 3 === 0) {
@@ -207,7 +235,11 @@ const DetailedItem = (props) => {
           { insuranceOption ? 
           <>
           <div className="quantity-grid">
-            <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
+            <label htmlFor="itemQuantity" >Insurance Floor Price: 
+              <button id="tool-tip-button 2" className="more-info-btn" onClick={()=>{setDisplayModal(true)}}>i</button>
+              {displayModal ? displayToolTipModal("insuranceFloorPrice"): <></>}
+            </label>
+            
             <div className="quantity-input-grid">
             <Button className="quantity-button" onClick={()=>{insuranceFloorPrice > 0 ? setInsuranceFloorPrice(-10+parseInt(insuranceFloorPrice)) : setInsuranceFloorPrice(parseInt(insuranceFloorPrice))}}>-</Button>
               <input
@@ -224,7 +256,10 @@ const DetailedItem = (props) => {
 
 
           <div className="quantity-grid">
-            <label htmlFor="itemQuantity" >Insurance Quantity: </label>
+            <label htmlFor="itemQuantity" >Insurance Quantity: 
+              <button id="tool-tip-button" className="more-info-btn" onClick={()=>{setDisplayModal(true)}}>i</button>
+              {displayModal ? displayToolTipModal("insuranceQuantity"): <></>}
+            </label>
             <div className="quantity-input-grid">
               <Button className="quantity-button" onClick={()=>{insuranceQuantity > 0 ? setInsuranceQuantity(-1+parseInt(insuranceQuantity)) : setInsuranceQuantity(parseInt(insuranceQuantity))}}> -</Button>
               <input

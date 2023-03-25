@@ -446,3 +446,20 @@ input[type=number] {
 
 }
 
+#tool-tip-button{
+  position: relative;
+  width: 2em;
+  height: 2em;
+  margin-left: 15px;
+}
+
+
+#moredetails-info-tooltip{
+  position: absolute;
+  z-index: 2;
+  width: 30em;
+  height: 15em;
+  padding: 50px;
+  margin-left: -150px;
+  font-weight: 300;
+}
