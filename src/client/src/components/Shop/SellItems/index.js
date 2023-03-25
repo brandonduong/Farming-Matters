@@ -2,10 +2,11 @@ import React from 'react';
 import { shopItemsList } from "../constants";
 import { globalInventoryContext } from "../../../Game";
 import { SellTile } from './SellTile';
+import { getCrops } from '../../Inventory'
 
-export const SellItems = ({ setItemSelected, allTurnPrices, turn }) => {
+export const SellItems = ({ setItemSelected, allTurnPrices, turn, inventoryState }) => {
     // 1. Get all crop names in inventory (get all unique occurences of item.name for item in inventoryState)
-    const cropNames = ['tomato', 'pumpkin'];
+    const cropNames = getCrops(inventoryState);
 
     return(
         <>

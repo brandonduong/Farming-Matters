@@ -11,6 +11,7 @@ import Table from "react-bootstrap/Table"
 
 const InventoryItem = (props) => {
   const { inventoryState, cropInfo } = React.useContext(globalInventoryContext);
+  
   const [itemName, setItemName] = useState();
   const [itemImg, setItemImg] = useState(quantityContent[1].image);
 

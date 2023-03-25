@@ -22,7 +22,6 @@ export function addItem(inventory,item){
   inventory.push(item);
 }
 
-
 export function removeItem(inventory,itemToRemove){
   let itemName = itemToRemove.name;
   let type = itemToRemove.type;
@@ -143,4 +142,15 @@ export function getSeedContractsCounts(inventory,itemName){
       }
   }
   return counts;
+}
+
+export function getCrops(inventory){ 
+  let cropList = []
+  for (let i = 0; i < inventory.length; i++){
+    let currItem = inventory[i];
+    if (!cropList.includes(currItem.name) &&  currItem.type == 'crop'){
+      cropList.push(currItem.name);
+    }
+  }
+  return cropList;
 }

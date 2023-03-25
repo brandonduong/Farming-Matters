@@ -86,7 +86,6 @@ export const Game = () => {
   }
   let nTurnItemPrices = generateNTurnPriceState(10, itemFluctuation, marketItems);
   const [allTurnPrices, setAllTurnPrices] = useState(nTurnItemPrices);
-  let inventory = [{name: 'pumpkin', type: 'crop', floorPrice: 50, cropExpiry: 3},{name: 'tomato', type: 'crop', floorPrice: 50, cropExpiry: 3},{name: 'pumpkin', type: 'crop', floorPrice: null, cropExpiry: 3}];
 
   // constructor for inventory
   // let getNames = {};
@@ -121,19 +120,6 @@ export const Game = () => {
     }
   }, [turn]);
 
-  useEffect(() => {
-    setInventoryState(inventory);
-  }, []);
-
-  // useEffect(() => {
-  //   setInsuredState(getNamesInsurance);
-  // }, []);
-
-  useEffect(() => {
-    console.log(grid);
-    console.log(inventoryState);
-    console.log(cropInfo);
-}, [grid])
 
   // This useEffect hook performs all operations needed on page load
   useEffect(() => {
@@ -301,7 +287,12 @@ export const Game = () => {
     );
   }
 
-  useEffect(() => {console.log('game cropInfo:'); console.log(cropInfo)}, [cropInfo])
+  useEffect(() => {
+    console.log('game cropInfo:'); 
+    console.log(cropInfo)}, 
+    [cropInfo])
+    
+  useEffect(() => {console.log('game inventory:'); console.log(inventoryState)}, [inventoryState])
   
   return (
     <>
@@ -315,6 +306,8 @@ export const Game = () => {
             grid,
             setGrid,
             turn,
+            money,
+            setMoney
           }}
         >
           <InfoHeader

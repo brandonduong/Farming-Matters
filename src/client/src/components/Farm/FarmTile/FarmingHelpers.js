@@ -1,3 +1,4 @@
+
 export function addItemToCropInfo(cropInfo, item){
     let itemName = item.name;
     let itemFloorPrice = item.floorPrice;

@@ -7,7 +7,6 @@ export const SellInfoRow = ({
     setSelectedQuantities,
 }) => {
     const currentQuantity = selectedQuantities[floorPrice]
-    const intFloorPrice = floorPrice === 'null' ? parseInt(floorPrice) : null
 
     const increaseQuantity = () => {
         if (currentQuantity + 1 > maxQuantity) return;
@@ -28,7 +27,8 @@ export const SellInfoRow = ({
     }; 
 
     return (
-        <div style={{display: 'flex'}}>
+        <div className="quantity-grid">
+            <label htmlFor="itemQuantity" >Insurance Floor Price: </label>
             <div>
                 {floorPrice} | {maxQuantity}
             </div>

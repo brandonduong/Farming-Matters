@@ -1,15 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import ShopItem from "./ShopItem";
-import InventoryItem from "./InventoryItem";
 import DetailedItem from "./DetailedItem"
 import { SellItems } from "./SellItems"
 import { SellInfo} from "./SellItems/SellInfo";
 import { globalInventoryContext } from "../../Game";
 
-
 const Shop = (props) => {
-  const { inventoryState, setInventoryState } = React.useContext(globalInventoryContext);
+  const { inventoryState, setInventoryState, cropInfo, money, setMoney } = React.useContext(globalInventoryContext);
 
   const [showMenu, setShowMenu] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
@@ -201,6 +199,7 @@ const Shop = (props) => {
                           setItemSelected={setItemSelected}
                           allTurnPrices={props.allTurnPrices}
                           turn={props.turn}
+                          inventoryState={inventoryState}
                         />
                       }
                     </div>
@@ -211,7 +210,19 @@ const Shop = (props) => {
                       <div className="display-more-title">More Information:</div>
                       {showBuy ? 
                         <DetailedItem item={itemSelected} setItemSelected={itemSelected} {...props} /> 
-                        : <SellInfo name={itemSelected} inventoryState={inventoryState} setInventoryState={setInventoryState}/>}
+                        : <SellInfo 
+                            name={itemSelected} 
+                            inventoryState={inventoryState} 
+                            setInventoryState={setInventoryState}
+                            allTurnPrices={props.allTurnPrices}
+                            turn={props.turn}
+                            itemSelected={itemSelected}
+                            setItemSelected={setItemSelected}
+                            cropInfo={cropInfo}
+                            money={money}
+                            setMoney={setMoney}
+                          />
+                      }
               </div>
               <div className="empty-div"></div>
               </div>
