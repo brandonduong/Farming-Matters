@@ -116,11 +116,12 @@ const Shop = (props) => {
     <>
       {showMenu ? (
         <div>
-          <button type="button" className="shop-button" onClick={displayShop}>
-            Close
-          </button>
+         
           <div className="shop">
             <div className="all-shop">
+            <button type="button" id="shop-close" className="close-button" onClick={displayShop}>
+             x
+          </button>
               <div className="shop-title">Shop</div>
               <div className="shop-grid">
               <div className="empty-div"></div>

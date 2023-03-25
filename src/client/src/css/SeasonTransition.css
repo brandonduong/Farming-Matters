@@ -43,27 +43,29 @@
   width: 100vw;
   height: 100vh;
   /* width: max-content; */
-  opacity: 0.4;
+  opacity: 0.9;
   margin: 0;
   border: 0px;
   border-radius: 0;
   padding: 0;
-  -webkit-animation-name: fadeIn-moveDownUp;
+  -webkit-animation-name: fadeIn-fall;
   -webkit-animation-duration: 3s;
 
-  animation-name: fadeIfadeIn-moveDownUpn;
+  animation-name: fadeIn-fall;
   animation-duration: 3s;
 }
 
-@-webkit-keyframes fadeIn-moveDownUp { 
-  from { opacity: 0; top: 100% }
-  to { opacity: 0.85; top: 0%}
+@-webkit-keyframes fadeIn-fall { 
+  from { opacity: 0;}
+  to { opacity: 0.75; }
 }
 
-@keyframes fadeIn-moveDownUp {
-  from { opacity: 0; top: 100% }
-  to { opacity: 1; top: 0%}
+@keyframes fadeIn-fall {
+  from { opacity: 0; }
+  to { opacity: 0.75; }
   }
+
+
 
   .background-img-winter{
     position: absolute;
@@ -80,21 +82,83 @@
     -webkit-animation-name: fadeIn;
     -webkit-animation-duration: 5s;
   
-    animation-name: fadeIn;
+    animation-name: fadeIn-winter;
     animation-duration: 5s;
     z-index: 12;
 
   }
   
-  @-webkit-keyframes fadeIn { 
+  @-webkit-keyframes fadeIn-winter { 
     from { opacity: 0;}
     to { opacity: 0.55; }
   }
   
-  @keyframes fadeIn {
+  @keyframes fadeIn-winter {
     from { opacity: 0; }
     to { opacity: 0.55; }
     }
+
+    .background-img-spring{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      /* width: max-content; */
+      opacity: 0.7;
+      margin: 0;
+      border: 0px;
+      border-radius: 0;
+      padding: 0;
+      -webkit-animation-name: fadeIn;
+      -webkit-animation-duration: 5s;
+    
+      animation-name: fadeIn-spring;
+      animation-duration: 5s;
+      z-index: 12;
+  
+    }
+    
+    @-webkit-keyframes fadeIn-spring { 
+      from { opacity: 0;}
+      to { opacity: 0.75; }
+    }
+    
+    @keyframes fadeIn-spring {
+      from { opacity: 0; }
+      to { opacity: 0.75; }
+      }
+
+      .background-img-summer{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        /* width: max-content; */
+        opacity: 0.7;
+        margin: 0;
+        border: 0px;
+        border-radius: 0;
+        padding: 0;
+        -webkit-animation-name: fadeIn-summer;
+        -webkit-animation-duration: 5s;
+      
+        animation-name: fadeIn-summer;
+        animation-duration: 5s;
+        z-index: 12;
+    
+      }
+      
+      @-webkit-keyframes fadeIn-summer { 
+        from { opacity: 0; top: 100% }
+        to { opacity: 0.85; top: 0%}
+      }
+      
+      @keyframes fadeIn-summer {
+        from { opacity: 0; top: 100% }
+        to { opacity: 1; top: 0%}
+        }
 
 .transition-header{
   display: grid;

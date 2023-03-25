@@ -28,7 +28,7 @@ const SeasonTransition = (props) => {
             { true ?
                 <>
                     <div className="season-transition" >
-                        <img className="background-img-winter" src={props.typeOfCatastrophicEvent == "SnowStorm" ? winterImg : props.typeOfCatastrophicEvent == "HeavyRain" ? heavyRainImg :  props.typeOfCatastrophicEvent == "Drought" ? underwaterImg : props.typeOfCatastrophicEvent == "Tornadoes" ? torandoImg : ""}></img>
+                        <img className={"background-img-" + props.season.toLowerCase()} src={props.typeOfCatastrophicEvent == "SnowStorm" ? winterImg : props.typeOfCatastrophicEvent == "HeavyRain" ? heavyRainImg :  props.typeOfCatastrophicEvent == "Drought" ? underwaterImg : props.typeOfCatastrophicEvent == "Tornadoes" ? torandoImg : ""}></img>
                         <div className="season-transition-component" >
                             <div className="transition-box">
                                 <div className="transition-header">

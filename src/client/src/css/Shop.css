@@ -40,6 +40,7 @@
     background-color: rgba(255, 255, 255, 0.75);
     border: 1px solid white;
     border-radius: 30px;
+    position: relative;
   }
 
   .shop-grid{
@@ -410,3 +411,13 @@ input[type=number] {
   left: 53%;
   content: "ON";
 }
+
+#shop-close{
+  z-index: 15 !important;
+  position: absolute;
+  animation-delay: 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+
+}
+
