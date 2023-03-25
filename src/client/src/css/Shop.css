@@ -1,3 +1,10 @@
+.sell-table {
+  table-layout: fixed;
+  width: 80%;
+  margin: auto;
+  color: black;
+}
+
 
 .shop-button {
     position: absolute;
@@ -326,6 +333,16 @@
     font-size: 100%;
     padding: 0px 7px;
 }
+
+.sell-quantity-button{
+  /* top: 0; */
+  /*size: 34px;*/
+  width: 100%;
+  /* font-variant: contextual; */
+  font-size: 100%;
+  padding: 0px 7px;
+}
+
 
 .quantity-grid{
   display: grid;

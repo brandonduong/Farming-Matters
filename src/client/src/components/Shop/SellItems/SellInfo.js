@@ -113,20 +113,26 @@ export const SellInfo = ({name, inventoryState, allTurnPrices, turn, itemSelecte
                         </div>
                     </div>
 
-                    <div>
-                    {
-                        Object.entries(insuredCrops).sort().map(([floorPrice, qty]) => { 
-                            return (
-                                <SellInfoRow 
-                                    floorPrice={floorPrice}
-                                    maxQuantity={qty}
-                                    selectedQuantities={selectedQuantities}
-                                    setSelectedQuantities={setSelectedQuantities}
-                                />
-                            )
-                        })
-                    }
-                    </div>
+                    <table className='sell-table'>
+                        <tr style={{borderBottom: '1px solid black'}}>
+                            <th>Sell Price:</th>
+                            <th>Available:</th>
+                            <th>Amount to Sell:</th>
+                        </tr>
+                        {
+                            Object.entries(insuredCrops).sort().map(([floorPrice, qty]) => { 
+                                return (
+                                    <SellInfoRow 
+                                        floorPrice={floorPrice}
+                                        currPrice={price}
+                                        maxQuantity={qty}
+                                        selectedQuantities={selectedQuantities}
+                                        setSelectedQuantities={setSelectedQuantities}
+                                    />
+                                )
+                            })
+                        }
+                    </table>
                 
 
                     <div className="cost-summary"> 
