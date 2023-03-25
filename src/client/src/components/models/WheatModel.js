@@ -18,7 +18,7 @@ export function WheatModel(props) {
     <primitive
       object={getModel()}
       {...props}
-      scale={0.01}
+      scale={props.scale}
       rotation-x={Math.PI / 2}
     />
   );
