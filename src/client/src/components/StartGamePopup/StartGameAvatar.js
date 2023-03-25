@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import Tutorial from "./Tutorial";
 
 const Consultant = ({ userName, showTutorial, setShowTutorial }) => {
   const [showStartGame, setShowStartGame] = useState(true);
@@ -40,7 +39,6 @@ const Consultant = ({ userName, showTutorial, setShowTutorial }) => {
           </div>
         </div>
       ) : null}
-      {showTutorial ? <Tutorial setShowTutorial={setShowTutorial} /> : null}
     </div>
   );
 };

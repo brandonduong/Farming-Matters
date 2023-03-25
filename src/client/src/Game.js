@@ -45,6 +45,7 @@ import SnowFlakes from "./components/GameEvents/SeasonalEvents/Snow";
 import { GrassModel } from "./components/models/GrassModel";
 import EndGamePopup from "./components/EndGamePopup/EndGamePopup";
 import { useAuth } from "./utils/auth/hooks";
+import Tutorial from "./components/StartGamePopup/Tutorial";
 
 const PLOT_SIZE = 2;
 const MAX_TURNS = 48;
@@ -304,15 +305,15 @@ export const Game = () => {
 
   function initializeLandscape() {
     const initial = [];
-    const flowerNum = 100;
-    const grassNum = 100;
+    const flowerNum = 200;
+    const grassNum = 200;
 
     for (let i = 0; i < flowerNum; i++) {
       // Flowers
       initial.push(
         <FlowerModel
           variant={Math.floor(Math.random() * 2)}
-          position={randomXYCircle(30, 13)}
+          position={randomXYCircle(50, 13)}
           key={`flower${i}`}
           scale={Math.random() * 0.03 + 0.02}
         />
@@ -324,7 +325,7 @@ export const Game = () => {
       initial.push(
         <GrassModel
           variant={Math.floor(Math.random() * 1)}
-          position={randomXYCircle(30, 13)}
+          position={randomXYCircle(50, 13)}
           key={`grass${i}`}
           scale={[
             Math.random() * 0.03 + 0.05,
@@ -457,6 +458,14 @@ export const Game = () => {
               setShowTutorial={setShowTutorial}
             />
           ) : null}
+          {showTutorial ? <Tutorial setShowTutorial={setShowTutorial} /> : null}
+          <button
+            type="button"
+            className="guide-button"
+            onClick={() => setShowTutorial(!showTutorial)}
+          >
+            Guide
+          </button>
 
           {isEventHappening && turn > 3 && displayTransition ? (
             <SeasonTransition
@@ -509,13 +518,6 @@ export const Game = () => {
             <></>
           )}
 
-          <button
-            type="button"
-            className="guide-button"
-            onClick={() => setShowTutorial(!showTutorial)}
-          >
-            Guide
-          </button>
           <InventoryRender marketItems={marketItems} />
           <Shop
             money={money}
