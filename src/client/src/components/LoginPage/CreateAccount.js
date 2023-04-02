@@ -84,7 +84,7 @@ export const CreateAccount = () => {
             <input type="password" name="confirmPassword" />
           </div>
           <ReCAPTCHA 
-            sitekey="6Lc5nVIlAAAAAA70rP3j4nmJPKljDVeiE-WwqfSF"
+            sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
             onChange={verifyCaptcha}
             style={{marginTop: '20px', margin: 'auto'}}
           />
