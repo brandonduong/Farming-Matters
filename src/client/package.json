@@ -76,6 +76,7 @@
   },
   "proxy": "http://localhost:4001/",
   "devDependencies": {
-    "jest-watch-typeahead": "^0.6.5"
+    "jest-watch-typeahead": "^0.6.5",
+    "prettier": "2.8.7"
   }
 }
