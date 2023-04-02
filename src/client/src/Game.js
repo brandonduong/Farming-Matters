@@ -59,7 +59,7 @@ export const Game = ({season, setSeason}) => {
   // TODO: Implement state for user, inventory, money, etc...
   // Can use react contexts or maybe redux or something like that
   const { user } = useAuth();
-  const [userName] = useState(user.displayName.substring(0, 10));
+  const [userName] = useState(user.displayName?.substring(0, 10));
   const [money, setMoney] = useState(2500);
   //const [season, setSeason] = useState("");
   const [turn, setTurn] = useState(1);

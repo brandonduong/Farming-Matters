@@ -7,7 +7,10 @@ import { handleError } from "./helpers";
 export const Login = () => {
     const { signInHandler, socket } = useAuth();
     const [errorMessage, setErrorMessage] = useState(null);
+
     const navigate = useNavigate();
+
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,6 +53,7 @@ export const Login = () => {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" />
           </div>
+          
           <button className="primary login-button">Login</button>
         </form>
       </div>
