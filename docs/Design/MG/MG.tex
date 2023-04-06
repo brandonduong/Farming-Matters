@@ -16,9 +16,10 @@
     urlcolor=blue
 }
 
-\input{../../Comments}
-\input{../../Common}
-
+%\input{../../Comments} % CHANGE BACK
+\input{../../Comments} % CHANGE BACK
+%\input{../../Common} % CHANGE BACK
+\input{../../Common} 
 
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
@@ -47,9 +48,17 @@
 \begin{tabularx}{\textwidth}{llX}
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-1/18/2023 & Namit Chopra, Brandon Duong  & Finished First Version of Module Guide\\
+18/01/2023 & Namit Chopra, Brandon Duong & Finished first version \\
  & Andrew Balmakund, Mohammad Harun \\
  & Mihail Serafimovski & \\
+ 04/03/2023 & Namit Chopra, Brandon Duong & Finished second version \\
+ & Andrew Balmakund, Mohammad Harun \\
+ & Mihail Serafimovski & \\
+ 04/05/2023 & Namit Chopra, Brandon Duong & Addressed GitHub issues \\
+ & Andrew Balmakund, Mohammad Harun \\
+ & Mihail Serafimovski & \\
+ % & Andrew Balmakund, Mohammad Harun \\
+ % & Mihail Serafimovski & \\
 \bottomrule
 \end{tabularx}
 
@@ -104,14 +113,10 @@ This section records information for easy reference.
 
 Decomposing a system into modules is a commonly accepted approach to developing
 software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
+team (Parnas et al., 1984).  We advocate a decomposition
+based on the principle of information hiding (Parnas et al., 1972).  This principle supports design for change because the ``secrets'' that each module hides represent likely future changes.  Design for change is valuable in SC, where modifications are frequent, especially during initial development as the solution space is explored.
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+Our design follows the rules laid out by Parnas as follows:
 \begin{itemize}
 \item System details that are likely to change independently should be the
   secrets of separate modules.
@@ -133,12 +138,12 @@ Specification (SRS), the Module Guide (MG) is developed (Parnas et al., 1984). T
   after changes have been made.
 \item Designers: Once the module guide has been written, it can be used to
   check for consistency, feasibility, and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
+  system in various ways, such as consistency among modules, the feasibility of the
   decomposition, and flexibility of the design.
 \end{itemize}
 
 The rest of the document is organized as follows. Section
-\ref{SecChange} lists the anticipated and unlikely changes of the software
+\ref{SecChange} lists the anticipated and unlikely changes in the software
 requirements. Section \ref{SecMH} summarizes the module decomposition that
 was constructed according to the likely changes. Section \ref{SecConnection}
 specifies the connections between the software requirements and the
@@ -160,20 +165,20 @@ unlikely changes are listed in Section \ref{SecUchange}.
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
-adapted here is called design for
+adopted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{PriceFluctuate}:] Fluctuating prices for purchasing an item as well.
+\item[\refstepcounter{acnum} \actheacnum \label{PriceFluctuate}:] Fluctuating prices for purchasing an item
 \item[\refstepcounter{acnum} \actheacnum \label{AvatarVariety}:] Adding more variety to the type of avatars for the user to interact with
-\item[\refstepcounter{acnum} \actheacnum \label{ItemVariety}:] Adding more variety to the type of items
-\item[\refstepcounter{acnum} \actheacnum \label{EventMechanism}:] Mechanism of events to alter the game state
-\item[\refstepcounter{acnum} \actheacnum \label{ConsultantMechanism}:] Mechanism of consultant for providing probabilities of future events
+\item[\refstepcounter{acnum} \actheacnum \label{ItemVariety}:] Adding more items in the shop
+\item[\refstepcounter{acnum} \actheacnum \label{EventMechanism}:] The effects of natural disasters on the farm grid
+\item[\refstepcounter{acnum} \actheacnum \label{ConsultantMechanism}:] The method for determining the likelihood of future events for the consultant
 \item[\refstepcounter{acnum} \actheacnum \label{SoundtrackVariety}:] Multiple soundtracks for different aspects of the game
-\item[\refstepcounter{acnum} \actheacnum \label{SellOptions}:] Being able to sell from either market or inventory 
-\item[\refstepcounter{acnum} \actheacnum \label{PurchaseInsurance}:] The freedom of choosing where purchase insurance of an item
-\item[\refstepcounter{acnum} \actheacnum \label{InsuranceAlgorithm}:] The algorithm behind of how insurance works
-\item[\refstepcounter{acnum} \actheacnum \label{UIComponents}:] The placements of UI elements for different aspects of the game
+\item[\refstepcounter{acnum} \actheacnum \label{SellOptions}:] The method to sell harvested crops 
+\item[\refstepcounter{acnum} \actheacnum \label{PurchaseInsurance}:] The method to buy insurance for a purchased item
+\item[\refstepcounter{acnum} \actheacnum \label{InsuranceAlgorithm}:] The statistical technique utilized for the insurance system
+\item[\refstepcounter{acnum} \actheacnum \label{UIComponents}:] The user interface layout of the game
 \item[\refstepcounter{acnum} \actheacnum \label{SaveGame}:] The method of saving game state
 \item[\refstepcounter{acnum} \actheacnum \label{TurnNumber}:] The number of turns per season
 
@@ -185,22 +190,22 @@ change.
 The module design should be as general as possible. However, a general system is
 more complex. Sometimes this complexity is not necessary. Fixing some design
 decisions at the system architecture stage can simplify the software design. If
-these decision should later need to be changed, then many parts of the design
+this decision should later need to be changed, then many parts of the design
 will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] User input in-game controls 
-\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The details need to create an account will remain the same
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] User input for the in-game controls
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The details needed to create an account
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The environment in which the user will be able to play the game
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The system will only one login session per user
-\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The specific data used to collect for research purposes will remain the same
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The specific game data collected for research
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The ability to purchase and sell items
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The ability to access a consultant 
-\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The authentication of a user is required before allowing them to perform actions in the game 
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The authentication of a user is required before performing actions in the game 
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The ability to delete user data
 \item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The ability to plant and harvest a crop
-\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Changing of seasons
+\item [\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] The changing of seasons
 
 
 \end{description}
@@ -210,16 +215,18 @@ decisions will be changed.
 This section provides an overview of the module design. Modules are summarized
 in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
-actually be implemented.
+be implemented.
 
 \begin{description}
+\item [\refstepcounter{mnum} \mthemnum \label{GenerateStatistic}:] GenerateStatistic
 \item [\refstepcounter{mnum} \mthemnum \label{Avatar}:] Avatar
 \item [\refstepcounter{mnum} \mthemnum \label{AvatarMenu}:] AvatarMenu
 \item [\refstepcounter{mnum} \mthemnum \label{Consultant}:] Consultant
 \item [\refstepcounter{mnum} \mthemnum \label{OtherAvatar}:] OtherAvatar
+\item [\refstepcounter{mnum} \mthemnum \label{SeasonalEvents}:] SeasonalEvents
 \item [\refstepcounter{mnum} \mthemnum \label{Item}:] Item
 \item [\refstepcounter{mnum} \mthemnum \label{Inventory}:] Inventory
-\item [\refstepcounter{mnum} \mthemnum \label{Market}:] Market
+\item [\refstepcounter{mnum} \mthemnum \label{Shop}:] Shop
 \item [\refstepcounter{mnum} \mthemnum \label{DatabaseOperations}:] DatabaseOperations
 \item [\refstepcounter{mnum} \mthemnum \label{MusicPlayer}:] MusicPlayer
 \item [\refstepcounter{mnum} \mthemnum \label{GameSettings}:] GameSettings
@@ -236,7 +243,6 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{Seed}:] Seed
 \item [\refstepcounter{mnum} \mthemnum \label{FarmTile}:] FarmTile
 \item [\refstepcounter{mnum} \mthemnum \label{FarmGrid}:] FarmGrid
-\item [\refstepcounter{mnum} \mthemnum \label{TurnSummary}:] TurnSummary
 \item [\refstepcounter{mnum} \mthemnum \label{GameController}:] GameController
 \end{description}
 
@@ -253,13 +259,14 @@ actually be implemented.
 
 \multirow{10}{0.3\textwidth}{Behaviour-Hiding Module} & GameController\\
 & AvatarMenu\\
-& Market\\
+& Shop\\
 & Inventory\\
 & FarmGrid\\
 & GameSettings\\
 & CreateAccount\\
 & Login\\
-& TurnSummary\\
+& SeasonalEvents\\
+& GenerateStatistic\\
 \midrule
 
 \multirow{18}{0.3\textwidth}{Software-Hiding Module} & Avatar\\
@@ -310,9 +317,9 @@ to be implemented.
 \subsection{Hardware Hiding Modules }
 
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
+\item[Secrets:]The data structure and the algorithm used to implement the virtual
   hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
+\item[Services:]Serves as virtual hardware used by the rest of the
   system. This module provides the interface between the hardware and the
   software. So, the system can use it to display outputs or to accept inputs.
 \item[Implemented By:] OS
@@ -321,8 +328,8 @@ to be implemented.
 \subsection{Behaviour-Hiding Module}
 
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
+\item[Secrets:]The contents of the required behaviors.
+\item[Services:]Includes programs that provide externally visible behavior of
   the system as specified in the software requirements specification (SRS)
   documents. This module serves as a communication layer between the
   hardware-hiding module and the software decision module. The programs in this
@@ -343,18 +350,18 @@ to be implemented.
 \subsubsection{AvatarMenu (\mref{AvatarMenu})}
 
 \begin{description}
-\item[Secrets:] User input handling during menu.
-\item[Services:] Interact with user selecting several avatars to choose to interact with.
+\item[Secrets:] User input handling during the menu.
+\item[Services:] Interact with the user selecting several avatars to choose to interact with.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Library
 \end{description}
 
 
-\subsubsection{Market (\mref{Market})}
+\subsubsection{Shop (\mref{Shop})}
 
 \begin{description}
-\item[Secrets:] The data structure of a Market.
-\item[Services:] Provide functionality to interact with various items in a market, make purchases and updating the inventory.
+\item[Secrets:] The data structure of a Shop.
+\item[Services:] Provide functionality to interact with various items in a shop, make purchases, and update the inventory.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Library
 \end{description}
@@ -363,7 +370,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] The data structure of an Inventory.
-\item[Services:] Provide the ability to get the current state of the inventory, add items to an inventory and remove items from an inventory.
+\item[Services:] Provide the ability to get the current state of the inventory, add items to an inventory, and remove items from an inventory.
 
 \item[Implemented By:]  \progname
 \item[Type of Module:] Library
@@ -382,7 +389,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] User adjustable setting values.
-\item[Services:] The ability to change volume and opt out of study.
+\item[Services:] The ability to change volume and opt out of the study.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Library
 \end{description}
@@ -405,11 +412,20 @@ to be implemented.
 \item[Type of Module:] Library
 \end{description}
 
-\subsubsection{TurnSummary (\mref{TurnSummary})}
+\subsubsection{GenerateStatistic (\mref{GenerateStatistic})}
 
 \begin{description}
-\item[Secrets:] Users decisions made in a single turn.
-\item[Services:] Provides functionality for logging into the system and handling invalid user inputs.
+\item[Secrets:] The real probability of an event occurring.
+\item[Services:] Provides functionality for generating consultant statements, and general avatar statements, to determine if an event is happening and what type of event is happening.
+\item[Implemented By:]  \progname
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{SeasonalEvents (\mref{SeasonalEvents})}
+
+\begin{description}
+\item[Secrets:] The different statements of each event.
+\item[Services:] Displays a visual dialog of what event had just occurred and it also will remove all crops from the current farm. It will only store crops that are insured in the inventory, all other crops that were planted are forever gone.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Library
 \end{description}
@@ -417,11 +433,11 @@ to be implemented.
 \subsection{Software Decision Module}
 
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
+\item[Secrets:] The design decision is based on mathematical theorems, physical
   facts, or programming considerations. The secrets of this module are
   \emph{not} described in the SRS.
 \item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
+  does not provide direct interaction with the user. 
   % Changes in these modules are more likely to be motivated by a desire to
   % improve performance than by externally imposed changes.
 \item[Implemented By:] --
@@ -441,7 +457,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] Avatar statements.
-\item[Services:] Provides functionality to generate a statement that assesses the current state of the game and provide a statistic based on a type of decision (probabilistic or deterministic).
+\item[Services:] Provides functionality to generate a statement that assesses the current state of the game and provides a statistic based on a type of decision (probabilistic or deterministic).
 \item[Implemented By:]  \progname
 \item[Type of Module:] Record
 \end{description}
@@ -450,19 +466,17 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] Avatar statements.
-\item[Services:] Provides functionality to generate a statement related to a specific other avatar.
+\item[Services:] Provides functionality to generate a statement related to a specific avatar.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Record
 \end{description}
-
-
 
 
 \subsubsection{FarmTile (\mref{FarmTile})}
 
 \begin{description}
 \item[Secrets:] Data structure of a farm tile.
-\item[Services:] Provides functionality to plant a seed, harvest a crop, determine what has been planted on a given tile and how long a seed has been growing for.
+\item[Services:] Provides functionality to plant a seed, harvest a crop, determine what has been planted on a given tile, and how long a seed has been growing.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Abstract Object
 \end{description}
@@ -471,7 +485,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] Data structure of a seed.
-\item[Services:] Provides functionality to determine the seed growth length, the seasons in which the seed can grow and the sellable price ranges .
+\item[Services:] Provides functionality to determine the seed growth length, the seasons in which the seed can grow, and the sellable price ranges.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Abstract Object
 \end{description}
@@ -480,7 +494,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] Data structure of an item.
-\item[Services:] Provides functionality to get and set the price of an item, get the name of an item, get the quantity of an item and get the type of the item.
+\item[Services:] Provides functionality to get and set the price of an item, get the name of an item, get the quantity of an item, and get the type of the item.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Abstract Object
 \end{description}
@@ -489,7 +503,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] Establishing database connection.
-\item[Services:] Provides functionality for terminating the database connection, adding and removing users from database, logging a given data, saving and loading the current state of the game.
+\item[Services:] Provides functionality for terminating the database connection, adding and removing users from the database, logging a given data, and saving and loading the current state of the game.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Library
 \end{description}
@@ -517,7 +531,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] User session details.
-\item[Services:] Validates if a user is authenicated session and handles unauthorized sessions.
+\item[Services:] Validates if a user is authenticated session and handles unauthorized sessions.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Library
 \end{description}
@@ -553,7 +567,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:] Audio files.
-\item[Services:] Provides the ability to load, start and stop playing a audio file.
+\item[Services:] Provides the ability to load, start and stop playing an audio file.
 \item[Implemented By:]  \progname
 \item[Type of Module:] Library
 \end{description}
@@ -570,7 +584,7 @@ to be implemented.
 \subsubsection{AuthError (\mref{AuthError})}
 
 \begin{description}
-\item[Secrets:] Authentication specific details for a user.
+\item[Secrets:] Authentication-specific details for a user.
 \item[Services:] Raises in error for unverified users.
 \item[Implemented By:]  Firebase
 \item[Type of Module:] Library
@@ -596,40 +610,37 @@ requirements and between the modules and the anticipated changes. Here is the \h
 \midrule
 FR1 & \mref{CreateAccount}, \mref{AuthState}, \mref{Login}, \mref{DatabaseOperations}\\
 FR2 &  \mref{Login}, \mref{DatabaseOperations}\\
-FR3 & \mref{Market}, \mref{Inventory} \\
+FR3 & \mref{Shop}, \mref{Inventory} \\
 FR4 & \mref{Inventory}, \mref{Item}\\
 FR5 & \mref{AuthState}, \mref{CreateAccount}, \mref{Login}\\
-FR6 & \mref{Market}, \mref{Inventory}, \mref{Item}\\
+FR6 & \mref{Shop}, \mref{Inventory}, \mref{Item}\\
 FR7 & \mref{FarmGrid}, \mref{FarmTile}, \mref{Seed}, \mref{Item}, \mref{Inventory}\\
-FR8 & \mref{Market}, \mref{Inventory}, \mref{Item}\\
-FR9 & \mref{Inventory}, \mref{Item}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Seed}\\
-FR10 & \mref{Market}, \mref{FarmGrid}, \mref{FarmTile}\\
-FR11 & \mref{AvatarMenu}, \mref{Avatar}, \mref{Consultant}, \mref{GameController}\\
-FR12 & \mref{Market}, \mref{Item}, \mref{Inventory}\\
-FR13 & \mref{DatabaseOperations}, \mref{GameController}, \mref{ServerFirebase}, \mref{Server}\\
-FR14 & \mref{DatabaseOperations}, \mref{GameController}, \mref{ServerFirebase}, \mref{Server}\\
-FR15 & \mref{DatabaseOperations}, \mref{GameController}, \mref{ServerFirebase}, \mref{ClientFirebase}, \mref{Server}\\
-FR16 & \mref{FarmGrid}, \mref{FarmTile}\\
-FR17 & \mref{FarmGrid}, \mref{FarmTile}, \mref{Inventory}, \mref{Item}\\
-FR18 & \mref{Login}\\
-FR19 & \mref{Inventory}, \mref{FarmGrid}, \mref{GameController}\\
-FR20 & \mref{CreateAccount}, \mref{DatabaseOperations}, \mref{GameController}\\
-FR21 & \mref{GameController}\\
-FR22 & \mref{GameController}\\
-LF1& \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
-LF2& \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
+FR8 &  \mref{Inventory}, \mref{Item}, \mref{FarmGrid}, \mref{FarmTile} \\
+FR9 & \mref{Inventory}, \mref{Item}, \mref{FarmGrid}, \mref{FarmTile}\\
+FR10 & \mref{Inventory}, \mref{Shop}, \mref{FarmGrid}, \mref{FarmTile}, \mref{GameController}\\
+FR11 & \mref{Inventory}, \mref{Item}, \mref{FarmGrid}, \mref{FarmTile}\\
+FR12 & \mref{FarmGrid}, \mref{FarmTile},\mref{GameController}\\
+FR13 & \mref{Avatar}, \mref{AvatarMenu}, \mref{Consultant}, \mref{GameController}\\
+FR14 & \mref{Inventory}, \mref{Shop}, \mref{Item}, \mref{GameController}\\
+FR15 & \mref{Inventory}, \mref{Item}\\
+FR16 &  \mref{DatabaseOperations}, \mref{Server}, \mref{SeasonalEvents}, \mref{GenerateStatistic}, \mref{Consultant} , \mref{Shop}, \mref{Inventory}, \mref{FarmGrid}, \mref{GameSettings}, \mref{GameController}\\
+FR17 & \mref{DatabaseOperations}, \mref{Server}, \mref{SeasonalEvents}, \mref{GenerateStatistic}, \mref{Consultant} , \mref{Shop}, \mref{Inventory}, \mref{FarmGrid}, \mref{GameSettings}, \mref{GameController}\\
+FR18 & \mref{FarmGrid}, \mref{FarmTile}, \mref{GameController}\\
+FR19 & \mref{Consultant}, \mref{GameController}\\
+FR20 & \mref{GenerateStatistic}, \mref{SeasonalEvents}, \mref{FarmGrid}, \mref{FarmTile} \mref{GameController}\\
+FR21 & \mref{SeasonalEvents}, \mref{GameController}\\
+FR22 & \mref{Consultant}, \mref{GameController}\\
+LF1& \mref{Shop}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
+LF2& \mref{Shop}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
 LF3& \mref{MusicPlayer}\\
-LF4& \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Consultant}, \mref{OtherAvatar}, \mref{Item}\\
+LF4& \mref{Shop}, \mref{Inventory}, \mref{AvatarMenu}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Consultant}, \mref{OtherAvatar}, \mref{Item}\\
 LF5& \mref{GameController}\\
-LF6 &\mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Consultant}, \mref{OtherAvatar}, \mref{Item}, \mref{GameController}\\
-UH1& \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}, \mref{GameController}\\
+LF6 &\mref{Shop}, \mref{Inventory}, \mref{AvatarMenu}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Consultant}, \mref{OtherAvatar}, \mref{Item}, \mref{GameController}\\
+UH1& \mref{Shop}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}, \mref{GameController}\\
 PR1& \mref{DatabaseOperations}, \mref{Server}, \mref{GameController}\\
 PR2& \mref{DatabaseOperations}, \mref{Server}, \mref{GameController}\\
-OE1& \mref{Login}, \mref{GameController}\\
-OE2& \mref{Login}, \mref{GameController}\\
-MR1& \mref{MusicPlayer}, \mref{Item}, \mref{AvatarMenu}\\
-SR1& \mref{Login}, \mref{CreateAccount}\\
-LR1 & \mref{DatabaseOperations}, \mref{GameSettings}\\
+PR3& \mref{DatabaseOperations}, \mref{Server}, \mref{GameController}\\
+
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -640,18 +651,38 @@ LR1 & \mref{DatabaseOperations}, \mref{GameSettings}\\
 \centering
 \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
 \toprule
+\textbf{Req.} & \textbf{Modules}\\
+\midrule
+OE1& \mref{Login}, \mref{GameController}\\
+OE2& \mref{Login}, \mref{GameController}\\
+MR1& \mref{MusicPlayer}, \mref{Item}, \mref{AvatarMenu}\\
+SR1& \mref{Login}, \mref{CreateAccount}\\
+SR2& \mref{Login}, \mref{CreateAccount}, \mref{DatabaseOperations}\\
+SR3& \mref{Login}, \mref{CreateAccount}, \mref{DatabaseOperations}\\
+LR1 & \mref{DatabaseOperations}, \mref{GameSettings}\\
+LR2 & \mref{Item}, \mref{MusicPlayer}\\
+\bottomrule
+\end{tabular}
+\caption{Cont. Trace Between Requirements and Modules}
+\label{TblRT}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{PriceFluctuate} & \mref{Market}, \mref{Item}\\
+\acref{PriceFluctuate} & \mref{Shop}, \mref{Item}\\
 \acref{AvatarVariety} & \mref{AvatarMenu}, \mref{OtherAvatar}\\
 \acref{ItemVariety} & \mref{Item}\\
 \acref{EventMechanism} & \mref{GameController}, \mref{FarmGrid}, \mref{FarmTile}, \mref{Consultant}\\
 \acref{ConsultantMechanism} & \mref{Consultant}, \mref{GameController}\\
 \acref{SoundtrackVariety} & \mref{MusicPlayer}\\
-\acref{SellOptions} & \mref{Market}, \mref{Inventory}\\
-\acref{PurchaseInsurance} & \mref{Market}, \mref{Inventory}, \mref{GameController}, \mref{Item}\\
-\acref{InsuranceAlgorithm} & \mref{Market},\mref{Item}\\
-\acref{UIComponents} & \mref{Market}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
+\acref{SellOptions} & \mref{Shop}, \mref{Inventory}\\
+\acref{PurchaseInsurance} & \mref{Shop}, \mref{Inventory}, \mref{GameController}, \mref{Item}\\
+\acref{InsuranceAlgorithm} & \mref{Shop},\mref{Item}\\
+\acref{UIComponents} & \mref{Shop}, \mref{Inventory}, \mref{AvatarMenu}, \mref{GameSettings}\\
 \acref{SaveGame} & \mref{DatabaseOperations}, \mref{GameController}\\
 \acref{TurnNumber} & \mref{GameController}\\
 \bottomrule
