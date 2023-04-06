@@ -1,5 +1,5 @@
-import React from "react";
-import { useModels } from "./hooks";
+import React from 'react';
+import { useModels } from './hooks';
 
 export function WinterModel(props) {
   const { winter1, winter2, winter3, winter4 } = useModels();

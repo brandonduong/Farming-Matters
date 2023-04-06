@@ -1,4 +1,4 @@
-import { GenerateStatistics } from "./GenerateStatistics";
+import { GenerateStatistics } from './GenerateStatistics';
 
 function futureSeasonalEvents() {
   //(n+3) index of market price
@@ -21,7 +21,7 @@ export const GameLogic = {
 };
 
 function generateNTurnItemPrices(itemPrice, fluctuationFactor, noTurns) {
-  const PD = require("probability-distributions");
+  const PD = require('probability-distributions');
   let itemPrices = PD.rnorm(noTurns, itemPrice, fluctuationFactor);
   return itemPrices;
 }
@@ -29,7 +29,7 @@ function generateNTurnItemPrices(itemPrice, fluctuationFactor, noTurns) {
 export function generateNTurnPriceState(
   totalTurns,
   priceFluctuations,
-  marketItems
+  marketItems,
 ) {
   let nTurnItemPrices = [];
   for (let k = 0; k < totalTurns; k++) {
@@ -42,7 +42,7 @@ export function generateNTurnPriceState(
     const currentItemPrices = generateNTurnItemPrices(
       basePrices,
       currentFluctuationFactor,
-      totalTurns
+      totalTurns,
     );
     for (let j = 0; j < totalTurns; j++) {
       // nTurnItemPrices[j] is the dictionary for turn j
@@ -70,18 +70,18 @@ export function checkIfItemIsPlant(name, plants) {
 }
 
 export function getItemFluctuation(name, items) {
-  for (let i = 0; i < items.length; i++){
-    if (items[i].name == name){
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].name == name) {
       return items[i].fluctuationFactor;
     }
   }
 }
 
-export function getImage(name, shopItemsList){
-  for (let i = 0; i < shopItemsList.length; i++){
+export function getImage(name, shopItemsList) {
+  for (let i = 0; i < shopItemsList.length; i++) {
     if (shopItemsList[i].name == name) {
       return shopItemsList[i].image;
     }
   }
-  return "";
+  return '';
 }

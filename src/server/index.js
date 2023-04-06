@@ -8,14 +8,14 @@ const mysql = require("mysql2/promise");
 let db;
 
 const PORT = process.env.PORT || 4001;
-
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
 
 app.use(express.json());
 
-/* Auth */
+/*********** Authentication ***********/
+
+// Checking auth token for all incoming HTTP requests
 function checkAuth(req, res, next) {
   if (req.headers.authtoken) {
     // console.log(req.headers.authtoken);
@@ -31,9 +31,19 @@ function checkAuth(req, res, next) {
     res.status(403).send("Unauthorized");
   }
 }
-
 app.use("/private", checkAuth);
 
+// Validating that a user only has a single session
+var allClients = new Map();
+const io = new Server(server); // Serverside socket object
+
+io.on("connection", (socket) => {
+  allowSingleSession(socket, allClients);
+});
+
+/************ SQL Database Endpoints ************/
+
+// Initialize a database connection
 app.get("/private/connectToDatabase", async (req, res) => {
   try {
     db = await mysql.createConnection({
@@ -55,6 +65,7 @@ app.get("/private/connectToDatabase", async (req, res) => {
   res.status(200).send();
 });
 
+// Store user actions in the database
 app.post("/private/logactions", async (req, res) => {
   let userId = req.body.userId;
   let data = req.body.data;
@@ -66,51 +77,43 @@ app.post("/private/logactions", async (req, res) => {
   res.status(200).send();
 });
 
+// Save a game state in the database
 app.post("/private/saveGame", async (req, res) => {
   let userId = req.body.userId;
-  let data = req.body.gameData;
+  let gameState = req.body.gameData;
 
   // Only creates a user table if it does not exist in the database
-  await databaseOperations.saveGame(db, userId, data);
+  await databaseOperations.saveGame(db, userId, gameState);
 
   res.status(200).send();
 });
 
+// Retrieve a game state from the database
 app.get("/private/loadGame", async (req, res) => {
   let userId = req.headers.userid;
   let gameState = await databaseOperations.loadGame(db, userId);
   if (!gameState) {
-    // console.log("empty gamestate: ", gameState);
     res.json();
   } else {
     console.log("gamestate: ", gameState);
     res.json(gameState[0][0]);
   }
-  // console.log("gamestate: ", gameState[0][0]);
-  // console.log("gamestate: ", typeof gameState[0][0]);
 });
 
+// Deletes all stored data related to a user
 app.delete("/private/deleteUserTable", async (req, res) => {
   let userId = req.headers.userid;
   await databaseOperations.deleteUserTable(db, userId);
   res.status(200).send();
 });
 
+// Deletes a user's save game data (not saved actions/research data)
 app.delete("/private/deleteGame", async (req, res) => {
   let userId = req.headers.userid;
   await databaseOperations.deleteGame(db, userId);
   res.status(200).send();
 });
 
-//app.post('/auth/login', (req, res) => login(req.body.email, req.body.password, res));
-//app.post('/auth/createaccount',  (req, res) => createAccount(req.body.email, req.body.password, res));
-
-// Contains logic for validating that a user only has a single session
-// TODO: emit event from client on login containing userID, trigger function on login event
-var allClients = new Map();
-io.on("connection", (socket) => {
-  allowSingleSession(socket, allClients);
-});
 
 server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

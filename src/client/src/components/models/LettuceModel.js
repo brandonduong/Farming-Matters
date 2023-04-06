@@ -1,5 +1,5 @@
-import React from "react";
-import { useModels } from "./hooks";
+import React from 'react';
+import { useModels } from './hooks';
 
 export function LettuceModel(props) {
   const { lettuce1, lettuce2 } = useModels();

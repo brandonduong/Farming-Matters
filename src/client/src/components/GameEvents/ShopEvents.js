@@ -1,14 +1,9 @@
-import React from 'react'
+import React from 'react';
 import AvatarDialog from './AvatarDialog';
-import {consultantDialog} from './constants'
+import { consultantDialog } from './constants';
 
-const ShopEvent = (props) =>{
-
-    function MarketInflation(){
-
-    }
-    function RestoreToNormalState(){
-        
-    }
-}
+const ShopEvent = (props) => {
+  function MarketInflation() {}
+  function RestoreToNormalState() {}
+};
 export default ShopEvent;

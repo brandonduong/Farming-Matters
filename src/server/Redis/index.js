@@ -1,3 +1,9 @@
+/**
+ * Initializes the Redis client (basically a key-value store) and exports the client.
+ * Used to interact with Redis.
+ * See https://github.com/luin/ioredis#readme
+ */
+
 require("dotenv").config();
 
 // Redis setup

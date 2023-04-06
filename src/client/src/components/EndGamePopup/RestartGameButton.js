@@ -1,4 +1,4 @@
-import { resetGame } from "../../utils/gameState";
+import { resetGame } from '../../utils/gameState';
 
 export const RestartGameButton = (props) => {
   const handleRestartGame = async () => {
@@ -7,7 +7,7 @@ export const RestartGameButton = (props) => {
   };
 
   return (
-    <button id={"end-game-button"} type="button" onClick={handleRestartGame}>
+    <button id={'end-game-button'} type="button" onClick={handleRestartGame}>
       Restart Game
     </button>
   );

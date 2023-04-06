@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 
 const Consultant = ({ userName, showTutorial, setShowTutorial }) => {
   const [showStartGame, setShowStartGame] = useState(true);
@@ -11,16 +11,16 @@ const Consultant = ({ userName, showTutorial, setShowTutorial }) => {
   return (
     <div>
       {showStartGame ? (
-        <div className="dialog-background" style={{ zIndex: "20" }}>
+        <div className="dialog-background" style={{ zIndex: '20' }}>
           <div className="dialog-grid">
-            <div className={"avatar dialog-avatar-0"}> </div>
+            <div className={'avatar dialog-avatar-0'}> </div>
             <div
               className="box arrow-left"
-              style={{ backgroundColor: "rgba(255, 255, 255, 0.76)" }}
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.76)' }}
             >
               <div
                 className="avatar-info"
-                style={{ gridTemplateRows: "1fr 4fr", paddingBottom: "10px" }}
+                style={{ gridTemplateRows: '1fr 4fr', paddingBottom: '10px' }}
               >
                 <h1> Welcome! </h1>
                 {/* <h2> {props.getDescription()} </h2> */}

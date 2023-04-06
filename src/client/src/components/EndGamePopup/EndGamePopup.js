@@ -1,5 +1,5 @@
-import { SignOutButton } from "../InfoHeader/SignOutButton";
-import { RestartGameButton } from "./RestartGameButton";
+import { SignOutButton } from '../InfoHeader/SignOutButton';
+import { RestartGameButton } from './RestartGameButton';
 
 const MONEY_GOAL = 15000;
 function EndGamePopup(props) {
@@ -8,7 +8,7 @@ function EndGamePopup(props) {
       <div className="end-game-box">
         <h1>Year 4 Passed</h1>
         <h2>
-          You have finished with ${props.money} and{" "}
+          You have finished with ${props.money} and{' '}
           {props.money >= MONEY_GOAL ? (
             <text>can happily retire!</text>
           ) : (

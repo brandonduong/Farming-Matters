@@ -1,10 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import SliderBar from "./SliderBar";
-import { deleteLoggingTable } from "../../utils/withdraw";
-import { resetGame } from "../../utils/gameState";
-import { useAuth } from "../../utils/auth/hooks";
-import { deleteUser } from "firebase/auth";
+import React from 'react';
+import { useState } from 'react';
+import SliderBar from './SliderBar';
+import { deleteLoggingTable } from '../../utils/withdraw';
+import { resetGame } from '../../utils/gameState';
+import { useAuth } from '../../utils/auth/hooks';
+import { deleteUser } from 'firebase/auth';
 
 export const GameSettings = (props) => {
   const { user, signOutHandler, socket, setIsLoggedIn } = useAuth();
@@ -17,8 +17,8 @@ export const GameSettings = (props) => {
   const [selectedWithdrawType, setSelectedWithdrawType] = useState();
   const allDisplayPrompt = {
     study:
-      "Withdrawing from the study will delete the account and all play data that may be used for research.",
-    game: "Withdrawing from the game will delete the account but retain all play data that may be used for research. ",
+      'Withdrawing from the study will delete the account and all play data that may be used for research.',
+    game: 'Withdrawing from the game will delete the account but retain all play data that may be used for research. ',
   };
   const [currentDisplayPrompt, setCurrentDisplayPrompt] = useState(null);
 
@@ -31,14 +31,14 @@ export const GameSettings = (props) => {
 
     let withdrawExcerpts = {
       study:
-        "Players may choose to withdraw from the study. This will delete the player account. It will also delete all anonymized game data, that may have been used in research, associated with the account.",
-      game: "Players may choose to withdraw from the game. This will delete the player account; however, it will not delete the game data that may be used research. The game data is anonymized and will not be tied to any user information.",
+        'Players may choose to withdraw from the study. This will delete the player account. It will also delete all anonymized game data, that may have been used in research, associated with the account.',
+      game: 'Players may choose to withdraw from the game. This will delete the player account; however, it will not delete the game data that may be used research. The game data is anonymized and will not be tied to any user information.',
     };
     return (
       <div className="settings">
         <div
           className="dialog-modal"
-          style={{ backgroundColor: "rgba(255, 255, 255, 0.91)" }}
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.91)' }}
         >
           <button
             type="button"
@@ -55,7 +55,7 @@ export const GameSettings = (props) => {
   };
 
   const handleWithdraw = async () => {
-    if (selectedWithdrawType === "study") {
+    if (selectedWithdrawType === 'study') {
       await deleteLoggingTable();
       // method for deleting the gamestate table
       await resetGame();
@@ -63,17 +63,17 @@ export const GameSettings = (props) => {
 
     // sign out before deleting account so there's no issue signing out when account doesn't exist
     signOutHandler();
-    socket.emit("logout", user.uid);
+    socket.emit('logout', user.uid);
     setIsLoggedIn(false);
     sessionStorage.clear();
 
     // user table will always be deleted regardless of the withdraw option selected
     deleteUser(user)
       .then(() => {
-        console.log("user deleted from firebase");
+        console.log('user deleted from firebase');
       })
       .catch((error) => {
-        console.log("error occured", error);
+        console.log('error occured', error);
       });
     console.log(selectedWithdrawType);
     setSelectedWithdrawType(null);
@@ -95,14 +95,14 @@ export const GameSettings = (props) => {
               <p className="center settings-heading">Settings</p>
               <p className="settings-header">Music Volume:</p>
               <SliderBar value={props.volume} setValue={props.setVolume} />
-              <p className="settings-header" style={{ marginTop: "65px" }}>
+              <p className="settings-header" style={{ marginTop: '65px' }}>
                 Sound Effects Volume:
               </p>
               <SliderBar
                 value={props.soundEffectsVolume}
                 setValue={props.setSoundEffectsVolume}
               />
-              <p className="settings-header" style={{ marginTop: "80px" }}>
+              <p className="settings-header" style={{ marginTop: '80px' }}>
                 Withdraw:
               </p>
 
@@ -112,7 +112,7 @@ export const GameSettings = (props) => {
                     className="withdraw-btn"
                     onClick={() => {
                       setConfirmDialog(true);
-                      setSelectedWithdrawType("game");
+                      setSelectedWithdrawType('game');
                       setCurrentDisplayPrompt(allDisplayPrompt.game);
                     }}
                   >
@@ -122,7 +122,7 @@ export const GameSettings = (props) => {
                     className="more-info-btn"
                     onClick={() => {
                       setShowModal(true);
-                      setSelectedWithdrawType("game");
+                      setSelectedWithdrawType('game');
                     }}
                   >
                     i
@@ -133,7 +133,7 @@ export const GameSettings = (props) => {
                     className="withdraw-btn"
                     onClick={() => {
                       setConfirmDialog(true);
-                      setSelectedWithdrawType("study");
+                      setSelectedWithdrawType('study');
                       setCurrentDisplayPrompt(allDisplayPrompt.study);
                     }}
                   >
@@ -143,7 +143,7 @@ export const GameSettings = (props) => {
                     className="more-info-btn"
                     onClick={() => {
                       setShowModal(true);
-                      setSelectedWithdrawType("study");
+                      setSelectedWithdrawType('study');
                     }}
                   >
                     i
@@ -177,7 +177,7 @@ export const GameSettings = (props) => {
                   type="button"
                   className="confirm-dialog-btn"
                   id="confirm-dialog-confirm-btn"
-                  style={{ marginLeft: "10%" }}
+                  style={{ marginLeft: '10%' }}
                   onClick={() => {
                     setConfirmDialog(false);
                     handleWithdraw();

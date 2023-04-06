@@ -1,5 +1,5 @@
-import React from "react";
-import { useModels } from "./hooks";
+import React from 'react';
+import { useModels } from './hooks';
 
 export function MushroomModel(props) {
   const { mush1, mush2, mush3 } = useModels();
