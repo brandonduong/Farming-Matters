@@ -5,6 +5,8 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage[normalem]{ulem}
 
 \hypersetup{
     colorlinks,
@@ -35,7 +37,9 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-11/02/2022 1 & 1.0 & Finished first version\\
+02/11/2022 1 & 1.0 & Finished first version\\
+07/03/2023 1 & 1.1 & Updated Non-function requirement tests to match test implementation\\
+02/04/2023 1 & 1.1 & Updated document based on feedback\\
 \bottomrule
 \end{tabularx}
 
@@ -64,24 +68,19 @@ Farming Matters is an interactive and engaging game where the user manages a far
 lab experiments allowing users to make genuine decisions. The game decisions made by the users will be logged on the server and saved which can be later used for research.
 
 \subsection{Objectives}
+The main objective of the VnV plan is to build confidence in the software’s correctness. It outlines the plan to ensure the implementation of the system matches the project specification stated in other documents (listed in the section below). The plan for verifying the system's usability is also presented. This is important as users can trust that the software will perform as expected, which can lead to a better overall gaming experience.
 
-\begin{itemize}
-    \item Build confidence in the software's correctness to match the gameplay consistency 
-    \item Demonstrate suitable usability for users playing the game and data collection for research
-    \item To assure the system has met the requirements provided in the Software Requirement Specification (SRS)
-    \item To assure potential hazards are accounted for
-\end{itemize}  
 
 \subsection{Relevant Documentation}
 The project consists of various other documentation that contain contents discussed and mentioned in this document:
 \begin{itemize}
     \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem Statement}
     \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.pdf}{Development Plan}
-    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/DevelopmentPlan/DevelopmentPlan.pdf}{Software Requirements Document}
-    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/HazardAnalysis/HazardAnalysis.pdf}{Hazard Analysis}
-    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/VnVReport/VnVReport.pdf}{Verification \&  Validation Report}
-    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/Design/MG/MG.pdf}{Module Guide}
-    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/Design/MIS/MIS.pdf}{Module Interface Specification}
+    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/DevelopmentPlan/DevelopmentPlan.pdf}{Software Requirements Specification (SRS) Document}
+    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/HazardAnalysis/HazardAnalysis.pdf}{Hazard Analysis (HA)}
+    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/VnVReport/VnVReport.pdf}{Verification \&  Validation (V\&V) Report}
+    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/Design/MG/MG.pdf}{Module Guide (MG)}
+    \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/Design/MIS/MIS.pdf}{Module Interface Specification (MIS)}
     \item \href{https://github.com/brandonduong/Farming-Matters/blob/main/docs/UserGuide/UserGuide.pdf}{User Guide}
 \end{itemize}
 
@@ -104,36 +103,39 @@ This section highlights and outlines the plans for the validation and verificati
 \begin{tabular}{|l|p{1.8in}|p{2.5in}|}
 \hline
 \textbf{Name}            & \textbf{Role(s)}                                       & \textbf{Responsibilities}                                                                                                                                             \\ \hline
-Mohammad Harun           & Backend test developer, Manual tester, SRS verifier               & Create automated tests for backend functionality, perform manual testing, review SRS                                                                                              \\ \hline
+Mohammad Harun           & Frontend test developer, Manual tester, SRS verifier               & Create automated tests for frontend functionality, perform manual testing, review SRS                                                                                              \\ \hline
 Namit Chopra             & Backend test developer, Test framework developer       & Create automated tests for backend functionality, set up test framework including code coverage, etc.                                                                 \\ \hline
 Andrew Balmakund         & Frontend test developer, Manual tester                 & Create automated tests for frontend functionality, perform manual testing                                                                                             \\ \hline
 Brandon Duong            & Full stack test developer, Lead test developer         & Create automated tests for frontend and backend functionality, lead existing and new directives in testing and validation                                             \\ \hline
-Mihail Serafimovski      & Frontend test developer, Test framework developer      & Create automated tests for frontend functionality, set up test framework including code coverage, etc.                                                                \\ \hline
+Mihail Serafimovski      & Backend test developer, Test framework developer      & Create automated tests for backend functionality, set up test framework including code coverage, etc.                                                                \\ \hline
 Prof. Niko Yiannakoulias & Supervisor, Manual tester, Final reviewer & As the project will be delivered to Prof. Yiannakoulias, he will also be the final reviewer in terms of validation. He will also perform manual tests in the process. \\ \hline
 \end{tabular}
 \end{adjustwidth}
 \end{table}
-Please note that all team members listed on the table will also have the role of code reviewers. This includes the supervisor, as he has to maintain the code in the future and should therefore have some oversight of the code itself.
+
+ \quad Please note that all team members listed on the table will also have the role of code reviewers. This includes the supervisor, as he has to maintain the code in the future and should therefore have some oversight of the code itself.
+
+The roles and responsibilities listed above can be viewed as the main responsibilities of the member. They will be questioned should the area be incomplete. However, there are no restrictions in collaborating with other members to finish their tasks. This will be especially useful during unforeseen circumstances. Furthermore, team members may also switch or trade responsibilities should all members agree. Overall, the table above is a starting point and gives the opportunity for members to take on or delegate tasks through the testing process.
 
 \subsection{SRS Verification Plan}
 
 SRS verification will be implemented in a variety of ways. First of all, reviews by classmates and teammates will be used in the form of the creation of GitHub Issues. Although this has been done before, we intend to continue verifying the SRS in this way. We will improve on the previous process by creating a checklist to guide a reviewer, to help improve the speed of reviews and guide reviewers towards areas that may need more attention. This checklist will be implemented in the form of a GitHub Issues template.
 
-We will also use structured reviews from the project's supervisor to help verify the SRS. This will be carried out in the form of an SRS walkthrough, where all group members and the supervisor will meet and the group will guide the supervisor through the SRS document.
+We will also use structured reviews from the project's supervisor to help verify the SRS. This will be carried out in the form of an SRS walkthrough, where all group members and the supervisor will meet and the group will guide the supervisor through the SRS document. The issues noted from the feedback will be addressed and resolved to improve the functional requirements, non-functional requirements and/or constraints of the product.
 
 \subsection{Design Verification Plan}
 
 Design verification will be implemented very similarly to SRS verification. \\
 Like in the preceding section, reviews by classmates and teammates will be used in the form of the creation of GitHub Issues. A checklist to guide reviewers will also be created, to help improve the speed of reviews and guide reviewers towards areas that may need more attention. This checklist will be implemented in the form of a GitHub Issues template.
 
-We will also use structured reviews from the project's supervisor to help verify the design. This will be carried out in the form of a design walkthrough, where all group members and the supervisor will meet and the group will guide the supervisor through the design of the project, including drawing diagrams on a whiteboard and describing concepts in-depth where needed. The supervisor will be encouraged to give feedback during the walkthrough.
+We will also use structured reviews from the project's supervisor to help verify the design. This will be carried out in the form of a design walkthrough, where all group members and the supervisor will meet and the group will guide the supervisor through the design of the project, including drawing diagrams on a whiteboard and describing concepts in-depth where needed. The supervisor will be encouraged to give feedback during the walkthrough. The issues noted from the feedback will be addressed and resolved to improve the look and feel, and underlying game mechanics of the product.
 
 \subsection{Verification and Validation Plan Verification Plan}
 
 Verification and Validation Plan verification will be implemented very similarly to the preceding two sections. \\
 Like in the preceding sections, reviews by classmates and teammates will be used in the form of the creation of GitHub Issues. A checklist to guide reviewers will also be created, to help improve the speed of reviews and guide reviewers towards areas that may need more attention. This checklist will be implemented in the form of a GitHub Issues template.
 
-Due to the nature of the Verification and Validation plan, we elected to use other classmates for structured reviews as well as the supervisor. Since other classmates have a more technical background than our supervisor, these structured reviews will help us improve the VnV plan document. The review from the supervisor will be equally for his purposes, so he is familiar with how we are testing the project. These structured reviews will be carried out in the form of VnV plan walkthroughs, where all group members and the supervisor will meet and the group will guide the supervisor through the design of the project, including drawing diagrams on a whiteboard and describing concepts in-depth where needed. The supervisor will be encouraged to give feedback during the walkthrough.
+Due to the nature of the Verification and Validation plan, we elected to use other classmates for structured reviews as well as the supervisor. Since other classmates have a more technical background than our supervisor, these structured reviews will help us improve the VnV plan document. The review from the supervisor will be equally for his purposes, so he is familiar with how we are testing the project. These structured reviews will be carried out in the form of VnV plan walkthroughs, where all group members and the supervisor will meet and the group will guide the supervisor through the design of the project, including drawing diagrams on a whiteboard and describing concepts in-depth where needed. The supervisor will be encouraged to give feedback during the walkthrough. 
 
 \subsection{Implementation Verification Plan}
 
@@ -147,37 +149,31 @@ Due to the nature of the Verification and Validation plan, we elected to use oth
 \label{s4.6}
 
 \begin{itemize}
-\item For front-end testing, we will use \href{https://jestjs.io/}{Jest}. For back-end, we will use \href{https://mochajs.org/}{Mocha}.
-\begin{itemize}
-    \item Mocha is the most popular Javascript unit testing framework. It is designed to be simple, extensible, and fast. Mocha provides a lot of useful functionality out of the box such as fixtures, mocking, etc. It also provides a lot of features for async testing, which will be useful for testing back-end components that need to do async operations such as writing to a database (for example). 
+\item For front-end testing and code coverage, we will use \href{https://jestjs.io/}{Jest}, \href{https://react.dev/learn/react-developer-tools}{React Developer Tools}, \href{https://developer.chrome.com/docs/lighthouse/overview/}{Lighthouse}. 
+\begin{itemize}    
+    \item Jest is very popular, however we will specifically use it for front-end testing as it provides a suite of useful features such as snapshot testing that can be used to ensure the layout of a page doesn't change.
+    \item React Developer Tools will be used to assess front end performance, specifically render times. This will help identify components that may bottleneck the performance of the system.  
     
-    \item Jest is also very popular, however we will specifically use it for front-end testing as it provides a suite of useful features such as snapshot testing that can be used to ensure the layout of a page doesn't change.
+    \item Google's open-source built tool called Lighthouse will also be used to assess different accessibility features of the system, help shed light where users may have a bad experience with a particular part of the system. It is also known to be a good tool to assess different areas of performance such as memory and render times.
+    
 \end{itemize}
 
-\item For code coverage, we will use \href{https://istanbul.js.org/}{istanbul.js}.
 \begin{itemize}
-    \item Istanbul.js is a very simple, lightweight code coverage tool that bundles and runs all unit tests with a single command. It generates a very readable and understandable output and prints it to the terminal. An example can be seen in the linked website. 
     \item Code coverage reports for the entire project will be generated as shown in Figure 1 below. \\
     \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{CodeCoverage}
     \caption{A sample code coverage report}
     \end{figure}
 \end{itemize}
-\item CI will be set up using GitHub actions. The CI system will run automated tests triggered by a change to the main branch to ensure the main branch is always stable.
-\begin{itemize}
-    \item Mocha and Jest both have the necessary features needed to automate testing with GitHub actions.
-\end{itemize}
-
-\item Linter: \href{https://prettier.io/}{prettier}
 \end{itemize}
 
 \subsection{Software Validation Plan}
 
 
-  One of the central purposes of this project is to gather research data through a user's gameplay. The supervisor, Prof. Niko Yiannakoulias, has done research before on the same topic, but through traditional survey methods instead of a game. The data obtained from his previous research will be important to validate the software, as it will help show if the software fulfilled its purpose of generating reliable data.
-  \\ 
+ % One of the central purposes of this project is to gather research data through a user's gameplay. The supervisor, Prof. Niko Yiannakoulias, has done research before on the same topic, but through traditional survey methods instead of a game. The data obtained from his previous research will be important to validate the software, as it will help show if the software fulfilled its purpose of generating reliable data.
+ % \\ 
 
-Another method of validating the software will be review sessions with our primary stakeholder, the supervisor (Prof. Niko Yiannakoulias). We have a weekly meeting cadence set up with him and we can use these to iteratively validate the software as we go through the development process as opposed to validating it just once. In the beginning, it will be best to keep these review sessions less formal but as the software gets closer to the finished product, the review sessions will become formal in nature and the group will implement task based inspection.
+One of the central purposes of this project is to gather research data through a user's gameplay. The supervisor, Prof. Niko Yiannakoulias, has experience conducting research through games. We have a weekly meeting cadence set up with him and we can use these to iteratively validate the software as we go through the development process as opposed to validating it just once. In the beginning, it will be best to keep these review sessions less formal but as the software gets closer to the finished product, the review sessions will become formal in nature and the group will implement task based inspection.
 
 \section{System Test Description}
 	
@@ -230,7 +226,7 @@ The account creation testing deals with the test cases related that relate to a 
 
 \textbf{Id:} Test-AC1 \label{Test-AC1} \\
 
-\textbf{Control:} Automatic
+\textbf{Control:} Automated
 					
 \textbf{Initial State:} User is not logged in. Start at login page
 					
@@ -242,11 +238,13 @@ The account creation testing deals with the test cases related that relate to a 
 
 \textbf{How test will be performed:} Create automatic test that creates an account and checks that the account can be logged into
 
+\textbf{Requirements being verified:} FR1, FR2, FR5
+
 \item{\textbf{Name:} Unsuccessful Login }% FR 1
 
 \textbf{Id:} Test-AC2  \label{Test-AC2}\\
 
-\textbf{Control: }Automatic
+\textbf{Control: }Automated
 					
 \textbf{Initial State:} User is not logged in and at login page
 					
@@ -258,6 +256,7 @@ The account creation testing deals with the test cases related that relate to a 
 
 \textbf{How test will be performed:} Create automatic test that inputs invalid information and verifies that a corresponding error is returned
 
+\textbf{Requirements being verified:} FR1, FR2, FR5
 
 \item{\textbf{Name:} Reset Password\\} \label{Test-AC3} % FR 2
 \textbf{Id:} Test-AC3 \label{Test-AC3}\\
@@ -274,6 +273,7 @@ The account creation testing deals with the test cases related that relate to a 
 
 \textbf{How test will be performed:} After resetting the password try to login with the new credentials to see if password was successfully reset
 
+\textbf{Requirements being verified:} FR2
 
 \item{\textbf{Name:} Verify Human User\\} % FR 5
 \textbf{Id:} Test-AC4 \label{Test-AC4}\\
@@ -290,6 +290,8 @@ The account creation testing deals with the test cases related that relate to a 
 
 \textbf{How test will be performed:} Manual test that fills in all account information and checks that a captcha is required before account creation is attempted
 
+\textbf{Requirements being verified:} FR1, FR5
+
 \item{\textbf{Name:} Successful deletion of user account\\} % FR 15
 \textbf{Id:} Test-AC5    \label{Test-AC5}\\
 \textbf{Control:} Manual
@@ -303,6 +305,8 @@ The account creation testing deals with the test cases related that relate to a 
 \textbf{Test Case Derivation:} This functionality is essential for the ethics board and so must be thoroughly tested
 
 \textbf{How test will be performed:} This test can be run after the other manual test of successfully creating an account
+
+\textbf{Requirements being verified:} C4
 
 \end{enumerate}
 
@@ -343,53 +347,9 @@ The game mechanics testing deals with the test cases related that relate to the 
 
 
 
-\item {\textbf{Name:} Successful first item purchase\\} % FR 3, 6
-\textbf{Id:} Test-GM1 \label{Test-GM1}\\
-
-Control: Automatic
-
-\textbf{Initial State:} User is logged in and in the shop. User has enough in-game currency to purchase an item but does not have the item in their inventory
-
-\textbf{Input:} User is logged in. The user buys an item
-
-\textbf{Output:} The item appears in the user's inventory and the user's currency correctly reflects the outcome of buying items
-
-\textbf{Test Case Derivation:} The system must be able to verify that users can purchase a new item they do not currently own using in-game currency
-
-\textbf{How test will be performed:} Automated test to check if purchased item exists in inventory and the user's currency is correctly reflected after the purchase, in both the database and front-end
-
-\item {\textbf{Name:} Unsuccessful item purchase\\} % FR 3, 6
-\textbf{Id:} Test-GM2 \label{Test-GM2}\\
-
-\textbf{Control:} Automatic
-
-\textbf{Initial State:} User is logged in and in the shop. User does not have enough in-game currency to purchase an item but does not have the item in their inventory
-
-\textbf{Input:} The user buys an item
-
-\textbf{Output:} The item does not appear in the user's inventory and the user's currency is not changed
-
-\textbf{Test Case Derivation:} The system must be able to verify that users can not purchase an item using in-game currency when they do not have enough in-game currency
-
-\textbf{How test will be performed:} Automated test to check if the user has enough in-game currency to purchase that item which does not change after an unsuccessful purchase, in both the database and front-end
-
-\item {\textbf{Name:} Successful second or more item purchase of the same item\\} % FR 3, 6
-\textbf{Id:} Test-GM3 \label{Test-GM3}\\
-
-\textbf{Control:} Automatic
-
-\textbf{Initial State:} User is logged in and in the shop. User has enough in-game currency to purchase an item and already has the item in their inventory
-
-\textbf{Input:} The user buys an item they already have in their inventory 
-
-\textbf{Output:} The quantity of the same item is increased by 1 in the user's inventory and the user's currency correctly reflects the outcome of buying items
-
-\textbf{Test Case Derivation: }The system must be able to verify that users can purchase items to use for farming purposes
-
-\textbf{How test will be performed:} Automatic test to check if purchased item count in inventory has increased and the user’s currency is correctly reflected after the purchase, in both the database and front-end
 
 \item{\textbf{Name:} Successful Land Purchase\\} % FR 3, FR 7, FR 17, FR 10
-\textbf{Id:} Test-GM4 \label{Test-GM4}\\
+\textbf{Id:} Test-GM1 \label{Test-GM1}\\
 
 \textbf{Control:} Manual
 					
@@ -403,8 +363,10 @@ Control: Automatic
 
 \textbf{How test will be performed:} Thorough and iterative manual testing of the land functionality
 
+\textbf{Requirements being verified:} FR3, FR12, FR16, FR17, FR18
+
 \item{\textbf{Name:} Successful planting of seeds\\} % FR4, FR 7, FR 17
-\textbf{Id:} Test-GM5 \label{Test-GM5}\\
+\textbf{Id:} Test-GM2 \label{Test-GM2}\\
 
 \textbf{Control:} Manual
 					
@@ -418,8 +380,10 @@ Control: Automatic
 
 \textbf{How test will be performed: }Thorough and iterative manual testing of the farming functionality
 
+\textbf{Requirements being verified:} FR3, FR4, FR6, FR7 FR12, FR16, FR17, FR18, C1
+
 \item{\textbf{Name:} Successful growing of plant seeds\\} % FR 7
-\textbf{Id:} Test-GM6 \label{Test-GM6}\\
+\textbf{Id:} Test-GM3 \label{Test-GM3}\\
 
 \textbf{Control:} Manual
 					
@@ -433,70 +397,10 @@ Control: Automatic
 
 \textbf{How test will be performed:} Thorough and iterative manual testing of the farming functionality
 
-\item{\textbf{Name:} Selling the same crop in different seasons\\} % FR 8 
-\textbf{Id:} Test-GM7 \label{Test-GM7}\\
-
-\textbf{Control: }Automatic
-
-\textbf{Initial State:} User is logged in, user is at the shop, and the user owns at least two of the same crop
-
-\textbf{Input:} User sells the one of the crops in current season and the other in the next season
-
-\textbf{Output:} Profit earned from selling the two of the same crops in different seasons should vary 
-
-\textbf{Test Case Derivation:} The user should be able to somewhat simulate a real market where crops can be sold at varying prices at different times and market
-
-\textbf{How the test will be performed:} Automated test to sell two of the same crops during different time periods and ensure the prices are the different to check for random sell prices
-
-\item{\textbf{Name:} Selling the same crop in same seasons\\} % FR 8 
-\textbf{Id:} Test-GM8 \label{Test-GM8}\\
-
-\textbf{Control: }Automatic
-
-\textbf{Initial State:} User is logged in, user is at the shop, and the user owns at least two of the same crop
-
-\textbf{Input:} User sells the one of the crops in current season and the other in the next season
-
-\textbf{Output:} Profit earned from selling the two of the same crops in the same seasons should be the same 
-
-\textbf{Test Case Derivation:} The user should be able to somewhat simulate a real market where crops can be sold at varying prices at different times and market
-
-\textbf{How the test will be performed:} Automated test to sell two of the same crops during the same time periods and ensure the prices are the same to check for random sell prices
-
-\item{\textbf{Name:} Successful balance increase in selling crop\\} % FR 8 
-\textbf{Id:} Test-GM9 \label{Test-GM9}\\
-
-\textbf{Control:} Automatic
-
-\textbf{Initial State:} User is logged in and at the shop
-
-\textbf{Input:} Crop to be sold
-
-\textbf{Output:} Money earned through selling crop. User's currency count correctly reflects the increase in user's currency count
-
-
-\textbf{Test Case Derivation:} The user should be able to somewhat simulate a real market where crops can be sold at varying prices depending on the time and market
-
-\textbf{How the test will be performed:} Automatic test to check if user's money/balance has increased after selling a crop
-
-\item{\textbf{Name:} Successful decrease in item quantity after selling item\\} % FR 8 
-\textbf{Id:} Test-GM10 \label{Test-GM10}\\
-
-\textbf{Control:} Automatic
-
-\textbf{Initial State:} User is logged in, at the shop, and holds at least one crop in inventory
-
-\textbf{Input:} User sells one crop
-
-\textbf{Output:} The inventory count decreases by one and money earned through the sale is added to the user's in-game currency balance
-
-\textbf{Test Case Derivation:} The user should no longer have the same number of items once its sold
-
-\textbf{How the test will be performed: }Automatic test to check if crop that has been sold has been removed from the inventory
-
+\textbf{Requirements being verified:} FR3, FR4, FR6, FR7, FR8, FR11, FR12, FR16, FR17, FR18
 
 \item{\textbf{Name:} Successful use of fertilizer on crop\\} % FR 7, FR 9, FR 17
-\textbf{Id:} Test-GM11 \label{Test-GM11}\\
+\textbf{Id:} Test-GM4 \label{Test-GM4}\\
 
 \textbf{Control:} Manual
 					
@@ -510,8 +414,10 @@ Control: Automatic
 
 \textbf{How test will be performed:} Thorough and iterative manual testing of the farming functionality
 
+\textbf{Requirements being verified:} FR3, FR4, FR6, FR7, FR8, FR11, FR16, FR17, FR18
+
 \item{Name: Successful visual check of farm area enlarged\\} % FR 10 FR16
-\textbf{Id:} Test-GM12 \label{Test-GM12}\\
+\textbf{Id:} Test-GM5 \label{Test-GM5}\\
 
 \textbf{Control:} Manual
 
@@ -525,39 +431,10 @@ Control: Automatic
 
 \textbf{How the test will be performed: }Manual test to check visually if the farm area has enlarged
 
-\item{\textbf{Name:} Successful purchase of building\\} % FR 17
-\textbf{Id:} Test-GM13 \label{Test-GM13}\\
-
-\textbf{Control:} Manual
-					
-\textbf{Initial State:} User is logged in, at game page, and has an empty piece of land
-					
-\textbf{Input:} User requests to buy and place building on selected land tile
-					
-\textbf{Output:} User's currency count correctly reflects the price of buying the building and the building is placed on the selected tile
-
-\textbf{Test Case Derivation:} User's should be able to buy and place buildings to create a more complex decision making system
-
-\textbf{How test will be performed: }Thorough and iterative manual testing of the farming functionality
-
-\item{\textbf{Name:} Successful evaluate all users asset in inventory\\} % FR 19
-\textbf{Id: }Test-GM14 \label{Test-GM14}\\
-
-\textbf{Control:} Automatic
-					
-\textbf{Initial State:} User is logged in and at game page
-					
-\textbf{Input:} User requests to have their farm evaluated
-					
-\textbf{Output:} Total worth of a user's assets % and a star ranking corresponding to the STAR\_MILESTONES
-
-\textbf{Test Case Derivation:} User's should be able to visualize their progression to help in their decision-making and engagement
-
-\textbf{How test will be performed:} Evaluate all assets in the users inventory
-
+\textbf{Requirements being verified:} FR3, FR12, FR16, FR17, FR18, C1
 
 \item{\textbf{Name:} Automatic prompt for a consultant\\} % FR 11
-\textbf{Id:} Test-GM15 \label{Test-GM15} \\
+\textbf{Id:} Test-GM6 \label{Test-GM6} \\
 
 \textbf{Control:} Manual
 					
@@ -571,8 +448,10 @@ Control: Automatic
 
 \textbf{How test will be performed:} Manual testing of playing the overall game and ensuring the consultant prompt would be present every CONSULTING\_INTERVAL turns
 
+\textbf{Requirements being verified:} FR3, FR13, FR16, FR17, FR19, FR20, FR22, C1
+
 \item{\textbf{Name:} Consultant's advice\\} % FR 11 FR 20
-\textbf{Id:} Test-GM16 \label{Test-GM16}\\
+\textbf{Id:} Test-GM7 \label{Test-GM7}\\
 
 \textbf{Control:} Manual
 					
@@ -586,23 +465,27 @@ Control: Automatic
 
 \textbf{How test will be performed:} Manual testing of playing the overall game and ensuring the consultant information is either deterministic or probabilistic on average 50\% of the time for each
 
-\item{\textbf{Name:} Successful prompt for insurance upon purchasing a crop\\} % FR 12 FR 20 <- Confirm insurance can only be purchased in shop
-\textbf{Id:} Test-GM17 \label{Test-GM17}\\
+\textbf{Requirements being verified:} FR3, FR13, FR16, FR17, FR19, FR20, FR22
+
+\item{\textbf{Name:} Successful insurance purchase\\} % FR 12 FR 20 <- Confirm insurance can only be purchased in shop
+\textbf{Id:} Test-GM8 \label{Test-GM8}\\
 
 \textbf{Control:} Manual 
 
 \textbf{Initial State:} User is logged in and in shop
 
-\textbf{Input:} User is prompted on whether or not they will purchase insurance with the crop.
+\textbf{Input:} User purchases insurance for an item and is allowed to enter a price for which they wish to insure the crop at.
 
-\textbf{Output:} Insurance is added to crop in case of damage
+\textbf{Output:} Insurance is added to crop to avoid loss due to fluctuating prices.
 
 \textbf{Test Case Derivation:} The research also aims to understand if user's are willing to pay for insurance and under what circumstance.
 
-\textbf{How test will be performed:} Manual test to check whether prompt appears to purchase insurance when purchasing a crop.
+\textbf{How test will be performed:} Manual test to check whether a contract exists for the insurance purchased.
 
-\item{\textbf{Name:} Successful occurrence of random events/decisions happening twice in one season\\} % FR 21
-\textbf{Id:} test-GM18 \label{Test-GM18}\\
+\textbf{Requirements being verified:} FR3, FR6, FR10, FR14, FR16, FR17
+
+\item{\textbf{Name:} Successful occurrence of random events/decisions happening in one season\\} % FR 21
+\textbf{Id:} test-GM9 \label{Test-GM9}\\
 
 \textbf{Control:} Manual
 					
@@ -616,10 +499,12 @@ Control: Automatic
 
 \textbf{How test will be performed:} Manual testing of playing the overall game and ensuring these random events/decisions happen twice a season
 
-\item{\textbf{Name:} Successful season change\\} % FR 22
-\textbf{Id:} Test-GM19 \label{Test-GM19}\\
+\textbf{Requirements being verified:}  FR16, FR17, FR20, FR21
 
-\textbf{Control:} Automated
+\item{\textbf{Name:} Successful season change\\} % FR 22
+\textbf{Id:} Test-GM10 \label{Test-GM10}\\
+
+\textbf{Control:} Manual
 
 \textbf{Initial State:} User has played the game for some time
 
@@ -629,37 +514,26 @@ Control: Automatic
 
 \textbf{Test Case Derivation:} This is significant as it will encourage the user to plan ahead and try to optimize their decisions in the game for the best outcomes.
 
-\textbf{How the test will be performed:} Automated test to check whether after SEASON\_LENGTH the season has changed.
+\textbf{How the test will be performed:} Manual test to check whether after SEASON\_LENGTH the season has changed.
 
-\item{\textbf{Name: }Successful visual season change\\} % FR 22
-\textbf{Id:} test-GM20 \label{Test-GM20}\\
+\textbf{Requirements being verified:}  FR16, FR17, FR20, FR21, C1
+
+\item{\textbf{Name:} Successful crop expiry\\} % FR 22
+\textbf{Id:} Test-GM11 \label{Test-GM11}\\
 
 \textbf{Control:} Manual
 
-\textbf{Initial State:} User has played the game for some time
+\textbf{Initial State:} User has harvested a crop and user ends CROP\_EXPIRY\_TURNS - 1
 
-\textbf{Input:} Any decisions the user has made ?
+\textbf{Input:} User ends turn to make a complete end turns of CROP\_EXPIRY\_TURNS
 
-\textbf{Output:} Season change
+\textbf{Output:} the inventory does not contain expired crop
 
-\textbf{Test Case Derivation: }This is significant as it will encourage the user to plan ahead and try to optimize their decisions in the game for the best outcomes.
+\textbf{Test Case Derivation:} This is significant as it makes the user have a timeline to sell thus adding more complexity to the game
 
-\textbf{How the test will be performed:} Manual test by playing the game for some time and visually checking whether the season is changing or remains constant.
+\textbf{How the test will be performed:} Manual test to harvest a crop and not sell it within the CROP\_EXPIRY\_TURNS.
 
-\item{\textbf{Name:} Item successfully added to inventory \\} % FR 4 
-\textbf{Id:} test-GM21 \label{Test-GM21}\\
-
-\textbf{Control:} Automatic
-
-\textbf{Initial State:} User is logged in and inventory is Empty
-
-\textbf{Input:} add item to inventory
-
-\textbf{Output:} item successfully added to inventory and inventory is not empty
-
-\textbf{Test Case Derivation:} The system must be able to check if items can be stored in the inventory to allow users to view them
-
-\textbf{How test will be performed: }Create automatic test that check that the inventory object is not empty when an item is added
+\textbf{Requirements being verified:}  FR15
 
 \end{enumerate}
 
@@ -681,6 +555,8 @@ The database testing deals with the test cases related that relate to the game. 
 
 \textbf{How test will be performed:} Manual test by checking the server logs to see if all actions are being logged.
 
+\textbf{Requirements being verified:} FR16
+
 % Not game mechanics
 \item{\textbf{Name:} Successful saving of game state\\} % FR 14
 \textbf{Id:} Test-DB2    \label{Test-DB2}\\
@@ -688,13 +564,32 @@ The database testing deals with the test cases related that relate to the game. 
 
 \textbf{Initial State:} User is logged in and makes a turn to change the game state.
 
-\textbf{Input:} The user will be able to select an option to save
+\textbf{Input:} The most recent game state
 
 \textbf{Output:} The new game state will be saved
 
 \textbf{Test Case Derivation:} The user needs to have the option of being able to continue where they left off in case they wish to play at a later time.
 
-\textbf{How the test will be performed:} Manual test to perform an action(eg. buy an item) and checking whether the game state is saved. The test will save after the action and log out then log back in to check if saving was successful. 
+\textbf{How the test will be performed:} The tester will play three turns (one season) of the game trying to maximize profit. After three turns, the tester ensures the game state table contains the most recent game state in the corresponding account.
+
+\textbf{Requirements being verified:} FR17
+
+% Not game mechanics
+\item{\textbf{Name:} Successful loading of game state\\} % FR 14
+\textbf{Id:} Test-DB3    \label{Test-DB3}\\
+\textbf{Control:} Manual
+
+\textbf{Initial State:} User is logged in and performs actions to change the game state. Then, the user logs out of the game.
+
+\textbf{Input:} The user logs back into the game
+
+\textbf{Output:} The new game state is same as prior to logout
+
+\textbf{Test Case Derivation:} The user needs to have the option of being able to continue where they left off in case they wish to play at a later time.
+
+\textbf{How the test will be performed:} The tester will play three turns (one season) of the game trying to maximize profit. The user will logs out of the game and logs back in. The game state prior to logout must be the same as the state after login.
+
+\textbf{Requirements being verified:} FR16, FR17
 
 \subsubsection{Pre-Game Testing}
 The Pre-game testing deals with the test cases related that relate to the user before they can start playing the game. FR18 is the only functional requirement that is covered by the subsection. To play the game, the user must agree to the terms and conditions in the consent form. 
@@ -702,7 +597,7 @@ The Pre-game testing deals with the test cases related that relate to the user b
 \item{\textbf{Name:} User agrees to the consent form\\} %FR 18
 \textbf{Id:} Test-PG1 \label{Test-PG1}\\
 
-\textbf{Control:} Automatic
+\textbf{Control:} Automated
 
 \textbf{Initial State:} User is not logged in, has not played the game yet, and is presented the consent form
 
@@ -714,11 +609,12 @@ The Pre-game testing deals with the test cases related that relate to the user b
 
 \textbf{How the test will be performed:} Automated test to check if all terms and conditions to play the game have been met
 
+\textbf{Requirements being verified:} C3
 
 \item{\textbf{Name:} User does not agree to consent form\\} %FR 18
 \textbf{Id:} Test-PG2 \label{Test-PG2}\\
 
-\textbf{Control:} Automatic
+\textbf{Control:} Automated
 
 \textbf{Initial State:} User is not logged in, has not played the game yet, and is presented the consent form
 
@@ -729,6 +625,8 @@ The Pre-game testing deals with the test cases related that relate to the user b
 \textbf{Test Case Derivation:} This is mandatory to conduct the study and without the user's consent their data will not be able to be collected
 
 \textbf{How the test will be performed:} Automated test will reject the consent form and try to access the login screen
+
+\textbf{Requirements being verified:} C4
 
 
 \end{enumerate}
@@ -768,9 +666,11 @@ Area of Testing:
 					
 \textbf{Input:} The user registers account, logs in and plays out one season
 					
-\textbf{Output/Result:} Get feedback and verify interface is not overwhelming
+\textbf{Output/Result:} Get feedback and verify interface is not overwhelming. This test is a pass if average individual score is 4/5 in the "Minimalistic Design" category, 4/5 in the ``Consistent Color Theme" category and 4/5 in the ``Engaging Graphics" category of the User Experience Survey
 					
-\textbf{How test will be performed:} A survey will be given to the players where they will give feedback to different elements of the interface.
+\textbf{How test will be performed:} A survey will be given to at least 5 players where they will give feedback to different elements of the interface. Our demographic of players are individuals that are 18 years and older, and is interested in a strategy-simulation games  
+					
+\textbf{Requirements being verified:} LF1, LF2, LF3, LF4, LF6, UH1, LR1
 					
 \item{\textbf{Name: }Test the system on different screen resolutions \\}\label{Test-LF2}
 \textbf{Id: }Test-LF2\\
@@ -785,6 +685,8 @@ Area of Testing:
 					
 \textbf{How test will be performed:} The test will be performed manually with the tester playing one season at different SCREEN\_RESOLUTION in which they are to navigate to different screens and access different interface features.
 
+\textbf{Requirements being verified:} LF5, OE1, OE2
+
 \item{\textbf{Name: }Testing User Engagement \\}\label{Test-LF3}
 \textbf{Id: }Test-LF3\\
 
@@ -798,6 +700,7 @@ Area of Testing:
 					
 \textbf{How test will be performed:} The user decisions and the number of turns played are logged and the total number of turns played will be calculated for every player and compared to MIN\_TURNS. If player has played greater than or equal to MIN\_TURNS, we say they were engaged.
 
+\textbf{Requirements being verified:} LF6, UH1
 
 \end{enumerate}
 
@@ -813,9 +716,11 @@ Area of Testing:
     					
    \textbf{Input: }The user registers account, logs in and plays the game
     					
-   \textbf{Output:} Get feedback and verify authorization, game logic, and interface is easy/fast to learn
+   \textbf{Output:} Get feedback and verify authorization, game logic, and interface is easy/fast to learn. This test is a pass if average individual score is 4/5 in the ``Easy to Understand" category of the User Experience Survey
     					
-    \textbf{How test will be performed: }A survey will be given to players to provide feedback on how easy it is to learn the different aspects of the system. This includes the game logic and interactions between the different menus
+    \textbf{How test will be performed: } A survey will be given to at least 5 players to provide feedback on how easy it is to learn the different aspects of the system. This includes the game logic and interactions between the different menus.  Our demographic of players are individuals that are 18 years and older, and is interested in a strategy-simulation games  
+    
+    \textbf{Requirements being verified:} LF6, UH1
 \end{enumerate}
 
 \subsubsection{Performance}
@@ -823,7 +728,7 @@ Area of Testing:
     \item{\textbf{Name: }Test the load times for logging the game\\}\label{Test-P1}
     \textbf{Id: }Test-P1\\
     
-    \textbf{Type:} Non-functional, Automated, Dynamic
+    \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State: }The game server is online and running, user is at home page
     					
@@ -832,13 +737,15 @@ Area of Testing:
    \textbf{Output: }The user is able to log into the game within LOAD\_TIME
     					
    \textbf{How test will be performed:} The team will use a performance testing tool of choice to measure loading times of logging in to the game.
+   
+   \textbf{Requirements being verified:} PR1, PR3, SR2
     
     
     %%% WONDERING IF WE CAN INCLUDE P2, (IR1, IR2 from hazard) into 1 test
     \item{\textbf{Name: }Test response time of the system based on user input\\}\label{Test-P2}
      \textbf{Id: }Test-P2\\
     
-    \textbf{Type: }Non-functional, Automated, Dynamic
+    \textbf{Type: }Non-functional, Manual, Dynamic
     					
     \textbf{Initial State:} The user is logged into the game
     					
@@ -846,13 +753,15 @@ Area of Testing:
     					
     \textbf{Output:} The application provides a response to the request within RESPONSE\_TIME
     					
-    \textbf{How test will be performed:} The team will use a performance testing tool of choice to measure the response times of different decisions within the game.
+    \textbf{How test will be performed:} The team will measure the response times of different decisions within the game.
+    
+    \textbf{Requirements being verified:} PR2, PR3, SR2
 
 
 \item{\textbf{Name:} Test for performance on using different image assets \\}\label{Test-P3}
 \textbf{Id: }Test-P3\\
 
-\textbf{Type:} Automated, Dynamic
+\textbf{Type:} Manual, Dynamic
 					
 \textbf{Initial State:} The user is logged into the game
 					
@@ -861,6 +770,8 @@ Area of Testing:
 \textbf{Output:} The new image can be seen in place of the replaced image asset and the application response does not exceed RESPONSE\_TIME
 					
 \textbf{How test will be performed: }The team will use a performance tool of choice to automate replacing an image asset and measuring the response time of different interface interactions.
+
+\textbf{Requirements being verified:} PR1, PR2, PR3, MS1
 \end{enumerate}
 
 \subsubsection{Operational and Environmental}
@@ -870,7 +781,7 @@ Area of Testing:
     \item{\textbf{Name: }Testing if system can run on different browsers\\} \label{Test-OE1}
     \textbf{Id: }Test-OE1\\
     
-   \textbf{Type:} Non-functional, Automated, Dynamic
+   \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State:} The user is at home page
     					
@@ -879,11 +790,13 @@ Area of Testing:
    \textbf{Output: }The system shall be functional with no errors
     					
    \textbf{How test will be performed: }The system will be tested with various features of the system in order to determine the system is working correctly on different modern web browsers. This will ensure the system can be supported by that specific web browser.
+   
+   \textbf{Requirements being verified:} OE1, OE2
     
     \item{\textbf{Name: }Test for all working versions of a web browser up to supported working version \\} \label{Test-OE2}
     \textbf{Id: }Test-OE2\\
     
-    \textbf{Type:} Non-functional, Automated, Dynamic
+    \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State: }The user is at home page
     					
@@ -892,6 +805,8 @@ Area of Testing:
     \textbf{Output:} The system shall be functional with no errors
     					
     \textbf{How test will be performed:} The system will be tested with various features of the system in order to determine the system is working correctly on different versions of that web browser. The system will test from the SUPPORTED\_VERSION to the latest version of that web browser
+    
+    \textbf{Requirements being verified:} OE2
 \end{enumerate}
 
 \subsubsection{Maintainability and Support Requirements}
@@ -908,6 +823,8 @@ Area of Testing:
 \textbf{Output:} The change is game audio does not affect other aspects of the game
 					
 \textbf{How test will be performed:} A member of the team will switch the game audio to a different track and monitor the effect on the game after the change.
+
+\textbf{Requirements being verified:} LF3, PR1, LR2
 \end{enumerate}
 
 
@@ -927,18 +844,22 @@ Area of Testing:
     					
     \textbf{How test will be performed:} Use common exploit vulnerabilities with the current versions or past versions of the technology used within the system that can lead to automated attacks. This will be used on a separate test server to avoid any complications with the development server.
     
-    \item{\textbf{Name:} Test for basic cross site scripting (XSS) to by pass login screen\\} \label{Test-SR2}
+    \textbf{Requirements being verified:} SR1, SR3
+    
+    \item{\textbf{Name:} Test for basic SQL injection attacks on the login input form\\} \label{Test-SR2}
     \textbf{Id:} Test-SR2\\
     
     \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State:} The user is not logged in
     					
-    \textbf{Input:} User logins
+    \textbf{Input:} User logs in
     					
-    \textbf{Output:} The system shall prevent user from logging in through malicious attack
+    \textbf{Output:} The system shall prevent the user from logging in through a malicious attack or from damaging the user database.
     					
     \textbf{How test will be performed:} Basic cross site scripting (XSS) techniques will be used to see if the user is able to by-pass the login screen. Some techniques include persistent, non-persistent and DOM-based cross-site scripting.
+    
+    \textbf{Requirements being verified:} SR1, SR2, SR3
     
     % \item{\textbf{Id:} Test-SR3\\} \label{Test-SR3}
     
@@ -964,6 +885,8 @@ Area of Testing:
     \textbf{Output:} Encrypted user password
     					
     \textbf{How test will be performed:} Manually query the passwords in the data base and check to see if the user password is returned in plaintex
+    
+    \textbf{Requirements being verified:} SR2, SR3
 \end{enumerate}
 
 \subsubsection{Access}
@@ -971,7 +894,7 @@ Area of Testing:
     \item{\textbf{Name:} Test for accessing the system on different internet accesses (i.e public and private wifi)\\} \label{Test-ACR1}
     \textbf{Id:} Test-ACR1\\
     
-    \textbf{Type:} Non-functional, manual, Dynamic
+    \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State:} The user is not logged in
     					
@@ -981,10 +904,12 @@ Area of Testing:
     					
     \textbf{How test will be performed:} The system will be opened on multiple systems in multiple locations (i.e public, private internet access and check to see if the system is able to be accessed by the user. However, only one user session is active at a time.
     
+    \textbf{Requirements being verified:} PR1, PR2, PR3, SR2
+    
     \item{\textbf{Name:} Test to see if only login functionality is only provided when user is not logged in\\} \label{Test-ACR2}
     \textbf{Id:} Test-ACR2\\
     
-    \textbf{Type:} Non-functional, manual, Dynamic
+    \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State:} The user is not logged in and at login page
     					
@@ -994,10 +919,12 @@ Area of Testing:
     					
     \textbf{How test will be performed:} The system checked to see which request are provided when presented at the login screen when the user is not signed in. There will be checks to see if any game related logic is stored on the user's client side to see if they have access to functionality they should not be having access to while not signed in. 
     
+    \textbf{Requirements being verified:} SR2
+    
     \item{\textbf{Name:} Test to see if only in game functionality is provided when user is logged in (i.e functionality for logging should not be available)\\} \label{Test-ACR3}
     \textbf{Id: }Test-ACR3\\
     
-    \textbf{Type:} Non-functional, manual, Dynamic
+    \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State:} The user is logged in and at game page
     					
@@ -1007,10 +934,12 @@ Area of Testing:
     					
     \textbf{How test will be performed:} The system checked to see which request are provided after the user is logged in and at the game page. There will be checks to see if all game related logic is stored on the user's client side after they are logged in and playing the game. There should be no functionality related to the login system 
     
+    \textbf{Requirements being verified:} PR1, PR2, PR3, SR2
+    
     \item{\textbf{Name:} Test to see if only one user session is activated each time a new log in appears\\} \label{Test-ACR4}
     \textbf{Id: }Test-ACR4\\
     
-    \textbf{Type:} Non-functional, manual, Dynamic
+    \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State:} The user is logged in and at game page in one session
     					
@@ -1020,27 +949,18 @@ Area of Testing:
     					
     \textbf{How test will be performed:} Have one session logged in and sign in again in a different tab/window on the same machine and testing on a separate machine. Each instance of this test, only one session should be active while deactivating the previous user session 
     
+    \textbf{Requirements being verified:} PR1, PR2, PR3, SR2
+    
 \end{enumerate}
 
 \subsubsection{Integrity}
 \begin{enumerate}
-    \item{\textbf{Name:} Testing API Response Time \\} \label{Test-IR1}
+  
+    
+    \item{\textbf{Name:} Testing Database Response Time \\} \label{Test-IR1}
     \textbf{Id:} IR1 \\
     
-    \textbf{Type:} Non-functional, Automatic, Dynamic
-    					
-    \textbf{Initial State:} The user is logged in
-    					
-    \textbf{Input:} User plays the game
-    					
-    \textbf{Output:} The system shall respond with user input request
-    					
-    \textbf{How test will be performed:} The system shall be able to receive all input request provided by the user and each one takes at most API\_RESPONSE\_TIME
-    
-    \item{\textbf{Name:} Testing Database Response Time \\} \label{Test-IR2}
-    \textbf{Id:} IR2 \\
-    
-    \textbf{Type:} Non-functional, Automatic, Dynamic
+    \textbf{Type:} Non-functional, Manual, Dynamic
     					
     \textbf{Initial State:} N/A
     					
@@ -1050,8 +970,10 @@ Area of Testing:
     					
     \textbf{How test will be performed:} The database will receive all types of input requests provided by the system and each one takes at most DATABASE\_RESPONSE\_TIME
     
-    \item{\textbf{Name:} Testing if progress is saved when connection is lost \\} \label{Test-IR3}
-    \textbf{Id:} IR3 \\
+    \textbf{Requirements being verified:} PR2, PR3, LR1
+    
+    \item{\textbf{Name:} Testing if progress is saved when connection is lost \\} \label{Test-IR2}
+    \textbf{Id:} IR2 \\
     
     \textbf{Type:} Non-functional, Manual, Dynamic
     					
@@ -1062,201 +984,332 @@ Area of Testing:
     \textbf{Output:} The system shall keep user progress prior to loss of connection and resume gameplay upon an established connection with the server
     					
     \textbf{How test will be performed:} The user will disconnect their game mid session (i.e disconnect internet, close tab, web browser client) and then reconnect and log back into their game. Check to see if progress prior to loss of connection was saved and resumed
+    
+    \textbf{Requirements being verified:} PR2, PR3, SR2
 \end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
 
-\subsubsection{Traceability Matrix for Functional Requirement Test Cases}
-
+\begin{landscape}
+\thispagestyle{empty}
+\centering\subsubsection{Traceability Matrix for Functional Requirement Test Cases}
 \begin{table}[H]
-\begin{adjustwidth}{-1.57in}{-1in}
-\resizebox{8.5in}{!}{\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\cline{2-23}
-                                    & \textbf{FR1} & \textbf{FR2} & \textbf{FR3} & \textbf{FR4}  & \textbf{FR5} & \textbf{FR6} & \textbf{FR7} & \textbf{FR8} & \textbf{FR9} & \textbf{FR10} &\textbf{FR11} & \textbf{FR12} & \textbf{FR13} & \textbf{FR14}& \textbf{FR15}& \textbf{FR16}& \textbf{FR17}& \textbf{FR18} & \textbf{FR19}& \textbf{FR20}& \textbf{FR21}& \textbf{FR22} \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-AC1]{\textbf{AC1}}}  &       X       &              &              &              &              &              &              &              &              &              &              &              &             &              &             &             &             &        & & & &     \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-AC2]{\textbf{AC2}}}  &      X        &              &              &              &              &              &              &              &              &              &              &              &              &              &             &             &             &        & & & &      \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-AC3]{\textbf{AC3}}}  &              &      X        &              &              &              &             &              &              &              &              &              &              &              &              &             &             &             &      & & & &        \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-AC4]{\textbf{AC4}}}  &              &              &              &              &      X        &              &              &              &              &              &              &              &              &              &             &             &             &        & & & &      \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-AC4]{\textbf{AC5}}}  &              &              &              &              &              &              &              &              &              &              &              &              &              &              &    X         &             &             &        & & & &      \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM1]{\textbf{GM1}}}  &              &              &       X       &              &              &          X    &              &              &              &              &              &              &              &              &             &             &             &        & & & &      \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM2]{\textbf{GM2}}}  &              &              &        X      &              &              &         X    &              &              &              &              &              &              &              &              &             &             &             &       & & & &       \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM3]{\textbf{GM3}}}  &              &              &         X     &              &              &       X      &              &              &              &              &              &              &              &              &             &             &             &       & & & &       \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM4]{\textbf{GM4}}}  &              &              &       X       &              &              &             &    X          &              &              &       X       &              &              &              &              &             &      X       &    X         &       & & & &       \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM5]{\textbf{GM5}}}  &              &              &              &       X       &              &             &     X         &              &              &              &              &              &              &              &             &             &       X      &         & & & &     \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM6]{\textbf{GM6}}} &              &              &              &              &              &             &        X      &              &              &              &              &              &              &              &             &             &             &         & & & &     \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM7]{\textbf{GM7}}} &              &              &              &              &              &              &              &      X        &              &              &              &              &              &              &             &             &             &         & & & &     \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM8]{\textbf{GM8}}} &              &              &              &              &              &              &              &       X       &              &              &              &              &              &              &             &             &             &          & & & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM9]{\textbf{GM9}}} &              &              &              &              &              &              &              &      X        &              &              &              &              &              &              &             &             &             &         & & & &     \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM10]{\textbf{GM10}}} &              &              &              &              &              &              &              &     X         &              &              &              &              &              &              &             &             &             &           & & & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM11]{\textbf{GM11}}} &              &              &              &              &              &              &       X       &              &        X      &              &              &              &              &             &             &            &       X      &            & & & &  \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM12]{\textbf{GM12}}} &              &              &              &              &              &             &              &              &              &      X        &              &              &              &              &             &           X  &             &            & & & &  \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM13]{\textbf{GM13}}} &              &              &              &              &              &             &              &              &              &              &              &              &              &              &             &             &        X     &           & & & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM14]{\textbf{GM14}}} &              &              &              &              &              &              &              &              &              &              &              &              &              &              &             &            &             &           &X & & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM15]{\textbf{GM15}}} &              &              &              &              &              &              &              &              &              &              &   X           &              &              &              &             &             &             &          & & & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM16]{\textbf{GM16}}} &              &              &              &              &              &              &              &              &              &              &    X          &              &              &              &             &             &             &          & &X & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM17]{\textbf{GM17}}} &              &              &              &              &              &             &              &              &              &              &              &     X         &              &              &             &             &             &           & &X & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM18]{\textbf{GM18}}} &              &              &              &              &              &              &              &              &              &              &              &              &              &              &             &             &             &           & & & X&   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM19]{\textbf{GM19}}} &              &              &              &              &              &              &              &              &              &              &              &              &              &              &             &             &             &           & & & & X  \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-GM20]{\textbf{GM20}}} &              &              &              &              &              &              &              &              &              &              &              &              &              &              &             &             &             &           & & & & X  \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-DB1]{\textbf{DB1}}} &              &              &              &              &              &              &              &              &              &              &              &              &      X        &              &             &             &             &           & & & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-DB2]{\textbf{DB2}}} &              &              &              &              &              &              &              &              &              &              &              &              &              &        X      &             &             &             &           & & & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-PG1]{\textbf{PG1}}} &              &              &              &              &              &              &              &              &              &              &              &              &              &              &             &             &             &      X     & & & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-PG2]{\textbf{PG2}}} &              &              &              &              &              &              &              &              &              &              &              &              &              &              &             &             &             &      X     & & & &   \\ \hline
-\end{tabular}}
+\begin{adjustwidth}{-0.0in}{-1in}
+\scalebox{0.65}{
+\begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\cline{2-27}
+                                    & \textbf{FR1} & \textbf{FR2} & \textbf{FR3} & \textbf{FR4} & \textbf{FR5} & \textbf{FR6} & \textbf{FR7} & \textbf{FR8} & \textbf{FR9} & \textbf{FR10} & \textbf{FR11} & \textbf{FR12} & \textbf{FR13} & \textbf{FR14} & \textbf{FR15} & \textbf{FR16} & \textbf{FR17} & \textbf{FR18} & \textbf{FR19} & \textbf{FR20} & \textbf{FR21} & \textbf{FR22} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-AC1]{\textbf{Test-AC1}}}  & X            & X            &              &              & X            &              &              &              &              &               &               &               &               &               &               &               &               &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-AC2]{\textbf{Test-AC2}}}  & X            & X            &              &              & X            &              &              &              &              &               &               &               &               &               &               &               &               &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-AC3]{\textbf{Test-A3}}}  &              & X            &              &              &              &              &              &              &              &               &               &               &               &               &               &               &               &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-AC4]{\textbf{Test-AC4}}}  & X            &              &              &              & X            &              &              &              &              &               &               &               &               &               &               &               &               &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-AC5]{\textbf{Test-AC5}}}  &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               &               &               &               &               &               &               &               &             &             &             & X           \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM1]{\textbf{Test-GM1}}}  &              &              & X            &              &              &              &              &              &              &               &               & X             &               &               &               & X             & X             & X             &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM2]{\textbf{Test-GM2}}}  &              &              & X            & X            &              & X            & X            &              &              &               &               &               &               &               &               & X             & X             & X             &               &               &               &               & X           &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM3]{\textbf{Test-GM3}}}  &              &              & X            & X            &              & X            & X            & X            &              &               &               &               &               &               &               & X             & X             & X             &               &               &               &               & X           &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM4]{\textbf{Test-GM4}}}  &              &              & X            & X            &              & X            & X            & X            &              &               & X             &               &               &               &               & X             & X             & X             &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM5]{\textbf{Test-GM5}}}  &              &              & X            &              &              &              &              &              &              &               &               & X             &               &               &               & X             & X             & X             &               &               &               &               & X           &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM6]{\textbf{Test-GM6}}}  &              &              & X            &              &              &              &              &              &              &               &               &               & X             &               &               & X             & X             &               & X             & X             &               & X             & X           &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM17]{\textbf{Test-GM7}}}  &              &              & X            &              &              &              &              &              &              &               &               &               & X             &               &               & X             & X             &               & X             & X             &               & X             &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM8]{\textbf{Test-GM8}}} &              &              & X            &              &              & X            &              &              &              & X             &               &               &               & X             &               & X             & X             &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM9]{\textbf{Test-GM9}}}  &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               & X             & X             &               &               & X             & X             &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM10]{\textbf{Test-GM10}}} &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               & X             & X             &               &               & X             & X             &               & X           &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM11]{\textbf{Test-GM11}}}&              &              &             &         &              &           &              &              &              &               &               &               &               &               &           X  &              &              &               &               &               &               &               &           &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM12]{\textbf{Test-GM12}}}&              &              & X            & X            &              & X            &              &              &              &               &               &               &               &               &               & X             & X             &               &               &               &               &               & X           &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM13]{\textbf{Test-GM13}}} &              &              & X            & X            &              & X            &              &              &              &               &               &               &               &               &               & X             & X             &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM14]{\textbf{Test-GM14}}} &              &              & X            & X            &              & X            &              &              &              &               &               &               &               &               &               & X             & X             &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM15]{\textbf{Test-GM15}}}&              &              & X            & X            &              &              &              &              & X            & X             &               &               &               &               &               & X             & X             &               &               &               & X             &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM16]{\textbf{Test-GM16}}} &              &              & X            & X            &              &              &              &              & X            & X             &               &               &               &               &               & X             & X             &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM17]{\textbf{Test-GM17}}}&              &              & X            & X            &              &              &              &              & X            & X             &               &               &               &               &               & X             & X             &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM18]{\textbf{Test-GM18}}} &              &              & X            & X            & X            &              &              &              & X            & X             &               &               &               &               &               & X             & X             &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-GM19]{\textbf{Test-GM19}}} &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               & X             & X             &               &               & X             & X             &               &             &             &             &             \\ \hline
+
+\multicolumn{1}{|l|}{\hyperref[Test-DB1]{\textbf{Test-DB1}}}  &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               & X             &               &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-DB2]{\textbf{Test-DB2}}}  &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               &               & X             &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-DB3]{\textbf{Test-DB3}}}  &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               & X             & X             &               &               &               &               &               &             &             &             &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-PG1]{\textbf{Test-PG1}}}  &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               &               &               &               &               &               &               &               &             &             & X           &             \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-PG2]{\textbf{Test-PG2}}}  &              &              &              &              &              &              &              &              &              &               &               &               &               &               &               &               &               &               &               &               &               &               &             &             &             & X           \\ \hline
+\end{tabular}
+}
 \caption{Traceability Matrix for Functional Test Cases}
     \label{tab:my_label}
 \end{adjustwidth}
 \end{table}
+\vfill
+\raisebox{0.5pt}{\makebox[\linewidth]{\thepage}}
+\end{landscape}
+
 
 \subsubsection{Traceability Matrix for Non-Functional Requirement Test Cases}
 
 \begin{table}[H]
-\begin{adjustwidth}{-1.57in}{-1in}
-\resizebox{8.5in}{!}{\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\cline{2-22}
-                                    & \textbf{LF1} & \textbf{LF2} & \textbf{LF3} & \textbf{LF4}  & \textbf{LF5} & \textbf{LF6} & \textbf{UH1} & \textbf{PR1} & \textbf{PR2} & \textbf{OE1} &\textbf{OE2} & \textbf{MS1} & \textbf{SR1} & \textbf{SR2} & \textbf{ACR1}&\textbf{ACR2}&\textbf{ACR3}&\textbf{ACR4}& \textbf{IR1}& \textbf{IR2}& \textbf{IR3} \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-LF1]{\textbf{Test-LF1}}}  &     X         &       X       &      X        &      X        &              &              &              &              &              &              &              &              &             &              &             &             &             &       &   & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-LF2]{\textbf{Test-LF2}}}  &              &              &              &              &       X       &              &              &              &              &              &              &              &              &              &             &             &             &        &     & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-LF3]{\textbf{Test-LF3}}}  &              &              &              &              &              &      X       &              &              &              &              &              &              &              &              &             &             &             &      &       & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-UH1]{\textbf{Test-UH1}}}  &              &              &              &              &              &             &       X       &              &              &              &              &              &              &              &             &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-P1]{\textbf{Test-P1}}}  &              &              &              &              &              &             &              &       X       &              &              &              &              &              &              &             &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-P2]{\textbf{Test-P2}}}  &              &              &              &              &              &             &              &              &       X       &              &              &              &              &              &             &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-P3]{\textbf{Test-P3}}}  &              &              &              &              &              &             &              &              &        X      &              &              &       X       &              &              &             &             &             &      &       & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-OE1]{\textbf{Test-OE1}}}  &              &              &              &              &              &             &              &              &              &        X      &              &              &              &              &             &             &             &      &      & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-OE2]{\textbf{Test-OE2}}}  &              &              &              &              &              &             &              &              &              &              &    X          &              &              &              &             &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-MS1]{\textbf{Test-MS1}}}  &              &              &              &              &              &             &              &              &              &              &              &         X     &              &              &             &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-SR1]{\textbf{Test-SR1}}}  &              &              &              &              &              &             &              &              &              &              &              &              &      X        &              &             &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-SR2]{\textbf{Test-SR2}}}  &              &              &              &              &              &             &              &              &              &              &             &              &              &       X       &             &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-SR3]{\textbf{Test-SR3}}}  &              &              &              &              &              &             &              &              &              &              &              &              &              &        X      &             &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-ACR1]{\textbf{Test-ACR1}}}  &              &              &              &              &              &             &              &              &              &              &              &              &              &              &      X       &             &             &      &      & &    \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-ACR2]{\textbf{Test-ACR2}}}  &              &              &              &              &              &             &              &              &              &              &              &              &              &              &             &    X         &             &      &      & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-ACR3]{\textbf{Test-ACR3}}}  &              &              &              &              &              &             &              &              &              &              &              &              &              &              &             &             &      X       &      &      & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-ACR4]{\textbf{Test-ACR4}}}  &              &              &              &              &              &             &              &              &              &              &              &              &              &              &             &             &             &    X  &      & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-IR1]{\textbf{Test-IR1}}}  &              &              &              &              &              &             &              &              &              &              &              &              &              &              &             &             &             &      &  X    & &   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-IR2]{\textbf{Test-IR2}}}  &              &              &              &              &              &             &              &              &              &              &              &              &              &              &             &             &             &      &      &X&   \\ \hline
-\multicolumn{1}{|c|}{\hyperref[Test-IR3]{\textbf{Test-IR3}}}  &              &              &              &              &              &             &              &              &              &              &              &              &              &              &             &             &             &      &      &&X \\ \hline
-\end{tabular}}
+\begin{adjustwidth}{-1.5in}{-1in}
+\scalebox{0.8}{
+\begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\cline{2-19}
+                                         & \textbf{LF1} & \textbf{LF2} & \textbf{LF3} & \textbf{LF4} & \textbf{LF5} & \textbf{LF6} & \textbf{UH1} & \textbf{PR1} & \textbf{PR2} & \textbf{PR3} & \textbf{OE1} & \textbf{OE2} & \textbf{MS1} & \textbf{SR1} & \textbf{SR2} & \textbf{SR3} & \textbf{LR1} & \textbf{LR2} \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-LF1]{\textbf{test-LF1}}}  & X            & X            & X            & X            &              & X            & X            &              &              &              &              &              &              &              &              &              & X            &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-LF2]{\textbf{test-LF2}}}  &              &              &              &              & X            &              &              &              &              &              & X            & X            &              &              &              &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-LF3]{\textbf{test-LF3}}}  &              &              &              &              &              & X            & X            &              &              &              &              &              &              &              &              &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-UH1]{\textbf{test-UH1}}}  &              &              &              &              &              & X            & X            &              &              &              &              &              &              &              &              &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-P1]{\textbf{test-P1}}}   &              &              &              &              &              &              &              & X            &              & X            &              &              &              &              & X            &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-P2]{\textbf{test-P2}}}   &              &              &              &              &              &              &              &              & X            & X            &              &              &              &              & X            &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-P3]{\textbf{test-P3}}}   &              &              &              &              &              &              &              & X            & X            & X            &              &              & X            &              &              &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-OE1]{\textbf{test-OE1}}}  &              &              &              &              &              &              &              &              &              &              & X            & X            &              &              &              &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-OE2]{\textbf{test-OE2}}}  &              &              &              &              &              &              &              &              &              &              &              & X            &              &              &              &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-MS1]{\textbf{test-MS1}}}  &              &              & X            &              &              &              &              & X            &              &              &              &              &              &              &              &              &              & X            \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-SR1]{\textbf{test-SR1}}}  &              &              &              &              &              &              &              &              &              &              &              &              &              & X            &              & X            &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-SR2]{\textbf{test-SR2}}}  &              &              &              &              &              &              &              &              &              &              &              &              &              & X            & X            & X            &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-SR3]{\textbf{test-SR3}}}  &              &              &              &              &              &              &              &              &              &              &              &              &              &              & X            & X            &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-ACR1]{\textbf{test-ACR1}}} &              &              &              &              &              &              &              & X            & X            & X            &              &              &              &              & X            &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-ACR2]{\textbf{test-ACR2}}} &              &              &              &              &              &              &              &              &              &              &              &              &              &              & X            &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-ACR3]{\textbf{test-ACR3}}} &              &              &              &              &              &              &              & X            & X            & X            &              &              &              &              & X            &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-ACR4]{\textbf{test-ACR4}}} &              &              &              &              &              &              &              & X            & X            & X            &              &              &              &              & X            &              &              &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-IR1]{\textbf{test-IR1}}}  &              &              &              &              &              &              &              &              & X            & X            &              &              &              &              &              &              & X            &              \\ \hline
+\multicolumn{1}{|l|}{\hyperref[Test-IR2]{\textbf{test-IR2}}}  &              &              &              &              &              &              &              &              & X            & X            &              &              &              &              & X            &              &              &              \\ \hline
+\end{tabular}
+}
 \caption{Traceability Matrix for Non-functional Test Cases}
     \label{tab:my_label}
 \end{adjustwidth}
 \end{table}
 
 \section{Unit Test Description}
-
-\wss{Reference your MIS (detailed design document) and explain your overall
-  philosophy for test case selection.}  
-\wss{This section should not be filled in until after the MIS (detailed design
-  document) has been completed.}
+Most of the testing has to be done manually by ensuring correct things are being rendered on screen. There are a few components that require unit testing and these modules are key components of the game mechanics. The following section discusses the plan for testing these modules.
 
 \subsection{Unit Testing Scope}
-
-\wss{What modules are outside of the scope.  If there are modules that are
-  developed by someone else, then you would say here if you aren't planning on
-  verifying them.  There may also be modules that are part of your software, but
-  have a lower priority for verification than others.  If this is the case,
-  explain your rationale for the ranking of module importance.}
+The scope of unit testing was limited to the game components that could be automatically tested. The significance of the tested modules was determined by their contribution towards creating a minimum viable product.
 
 \subsection{Tests for Functional Requirements}
+The following sections details unit tests for functional requirements. This is an important aspect of testing as it verifies whether the modules are behaving correctly given the requirements in the Software Requirements Specification. 
 
-\wss{Most of the verification will be through automated unit testing.  If
-  appropriate specific modules can be verified by a non-testing based
-  technique.  That can also be documented in this section.}
-
-\subsubsection{Module 1}
-
-\wss{Include a blurb here to explain why the subsections below cover the module.
-  References to the MIS would be good.  You will want tests from a black box
-  perspective and from a white box perspective.  Explain to the reader how the
-  tests were selected.}
+\subsubsection{GameMechanics}
+  
+The GameMechanics tests deal with automated tests that are crucial to testing the game mechanics. The main two components within the game are the shop and the inventory. The tests cover all the significant actions that can be performed in the game. Specifically the purchase and selling of crops which is the way to earn currency in game. The main goal of the game is to optimize your balance so these actions are necessary to achieve that goal. While the tests deal with just purchasing, it inherently is also testing the inventory as purchasing or selling includes adding or removing items from the inventory. The tests pertain to the Shop and Inventory Modules in the MIS.
 
 \begin{enumerate}
 
-\item{test-id1\\}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\item {\textbf{Name:} Successful first item purchase\\} % FR 3, 6
+\textbf{Id:} Test-GM12 \label{Test-GM12}\\
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Control: Automated
 
-How test will be performed: 
-					
-\item{test-id2\\}
+\textbf{Initial State:} User is logged in and in the shop. User has enough in-game currency to purchase an item but does not have the item in their inventory
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\textbf{Input:} User is logged in. The user buys an item
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\textbf{Output:} The item appears in the user's inventory and the user's currency correctly reflects the outcome of buying items
 
-How test will be performed: 
+\textbf{Test Case Derivation:} The system must be able to verify that users can purchase a new item they do not currently own using in-game currency
 
-\item{...\\}
-    
+\textbf{How test will be performed:} Automated test to check if purchased item exists in inventory and the user's currency is correctly reflected after the purchase, in both the database and front-end
+
+\textbf{Requirements being verified:} FR3, FR4, FR6, FR16, FR17, C1
+
+\item {\textbf{Name:} Unsuccessful item purchase\\} % FR 3, 6
+\textbf{Id:} Test-GM13 \label{Test-GM13}\\
+
+\textbf{Control:} Automated
+
+\textbf{Initial State:} User is logged in and in the shop. User does not have enough in-game currency to purchase an item but does not have the item in their inventory
+
+\textbf{Input:} The user buys an item
+
+\textbf{Output:} The item does not appear in the user's inventory and the user's currency is not changed
+
+\textbf{Test Case Derivation:} The system must be able to verify that users can not purchase an item using in-game currency when they do not have enough in-game currency
+
+\textbf{How test will be performed:} Automated test to check if the user has enough in-game currency to purchase that item which does not change after an unsuccessful purchase, in both the database and front-end
+
+\textbf{Requirements being verified:} FR3, FR4, FR6, FR16, FR17
+\item {\textbf{Name:} Successful second or more item purchase of the same item\\} % FR 3, 6
+\textbf{Id:} Test-GM14 \label{Test-GM14}\\
+
+\textbf{Control:} Automated
+
+\textbf{Initial State:} User is logged in and in the shop. User has enough in-game currency to purchase an item and already has the item in their inventory
+
+\textbf{Input:} The user buys an item they already have in their inventory 
+
+\textbf{Output:} The quantity of the same item is increased by 1 in the user's inventory and the user's currency correctly reflects the outcome of buying items
+
+\textbf{Test Case Derivation: }The system must be able to verify that users can purchase items to use for farming purposes
+
+\textbf{How test will be performed:} Automated test to check if purchased item count in inventory has increased and the user’s currency is correctly reflected after the purchase, in both the database and front-end
+
+\textbf{Requirements being verified:} FR3, FR4, FR6, FR16, FR17
+
+\item{\textbf{Name:} Selling the same crop in different seasons\\} % FR 8 
+\textbf{Id:} Test-GM15 \label{Test-GM15}\\
+
+\textbf{Control: }Automated
+
+\textbf{Initial State:} User is logged in, user is at the shop, and the user owns at least two of the same crop
+
+\textbf{Input:} User sells the one of the crops in current season and the other in the next season
+
+\textbf{Output:} Profit earned from selling the two of the same crops in different seasons should vary 
+
+\textbf{Test Case Derivation:} The user should be able to somewhat simulate a real market where crops can be sold at varying prices at different times and market
+
+\textbf{How the test will be performed:} Automated test to sell two of the same crops during different time periods and ensure the prices are the different to check for random sell prices
+
+\textbf{Requirements being verified:} FR3, FR4, FR9, FR10, FR16, FR17, FR21
+
+\item{\textbf{Name:} Selling the same crop in same season\\} % FR 8 
+\textbf{Id:} Test-GM16 \label{Test-GM16}\\
+
+\textbf{Control: }Automated
+
+\textbf{Initial State:} User is logged in, user is at the shop, and the user owns at least two of the same crop
+
+\textbf{Input:} User sells the one of the crops in current season and the other in the next season
+
+\textbf{Output:} Profit earned from selling the two of the same crops in the same seasons should be the same 
+
+\textbf{Test Case Derivation:} The user should be able to somewhat simulate a real market where crops can be sold at varying prices at different times and market
+
+\textbf{How the test will be performed:} Automated test to sell two of the same crops during the same time periods and ensure the prices are the same to check for random sell prices
+
+\textbf{Requirements being verified:} FR3, FR4, FR9, FR10, FR16, FR17
+
+\item{\textbf{Name:} Successful balance increase in selling crop\\} % FR 8 
+\textbf{Id:} Test-GM17 \label{Test-GM17}\\
+
+\textbf{Control:} Automated
+
+\textbf{Initial State:} User is logged in and at the shop
+
+\textbf{Input:} Crop to be sold
+
+\textbf{Output:} Money earned through selling crop. User's currency count correctly reflects the increase in user's currency count
+
+\textbf{Test Case Derivation:} The user should be able to somewhat simulate a real market where crops can be sold at varying prices depending on the time and market
+
+\textbf{How the test will be performed:} Automated test to check if user's money/balance has increased after selling a crop
+
+\textbf{Requirements being verified:} FR3, FR4, FR9, FR10, FR16, FR17
+
+\item{\textbf{Name:} Successful decrease in item quantity after selling item\\} % FR 8 
+\textbf{Id:} Test-GM18 \label{Test-GM18}\\
+
+\textbf{Control:} Automated
+
+\textbf{Initial State:} User is logged in, at the shop, and holds at least one crop in inventory
+
+\textbf{Input:} User sells one crop
+
+\textbf{Output:} The inventory count decreases by one and money earned through the sale is added to the user's in-game currency balance
+
+\textbf{Test Case Derivation:} The user should no longer have the same number of items once its sold
+
+\textbf{How the test will be performed: }Automated test to check if crop that has been sold has been removed from the inventory
+
+\textbf{Requirements being verified:} FR3, FR4, FR5, FR9, FR10, FR16, FR17
+
+
+\item{\textbf{Name: }Successful visual season change\\} % FR 22
+\textbf{Id:} test-GM19 \label{Test-GM19}\\
+
+\textbf{Control:} Automated
+
+\textbf{Initial State:} User has played the game for some time
+
+\textbf{Input:} Any decisions the user has made
+
+\textbf{Output:} Season change
+
+\textbf{Test Case Derivation: }This is significant as it will make the game more appealing as you are changing seasons.
+
+\textbf{How the test will be performed:} Automated test by verifying different visual aspects of the game are being changed according to the season it is in.
+
+\textbf{Requirements being verified:} FR16, FR17, FR20, FR21
 \end{enumerate}
-
-\subsubsection{Module 2}
-
-...
-
-\subsection{Tests for Nonfunctional Requirements}
-
-\wss{If there is a module that needs to be independently assessed for
-  performance, those test cases can go here.  In some projects, planning for
-  nonfunctional tests of units will not be that relevant.}
-
-\wss{These tests may involve collecting performance data from previously
-  mentioned functional tests.}
-
-\subsubsection{Module ?}
-		
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\end{enumerate}
-
-\subsubsection{Module ?}
-
-...
 
 \subsection{Traceability Between Test Cases and Modules}
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.25\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Test} & \textbf{Modules}\\
+\midrule
+\hyperref[Test-AC1]{\textbf{Test-AC1}} & Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User\\
+\hyperref[Test-AC2]{\textbf{Test-AC2}} & Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, AuthError, User\\
+\hyperref[Test-AC3]{\textbf{Test-AC3}} & Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User\\
+\hyperref[Test-AC4]{\textbf{Test-AC4}} & CreateAccount\\
+\hyperref[Test-AC5]{\textbf{Test-AC5}} & GameSettings, DatabaseOperation, GameController\\
+\hyperref[Test-GM1]{\textbf{Test-GM1}} & GameController, FarmGrid, FarmTile\\
+\hyperref[Test-GM2]{\textbf{Test-GM2}} & GameController, FarmGrid, FarmTile, Item, Inventory\\
+\hyperref[Test-GM3]{\textbf{Test-GM3}} & GameController, FarmGrid, FarmTile, Item\\\
+\hyperref[Test-GM4]{\textbf{Test-GM4}} & GameController, FarmGrid, FarmTile, Item\\
+\hyperref[Test-GM5]{\textbf{Test-GM5}} & GameController, FarmGrid, FarmTile\\
+\hyperref[Test-GM6]{\textbf{Test-GM6}} & GameController, AvatarMenu, Avatar, Consultant\\
+\hyperref[Test-GM7]{\textbf{Test-GM7}} & GameController, AvatarMenu, Avatar, Consultant\\
+\hyperref[Test-GM8]{\textbf{Test-GM8}} & GameController, Market, Item, Inventory\\
+\hyperref[Test-GM9]{\textbf{Test-GM9}} & GameController, GenerateStatistic, SeasonalEvents, FarmGrid, FarmTile, Inventory\\
+\hyperref[Test-GM10]{\textbf{Test-GM10}} & GameController, SeasonalEvents\\
+\hyperref[Test-GM11]{\textbf{Test-GM11}} & GameController, Inventory, Item\\
+\hyperref[Test-GM12]{\textbf{Test-GM12}} & GameController, Item, Inventory, Market\\
+\hyperref[Test-GM13]{\textbf{Test-GM13}} & GameController, Item, Inventory, Market\\
+\hyperref[Test-GM14]{\textbf{Test-GM14}} & GameController, Item, Inventory, Market\\
+\hyperref[Test-GM15]{\textbf{Test-GM15}} & GameController, Item, Inventory, Market\\
+\hyperref[Test-GM16]{\textbf{Test-GM16}} & GameController, Item, Inventory, Market\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Test cases and Modules}
+\label{TblACT}
+\end{table}
 
-\wss{Provide evidence that all of the modules have been considered.}
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.25\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Test} & \textbf{Modules}\\
+\hyperref[Test-GM17]{\textbf{Test-GM17}} & GameController, Item, Inventory, Market\\
+\hyperref[Test-GM18]{\textbf{Test-GM18}} & GameController, Item, Inventory, Market\\
+\hyperref[Test-GM19]{\textbf{Test-GM19}} & GameController, SeasonalEvents, FarmGrid, FarmTile, Item, Inventory\\
+\hyperref[Test-DB1]{\textbf{Test-DB1}} & GameController, DatabaseOperations, Server\\
+\hyperref[Test-DB2]{\textbf{Test-DB2}} & GameController, DatabaseOperations, Server\\
+\hyperref[Test-DB3]{\textbf{Test-DB3}} & GameController, DatabaseOperations, Server\\
+\hyperref[Test-PG1]{\textbf{Test-PG1}} & CreateAccount\\
+\hyperref[Test-PG2]{\textbf{Test-PG2}} & CreateAccount\\
+\hyperref[Test-LF1]{\textbf{Test-LF1}} & AvatarMenu, Consultant, SeasonalEvents, Inventory, Market, GameSettings, CreateAccount, Login, FarmGrid, FarmTile\\
+\hyperref[Test-LF2]{\textbf{Test-LF2}} & AvatarMenu, Consultant, SeasonalEvents, Inventory, Market, GameSettings, CreateAccount, Login, FarmGrid, FarmTile\\
+\hyperref[Test-LF3]{\textbf{Test-LF3}} & AvatarMenu, Consultant, SeasonalEvents, Inventory, Market, GameSettings, CreateAccount, Login, FarmGrid, FarmTile, SeasonalEvents, GenerateStatistics\\
+\hyperref[Test-UH1]{\textbf{Test-UH1}} & AvatarMenu, Consultant, SeasonalEvents, Inventory, Market, GameSettings, CreateAccount, Login, FarmGrid, FarmTile, SeasonalEvents, GenerateStatistics\\
+\hyperref[Test-P1]{\textbf{Test-P1}} & DatabaseOperations, GameController\\
+\hyperref[Test-P2]{\textbf{Test-P2}} & DatabaseOperations, GameController, AvatarMenu, Consultant, SeasonalEvents, Inventory, Market, GameSettings\\
+\hyperref[Test-P3]{\textbf{Test-P3}} &   AvatarMenu, SeasonalEvents, Inventory, Market\\
+\hyperref[Test-OE1]{\textbf{Test-OE1}} &   Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User, GameController, FarmGrid, FarmTile\\
+\hyperref[Test-OE2]{\textbf{Test-OE2}} &   Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User, GameController, FarmGrid, FarmTile\\
+\bottomrule
+\end{tabular}
+\caption{Cont. Trace Between Test cases and Modules}
+\label{TblACT}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.25\textwidth} p{0.6\textwidth}}
+\toprule
+\hyperref[Test-MS1]{\textbf{Test-MS1}} &   GameController, GameSettings, MusicPlayer\\
+\hyperref[Test-SR1]{\textbf{Test-SR1}} &  Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User\\
+\hyperref[Test-SR2]{\textbf{Test-SR2}} &  Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User\\
+\hyperref[Test-SR3]{\textbf{Test-SR3}} &    DatabaseOperations, ServerFirebase\\
+\hyperref[Test-ACR1]{\textbf{Test-ACR1}} &    Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User\\
+\hyperref[Test-ACR2]{\textbf{Test-ACR2}} &    Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, AuthError, User\\
+\hyperref[Test-ACR3]{\textbf{Test-ACR3}} &    Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, AuthError, User, GameController, FarmGrid, FarmTile, Market, Inventory, Consultant, AvatarMenu, GameSetting, SeasonalEvents\\
+\hyperref[Test-ACR4]{\textbf{Test-ACR4}} &    Login, DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, AuthError, User\\
+\hyperref[Test-IR1]{\textbf{Test-IR1}} &     DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User, GameController\\
+\hyperref[Test-IR2]{\textbf{Test-IR2}} &     DatabaseOperations, ServerFirebase, ClientFirebase, Socket, Server, AuthState, User, GameController\\
+\bottomrule
+\end{tabular}
+\caption{Cont. Trace Between Test cases and Modules}
+\label{TblACT}
+\end{table}
+
 				
 \bibliographystyle{plainnat}
 
@@ -1300,6 +1353,8 @@ RESPONSE\_TIME & The maximum time allowed for the application to respond to user
 \hline
 SUPPORTED\_VERSION & The oldest supported version of browsers & 1 Year\\
 \hline
+DATABASE\_RESPONSE\_TIME & The maximum time allowed for the database to respond to the system input & 2 seconds\\
+\hline
 \end{tabular}}
 \end{table}
 
@@ -1308,9 +1363,14 @@ SUPPORTED\_VERSION & The oldest supported version of browsers & 1 Year\\
 \begin{table}[h]
 \resizebox{5.5in}{!}{\begin{tabular}{|lllllll|}
 \hline
-\multicolumn{7}{|c|}{User Experience}                                                                                                                                         \\ \hline
-\multicolumn{7}{|l|}{The following survey will be completed upon playing the game after 20 minutes}                                                                           \\ \hline
-\multicolumn{1}{|l|}{Design Minimalistic}    & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
+\multicolumn{7}{|c|}{\textbf{User Experience Survery}}\\
+\multicolumn{7}{|l|}{}                                \\ \hline
+\multicolumn{7}{|l|}{\textit{The following survey will be completed upon playing the game after 20 minutes}}  
+                \\ \hline
+\multicolumn{7}{|l|}{\textbf{Look and Feel}} \\
+\multicolumn{7}{|l|}{}   
+\\ \hline
+\multicolumn{1}{|l|}{Minimalistic Design}    & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = too much clutter of elements, 5 = no clutter and minimal feel{]}}                                   \\ \hline
 \multicolumn{1}{|l|}{Consistent Color Theme} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5\\ \hline
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = inconsistent color theme, 5 = consistent color theme{]}}                                            \\ \hline
@@ -1318,6 +1378,10 @@ SUPPORTED\_VERSION & The oldest supported version of browsers & 1 Year\\
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = audio is terrible to listen to, 5 = audio is enjoyable to listen to{]}}                             \\ \hline
 \multicolumn{1}{|l|}{Engaging Graphics}      & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = graphics are not pleasing, 5 = graphics are pleasing and comfortable{]}}                            \\ \hline
+
+\multicolumn{7}{|l|}{\textbf{Usability}}  \\
+\multicolumn{7}{|l|}{}  
+\\ \hline
 \multicolumn{1}{|l|}{Age Group}      & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} &  \\ \hline
 \multicolumn{1}{|l|}{}                       & \multicolumn{6}{c|}{{[}0 = age less than 18, 1 = age is 18 or above{]}}                            \\ \hline
 \multicolumn{1}{|l|}{Easy to understand}      & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{4} & 5 \\ \hline
@@ -1338,7 +1402,7 @@ SUPPORTED\_VERSION & The oldest supported version of browsers & 1 Year\\
         \begin{itemize}
                 \item Student: Brandon
             \end{itemize}
-    \item \textbf{Code Walkthroughs}: Two approaches to mastering and acquiring this knowledge would be to read a tutorial on \href{https://www.tutorialspoint.com/software_testing_dictionary/code_walkthrough.htm}{code walkthroughs} and to try to apply this knowledge during a work session. The team member will read the tutorial to get a better understanding of the concept as there might not be sufficient time to properly perform code walkthroughs.
+    \item \textbf{Code Walkthroughs}: Two approaches to mastering and acquiring this knowledge would be to read a tutorial on \href{https://www.tutorialspoint.com/software_testing_dictionary/code_walkthrough.htm}{code walkthroughs} and to try to apply this knowledge during a work session. The team member will read the tutorial to get a better understanding of the concept as there might not be sufficient time to properly perform code walkthroughs. The plan for conducting the walk-through will be the one of the team members will work through resolving an issue or completing a feature while at least one other team member will be present via call or in person to understand, assist or verify the work.
         \begin{itemize}
                 \item Student: Mohammad 
             \end{itemize}
