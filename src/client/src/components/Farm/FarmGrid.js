@@ -1,37 +1,37 @@
 import React, { useEffect, useState, useContext } from 'react';
 import FarmTile from './FarmTile';
 import { globalInventoryContext, marketItems } from '../../Game';
+import { useGameInfo, useInventory } from '../../contexts';
 
 const SEASON_COLORS = ['#a67a47', '#a1a09f', '#7efc5b', '#77c761']; // Fall, Winter, Spring, Summer
 
 function FarmGrid(props) {
-  let { inventoryState, grid, setGrid, cropInfo, setCropInfo } = useContext(
-    globalInventoryContext,
-  );
+  const { inventoryState, cropInfo, setCropInfo } = useInventory();
+  const { grid, setGrid, turn, money, setMoney, } = useGameInfo();
 
   const [clickedTile, setClickedTile] = useState(null);
 
   function getColor() {
-    return SEASON_COLORS[Math.floor((props.turn - 1) / 3) % 4];
+    return SEASON_COLORS[Math.floor((turn - 1) / 3) % 4];
   }
 
   return (
     <mesh {...props}>
-      {props.grid &&
-        props.grid.map((tile) => (
+      {grid &&
+        grid.map((tile) => (
           <FarmTile
             x={tile.x}
             z={tile.z}
             key={'tile' + tile.x + tile.z}
             clickedTile={clickedTile}
             setClickedTile={setClickedTile}
-            turn={props.turn}
-            money={props.money}
-            setMoney={props.setMoney}
+            turn={turn}
+            money={money}
+            setMoney={setMoney}
             plantedSeed={tile.plantedSeed}
             fertilizerAmount={tile.fertilizerAmount}
-            grid={props.grid}
-            setGrid={props.setGrid}
+            grid={grid}
+            setGrid={setGrid}
             owned={tile.owned}
             price={tile.price}
             colors={SEASON_COLORS}

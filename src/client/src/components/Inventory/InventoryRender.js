@@ -13,14 +13,15 @@ import { checkIfItemIsPlant } from '../GameLogic/GameLogic';
 import { plants } from '../Farm/FarmTile/constants';
 import { shopItemsList, quantityContent } from '../Shop/constants';
 import InventoryItem from './InventoryItem';
+import { useInventory } from '../../contexts';
 
 //TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
 const InventoryRender = (props) => {
   let [isInventoryOpen, setIsInventoryOpen] = useState(false);
-  const { inventoryState } = React.useContext(globalInventoryContext);
+  const { inventoryState } = useInventory();
   const [itemSelected, setItemSelected] = useState('');
   let currInventory = [];
-  // [{tomato:{seed:#,crop:#}},{fertilizer:#}]
+  
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
     setItemSelected('');

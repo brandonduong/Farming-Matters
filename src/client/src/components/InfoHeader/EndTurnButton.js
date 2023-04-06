@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import { globalInventoryContext } from '../../Game';
 import Button from 'react-bootstrap/Button';
+import { useInventory } from '../../contexts';
 
 export const EndTurnButton = ({ season, setSeason, turn, setTurn }) => {
   const SEASONS = ['Winter', 'Spring', 'Summer', 'Fall'];
   const { inventoryState, setInventoryState, cropInfo, setCropInfo } =
-    useContext(globalInventoryContext);
+    useInventory();
 
   const expireCrops = () => {
     //let cropInfoCopy = JSON.parse(JSON.stringify(inventoryState));

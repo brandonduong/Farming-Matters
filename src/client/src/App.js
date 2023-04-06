@@ -9,22 +9,18 @@ import './css/slider.css';
 import './css/FarmTile.css';
 import './css/EndGame.css';
 import './css/StartGame.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { LoginPage } from './components/LoginPage';
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './components/common/PrivateRoute';
 import { Game } from './Game';
 import { AuthProvider } from './utils/auth/AuthContext';
 import { DeniedPage } from './components/common/DeniedPage';
+import { GameInfoProvider } from './contexts/GameInfoContext';
+import { ConsultantProvider } from './contexts/ConsultantContext';
+import { ItemsProvider } from './contexts/ItemContext';
 
-const App = () => {
-  // TODO: Implement state for user, inventory, money, etc...
-  // Can use react contexts or maybe redux or something like that
-  // This useEffect hook performs all operations needed on page load
-
-  const [season, setSeason] = useState('Fall');
-
-  return (
+const App = () =>
     <div className="App">
       <AuthProvider>
         <Routes>
@@ -35,14 +31,19 @@ const App = () => {
             path="play"
             element={
               <PrivateRoute>
-                <Game season={season} setSeason={setSeason} />
+                <GameInfoProvider>
+                  <ConsultantProvider>
+                    <ItemsProvider>
+                      <Game />
+                    </ItemsProvider>
+                  </ConsultantProvider>
+                </GameInfoProvider>
               </PrivateRoute>
             }
           />
         </Routes>
       </AuthProvider>
     </div>
-  );
-};
+
 
 export default App;

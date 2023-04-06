@@ -5,10 +5,11 @@ import DetailedItem from './DetailedItem';
 import { SellItems } from './SellItems';
 import { SellInfo } from './SellItems/SellInfo';
 import { globalInventoryContext } from '../../Game';
+import { useGameInfo, useInventory } from '../../contexts';
 
 const Shop = (props) => {
-  const { inventoryState, setInventoryState, cropInfo, money, setMoney } =
-    React.useContext(globalInventoryContext);
+  const { inventoryState, setInventoryState, cropInfo } = useInventory()
+  const { money, setMoney } = useGameInfo();
 
   const [showMenu, setShowMenu] = useState(false);
   const [showBuy, setShowBuy] = useState(false);

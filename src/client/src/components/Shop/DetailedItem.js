@@ -9,14 +9,13 @@ import { quantityContent, shopItemsList } from './constants';
 import { itemFluctuation } from '../GameLogic/constants';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import { useInventory } from '../../contexts';
 
 const DetailedItem = (props) => {
   const [itemQuantity, setItemQuantity] = useState(0);
   const [insuranceQuantity, setInsuranceQuantity] = useState(0);
   const [insuranceFloorPrice, setInsuranceFloorPrice] = useState(0);
-  const { inventoryState, setInventoryState } = React.useContext(
-    globalInventoryContext,
-  );
+  const { inventoryState, setInventoryState } = useInventory();
 
   const [insuranceOption, setInsuranceOption] = useState(false);
   let Normal = require('@stdlib/stats-base-dists-normal').Normal;

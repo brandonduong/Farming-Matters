@@ -12,9 +12,10 @@ import { shopItemsList } from '../Shop/constants';
 import { itemFluctuation } from '../GameLogic/constants';
 import { quantityContent } from '../Shop/constants';
 import Table from 'react-bootstrap/Table';
+import { useInventory } from '../../contexts';
 
 const InventoryItem = (props) => {
-  const { inventoryState, cropInfo } = React.useContext(globalInventoryContext);
+  const { inventoryState, cropInfo } = useInventory();
 
   const [itemName, setItemName] = useState();
   const [itemImg, setItemImg] = useState(quantityContent[1].image);
