@@ -1602,9 +1602,9 @@ This function validates the displayName input. Valid display names are at least 
 \\ 
 \\
 isInvalidEmail: String $\rightarrow \mathbb{B}$  \\
-isInvalidEmail(email) $\equiv$ email $\notin$ $\{$/([a-zA-Z0-9.!\#\%\&'*+/=?\^\_`\{|\}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*/$\}$ 
+isInvalidEmail(email) $\equiv$ email $\notin$ $\{$/([a-zA-Z0-9.!\#\%\&'*+/=?\^\_`\{|\}~-]+\@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*/$\}$ 
 \\ \\
-This function validates the email input. Valid emails contain only valid characters and contain an '@' in the middle. \\
+This function validates the email input. Valid emails contain only valid characters and contain an '\@' in the middle. \\
 \\
 \\
 isInvalidPassword: String $\rightarrow \mathbb{B}$  \\
@@ -1688,9 +1688,9 @@ An important assumption for security is that all client-server requests will use
 
 \subsubsection{Local Functions}
 isInvalidEmail: String $\rightarrow \mathbb{B}$  \\
-isInvalidEmail(email) $\equiv$ email $\notin$ $\{$/([a-zA-Z0-9.!\#\%\&'*+/=?\^\_`\{|\}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*/$\}$ 
+isInvalidEmail(email) $\equiv$ email $\notin$ $\{$/([a-zA-Z0-9.!\#\%\&'*+/=?\^\_`\{|\}~-]+\@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*/$\}$ 
 \\ \\
-This function validates the email input. Valid emails contain only valid characters and contain an '@' in the middle. \\ 
+This function validates the email input. Valid emails contain only valid characters and contain an '\@' in the middle. \\ 
 \\
 \\
 isInvalidPassword: String $\rightarrow \mathbb{B}$  \\
