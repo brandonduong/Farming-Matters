@@ -46,6 +46,8 @@
 10/19/2022 & Namit Chopra, Brandon Duong  & Finished first \\
  & Andrew Balmakund, Mohammad Harun & version\\
  & Mihail Serafimovski & \\
+
+ 04/03/2023 & Brandon Duong & Failure modes for Database more specific, changed the scope to not include hardware or game logic, added severity column to FMEA, added rational to requirements\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -65,13 +67,13 @@ Based on Nancy Leveson's work, a hazard is any property or condition in The Farm
 
 
 \section{Scope and Purpose of Hazard Analysis}
-The scope of this document is to provide an analysis regarding hazards of the different system boundaries and components, how to mitigate each hazard and provide safety and security requirements.
+The scope of this document is to provide an analysis regarding hazards of the different system boundaries and components, how to mitigate each hazard, and provide safety and security requirements. It is important to note, the hardware of choice in which our system is run (i.e. the user's device), is beyond our control as players will play on their unique combination of physical hardware through a web browser. Accounting for all combinations is not possible, which ideally is not necessary as the system should be developed in such a way that it generally works as long as the player's setup can run a web browser. Similarly, it is assumed that all game mechanics and functionality work as intended, as it is impractical to account for all different combinations of input. Ideally, the normal operation would result in no, or at least minor, bugs that do not affect the logged data. The VnV report will ensure this. The team has focused to mitigate failures in the following components: Authentication System, Backend Server, Database System, and User Interface
 
 \section{System Boundaries and Components}
 The system will be divided into the following components:
 
 \begin{enumerate}
-    \item The application including both the frontend and backend consists of:
+    \item The application including both the frontend and backend consists of the:
     \begin{enumerate}
         \item Authentication System
         \item Backend Server
@@ -95,18 +97,18 @@ There are no critical assumptions.
     \centering
     
 
-    \begin{tabular}{|p{0.20\linewidth} | p{0.20\linewidth} | p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.07\linewidth}|  p{0.07\linewidth}| }
+    \begin{tabular}{|p{0.20\linewidth} | p{0.30\linewidth} | p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.30\linewidth}|  p{0.07\linewidth}|  p{0.07\linewidth}|p{0.12\linewidth}| }
     \hline
-         \textbf{Design Functions} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} & \textbf{Ref} \\
+         \textbf{Design Functions} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} & \textbf{Ref} & \textbf{Severity}\\
          \hline
-         Database & Server can not fulfill all user requests & Can't store all user decisions, losing data necessary for the underlying research study & Too many people playing and making API requests at the same time & Ensure a queue-login system  is enforced, only allow a max amount of users to play the game\newline   & IR1 & H1-1\\
-          & Database can not store any more data & Can not store any user decisions, losing data necessary for the underlying research study & Storage of database is full & Admin's can download all data (user decisions) from the database and delete the data on the database afterwards, hence creating additional storage. Admins could also increase database storage capacity   & IR2 & H1-2\\
+         Database & Server can not fulfill all API requests in API\_RESPONSE\_TIME& Can not store all user decisions, losing data necessary for the underlying research study & Too many people playing and making API requests at the same time, or server unexpectedly goes down & Ensure a queue-login system is enforced, only allow a max amount of users to play at the same time. If the server is down, do not allow players to continue playing as to not lose any data\newline   & IR1 & H1-1 & High\\
+          & Database can not handle all database requests in DATABASE \_RESPONSE\_TIME & Can not store all user decisions, losing data necessary for the underlying research study & Storage of the database is full or too many people playing and making API requests at the same time& Admin can download all data (user decisions) from the database and delete the data on the database afterward, hence creating additional storage. Admins could also increase database storage or request capacity, or only allow a max amount of users to play at the same time   & IR2 & H1-2 & High\\
           \hline
-         Authentication & Unauthorized user is able to log into the game & Logged player decisions cannot be traced to an account/user \newline & Database authentication issue & Ensure only authorized user decisions are logged & ACR2, ACR3 & H2-1\\
-         & Bots are able to play the game & Logged decisions are inauthentic and detrimental to the underlying research\newline & Attacker develops script to automate account creation and play game &  Ensure account creation includes captcha & SR1 & H2-2\\
-         & Account sharing & Logged decisions do not reflect decision-making of one person and are detrimental to the underlying research\newline & The user shares their account login information with their peers & The user must accept the guidelines and rules before playing the game & IR4, IR5 & H2-3\\
+         Authentication & Unauthorized user is able to log into the game & Logged player decisions cannot be traced to an account/user \newline & Database authentication issue & Ensure only authorized user decisions are logged & ACR2, ACR3 & H2-1 & Medium\\
+         & Bots are able to play the game & Logged decisions are inauthentic and detrimental to the underlying research\newline & Attacker develops script to automate account creation and play game &  Ensure account creation includes captcha & SR1 & H2-2 & Medium\\
+         & Account sharing & Logged decisions do not reflect the decision-making of one person and are detrimental to the underlying research\newline & The user shares their account login information with their peers & The user must accept the guidelines and rules before playing the game & IR4, IR5 & H2-3 & High\\
          
-           & User opening multiple sessions & Logged decisions from current and previous sessions may be overwritten and thus lose data & The user logs in multiple times on the same device or on multiple devices & The user must log out before creating a new session or the system will automatically log them out of the old sessions in order to create a new session & ACR4 & H2-4\\
+           & User opening multiple sessions & Logged decisions from current and previous sessions may be overwritten and thus lose data & The user logs in multiple times on the same device or multiple devices & The user must log out before creating a new session or the system will automatically log them out of the old sessions in order to create a new session & ACR4 & H2-4 & High\\
          \hline
     \end{tabular}
     \end{adjustbox}
@@ -118,24 +120,24 @@ There are no critical assumptions.
     \begin{adjustbox}{width=\textwidth}
     \centering
 
-    \begin{tabular}{|p{0.20\linewidth} | p{0.20\linewidth} | p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.05\linewidth}|  p{0.07\linewidth}| }
+    \begin{tabular}{|p{0.20\linewidth} | p{0.20\linewidth} | p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.20\linewidth}|  p{0.05\linewidth}|  p{0.07\linewidth}|p{0.12\linewidth}| }
     \hline
-         \textbf{Design Functions} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} & \textbf{Ref} \\
+         \textbf{Design Functions} & \textbf{Failure Modes} & \textbf{Effects of Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} & \textbf{Ref}&\textbf{Severity} \\
          
         \hline
         
          Internet Connectivity 
          
          %&Cannot connect to the Internet
-         %& User will not be able to access game & Hardware is having connectivity problems & Troubleshoot connectivity issues or change to hardware that has connection to the internet 
+         %& User will not be able to access game & Hardware is having connectivity problems & Troubleshoot connectivity issues or change to hardware that has a connection to the internet 
          %& test & H3-1\\
          
-          & Loses internet connection during gameplay  & User loses all progress made during the current session prior to losing internet connection & Hardware is having connectivity problems & To save current progress, wait till internet access has been retrieved in order for the system to perform a automatic save. Otherwise, the game will resume at the most recent saved progress  & IR3 & H3-2\\
+          & Loses internet connection during gameplay  & User loses all progress made since the last save before losing internet connection & Hardware is having connectivity problems & To save current progress, wait till internet access has been retrieved in order for the system to perform an automatic save. Otherwise, the game will resume at the most recent saved progress  & IR3 & H3-2 & Low\\
          \hline
-        General & Host computer, Web browser or the tab crashes & User loses all progress made during the current session prior to closing application & Not enough computer resources available, significant host operating system crash, accidental close of web browser or tab \newline & Close unused applications and other web browser tabs that are unused on a host computer
-        & IR1 & H4-1\\
+        General & Web browser or the tab unexpectedly closes & User loses all progress made since the last save & Not enough computer resources available, significant host operating system crash, accidental close of web browser or tab \newline & Close unused applications and other web browser tabs that are unused on a host computer. Have the saving be frequent so as to not lose too much progress when this failure mode happens
+        & IR1 & H4-1 & Low\\
         
-        & Game is slow to respond to user input & User is effectively unable to play the game. & User's hardware is insufficient to run the game & Provide a specifications guide in the to inform users what minimum specifications are required to run the game & IR1 & H4-2\\
+        & Game is slow to respond to user input & User is effectively unable to play the game. & User's hardware is insufficient to run the game & Provide a specifications guide in the to inform users what minimum specifications are required to run the game & IR1 & H4-2 & Low\\
         
          \hline
     \end{tabular}
@@ -144,33 +146,46 @@ There are no critical assumptions.
 \end{table}
 
 \section{Safety and Security Requirements}
-The following requirements includes requirements in the Software Specification Document. It also lists new requirements which will be added to the Software Specification Document and have been written in \textbf{bold}. 
+The following requirements include requirements in the Software Specification Document. It also lists new requirements which will be added to the Software Specification Document and have been written in \textbf{bold}. 
 
 \subsection{Security Requirements}
 \begin{enumerate}[{SR}1. ]
-    \item The system must not allow automation of creating accounts. 
-    \item \textbf{The system will encrypt all user passwords with a sufficient encryption algorithm.}
+    \item The system must not allow automation of creating accounts.\\
+    \textbf{Rationale}: It is important for the data collection of the study to not include robotic responses for the data to be as authentic as possible 
+    \item \textbf{The system will encrypt all user passwords with a sufficient encryption algorithm.}\\
+    \textbf{Rationale}: It is important for the data collection of the study to not have multiple people play on the same account for the data to be as authentic as possible 
 \end{enumerate}
 \subsection{Access Requirements}
 \begin{enumerate}[{ACR}1. ]
-    \item \textbf{The frontend system shall allow access to any public user.}
-    \item \textbf {The backend system shall only allow unauthenticated access to login related functionality.}
-    \item \textbf{The backend system shall only allow access to authenticated users for all other (non-login) functionality.}
-    \item \textbf{The backend system shall allow only to up to one user to have one user logged-in session at any point and time.}
+    \item \textbf{The frontend system shall allow access to any user.}\\
+    \textbf{Rationale}: Unauthenticated users will need to authenticate themselves
+    \item \textbf {The backend system shall only allow unauthenticated access to login-related functionality.}\\
+    \textbf{Rationale}: Unauthenticated users will need to authenticate themselves
+    \item \textbf{The backend system shall only allow access to authenticated users for all other (non-login) functionality.}\\
+    \textbf{Rationale}: It is important for the data collection of the study for the data to be traceable to specific user accounts to be able to inspect their tendencies
+    \item \textbf{The backend system shall allow only up to one user to have one user logged-in session at any point and time.}\\
+    \textbf{Rationale}: It is important for the data collection of the study to not allow multiple concurrent sessions on the same account so as to not overwrite any data 
     
 \end{enumerate}
 \subsection{Integrity Requirements}
 \begin{enumerate}[{IR}1. ]
-    \item \textbf{The system will be able to handle all API requests in API\_RESPONSE\_TIME}
-    \item \textbf{The system will be able to handle all database requests in DATABASE\_RESPONSE\_TIME}
-    \item \textbf{The system will be able to handle unexpected loss of connection to the server}
-    \item \textbf{The user shall agree to the terms and condition before using the application }
-    \item \textbf{The system shall warn users regarding account sharing and how it will skew the data collection for research}
+    \item \textbf{The system will be able to handle all API requests in API\_RESPONSE\_TIME}\\
+    \textbf{Rationale}: From Human-Computer Interfaces, a maximum of 1 second wait time is needed for a user's flow of thought to stay uninterrupted
+    \item \textbf{The system will be able to handle all database requests in DATABASE\_RESPONSE\_TIME}\\
+    \textbf{Rationale}: From Human-Computer Interfaces, a maximum of 1 second wait time is needed for a user's flow of thought to stay uninterrupted
+    \item \textbf{The system will be able to handle the unexpected loss of connection to the server}\\
+    \textbf{Rationale}: It is important for the data collection of the study to not corrupt, lose, or overwrite any data
+    \item \textbf{The user shall agree to the terms and conditions before using the application }\\
+    \textbf{Rationale}: Users must agree to the terms and conditions of the study for the system to be approved by the ethics board
+    \item \textbf{The system shall warn users regarding account sharing and how it will skew the data collection for research}\\
+    \textbf{Rationale}: It is important for the data collection of the study to not have multiple people play on the same account for the data to be as authentic as possible 
 \end{enumerate}
 \subsection{Privacy Requirements}
 \begin{enumerate}[{PR}1.]
-    \item \textbf{The system shall delete all user data if user decides to opt out of data collection}
-    \item \textbf{The application only requires an email provided by the user}
+    \item \textbf{The system shall delete all user data if the user decides to opt out of data collection}\\
+    \textbf{Rationale}: It is important that users can opt out of the study at any time for the system to be approved by the ethics board
+    \item \textbf{The application only requires an email provided by the user}\\
+    \textbf{Rationale}: User must account only require an email to be approved by the ethics board
 \end{enumerate}
 
 \subsection{Audit Requirements}
@@ -197,7 +212,7 @@ N/A
                                  & ACR2                  &                                                                                                                                                                                                                                 \\ \cline{2-2}
                                  & ACR3                  &                                                                                                                                                                                                                                 \\ \cline{2-3} 
                                  & IR2                   & Database functionality will be expected in the final project, therefore all database requests should be handled properly                                                                                                        \\ \cline{2-3}
-                                 & IR4                   & \multirow{2}{\linewidth}{These requirements must be fulfilled in order to gain approval from the Ethics board. Users must accept some terms and must be able to opt-out of data collection at any time.} \\ \cline{2-2}
+                                 & IR4                   & \multirow{2}{\linewidth}{These requirements must be fulfilled in order to gain approval from the Ethics board. Users must accept some terms and must be able to opt out of data collection at any time.} \\ \cline{2-2}
                                  & PR1                   &                                                                                                                                                                                                                                 \\ \cline{2-3} 
                                  & PR2                   & In order to get approval from the Ethics board as fast as possible, the final project should collect minimal data required to make an account.                                                                                  \\ \hline
 \multirow{2}{*}{Future}          & IR3                   & To handle the loss of user connection, some type of autosave will have to be implemented. This is not part of the scope of the final project, but it is a valid concern, so it will be considered in the future.                    \\ \cline{2-3} 
@@ -215,9 +230,9 @@ N/A
 \hline
 \multicolumn{1}{|l}{\bfseries Symbolic Parameter} & \multicolumn{1}{|l|}{\bfseries Description} & \multicolumn{1}{l|}{\bfseries Value}\\
 \hline
-API\_RESPONSE\_TIME & The maximum amount of time allowed for the system to respond back to the API request & 0.5 seconds\\
+API\_RESPONSE\_TIME & The maximum amount of time allowed for the system to respond to the API request & 0.5 seconds\\
 \hline
-DATABASE\_RESPONSE\_TIME & The maximum amount of time allowed for the system to respond back to the database request & 0.25 seconds\\
+DATABASE\_RESPONSE\_TIME & The maximum amount of time allowed for the system to respond to the database request & 0.25 seconds\\
 \hline
 
 \end{tabular}
