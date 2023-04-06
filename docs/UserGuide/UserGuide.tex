@@ -1,7 +1,23 @@
 \documentclass{article}
 
 \usepackage{booktabs}
+\usepackage{changepage}
 \usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage[normalem]{ulem}
+
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+\usepackage{float}
+\usepackage{graphicx}
 
 \input{../Comments}
 \input{../Common}
@@ -20,9 +36,9 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+05/04/2023 & Namit Chopra, Brandon Duong  & Finished First\\
+ & Andrew Balmakund, Mohammad Harun &  Version\\
+
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -31,5 +47,129 @@ Date2 & Name(s) & Description of changes\\
 
 \maketitle
 
+\newpage
+
+\section{Client}
+
+\subsection{Database}
+MySql is being used for database management. All game data is stored in the database. There are two main types of tables in the database: game state and logged actions. The data is added, removed, and modified from the database from the backend, specifically the module called `databaseOperations.' 
+
+\subsubsection{Game State}
+There is one game state table that holds the most recent game state for all the users. The game state is also saved after every turn. The game state is loaded when the player returns to the game. The schema is provided below should the client want to modify it:
+\begin{verbatim}
+CREATE TABLE GAMESTATE (user_id VARCHAR(30), turn INT NOT NULL, season VARCHAR(6) 
+NOT NULL, money DOUBLE(13, 2) NOT NULL, decision_type CHAR(1) NOT NULL, inventory 
+LONGTEXT NOT NULL, sell_prices LONGTEXT NOT NULL, insured_crops LONGTEXT NOT NULL, 
+consultant MEDIUMTEXT NOT NULL, farmGrid LONGTEXT , PRIMARY KEY(user_id));    
+\end{verbatim}
+
+\begin{itemize}
+    \item user\_id: user id from firebase
+    \item turn: current turn in the game
+    \item season: current season in the game
+    \item money: current balance
+    \item decision\_type: probablistic or deterministic type of information
+    \item sell\_price: list of all sell prices for all turn (till 48) for all the crops
+    \item inventory: current items in the inventory
+    \item insured\_crops: current items that are insured
+    \item consultant: current consultant advice
+    \item farmGrid: current state of the farm grid (all seeds that are planted)
+\end{itemize}
+The method is called in the frontend and sends a request after every turn. The use of the method will also need to be modified if the gamestate table is modified in the backend.
+
+
+\subsubsection{Logged Action}
+Each user account has an associated logged actions table. User performs action throughout the turn and once a turn end, the frontend sends one request containing all actions that the player performed during that turn. Each table is named `LoggedActions\_\{user\_id\}' where the user\_id is the one from Firebase. Furthermore, whenever the user starts a new game, it will continue to add to the same table. The table for each user is created through the backend, specifically the module called `databaseOperations.' The client has experience in SQL and can easily modify it should they wish to change it. Furthermore, the `logData' is used in the frontend to send the data for logging the actions. Every use of this method will also need to be modified in the frontend.
+
+
+\subsection{Firebase}
+Firebase is a service provided by Google which is used in this application for authentication of users. Firebase provides a console, where users can be managed (viewed, deleted, etc.). \\
+
+
+Please see the \href{https://console.firebase.google.com/u/0/}{firebase console} for user authentication management purposes.
+Credentials to access the account will be provided independent of this document for security purposes.
+
+\subsection{Redis}
+Redis is a database technology used here as a simple cloud-based hashmap to keep track of all users that only have a single active connection. \\
+
+Please see the \href{https://app.redislabs.com/?_gl=1*1y5yqpk*_ga*MTMyOTYyODQ1OS4xNjgwNzUzMjYx*_ga_8BKGRQKRPV*MTY4MDc1MzI2MC4xLjAuMTY4MDc1MzI2MC42MC4wLjA.#/}{Redis Labs control panel} to manage this database with admin privileges. 
+Credentials to access the account will be provided independent of this document for security purposes.
+\newpage
+
+\section{Players}
+\subsection{Introduction}
+To access the Farming Matters game can be accessed through FARMING\_MATTERS \_URL. Once accessed, the player is presented with the option of creating an account or logging in. To create an account, the player has to enter 4 fields which are email, display name, password, and confirm password. For the email, it has to be in the format of ``X@Y.Z" where each X, Y, and Z is any alphanumeric character. The display name can also be any alphanumeric. For password, it can also be any alphanumeric that is greater than 6 characters long. Finally, to confirm the password, it has to match the password field previously. Once the player has provided all the details that meet their requirements, the final step is passing the human verification step which is a CAPTCHA system. This CAPTCHA system is an easy human verification system that is just a simple task to check a square box.
+
+\subsection{Post Account Creation}
+After creating an account, a loading screen appears and the player is initially presented with a welcome message. This message provides an initial storyline to the game and the goal the player should complete. After selecting next, the player is presented with a list of rules on how to play the game which is mentioned in Section \ref{guide} below. After that, the player can freely interact with a different element in the game which will be discussed in a further section underneath.
+
+\subsection{Farm Land}
+The player can interact with different elements of the farm, they can drag their mouse around by holding the primary button (left-click) and drag the mouse cursor around and observe the environment. The player can also hover over a farm tile (which is a square shape) on the grid. These different farm tiles are where the player can plant individual crop seeds and grow them. It is important to note that based on the current season, the player can only plant certain crop seeds. This information can be found in the Shop where it also helps display the different items there are and what season the crop seeds are meant to be planted in. By also clicking on a specific farm tile, the player does the option to plant whichever crop seed they like, given that they do have it in their Inventory and they are in the correct season to plant that specific crop seed they wanted to. The player also has the option to purchase additional farm tiles by hovering the farm tiles that appear greyer than others. 
+
+\subsection{Turns and Season}
+The turns in the game are to simulate the time throughout the year. Each season is noted to be only 3 turns. Thus, given that there is a total of 4 seasons ``Fall", ``Winter", ``Spring" and ``Summer", there is a total of 12 turns in one year. To simply end a turn, select the ``End Turn" button that is in the header bar at the top. After ending the turn, any crop that was planted on the farm will go through an evolution process where after a certain amount of turns. That crop can be harvested. 
+
+\subsection{Seasonal Events}
+For every season the player heads into, there is a chance a seasonal event could occur. These seasonal events are namely natural disasters that occur in different seasons. For example, in fall there is a tornado, in winter there is a  heavy snowstorm, in spring there is heavy rain and in summer there is an intense drought. If a seasonal event occurs, the player is provided with a prompt stating what seasonal event happened and what was the aftermath. Typically with all these seasonal events, the aftermath result in wiping out all crops that are planted on the farm. However, for the crops planted that were insured, they will be added to your inventory as harvested crops instead of being wiped for good. 
+
+\subsection{Inventory}
+The inventory provides an overall view of all items the player currently possesses. This accounts for all crop seeds, harvested crops, and additional tools (e.g. fertilizer and pesticide). For each item that is displayed in the inventory, the player can select an individual item and view more details. More specifically, the player can see the total insurance (e.g how much of each crop the player insured and for what price it is insured)
+
+\subsection{Shop}
+The shop provides an area for the player to purchase and sell items. Note, the player can buy any item at any given time regardless of the season. The player can also sell any item at any given time, but cannot sell tools the player purchased such as fertilizer and pesticides. One important distinction, when the player buys an item, they buy it at a default/initial price which remains the same regardless of the turn or season that they are in. At the point of purchasing an item, they can choose how much of that item they want to purchase (just as long as they have the funds to do so), opt-in to purchase insurance which provides them with the option for many items of the items they selected to buy, how much of them would they like to insure. The player can also choose to select a floor price for an insured item. The purpose of this floor price is to give the player a safety net if at a given turn the item that they insured was at a very low selling price. The player will be given the floor price for which they bought the insurance. However, in the case where the price is higher than the floor price for which they insured the item, the player will be able to sell at that higher price instead of that floor price. It is important to note, without purchasing insurance for a crop, they can still sell it but when they do it, it will be at the given shop selling price.
+
+\subsection{Items}
+Different items can be purchased by the player via the shop. There are crop seeds, harvested crops and tools. Crop seeds, these seeds are meant to be planted on the farm and evolve into crops once harvested. Each crop has different evolution lengths (e.g. certain crops may be able to be harvested in a shorter amount of turns than others). The next type of item is harvested crops, these are full-grown crops that are ready to be sold in the shop. It is important to note, once the crop is able to be harvested, there is an expiry date set. Meaning, if the crop is not sold within its expiry timeline, it will be removed from the inventory and unrecoverable. This applies to insured crops as well. Insured crops are meant to be only protected from the shop market values. 
+
+\subsection{Avatar Menu}
+There are different avatars a player can interact with, there is the consultant who acts as a ``fortune teller". The role of the consultant is meant to provide insight/advice on a future event that can happen in the next season with a chance of it happening. To get access to this advice, the player has to purchase the consultant's advice. This choice is automatically prompted when they first create an account and at the start of each season. It is important to note, that the consultant's advice will remain the same throughout the season, it is only when the season changes that the consultant's advice changes. There are also other avatars the player can interact with in which they have a role in the game, similar to how a consultant is part of a role in the game. 
+
+\subsection{Settings}
+In the settings menu, the player has the option to adjust the background music volume and sound effects volume individually. There is also the option to ``Withdraw from the game" and the option to ``Withdraw from the study". In the first withdrawal option,  ``Withdraw from the game", players may choose to withdraw from the game. This will delete the player's account; however, it will not delete the game data that may be used for research. The game data is anonymized and will not be tied to any user information. In the second withdrawal option, ``Withdraw from the study", players may choose to withdraw from the study. This will delete the player's account. It will also delete all anonymized game data, that may have been used in research, associated with the account.
+
+\subsection{Login}
+After creating an account, the player can sign out and rejoin their session at a later time. Upon signing out, their current game progress is saved and can be loaded upon signing back in. There is also another feature where if the player has forgotten their password, they can enter the email they created the accounts with and be able to reset their password and recover their account.
+
+\subsection{Summary: Game Guide/Additional Information} \label{guide}
+\begin{enumerate}
+    \item Player must buy seeds from the market available for the current season
+    \item A seed can be planted on the farm by clicking a tile and selecting an owned seed
+    \item Each season consists of 3 turns. Seeds can only be planted in their designated season (look for crops with the corresponding season icon)
+    \item Each seed can be harvested after X turns. The number of turns to harvest depends on the seed (look over seed information in the market before buying
+    \item Once harvested, the crop (initially seed) is added to the player's inventory
+    \item The selling price of each crop may change every turn, unlike the buy price. The crop can be sold as soon as they are harvested or kept to be sold at a later turn
+    \item Each crop has an expiry date and cannot be kept in the inventory indefinitely. Once a crop expires, its value is diminished and removed from the inventory automatically
+\end{enumerate}
+
+\subsection{Naming Conventions and Terminology}
+\begin{itemize}
+    \item Player: The user playing the game. The player or user is the participant and focus of the study.
+    \item Land: An area where the player can interact with the farm. This includes planting crops, fertilizing crops and adding buildings.
+    \item Inventory: Where the player will be able to store items.
+    \item Items: The player will be able to acquire these into their inventory, including seeds, crops, and fertilizer.
+    \item Seed: Seeds are planted on the farm and evolve into crops once harvested.
+    \item Crop: Once fully grown, seeds evolve into crops once harvested.
+    \item Fertilizer: It is used to reduce the number of turns to harvest a crop.
+    \item Focus groups: A set of players will be involved with discrete decision-making and another set of players will be involved with probabilistic decision-making.
+    \item Turns: these are rounds that happen per season where a decision can be made. 
+    \item Seasons: Including Winter, Spring, Summer, and Fall. The current season changes depending on the turn number, and has an effect on which crops can be grown. 
+    \item Key Questions: These are the compulsory questions that will be asked to the player. The first will be whether the player wants to pay the consultant for advice. The second question will ask the player if they want to purchase insurance for crops.
+\end{itemize}
+\section{Symbolic Parameters}
+
+The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
+Their values are defined in this section for easy maintenance.
+
+\begin{table}[h]
+\caption{\bf Symbolic Parameter Table}
+\resizebox{6in}{!}{\begin{tabular}{|l|p{0.5\linewidth}|p{0.3\linewidth}|}
+\hline
+\multicolumn{1}{|l}{\bfseries Symbolic Parameter} & \multicolumn{1}{|l|}{\bfseries Description} & \multicolumn{1}{l|}{\bfseries Value}\\
+\hline
+FARMING\_MATTERS\_URL & The website URL in which the Farming Matters can be accessed from & TBD\\
+\hline
+
+\end{tabular}}
+\end{table}
 
 \end{document}
