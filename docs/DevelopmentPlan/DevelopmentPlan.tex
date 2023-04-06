@@ -20,8 +20,11 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-09/26/2022 & Namit Chopra, Brandon Duong  & Finished First\\
+09/25/2022 & Namit Chopra, Brandon Duong  & Finished First\\
  & Andrew Balmakund, Mohammad Harun &  Version\\
+ & Mihail Serafimovski & \\
+ 01/04/2023 & Namit Chopra, Brandon Duong  & Final version\\
+ & Andrew Balmakund, Mohammad Harun &  update\\
  & Mihail Serafimovski & \\
 \bottomrule
 \end{tabularx}
@@ -33,16 +36,19 @@
 
 This document discusses the development of the project. It outlines the team meeting plan, communication plan, member roles, workflow plan, and proof of concept demonstration plan. Furthermore, it also details the technology being used, coding standing as well as project scheduling.
 
+
 \section{Team Meeting Plan}
 The team members will meet at least twice a week at flexible times, either in person or online. Formal meetings with the supervisor and members will occur every Wednesday at 10:45 am. The meeting scribe will be responsible for recording the contents and topics discussed at each meeting. Other team members will create a list of activities and topics to discuss as well as time estimates for each item. All attendees will have a chance to contribute to the discussion and have their input taken into account. Group decisions and work will be part of a team-only discussion. Individual tasks will be assigned during these meetings to be completed before the next meeting. The meeting scribe will post the contents summary of the meeting in the Facebook chat which is available to all team members.
 
 All members must be present for all meetings. If a member is absent, they must notify the rest of the group one hour before the meeting with a reason. If the meeting cannot be postponed, the absent member must reach out to inquire about the content discussed in the meeting.
 
+
 \section{Team Communication Plan}
 The team will have a Facebook Messenger group to communicate any administrative and miscellaneous issues with each other. Facebook Messenger will be the main form of communication. It will be used to set up meeting times, and discuss small ideas about different aspects of the project, and documentation issues. For code-related issues, the team will track and communicate these tasks using GitHub issues. The team will be using E-mail to communicate with the professor and supervisor.
 
+
 \section{Team Member Roles}
-multiple roles. There is not a team leader but rather a liaison. Namit will be responsible for communicating with the professor and supervisor. Namit will also be responsible for being the lead assets designer. Brandon is responsible for being the lead tester and the git expert. Andrew will be appointed as the latex expert. Mohammad will be appointed as a scribe for each meeting, recording information and decisions discussed. Mihail is the moderator for the team and supervisor meetings. He is also the react expert. Furthermore, all members will be developers, involved with documentation, and testers. Although the roles have been assigned to each team member, new roles may arise further into the project. Member roles may change depending on the needs of the projects at different points in time. Any role change and addition must be discussed among the group members first.
+Building a large project in a team of 5 requires each member must occupy multiple roles. There is not a team leader but rather a liaison. Namit will be responsible for communicating with the professor and supervisor. Namit will also be responsible for being the lead assets designer. Brandon is responsible for being the lead tester and the git expert. Andrew will be appointed as the latex expert. Mohammad will be appointed as a scribe for each meeting, recording information and decisions discussed. Mihail is the moderator for the team and supervisor meetings. He is also the react expert. Furthermore, all members will be developers, involved with documentation, and testers. Although the roles have been assigned to each team member, new roles may arise further into the project. Member roles may change depending on the needs of the projects at different points in time. Any role change and addition must be discussed among the group members first.
 
 
 \begin{table}[h]
@@ -66,8 +72,10 @@ multiple roles. There is not a team leader but rather a liaison. Namit will be r
     \label{tab:my_label}
 \end{table}
 
+The team decided to split the work into two sub teams, the front-end and back-end. The front-end team consists of Andrew, Brandon, Mohammad and the back-end team consists of Mihail and Namit. Given that the focus of project is set out to be an enjoying and entertaining game, a lot of front-end work needs to be done in comparison to the back-end. Thus the team has decided to designate Namit as a UI design assistant to help with the front-end. 
+
 \section{Workflow Plan}
-For the Git workflow, we will use \href{https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development}{trunk-based development}. The main branch will be protected such that no update can be pushed to it directly. This will ensure that the main branch will always be stable. 
+For the Git workflow, we will use \href{https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development}{Trunk-Based development}. The main branch will be protected such that no update can be pushed to it directly. This will ensure that the main branch will always be stable. 
 A new and separate branch will be created for every change that is based on the main branch. A pull request must be created and approved before it can be merged into the main branch. All tests should pass and at least one developer, other than the author or the pull request collaborators, must review the code before approving the pull request. The feature branch will be deleted once the feature branch is merged into the main branch.
 
 Each task will be added as a GitHub issue and classified using the default labels including bug, documentation, and feature. Developers will assign themselves issues based on priority and familiarity. Once a developer's task is finished and merged into the main branch, the corresponding issue will be closed. A template will be set up on GitHub issues for a standard bug report and feature request.
@@ -92,10 +100,10 @@ For the proof concept, the following will be demonstrated:
 \begin{itemize}
     \item Successful logging of users decision
     \item Basic interaction for user decisions
-    \item Successful interpretation of data collected
-    \item Basic interface completed using good design principles
-    \item Decisions for the first turn is completed and simulate a singular event
-    \item The game can be played on different screen resolutions 
+    % \item Successful interpretation of data colledrcted
+    % \item Basic interface completed using good design principles
+    \item Decisions for the first turn is completed and simulate a singular event (buy and plant a crop, turn ends and crop grows)
+    % \item The game can be played on different screen resolutions 
 \end{itemize}
 
 \section{Technology}
@@ -128,19 +136,15 @@ For the proof concept, the following will be demonstrated:
     \item Jest is also very popular, however we will specifically use it for front-end testing as it provides a suite of useful features such as snapshot testing that can be used to ensure the layout of a page doesn't change.
 \end{itemize}
 
-\item For code coverage, we will use \href{https://istanbul.js.org/}{istanbul.js}.
+\item For code coverage, we will use \href{https://jestjs.io/}{Jest} as well.
 \begin{itemize}
-    \item Istanbul.js is a very simple, lightweight code coverage tool that bundles and runs all unit tests with a single command. It generates a very readable and understandable output and prints it to the terminal. An example can be seen in the linked website. 
+    \item Jest can be configured to output code coverage. 
 \end{itemize}
 
 \item Latex will be used for documentation
-\item CI will be set up using GitHub actions. The CI system will run automated tests triggered by a change to the main branch to ensure the main branch is always stable.
-\begin{itemize}
-    \item Mocha and Jest both have the necessary features needed to automate testing with GitHub actions.
-\end{itemize}
 
 \item Performance measuring tools are not needed for this project as performance is not a requirement or limiting factor.
-\item Linter: \href{https://prettier.io/}{prettier}
+\item Linter: \href{https://prettier.io/}{Prettier}
 \end{itemize}
 
 \section{Coding Standard}
@@ -155,6 +159,4 @@ The team will follow a \href{https://airbnb.io/javascript/react/}{React and JSX 
         \item Complete the first draft of the document four days before the deliverable due date
         \item All project deliverables, supervisor meetings, and team meetings will all be monitored on Google Calendar that will be shared amongst the development team and supervisor
     \end{itemize}
-
-
 \end{document}
