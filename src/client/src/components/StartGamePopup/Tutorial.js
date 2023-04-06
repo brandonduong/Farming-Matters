@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Tutorial = ({ setShowTutorial }) => {
   return (
@@ -10,7 +10,7 @@ const Tutorial = ({ setShowTutorial }) => {
           <p>
             <strong>Goal:</strong> To earn $15,000 in 4 years &#40;48 turns&#41;
           </p>
-          <ol style={{ textAlign: "initial" }}>
+          <ol style={{ textAlign: 'initial' }}>
             <li>
               Player must buy seeds from the market available for the current
               season

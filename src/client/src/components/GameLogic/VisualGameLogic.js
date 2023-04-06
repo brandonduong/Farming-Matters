@@ -1,6 +1,6 @@
-import { SeasonalEvents } from "../GameEvents/SeasonalEvents/SeasonalEvents";
-import { Stats, OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import { useEffect } from "react";
+import { SeasonalEvents } from '../GameEvents/SeasonalEvents/SeasonalEvents';
+import { Stats, OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { useEffect } from 'react';
 //seed [x,z] coordinates on grid
 function addPlantedSeeds(plantedSeeds, seed) {
   console.log(plantedSeeds);
@@ -23,31 +23,31 @@ function removePlantedSeeds(plantedSeeds, seed) {
 
 function changeSeasonBaseEnvironment(currentSeason) {
   switch (currentSeason) {
-    case "Fall":
-      //return SeasonalEvents.Floods();
-    case "Winter":
-      //console.log("SNOW STORM INCOMING");
-      //return SeasonalEvents.SnowStorm();
-    case "Spring":
-      //return SeasonalEvents.Floods();
-    case "Summer":
-      //return SeasonalEvents.Floods();
+    case 'Fall':
+    //return SeasonalEvents.Floods();
+    case 'Winter':
+    //console.log("SNOW STORM INCOMING");
+    //return SeasonalEvents.SnowStorm();
+    case 'Spring':
+    //return SeasonalEvents.Floods();
+    case 'Summer':
+    //return SeasonalEvents.Floods();
   }
 }
 
 function changeSeasonAmbience(currentSeason) {
   let lightIntensity;
   switch (currentSeason) {
-    case "Fall":
+    case 'Fall':
       lightIntensity = 0.65;
       break;
-    case "Winter":
+    case 'Winter':
       lightIntensity = 0.45;
       break;
-    case "Spring":
+    case 'Spring':
       lightIntensity = 0.85;
       break;
-    case "Summer":
+    case 'Summer':
       lightIntensity = 1.15;
       break;
   }
@@ -58,14 +58,14 @@ function generateVisualEnvironment(
   turn,
   currentSeason,
   eventHappening,
-  eventType
+  eventType,
 ) {
   return (
     <>
       <ambientLight intensity={changeSeasonAmbience(currentSeason)} />
       <spotLight position={[10, 50, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
-      <PerspectiveCamera makeDefault fov={90} position={ [0, 5, 5]} />
+      <PerspectiveCamera makeDefault fov={90} position={[0, 5, 5]} />
       {eventHappening > 0.5 ? (
         changeSeasonBaseEnvironment(currentSeason)
       ) : (
@@ -79,22 +79,22 @@ function changeCameraAngle(currentSeason) {
   let x, y, z;
   //Make a constants file
   switch (currentSeason) {
-    case "Fall":
+    case 'Fall':
       x = 10;
       y = 5;
       z = 0;
       break;
-    case "Winter":
+    case 'Winter':
       x = 15;
       y = 5;
       z = 0;
       break;
-    case "Spring":
+    case 'Spring':
       x = 15;
       y = 5;
       z = 10;
       break;
-    case "Summer":
+    case 'Summer':
       x = 5;
       y = 5;
       z = 15;

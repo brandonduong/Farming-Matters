@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Html, Sparkles } from "@react-three/drei";
-import FarmTilePopup from "./FarmTilePopup";
-import { logData } from "../../../utils/logData";
-import { plants } from "./constants";
-import { BeetModel } from "../../models/BeetModel";
-import { CarrotModel } from "../../models/CarrotModel";
-import { RiceModel } from "../../models/RiceModel";
-import { OrangeModel } from "../../models/OrangeModel";
-import { LettuceModel } from "../../models/LettuceModel";
-import { TomatoModel } from "../../models/TomatoModel";
-import { WatermelonModel } from "../../models/WatermelonModel";
-import { WheatModel } from "../../models/WheatModel";
-import { PumpkinModel } from "../../models/PumpkinModel";
-import { WinterModel } from "../../models/WinterModel";
-import { BerryModel } from "../../models/BerryModel";
-import { MushroomModel } from "../../models/MushroomModel";
+import React, { useEffect, useState } from 'react';
+import { Html, Sparkles } from '@react-three/drei';
+import FarmTilePopup from './FarmTilePopup';
+import { logData } from '../../../utils/logData';
+import { plants } from './constants';
+import { BeetModel } from '../../models/BeetModel';
+import { CarrotModel } from '../../models/CarrotModel';
+import { RiceModel } from '../../models/RiceModel';
+import { OrangeModel } from '../../models/OrangeModel';
+import { LettuceModel } from '../../models/LettuceModel';
+import { TomatoModel } from '../../models/TomatoModel';
+import { WatermelonModel } from '../../models/WatermelonModel';
+import { WheatModel } from '../../models/WheatModel';
+import { PumpkinModel } from '../../models/PumpkinModel';
+import { WinterModel } from '../../models/WinterModel';
+import { BerryModel } from '../../models/BerryModel';
+import { MushroomModel } from '../../models/MushroomModel';
 
 const FarmTile = (props) => {
   // Hold state for hovered and clicked events
@@ -39,17 +39,17 @@ const FarmTile = (props) => {
 
       let season;
       if (props.turn % 3 === 0) {
-        season = "Fall";
+        season = 'Fall';
       } else if (props.turn % 3 === 1) {
-        season = "Winter";
+        season = 'Winter';
       } else if (props.turn % 3 === 2) {
-        season = "Spring";
+        season = 'Spring';
       } else {
-        season = "Summer";
+        season = 'Summer';
       }
 
       logData({
-        actionType: "Seed planted",
+        actionType: 'Seed planted',
         turn: props.turn,
         season: season,
         isExperimental: true,
@@ -164,16 +164,16 @@ const FarmTile = (props) => {
     <>
       {models}
       {plantedSeed &&
-        props.turn - turnPlanted + fertilizerAmount >=
-          plants.find(plant => plant.name == plantedSeed.name)?.growthLength ? (
-          <Sparkles size={5} position={position} scale={1.5} />
-        ) : (
-          <></>
+      props.turn - turnPlanted + fertilizerAmount >=
+        plants.find((plant) => plant.name == plantedSeed.name)?.growthLength ? (
+        <Sparkles size={5} position={position} scale={1.5} />
+      ) : (
+        <></>
       )}
 
       {/* Grid outline */}
       <mesh rotation={[0, 0, 0]} position={[props.x - 0.5, 0, props.z - 0.5]}>
-        <gridHelper args={[2, 1, "#004500", "#004500"]} position={[0, 0, 0]} />
+        <gridHelper args={[2, 1, '#004500', '#004500']} position={[0, 0, 0]} />
       </mesh>
 
       <mesh
@@ -190,11 +190,11 @@ const FarmTile = (props) => {
           color={
             hovered
               ? owned
-                ? "#566b50"
-                : "#404040"
+                ? '#566b50'
+                : '#404040'
               : owned
               ? props.colors[Math.floor((props.turn - 1) / 3) % 4]
-              : "#4a4a4a"
+              : '#4a4a4a'
           }
         />
 

@@ -1,6 +1,6 @@
-import { gameEvents, generalDialog, EVENT_OCCUR_THRESHOLD } from "./constants";
-import { checkIfItemIsPlant } from "./GameLogic";
-import { plants } from "../Farm/FarmTile/constants";
+import { gameEvents, generalDialog, EVENT_OCCUR_THRESHOLD } from './constants';
+import { checkIfItemIsPlant } from './GameLogic';
+import { plants } from '../Farm/FarmTile/constants';
 let randomItem;
 
 let pEventHappening; //should make global
@@ -9,14 +9,13 @@ let isEventHappening = false;
 
 let generatedForCurrentSeason = false;
 
-let typeOfEvent = "";
+let typeOfEvent = '';
 
 function generateRandomIndex(arr) {
   return Math.floor(Math.random() * arr.length);
 }
 
 function generateEventHappening() {
-
   const pEventHappening = Math.random();
 
   if (pEventHappening < EVENT_OCCUR_THRESHOLD) {
@@ -66,32 +65,34 @@ function getNextSeason(SEASONS, currentSeason) {
 }
 
 function replaceIncreaseOrDecreaseInsert(stat) {
-  return stat > 0.5 ? "increase" : "decrease";
+  return stat > 0.5 ? 'increase' : 'decrease';
 }
 
 function happenOrNotHappen(stat) {
-  return stat > 0.5 ? "happen" : "not happen";
+  return stat > 0.5 ? 'happen' : 'not happen';
 }
 
 function replaceStatisticInsert(stat, decisionType, statement, eventType) {
   console.log(stat);
-  if (eventType == "Market") {
-    if (decisionType == 0) {
-      statement = statement.replace("%statistic%", "with a  %statistic%\% chance").replace("%statistic%", Math.abs(stat * 100).toFixed(2));
-    } else {
-      statement = statement.replace("%statistic%", "");
-    }
-  } else if (eventType == "Season") {
+  if (eventType == 'Market') {
     if (decisionType == 0) {
       statement = statement
-        .replace("%statistic%", "happen with a  %statistic% %")
-        .replace("%statistic%", Math.abs(stat * 100).toFixed(2));
-        statement = statement + " chance";
+        .replace('%statistic%', 'with a  %statistic%% chance')
+        .replace('%statistic%', Math.abs(stat * 100).toFixed(2));
     } else {
-      statement = statement.replace("%statistic%", happenOrNotHappen(stat));
+      statement = statement.replace('%statistic%', '');
+    }
+  } else if (eventType == 'Season') {
+    if (decisionType == 0) {
+      statement = statement
+        .replace('%statistic%', 'happen with a  %statistic% %')
+        .replace('%statistic%', Math.abs(stat * 100).toFixed(2));
+      statement = statement + ' chance';
+    } else {
+      statement = statement.replace('%statistic%', happenOrNotHappen(stat));
     }
   } else {
-    console.log("EMPTY EVENTTYPE");
+    console.log('EMPTY EVENTTYPE');
   }
 
   return statement;
@@ -112,7 +113,7 @@ function marketEventStatementInserts(
   allTurnPrices,
   SEASONS,
   currentSeason,
-  eventType
+  eventType,
 ) {
   let stat = marketStatisticGenerator(currentTurn, allTurnPrices);
   typeOfEvent = eventType;
@@ -121,14 +122,14 @@ function marketEventStatementInserts(
   }
 
   const increaseOrDecrease = replaceIncreaseOrDecreaseInsert(stat);
-  let statement = gameEvents["Market"].statement;
+  let statement = gameEvents['Market'].statement;
 
   statement = replaceStatisticInsert(stat, decisionType, statement, eventType);
-  statement = statement.replace("%increaseOrDecrease%", increaseOrDecrease);
-  statement = statement.replace("%item%", randomItem);
+  statement = statement.replace('%increaseOrDecrease%', increaseOrDecrease);
+  statement = statement.replace('%item%', randomItem);
   statement = statement.replace(
-    "%season%",
-    getNextSeason(SEASONS, currentSeason)
+    '%season%',
+    getNextSeason(SEASONS, currentSeason),
   );
   return statement;
 }
@@ -139,16 +140,16 @@ function seasonalEventStatementInserts(
   allTurnPrices,
   SEASONS,
   currentSeason,
-  eventType
+  eventType,
 ) {
   const nextSeason = getNextSeason(SEASONS, currentSeason);
-  console.log(gameEvents["Season"], nextSeason);
+  console.log(gameEvents['Season'], nextSeason);
   const randomEvent = chooseRandomItem(
-    Object.keys(gameEvents["Season"][nextSeason])
+    Object.keys(gameEvents['Season'][nextSeason]),
   );
   console.log(randomEvent);
   typeOfEvent = randomEvent;
-  let statement = gameEvents["Season"][nextSeason][randomEvent]["statement"];
+  let statement = gameEvents['Season'][nextSeason][randomEvent]['statement'];
 
   const SEASONAL_PROB_PADDING = 0.05;
   let stat = Math.random();
@@ -158,8 +159,8 @@ function seasonalEventStatementInserts(
 
   statement = replaceStatisticInsert(stat, decisionType, statement, eventType);
   statement = statement.replace(
-    "%season%",
-    getNextSeason(SEASONS, currentSeason)
+    '%season%',
+    getNextSeason(SEASONS, currentSeason),
   );
 
   generateEventHappening();
@@ -171,7 +172,7 @@ function generateConsultantStatement(
   currentTurn,
   allTurnPrices,
   SEASONS,
-  currentSeason
+  currentSeason,
 ) {
   isEventHappening = false;
   const randomEvent = Math.random();
@@ -187,7 +188,7 @@ function generateConsultantStatement(
       allTurnPrices,
       SEASONS,
       currentSeason,
-      "Season"
+      'Season',
     );
   } else if (0.2 < randomEvent && randomEvent <= 1) {
     //Market
@@ -197,7 +198,7 @@ function generateConsultantStatement(
       allTurnPrices,
       SEASONS,
       currentSeason,
-      "Market"
+      'Market',
     );
   }
 

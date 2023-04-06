@@ -1,13 +1,11 @@
-import { SignOutButton } from "./SignOutButton";
-import { EndTurnButton } from "./EndTurnButton";
-import { fallIcon } from "../GameLogic/constants";
-import { winterIcon } from "../GameLogic/constants";
-import { springIcon } from "../GameLogic/constants";
-import { summerIcon } from "../GameLogic/constants";
-
+import { SignOutButton } from './SignOutButton';
+import { EndTurnButton } from './EndTurnButton';
+import { fallIcon } from '../GameLogic/constants';
+import { winterIcon } from '../GameLogic/constants';
+import { springIcon } from '../GameLogic/constants';
+import { summerIcon } from '../GameLogic/constants';
 
 const InfoHeader = (props) => {
-
   return (
     <div className="info-header">
       <div className="username info-header-item">{props.user}</div>
@@ -22,11 +20,11 @@ const InfoHeader = (props) => {
         <img
           className="season-icon"
           src={
-            props.season == "Fall"
+            props.season == 'Fall'
               ? fallIcon
-              : props.season == "Winter"
+              : props.season == 'Winter'
               ? winterIcon
-              : props.season == "Spring"
+              : props.season == 'Spring'
               ? springIcon
               : summerIcon
           }
@@ -40,12 +38,12 @@ const InfoHeader = (props) => {
         </div>
       </div>
       <div className="info-header-item gap-4">
-        <EndTurnButton 
-            season={props.season} 
-            setSeason={props.setSeason}
-            turn={props.turn}
-            setTurn={props.setTurn}
-          />
+        <EndTurnButton
+          season={props.season}
+          setSeason={props.setSeason}
+          turn={props.turn}
+          setTurn={props.setTurn}
+        />
       </div>
     </div>
   );
