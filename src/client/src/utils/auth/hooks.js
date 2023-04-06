@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { AuthContext } from "./AuthContext";
+import { useContext } from 'react';
+import { AuthContext } from './AuthContext';
 
 /**
  * Exposes all auth information to the React app, including setters for properties.

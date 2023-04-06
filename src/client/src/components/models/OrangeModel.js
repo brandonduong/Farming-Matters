@@ -1,5 +1,5 @@
-import React from "react";
-import { useModels } from "./hooks";
+import React from 'react';
+import { useModels } from './hooks';
 
 export function OrangeModel(props) {
   const { orange1, orange2, orange3, orange4 } = useModels();

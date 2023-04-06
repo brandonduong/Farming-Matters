@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Avatar from "./Avatar";
-import { avatarNames } from "../GameLogic/constants.js";
+import React, { useState } from 'react';
+import Avatar from './Avatar';
+import { avatarNames } from '../GameLogic/constants.js';
 
 // TODO: - Once the general Game loader component is done, generate this
 //         component
@@ -31,25 +31,25 @@ const AvatarMenu = (props) => {
       <div
         className={
           i == selectedAvatar
-            ? "avatar-selected avatar-item-" + i
-            : "avatar-item-" + i
+            ? 'avatar-selected avatar-item-' + i
+            : 'avatar-item-' + i
         }
       >
         <button
           type="button"
-          className={"avatar avatar-" + i}
+          className={'avatar avatar-' + i}
           onClick={() => onAvatarClick(i)}
         ></button>
         <div className="avatar-mini-name">{avatarNames[i][1]}</div>
-      </div>
+      </div>,
     );
   }
   return (
     <div
       className={
         isOpened
-          ? "avatar-overlay" + "-dialog dialog-background"
-          : "avatar-overlay"
+          ? 'avatar-overlay' + '-dialog dialog-background'
+          : 'avatar-overlay'
       }
     >
       {!isOpened && (
@@ -58,14 +58,14 @@ const AvatarMenu = (props) => {
           className="general-avatar"
           onClick={() => onMenuAccess()}
         >
-          {" "}
+          {' '}
         </button>
       )}
       {isMenuOpened && !isOpened ? (
         <button
           className="avatar-menu"
           style={
-            isOpened ? { visibility: "hidden" } : { visibility: "visible" }
+            isOpened ? { visibility: 'hidden' } : { visibility: 'visible' }
           }
         >
           <div className="avatar-grid">{avatarButtons}</div>

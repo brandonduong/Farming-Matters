@@ -1,5 +1,4 @@
-module.exports = function override (config, env) {
-    console.log('override')
+module.exports = function override (config) {
     let loaders = config.resolve
     loaders.fallback = {
         "fs": false,

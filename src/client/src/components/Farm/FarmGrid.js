@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
-import FarmTile from "./FarmTile";
-import { globalInventoryContext, marketItems } from "../../Game";
+import React, { useEffect, useState, useContext } from 'react';
+import FarmTile from './FarmTile';
+import { globalInventoryContext, marketItems } from '../../Game';
 
-const SEASON_COLORS = ["#a67a47", "#a1a09f", "#7efc5b", "#77c761"]; // Fall, Winter, Spring, Summer
+const SEASON_COLORS = ['#a67a47', '#a1a09f', '#7efc5b', '#77c761']; // Fall, Winter, Spring, Summer
 
 function FarmGrid(props) {
-  let { inventoryState, grid, setGrid, cropInfo, setCropInfo } = useContext(globalInventoryContext);
-  
+  let { inventoryState, grid, setGrid, cropInfo, setCropInfo } = useContext(
+    globalInventoryContext,
+  );
+
   const [clickedTile, setClickedTile] = useState(null);
 
   function getColor() {
@@ -20,7 +22,7 @@ function FarmGrid(props) {
           <FarmTile
             x={tile.x}
             z={tile.z}
-            key={"tile" + tile.x + tile.z}
+            key={'tile' + tile.x + tile.z}
             clickedTile={clickedTile}
             setClickedTile={setClickedTile}
             turn={props.turn}

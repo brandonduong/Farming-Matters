@@ -1,5 +1,5 @@
-import React from "react";
-import { useModels } from "./hooks";
+import React from 'react';
+import { useModels } from './hooks';
 
 export function RiceModel(props) {
   const { rice1, rice2 } = useModels();

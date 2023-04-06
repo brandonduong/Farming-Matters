@@ -1,5 +1,5 @@
-import React from "react";
-import { useModels } from "./hooks";
+import React from 'react';
+import { useModels } from './hooks';
 
 export function CarrotModel(props) {
   const { carrot1, carrot2, carrot3 } = useModels();

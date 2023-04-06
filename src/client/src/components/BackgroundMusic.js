@@ -1,5 +1,5 @@
-import React from "react";
-import Sound from "react-sound";
+import React from 'react';
+import Sound from 'react-sound';
 
 export class BackgroundMusic extends React.Component {
   render() {

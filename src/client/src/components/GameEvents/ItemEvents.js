@@ -1,18 +1,12 @@
-import React from 'react'
+import React from 'react';
 import AvatarDialog from './AvatarDialog';
-import {consultantDialog} from './constants'
+import { consultantDialog } from './constants';
 
-const ItemEvent = (props) =>{
-    
-    function destoryCrops(){
+const ItemEvent = (props) => {
+  function destoryCrops() {}
 
-    }
+  function StolenCrops() {}
 
-    function StolenCrops(){
-    }
-
-    function InfectedCrops(){
-
-    }
-}
+  function InfectedCrops() {}
+};
 export default ItemEvent;
