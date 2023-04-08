@@ -24,7 +24,7 @@ export const ResetPassword = () => {
 
   return (
     <div className="reset-container">
-      <h1 className="title">Reset your password &darr;</h1>
+      <h1 className="title">Reset your password</h1>
       <form
         className="form"
         onSubmit={handleSubmit}
