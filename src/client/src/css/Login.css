@@ -19,6 +19,10 @@
   .form {
     margin-bottom: 98px;
     margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .title {
@@ -50,7 +54,6 @@
   
   .input-group {
     margin-bottom: 26px;
-    margin-right: 10%;
   }
   .input-group:nth-last-child(-n + 2) {
     margin-bottom: 50px;
@@ -110,6 +113,7 @@
   }
   .login-button.secondary {
     background: #acdd79;
+    margin-top: 40px;
   }
   .login-button.secondary:hover {
     background: #a8c787;

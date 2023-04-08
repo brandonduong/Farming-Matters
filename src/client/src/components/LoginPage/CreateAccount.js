@@ -3,11 +3,17 @@ import { useAuth } from '../../utils/auth/hooks';
 import '../../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { handleError } from './helpers';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const CreateAccount = () => {
   const { createAccountHandler, socket } = useAuth();
   const [errorMessage, setErrorMessage] = useState(null);
+  const [ isCaptchaVerified, setIsCaptchaVerified ] = useState(false);
   const navigate = useNavigate();
+
+  const verifyCaptcha = (value) => {
+    if (value) setIsCaptchaVerified(true);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +37,9 @@ export const CreateAccount = () => {
       return;
     } else if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match.');
+      return;
+    } else if (!isCaptchaVerified) {
+      setErrorMessage("Please complete the reCaptcha.");
       return;
     }
 
@@ -74,6 +83,11 @@ export const CreateAccount = () => {
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input type="password" name="confirmPassword" />
         </div>
+        <ReCAPTCHA 
+            sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+            onChange={verifyCaptcha}
+            style={{marginTop: '20px', margin: 'auto'}}
+          />
         <button className="secondary login-button">Create Account</button>
       </form>
     </div>
