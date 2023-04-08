@@ -166,6 +166,6 @@ export const useInitializeGame = (initialGrid, setLoading, setLoadedTurn, setGam
 
         initalizeGameState();
         initializeLandscape(setLandscape);
-        initializeFarmBuildings(initialGrid, setFarmBuildings);
+        initializeFarmBuildings(setFarmBuildings);
     }, []);
 }

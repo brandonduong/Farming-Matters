@@ -5,7 +5,7 @@ export const GameInfoContext = createContext();
 
 export const GameInfoProvider = ({ children }) => {
     const { user } = useAuth();
-    const userName = user.displayName.substring(0, 10);
+    const userName = user.displayName?.substring(0, 10);
     const [grid, setGrid] = useState([]);
     const [money, setMoney] = useState(2500);
     const [turn, setTurn] = useState(1);
@@ -31,6 +31,7 @@ export const GameInfoProvider = ({ children }) => {
             landscape,
             setLandscape,
             farmBuildings,
+            setFarmBuildings,
             season,
             setSeason,
             backgroundMusicVolume,
