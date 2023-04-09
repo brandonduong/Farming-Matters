@@ -1,6 +1,6 @@
 .seed-popup {
-    display: grid;
-    grid-template-columns: 1fr 0.25fr 1.25fr;
-    grid-template-rows: auto;
-    margin-top: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr 0.25fr 1.25fr;
+  grid-template-rows: auto;
+  margin-top: 0.5em;
 }

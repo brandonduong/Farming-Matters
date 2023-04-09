@@ -167,7 +167,7 @@
   margin-top: 0;
 }
 
-.farm-tile-close{
+.farm-tile-close {
   top: -25px;
   right: -25px;
   position: absolute;
@@ -182,7 +182,7 @@
   transition: 150ms;
 }
 
-.farm-tile-close:hover{
+.farm-tile-close:hover {
   padding: 6px 16px 10px 16px;
   top: -25px;
   right: -25px;

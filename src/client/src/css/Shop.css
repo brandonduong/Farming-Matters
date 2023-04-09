@@ -5,369 +5,348 @@
   color: black;
 }
 
-
 .shop-button {
-    position: absolute;
-    bottom: 50px;
-    right: 50px;
-    border: 1px solid rgba(255, 255, 255, 0);
-    border-radius: 45px;
-    padding: 10px 30px;
-    background-color: rgba(255, 255, 255);
-    color: black;
-    font-size: large;
-    z-index: 0;
-    transition: 150ms;
-    width: 7em;
-  }
-  
-  .shop-button:hover {
-    padding: 12px 33px;
-    bottom: 49px;
-    right: 45px;
-    transition: 300ms;
-  }
-
-  .shop {
-    position: absolute;
-    top: 0px;
-    background-color: rgba(0, 0, 0, 0.9);
-    color: black;
-    height: 100vh;
-    width: 100vw;
-    font-weight: bold;
-  }
-  
-
-
-  .all-shop {
-    display: grid;
-    grid-template-rows: 10vh 78vh;
-    /* grid-template-columns: 80%; */
-    margin-top: 2.5%;
-    margin-left: 5%;
-    width: 90%;
-    background-color: rgba(255, 255, 255, 0.75);
-    border: 1px solid white;
-    border-radius: 30px;
-    position: relative;
-    z-index: 15;
-  }
-
-  .shop-grid{
-    display: grid;
-    grid-template-rows: 82vh;
-    grid-template-columns: 0.15fr 6fr 0.25fr 4fr 0.15fr;
-  }
-
-  .shop-component {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 10% 10% 90%;
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.65);
-    color: black;
-    height: 92.5%;
-    width: auto;
-    border-radius: 30px;
-  }
-
-
-
-  .display-more{
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.65);
-    color: green;
-    height: 90%;
-    width: 10fr;
-    border-radius: 30px;
-    overflow: scroll;
-    overflow-x: hidden;
-  }
-
-  .display-more-title{
-    font-size: 1.75em;
-  }
-
-  .shop-title{
-    font-size: 3.5em;
-    
-  }
-  
-.header{
-
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 45px;
+  padding: 10px 30px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  z-index: 0;
+  transition: 150ms;
+  width: 7em;
 }
 
-.header-tools{
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
-    align-items: center;
+.shop-button:hover {
+  padding: 12px 33px;
+  bottom: 49px;
+  right: 45px;
+  transition: 300ms;
 }
 
-.market-options{
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 5fr 5fr;
-    background-color: white;
-    border: 1px solid white;
-    border-radius: 30px;
+.shop {
+  position: absolute;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: black;
+  height: 100vh;
+  width: 100vw;
+  font-weight: bold;
 }
 
-  .shop-heading {
-    margin-bottom: 10px;
-  }
-  
-  .center {
-    margin: auto;
-    padding: 10px;
-    text-align: center;
-    color: white;
-    font-size: xx-large;
-  }
-  
-  .filter-tools{
+.all-shop {
+  display: grid;
+  grid-template-rows: 10vh 78vh;
+  /* grid-template-columns: 80%; */
+  margin-top: 2.5%;
+  margin-left: 5%;
+  width: 90%;
+  background-color: rgba(255, 255, 255, 0.75);
+  border: 1px solid white;
+  border-radius: 30px;
+  position: relative;
+  z-index: 15;
+}
 
-  }
+.shop-grid {
+  display: grid;
+  grid-template-rows: 82vh;
+  grid-template-columns: 0.15fr 6fr 0.25fr 4fr 0.15fr;
+}
 
-  .filter-grid{
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 1fr 1fr;
-  }
+.shop-component {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 10% 10% 90%;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.65);
+  color: black;
+  height: 92.5%;
+  width: auto;
+  border-radius: 30px;
+}
 
+.display-more {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.65);
+  color: green;
+  height: 90%;
+  width: 10fr;
+  border-radius: 30px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
 
-  .shop-items {
-    height: 82.5%;
-    width: 90%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: max-content;
-    gap: 30px;
-    overflow-y: scroll;
-    margin-left: 5%;
-    background-color: rgb(0,0,0,0.15);
-    border: 1px solid;
-    border-radius: 30px;
-    padding-left: 1em;
-    padding-top: 1em;
-    padding-right: 1em;
-  }
+.display-more-title {
+  font-size: 1.75em;
+}
 
-  
+.shop-title {
+  font-size: 3.5em;
+}
+
+.header {
+}
+
+.header-tools {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.market-options {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 5fr 5fr;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 30px;
+}
+
+.shop-heading {
+  margin-bottom: 10px;
+}
+
+.center {
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-size: xx-large;
+}
+
+.filter-tools {
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 1fr;
+}
+
+.shop-items {
+  height: 82.5%;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 10em;
+  gap: 30px;
+  overflow-y: scroll;
+  margin-left: 5%;
+  background-color: rgb(0, 0, 0, 0.15);
+  border: 1px solid;
+  border-radius: 30px;
+  padding-left: 1em;
+  padding-top: 1em;
+  padding-right: 1em;
+}
+
 .shop-items::-webkit-scrollbar {
   width: 10px;
 }
 
-
-
 .shop-items::-webkit-scrollbar-track {
   margin-top: 10px;
   margin-bottom: 10px;
-  
 }
 
 .shop-items::-webkit-scrollbar-thumb {
-  background-color: rgb(0,0,0,0.5);
+  background-color: rgb(0, 0, 0, 0.5);
   border-radius: 20px;
-  border: 3px solid rgb(0,0,0,0.5);
+  border: 3px solid rgb(0, 0, 0, 0.5);
 }
-  
-  .shop-item {
-    text-align: center;
-    /* border: "1px solid transparent"; */
-    border-radius: 30px;
-    justify-content: center;
-    background-color: white;
-    height: fit-content;
-  }
 
-  .shop-item-name{
-    color: white;
-    margin-bottom: 0px
-    
-  }
+.shop-item {
+  text-align: center;
+  /* border: "1px solid transparent"; */
+  border-radius: 30px;
+  justify-content: center;
+  background-color: white;
+  height: fit-content;
+}
 
-  .purchase-info{
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    justify-items: start;
-    justify-content: center;
-    max-height: 14em;
-  }
+.shop-item-name {
+  color: white;
+  margin-bottom: 0px;
+}
 
-  .purchase{
-    padding-bottom: 1em;
-    padding-top:1em;
-  }
+.purchase-info {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-items: start;
+  justify-content: center;
+  max-height: 14em;
+}
 
-  .cost-summary{
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 1fr;
-    width: fit-content;
-    margin: auto;
-    justify-items: start;
-    color: green
-  }
-  
-  .shop-item:hover {
-    box-shadow: 1px 1px 5px white;
-  }
+.purchase {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
 
- .season-display{
+.cost-summary {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr;
+  width: fit-content;
+  margin: auto;
+  justify-items: start;
+  color: green;
+}
+
+.shop-item:hover {
+  box-shadow: 1px 1px 5px white;
+}
+
+.season-display {
   position: relative;
   left: -45%;
   top: -10%;
   z-index: 2;
   height: 0px;
-  }
-
-  .season-icon-display{
-    width: 50px;
-    height: 50px;
-    /* top: -5%; */
-    /* position: relative; */
-    background-color: white;
-    border-radius: 100%;
-    padding: 5px;
-  }
-  
-  .item-image {
-    width: 80px;
-    height: 80px; 
-    border: 1px solid white;
-    border-radius: 60px;
-    padding: 5px;
-    margin-top: 25px;
-  }
-  
-  .market-button {
-    border: 1px solid rgba(255, 255, 255, 0);
-
-    background-color: rgba(255, 255, 255);
-    color: black;
-    font-size: large;
-    border-radius: 30px;
-  }
-
-
-  
- .buy-button{
-  /* -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
-  /* clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
- } 
-
- .sell-button{
-
- /* -webkit-clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%);*/
- /* clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%) */
- } 
-
-
-  .insurance-button{
-    height: 40px;
-    width: 100px;
-  }
-  
-  
-  .active{
-    background-color: darkseagreen;
-  }
-
-  .fall-item{
-    background-color: lightsalmon;
-    border: 1px solid orangered;
-    border-radius: 30px;
-    height: -webkit-fill-available;
-    padding: 5px 5px 5px 5px;
-    /* -webkit-clip-path: polygon(0% 35%, 0% 100%, 100% 100%, 100% 100%, 100% -60%);
-    clip-path: polygon(0% 35%, 0% 100%, 100% 100%, 100% 100%, 100% -60%); */
-  }
-
-  .winter-item{
-    background-color: lightblue;
-    border: 1px solid blue;
-    border-radius: 30px;
-    height: -webkit-fill-available;
-    padding: 5px 5px 5px 5px;
-    
-    /* -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
-    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%); */
-  }
-
-  .spring-item{
-    background-color: lightgreen;
-    border: 1px solid green;
-    border-radius: 30px;
-    height: -webkit-fill-available;
-    padding: 5px 5px 5px 5px;
-    /* -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
-    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%); */
-  }
-
-
-  .summer-item{
-    background-color: lightcoral;
-    border: 1px solid red;
-    border-radius: 30px;
-    height: -webkit-fill-available;
-    padding: 5px 5px 5px 5px;
-    /* -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
-    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%); */
-  }
-
-  .other-item{
-    background-color: lightgrey;
-    border: 1px solid grey;
-    border-radius: 30px;
-    height: -webkit-fill-available;
-    padding: 5px 5px 5px 5px;
-    /* -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
-    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%); */
-  }
-
-  .price{
-    font-size: 2.25em;
-  }
-  .price-increase{
-    color: green
-  }
-
-  .price-decrease{
-    color: red
-  }
-
-  .turn-1{
-    color: grey
-  }
-  .individual-cost{
-    font-size: 1.2em;
-  }
-  .total-cost{
-    font-size: 1.7em;
-  }
-
-  .left-over-cost{
-    font-size: 1.1em;
-    color: grey;
-  }
-
-
-.quantity-button{
-    /* top: 0; */
-    /* size: 34px; */
-    width: 100%;
-    /* font-variant: contextual; */
-    font-size: 100%;
-    padding: 0px 7px;
 }
 
-.sell-quantity-button{
+.season-icon-display {
+  width: 50px;
+  height: 50px;
+  /* top: -5%; */
+  /* position: relative; */
+  background-color: white;
+  border-radius: 100%;
+  padding: 5px;
+}
+
+.item-image {
+  width: 80px;
+  height: 80px;
+  border: 1px solid white;
+  border-radius: 60px;
+  padding: 5px;
+  margin-top: 25px;
+}
+
+.market-button {
+  border: 1px solid rgba(255, 255, 255, 0);
+
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: large;
+  border-radius: 30px;
+}
+
+.buy-button {
+  /* -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
+  /* clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
+}
+
+.sell-button {
+  /* -webkit-clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%);*/
+  /* clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%) */
+}
+
+.insurance-button {
+  height: 40px;
+  width: 100px;
+}
+
+.active {
+  background-color: darkseagreen;
+}
+
+.fall-item {
+  background-color: lightsalmon;
+  border: 1px solid orangered;
+  border-radius: 30px;
+  height: -webkit-fill-available;
+  padding: 5px 5px 5px 5px;
+  /* -webkit-clip-path: polygon(0% 35%, 0% 100%, 100% 100%, 100% 100%, 100% -60%);
+    clip-path: polygon(0% 35%, 0% 100%, 100% 100%, 100% 100%, 100% -60%); */
+}
+
+.winter-item {
+  background-color: lightblue;
+  border: 1px solid blue;
+  border-radius: 30px;
+  height: -webkit-fill-available;
+  padding: 5px 5px 5px 5px;
+
+  /* -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
+    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%); */
+}
+
+.spring-item {
+  background-color: lightgreen;
+  border: 1px solid green;
+  border-radius: 30px;
+  height: -webkit-fill-available;
+  padding: 5px 5px 5px 5px;
+  /* -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
+    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%); */
+}
+
+.summer-item {
+  background-color: lightcoral;
+  border: 1px solid red;
+  border-radius: 30px;
+  height: -webkit-fill-available;
+  padding: 5px 5px 5px 5px;
+  /* -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
+    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%); */
+}
+
+.other-item {
+  background-color: lightgrey;
+  border: 1px solid grey;
+  border-radius: 30px;
+  height: -webkit-fill-available;
+  padding: 5px 5px 5px 5px;
+  /* -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
+    clip-path: polygon(0% 25%, 0% 100%, 100% 100%, 100% 100%, 100% -75%); */
+}
+
+.price {
+  font-size: 2.25em;
+}
+.price-increase {
+  color: green;
+}
+
+.price-decrease {
+  color: red;
+}
+
+.turn-1 {
+  color: grey;
+}
+.individual-cost {
+  font-size: 1.2em;
+}
+.total-cost {
+  font-size: 1.7em;
+}
+
+.left-over-cost {
+  font-size: 1.1em;
+  color: grey;
+}
+
+.quantity-button {
+  /* top: 0; */
+  /* size: 34px; */
+  width: 100%;
+  /* font-variant: contextual; */
+  font-size: 100%;
+  padding: 0px 7px;
+}
+
+.sell-quantity-button {
   /* top: 0; */
   /*size: 34px;*/
   width: 100%;
@@ -376,14 +355,13 @@
   padding: 0px 7px;
 }
 
-
-.quantity-grid{
+.quantity-grid {
   display: grid;
   grid-template-rows: 0.25fr 1fr;
   justify-items: start;
 }
 
-.quantity-input-grid{
+.quantity-input-grid {
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 0.5fr 4fr 0.5fr;
@@ -392,7 +370,7 @@
   justify-items: center;
 }
 
-.quantity-input-field{
+.quantity-input-field {
   width: 5em;
   height: 2em;
   text-align: center;
@@ -405,19 +383,16 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
-
-.insurance-toggle-grid{
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 1fr 0.45fr;
-    align-items: center;
-
+.insurance-toggle-grid {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 0.45fr;
+  align-items: center;
 }
-
 
 /* Source: https://stackoverflow.com/questions/4148499/how-to-style-a-checkbox-using-css*/
 .flipswitch {
@@ -454,32 +429,30 @@ input[type=number] {
 
 .flipswitch:after {
   left: 2%;
-  content: "OFF";
+  content: 'OFF';
 }
 
 .flipswitch:checked:after {
   left: 53%;
-  content: "ON";
+  content: 'ON';
 }
 
-#shop-close{
+#shop-close {
   z-index: 15 !important;
   position: absolute;
   animation-delay: 2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-
 }
 
-#tool-tip-button{
+#tool-tip-button {
   position: relative;
   width: 2em;
   height: 2em;
   margin-left: 15px;
 }
 
-
-#moredetails-info-tooltip{
+#moredetails-info-tooltip {
   position: absolute;
   z-index: 2;
   width: 30em;

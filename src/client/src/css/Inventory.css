@@ -43,10 +43,9 @@
   transition: 300ms;
 }
 
-#inventory-close-button{
+#inventory-close-button {
   position: absolute;
 }
-
 
 .grid {
   height: 80%;
@@ -61,7 +60,7 @@
 
 .item-image {
   width: 80px;
-  height: 80px; 
+  height: 80px;
   border: 1px solid white;
   border-radius: 60px;
   padding: 5px;
@@ -108,21 +107,19 @@
   margin-left: 25%;
 }
 
-.quantity-info > h4{
-  margin:0;
-  padding:0;
+.quantity-info > h4 {
+  margin: 0;
+  padding: 0;
   margin-block-start: 0;
   margin-block-end: 0;
-
 }
 
-.quantity-info > p{
-  margin:0;
+.quantity-info > p {
+  margin: 0;
   margin-left: 25px;
-  padding:0;
+  padding: 0;
   margin-block-start: 0;
   margin-block-end: 0;
-
 }
 
 .quant-grid {
@@ -131,32 +128,34 @@
   grid-template-rows: 0.5fr 1fr;
 }
 
-.quantity-info-grid{
+.quantity-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
   grid-template-rows: auto;
 }
 
-.inventory-grid{
+.inventory-grid {
   display: grid;
   grid-template-rows: 90vh;
-  grid-template-columns: 0.15fr 6fr 0.25fr 4fr 0.15fr
+  grid-template-columns: 0.15fr 6fr 0.25fr 4fr 0.15fr;
 }
 
-.all-inventory-grid{
+.all-inventory-grid {
   display: grid;
   grid-template-rows: 5vh 85vh;
 }
 
-.inventory-title-label{
+.inventory-title-label {
   font-size: 2em;
   height: 95%;
   background-color: rgba(255, 255, 255, 0.65);
   color: green;
 }
 
-table, th, td {
-  border:1px solid black;
+table,
+th,
+td {
+  border: 1px solid black;
 }
 
 .seeds {
