@@ -1,5 +1,5 @@
 import { shopItemsList } from '../constants';
-
+import { seasonIconMapping } from '../../GameLogic/constants';
 export const SellTile = ({ name, setItemSelected, price }) => {
   const { seasonType, image } = shopItemsList.find((item) => item.name == name);
 
@@ -10,7 +10,12 @@ export const SellTile = ({ name, setItemSelected, price }) => {
         setItemSelected(name);
       }}
     >
-      <div className="season-label">{seasonType}</div>
+      <div className="season-display">
+        <img
+          className="season-icon-display"
+          src={seasonIconMapping[seasonType]}
+        ></img>
+      </div>
       <div
         className={
           (seasonType != '' ? seasonType.toLowerCase() : 'other') + '-item'

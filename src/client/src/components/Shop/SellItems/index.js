@@ -15,14 +15,18 @@ export const SellItems = ({
 
   return (
     <>
-      {cropNames.map((name, i) => (
-        <SellTile
-          key={i}
-          name={name}
-          setItemSelected={setItemSelected}
-          price={allTurnPrices[turn % allTurnPrices.length][name]}
-        />
-      ))}
+      {cropNames ? (
+        cropNames.map((name, i) => (
+          <SellTile
+            key={i}
+            name={name}
+            setItemSelected={setItemSelected}
+            price={allTurnPrices[turn % allTurnPrices.length][name]}
+          />
+        ))
+      ) : (
+        <></>
+      )}
     </>
   );
 };
