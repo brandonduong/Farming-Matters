@@ -149,6 +149,19 @@
   padding-right: 1em;
 }
 
+.sell-no-items {
+  height: 82.5%;
+  width: 90%;
+  display: grid;
+  margin-left: 5%;
+  background-color: rgb(0, 0, 0, 0.15);
+  border: 1px solid;
+  border-radius: 30px;
+  padding-left: 1em;
+  padding-top: 1em;
+  padding-right: 1em;
+}
+
 .shop-items::-webkit-scrollbar {
   width: 10px;
 }
@@ -170,7 +183,7 @@
   border-radius: 30px;
   justify-content: center;
   background-color: white;
-  height: fit-content;
+  height: 100%;
 }
 
 .shop-item-name {
