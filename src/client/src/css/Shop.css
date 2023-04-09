@@ -83,6 +83,21 @@
   overflow-x: hidden;
 }
 
+.display-more::-webkit-scrollbar {
+  width: 10px;
+}
+
+.display-more::-webkit-scrollbar-track {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.display-more::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 0, 0, 0.5);
+  border-radius: 20px;
+  border: 3px solid rgb(0, 0, 0, 0.5);
+}
+
 .display-more-title {
   font-size: 1.75em;
 }

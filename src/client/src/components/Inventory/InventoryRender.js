@@ -14,14 +14,14 @@ import { plants } from '../Farm/FarmTile/constants';
 import { shopItemsList, quantityContent } from '../Shop/constants';
 import InventoryItem from './InventoryItem';
 import { useInventory } from '../../contexts';
-
+import { seasonIconMapping } from '../GameLogic/constants';
 //TODO: This component will need to be completely reworked once the react state is set up to dynamically show inventory contents
 const InventoryRender = (props) => {
   let [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const { inventoryState } = useInventory();
   const [itemSelected, setItemSelected] = useState('');
   let currInventory = [];
-  
+
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
     setItemSelected('');
@@ -55,6 +55,9 @@ const InventoryRender = (props) => {
   let itemList = getItems(inventoryState);
   for (let i = 0; i < itemList.length; i++) {
     let img = getImage(itemList[i], shopItemsList);
+    const { seasonType } = shopItemsList.find(
+      (item) => item.name == itemList[i],
+    );
 
     // if plant: one picture, seed count and crop count, else just quantity
     let isPlant = checkIfItemIsPlant(itemList[i], plants);
@@ -65,8 +68,21 @@ const InventoryRender = (props) => {
           setItemSelected(itemList[i]);
         }}
       >
-        <img className="item-image" src={img} alt="Item-Pic"></img>
-        <div className="item-info">
+        <div
+          className={
+            'item-info ' +
+            (seasonType != '' ? seasonType.toLowerCase() : 'other') +
+            '-item'
+          }
+        >
+          <div className="season-display">
+            <img
+              className="season-icon-display"
+              src={seasonIconMapping[seasonType]}
+            ></img>
+          </div>
+          <img className="item-image" src={img} alt="Item-Pic"></img>
+
           <h4>{itemList[i]}</h4>
           <div className="quantity-info">
             {isPlant ? (
@@ -111,31 +127,32 @@ const InventoryRender = (props) => {
   return (
     <>
       {isInventoryOpen ? (
-        <div className="inventory">
-          <div className="all-inventory-grid">
-            <div className="inventory-title">
+        <div>
+          <div className="inventory">
+            <div className="all-inventory-grid">
+              <button
+                id="inventory-close-button"
+                className="close-button"
+                onClick={() => onClick()}
+              >
+                x
+              </button>
               <div className="inventory-title-label">Inventory</div>
-            </div>
-            <div className="inventory-grid">
-              <div className="empty"></div>
-              <div className="inventory-box">
-                <div className="grid">{currentItemRender}</div>
+
+              <div className="inventory-grid">
+                <div className="empty"></div>
+                <div className="inventory-box">
+                  <div className="grid">{currentItemRender}</div>
+                </div>
+                <div className="empty"></div>
+                <div className="display-more">
+                  <h1>More Information:</h1>
+                  <InventoryItem item={itemSelected} {...props} />
+                </div>
+                <div className="empty"></div>
               </div>
-              <div className="empty"></div>
-              <div className="display-more">
-                <h1>More Information:</h1>
-                <InventoryItem item={itemSelected} {...props} />
-              </div>
-              <div className="empty"></div>
             </div>
           </div>
-          <button
-            id="inventory-close-button"
-            className="close-button"
-            onClick={() => onClick()}
-          >
-            x
-          </button>
         </div>
       ) : (
         <button className="inventory-button" onClick={() => onClick()}>

@@ -90,7 +90,7 @@ const InventoryItem = (props) => {
       <div className="details">
         {props.item && checkIfItemIsPlant(props.item, plants) ? (
           <>
-            <h1>Contracts</h1>
+            <div className="contract-label">Contracts</div>
             <div className="contracts-scroll">
               <div className="Contracts">
                 <div className="seeds">

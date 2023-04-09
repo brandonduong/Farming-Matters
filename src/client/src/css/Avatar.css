@@ -347,10 +347,10 @@
 .box.arrow-left:after {
   content: ' ';
   position: absolute;
-  left: -3.5em;
+  left: -3.45em;
   top: 2em;
   border-top: 3em solid transparent;
-  border-right: 3.5em solid rgba(255, 255, 255, 0.65);
+  border-right: 3.5em solid rgba(255, 255, 255, 0.8);
   border-left: none;
   border-bottom: 3em solid transparent;
 }
