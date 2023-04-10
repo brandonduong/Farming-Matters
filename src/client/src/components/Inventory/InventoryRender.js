@@ -7,7 +7,7 @@ import {
   getCropCount,
 } from '../Inventory';
 import { globalInventoryContext, marketItems } from '../../Game';
-import { getImage } from '../GameLogic/GameLogic';
+import { capitalizeFirstLetter, getImage } from '../GameLogic/GameLogic';
 import { logData } from '../../utils/logData';
 import { checkIfItemIsPlant } from '../GameLogic/GameLogic';
 import { plants } from '../Farm/FarmTile/constants';
@@ -83,7 +83,7 @@ const InventoryRender = (props) => {
           </div>
           <img className="item-image" src={img} alt="Item-Pic"></img>
 
-          <h4>{itemList[i]}</h4>
+          <h4>{capitalizeFirstLetter(itemList[i])}</h4>
           <div className="quantity-info">
             {isPlant ? (
               <>

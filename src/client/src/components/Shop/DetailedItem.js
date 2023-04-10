@@ -2,7 +2,11 @@ import Form from 'react-bootstrap/Form';
 import React, { useEffect, useState } from 'react';
 import { globalInventoryContext } from '../../Game';
 import { addItem, getItemCount } from '../Inventory';
-import { checkIfItemIsPlant, getItemFluctuation } from '../GameLogic/GameLogic';
+import {
+  checkIfItemIsPlant,
+  getItemFluctuation,
+  capitalizeFirstLetter,
+} from '../GameLogic/GameLogic';
 import { plants } from '../Farm/FarmTile/constants';
 import { logData } from '../../utils/logData';
 import { quantityContent, shopItemsList } from './constants';
@@ -200,7 +204,7 @@ const DetailedItem = (props) => {
     <div className="detailed-item" key={props.id}>
       {props.item ? (
         <>
-          <h2>{props.item}</h2>
+          <h2>{capitalizeFirstLetter(props.item)}</h2>
           <img src={itemImg} alt="crops" className="item-image"></img>
           <div className="details">
             <div

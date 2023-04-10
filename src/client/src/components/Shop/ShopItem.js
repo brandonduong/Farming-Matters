@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { globalInventoryContext } from '../../Game';
 import { addItem, getItemCount } from '../Inventory';
-import { checkIfItemIsPlant } from '../GameLogic/GameLogic';
+import {
+  checkIfItemIsPlant,
+  capitalizeFirstLetter,
+} from '../GameLogic/GameLogic';
 import { plants } from '../Farm/FarmTile/constants';
 import { logData } from '../../utils/logData';
 import { seasonIconMapping } from '../GameLogic/constants';
@@ -29,7 +32,9 @@ const ShopItem = (props) => {
       >
         <img src={props.image} alt="crops" className="item-image"></img>
         <div className="shop-item-name">
-          {props.name + ' - $' + parseFloat(props.price).toFixed(2)}
+          {capitalizeFirstLetter(props.name) +
+            ' - $' +
+            parseFloat(props.price).toFixed(2)}
         </div>
       </div>
     </div>

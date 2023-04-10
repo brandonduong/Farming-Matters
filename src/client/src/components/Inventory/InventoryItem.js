@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { globalInventoryContext } from '../../Game';
 import { getItemCount, getSeedContractsCounts } from '../Inventory';
 import {
+  capitalizeFirstLetter,
   checkIfItemIsPlant,
   getImage,
   getItemFluctuation,
@@ -83,7 +84,7 @@ const InventoryItem = (props) => {
     <div className="detailed-item" key={props.id}>
       <h2>
         {props.item != ''
-          ? props.item
+          ? capitalizeFirstLetter(props.item)
           : 'Select an item to view more details ...'}
       </h2>
       <img src={itemImg} alt="crops" className="item-image"></img>

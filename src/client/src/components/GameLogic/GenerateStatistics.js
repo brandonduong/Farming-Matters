@@ -1,5 +1,5 @@
 import { gameEvents, generalDialog, EVENT_OCCUR_THRESHOLD } from './constants';
-import { checkIfItemIsPlant } from './GameLogic';
+import { capitalizeFirstLetter, checkIfItemIsPlant } from './GameLogic';
 import { plants } from '../Farm/FarmTile/constants';
 let randomItem;
 
@@ -126,7 +126,7 @@ function marketEventStatementInserts(
 
   statement = replaceStatisticInsert(stat, decisionType, statement, eventType);
   statement = statement.replace('%increaseOrDecrease%', increaseOrDecrease);
-  statement = statement.replace('%item%', randomItem);
+  statement = statement.replace('%item%', capitalizeFirstLetter(randomItem));
   statement = statement.replace(
     '%season%',
     getNextSeason(SEASONS, currentSeason),
