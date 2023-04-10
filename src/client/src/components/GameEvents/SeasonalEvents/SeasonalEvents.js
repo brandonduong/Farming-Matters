@@ -65,7 +65,7 @@ function DustStorms() {}
 
 function Tornados() {
   console.log('Tornado');
-  const totalTornados = 5;
+  const totalTornados = 1;
   let tornados = [];
 
   for (let i = 0; i < totalTornados; i++) {

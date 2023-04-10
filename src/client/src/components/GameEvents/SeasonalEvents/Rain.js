@@ -24,7 +24,7 @@ const RainDrops = (props) => {
   return (
     <mesh {...props} ref={mesh} scale={0.05} velocity={velocity}>
       <sphereGeometry args={[1, 16, 16]} />
-      <meshStandardMaterial color="#5454FF" />
+      <meshStandardMaterial color="#004DCF" />
     </mesh>
   );
 };

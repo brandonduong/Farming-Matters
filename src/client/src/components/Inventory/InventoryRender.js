@@ -141,8 +141,15 @@ const InventoryRender = (props) => {
 
               <div className="inventory-grid">
                 <div className="empty"></div>
+
                 <div className="inventory-box">
-                  <div className="grid">{currentItemRender}</div>
+                  {itemList.length > 0 ? (
+                    <div className="grid">{currentItemRender}</div>
+                  ) : (
+                    <div className="no-harvested-crops">
+                      No harvested crops in your inventory!
+                    </div>
+                  )}
                 </div>
                 <div className="empty"></div>
                 <div className="display-more">
