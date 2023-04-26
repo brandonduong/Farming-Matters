@@ -44,7 +44,7 @@ export const EndTurnButton = ({ season, setSeason, turn, setTurn }) => {
     <Button
       id="info-header-button"
       type="button"
-      variant="light"
+      variant="danger"
       size="lg"
       onClick={() => endTurn()}
     >

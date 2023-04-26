@@ -7,7 +7,10 @@ import {
   removeItem,
   getToolCount,
 } from '../../Inventory';
-import { checkIfItemIsPlant } from '../../GameLogic/GameLogic';
+import {
+  checkIfItemIsPlant,
+  capitalizeFirstLetter,
+} from '../../GameLogic/GameLogic';
 import { addItemToCropInfo, removePlant, addPlant } from './FarmingHelpers';
 import { globalInventoryContext } from '../../../Game';
 import { logData } from '../../../utils/logData';
@@ -192,7 +195,7 @@ const FarmTilePopup = (props) => {
           key={'plantdiv' + i}
         >
           <div className="tile-popup-button" key={'plant' + i}>
-            <h4>{seed.name}</h4>
+            <h4>{capitalizeFirstLetter(seed.name)}</h4>
           </div>
           {priceButtons}
         </div>,
@@ -209,7 +212,7 @@ const FarmTilePopup = (props) => {
     <div>
       <div className="tile-popup-info-item">
         <h2 className="tile-popup-title">
-          {props.plantedSeed?.name ?? 'Nothing'}
+          {capitalizeFirstLetter(props.plantedSeed?.name ?? 'Nothing')}
         </h2>
       </div>
       <div className="tile-popup-info">

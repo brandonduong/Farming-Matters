@@ -6,9 +6,9 @@ import { SellItems } from './SellItems';
 import { SellInfo } from './SellItems/SellInfo';
 import { globalInventoryContext } from '../../Game';
 import { useGameInfo, useInventory } from '../../contexts';
-
+import { getCrops } from '../Inventory';
 const Shop = (props) => {
-  const { inventoryState, setInventoryState, cropInfo } = useInventory()
+  const { inventoryState, setInventoryState, cropInfo } = useInventory();
   const { money, setMoney } = useGameInfo();
 
   const [showMenu, setShowMenu] = useState(false);
@@ -32,6 +32,7 @@ const Shop = (props) => {
       setShowBuy(!showBuy);
       setShowSell(!showSell);
     }
+    setItemSelected('');
   };
 
   function displayBuyItems() {
@@ -86,61 +87,20 @@ const Shop = (props) => {
       setShowSell(!showSell);
       setShowBuy(!showBuy);
     }
+    setItemSelected('');
   };
 
   function displaySellItems() {
     // const currentInventory = inventoryState;
-    const sellRender = (item) => {
-      if (item.seasonType != '') {
-        return (
-          <ShopItem
-            key={item.id}
-            id={item.id}
-            image={item.image}
-            name={item.name}
-            price={
-              props.allTurnPrices[props.turn % props.allTurnPrices.length][
-                item.name
-              ]
-            }
-            money={props.money}
-            setMoney={props.setMoney}
-            turn={props.turn}
-            allTurnPrices={props.allTurnPrices}
-            setItemSelected={setItemSelected}
-            seasonType={item.seasonType}
-          />
-        );
-      }
-    };
-
-    if (filter == 'All') {
-      return props.marketItems.map(function (item) {
-        return sellRender(item);
-      });
-    } else if (seasonFilters.indexOf(filter) >= 0) {
-      return props.marketItems.map(function (item) {
-        if (item.seasonType == filter) {
-          return sellRender(item);
-        }
-      });
-    } else if (priceFilters.indexOf(filter) >= 0) {
-      const mappedMarketItems = props.marketItems;
-      if (filter == 'LowToHigh') {
-        const sortedMarketItems = [...mappedMarketItems].sort(
-          (item1, item2) => item1.price - item2.price,
-        );
-        return sortedMarketItems.map(function (item) {
-          return sellRender(item);
-        });
-      } else if (filter == 'HighToLow') {
-        const sortedMarketItems = [...mappedMarketItems].sort(
-          (item1, item2) => item2.price - item1.price,
-        );
-        return sortedMarketItems.map(function (item) {
-          return sellRender(item);
-        });
-      }
+    if (getCrops(inventoryState).length > 0) {
+      <SellItems
+        setItemSelected={setItemSelected}
+        allTurnPrices={props.allTurnPrices}
+        turn={props.turn}
+        inventoryState={inventoryState}
+      />;
+    } else {
+      <></>;
     }
   }
 
@@ -219,18 +179,28 @@ const Shop = (props) => {
                     </div>
                   </div>
 
-                  <div className="shop-items">
-                    {showBuy ? (
-                      displayBuyItems()
-                    ) : (
+                  {showBuy ? (
+                    <div className="shop-items">{displayBuyItems()}</div>
+                  ) : getCrops(inventoryState).length > 0 ? (
+                    <div className="shop-items">
                       <SellItems
                         setItemSelected={setItemSelected}
                         allTurnPrices={props.allTurnPrices}
                         turn={props.turn}
                         inventoryState={inventoryState}
                       />
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
+                  {showBuy == false && getCrops(inventoryState).length == 0 ? (
+                    <div className="sell-no-items">
+                      <h1>No harvested crops in your inventory!</h1>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
 
                 <div className="empty-div"></div>

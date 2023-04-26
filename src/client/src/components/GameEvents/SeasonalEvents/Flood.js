@@ -20,7 +20,7 @@ const Flood = (props) => {
     const waterRef = useRef();
 
     //Load the normal water texture
-    const waterNormals = useLoader(THREE.TextureLoader, aqua);
+    const waterNormals = useLoader(THREE.TextureLoader, waterNormal);
 
     //Wrap texture horiztonally
     waterNormals.wrapS = THREE.RepeatWrapping;
@@ -28,10 +28,7 @@ const Flood = (props) => {
     //Wrap texture vertically
     waterNormals.wrapT = THREE.RepeatWrapping;
     //Cache water plane
-    const geom = useMemo(
-      () => new THREE.PlaneGeometry(500, 500),
-      [waterNormals],
-    );
+    const geom = useMemo(() => new THREE.PlaneGeometry(500, 500), []);
 
     //Cache wave configuration
     const config = useMemo(
@@ -39,25 +36,28 @@ const Flood = (props) => {
         textureWidth: 256,
         textureHeight: 256,
         waterNormals,
-        sunDirection: new THREE.Vector3(10, 10, 0),
+        sunDirection: new THREE.Vector3(),
 
         //sunPosition: new THREE.Vector3(100,20,20),
         sunColor: 0xffffff,
-        waterColor: 0x00ffff,
-        distortionScale: 0,
+        waterColor: 0x001e0f,
+        distortionScale: 3.7,
         fog: false,
       }),
-      [],
+      [waterNormals],
     );
 
     //Wave motion
-    // useFrame((state, delta) => (waterRef.current.material.uniforms.time.value += delta*0.1))
+    useFrame(
+      (state, delta) =>
+        (waterRef.current.material.uniforms.time.value += delta * 0.1),
+    );
 
     return (
       <water
         ref={waterRef}
         args={[geom, config]}
-        position={[10, 0.15, 20]}
+        position={[0.05, 0.025, 0.05]}
         rotation-x={-Math.PI / 2}
       ></water>
     );

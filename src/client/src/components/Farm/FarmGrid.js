@@ -7,7 +7,7 @@ const SEASON_COLORS = ['#a67a47', '#a1a09f', '#7efc5b', '#77c761']; // Fall, Win
 
 function FarmGrid(props) {
   const { inventoryState, cropInfo, setCropInfo } = useInventory();
-  const { grid, setGrid, turn, money, setMoney, } = useGameInfo();
+  const { grid, setGrid, turn, money, setMoney } = useGameInfo();
 
   const [clickedTile, setClickedTile] = useState(null);
 

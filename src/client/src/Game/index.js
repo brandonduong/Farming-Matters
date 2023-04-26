@@ -23,8 +23,18 @@ import { GameSettings } from '../components/GameSettings';
 import EndGamePopup from '../components/EndGamePopup/EndGamePopup';
 import Tutorial from '../components/StartGamePopup/Tutorial';
 import { InventoryProvider } from '../contexts/InventoryContext';
-import { useConsultantEffects, useEvents, useInitializeGame, useSaveGame } from './hooks';
-import { useConsultant, useGameInfo, useInventory, useItems } from '../contexts';
+import {
+  useConsultantEffects,
+  useEvents,
+  useInitializeGame,
+  useSaveGame,
+} from './hooks';
+import {
+  useConsultant,
+  useGameInfo,
+  useInventory,
+  useItems,
+} from '../contexts';
 
 const MAX_TURNS = 48;
 
@@ -39,7 +49,7 @@ export const Game = () => {
   const [showTutorial, setShowTutorial] = useState(false);
 
   const { marketItems } = useItems();
-  const { 
+  const {
     userName,
     grid,
     money,
@@ -54,10 +64,10 @@ export const Game = () => {
     backgroundMusicVolume,
     setBackgroundVolume,
     soundEffectsVolume,
-    setSoundEffectsVolume
+    setSoundEffectsVolume,
   } = useGameInfo();
 
-  const { 
+  const {
     accessToConsultant,
     setAccessToConsultant,
     consultantStatement,
@@ -69,13 +79,10 @@ export const Game = () => {
     setDisplayTransition,
   } = useConsultant();
 
-  const {
-    inventoryState,
-    cropInfo
-  } = useInventory();
+  const { inventoryState, cropInfo } = useInventory();
 
-  const { allTurnPrices } = useItems()
-  
+  const { allTurnPrices } = useItems();
+
   // Unused?
   let currentPrices = [];
   for (let i = 0; i < marketItems.length; i++) {
@@ -89,7 +96,12 @@ export const Game = () => {
   useSaveGame(loadedTurn);
   useEvents();
   useConsultantEffects(gameStateJustloaded, setGameStateJustloaded);
-  useInitializeGame(initialGrid, setLoading, setLoadedTurn, setGameStateJustloaded);
+  useInitializeGame(
+    initialGrid,
+    setLoading,
+    setLoadedTurn,
+    setGameStateJustloaded,
+  );
 
   function loadGameUI() {
     return (
@@ -109,9 +121,7 @@ export const Game = () => {
                 {/* Blue sky */}
                 <Sky distance={50} sunPosition={[10, 12, 0]} />
 
-                <FarmGrid
-                  position={[0, 0, 0]}
-                />
+                <FarmGrid position={[0, 0, 0]} />
 
                 {farmBuildings}
                 {landscape}
