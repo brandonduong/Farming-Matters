@@ -69,7 +69,6 @@ app.get("/private/connectToDatabase", async (req, res) => {
 app.post("/private/logactions", async (req, res) => {
   let userId = req.body.userId;
   let data = req.body.data;
-  console.log("data: ", data);
 
   // Log actions
   await databaseOperations.logData(db, userId, JSON.stringify(data));
@@ -95,7 +94,6 @@ app.get("/private/loadGame", async (req, res) => {
   if (!gameState) {
     res.json();
   } else {
-    console.log("gamestate: ", gameState);
     res.json(gameState[0][0]);
   }
 });
@@ -113,7 +111,6 @@ app.delete("/private/deleteGame", async (req, res) => {
   await databaseOperations.deleteGame(db, userId);
   res.status(200).send();
 });
-
 
 server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
