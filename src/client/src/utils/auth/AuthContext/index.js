@@ -9,11 +9,13 @@ import {
   getIsDenied,
   useSessionStorage,
 } from './sessionStorageHelpers';
+import { getServerURL } from '../../getServerURL';
 
 export const AuthContext = createContext();
 
 // Initialize the websocket on the client side
-const socket = io();
+console.log(getServerURL())
+const socket = io('https://decisiongame.ca/api/farmingmatters', { withCredentials: true, path: '/api/farmingmatters/socket.io' });
 
 export const AuthProvider = ({ children }) => {
   const [authError, setAuthError] = useState();

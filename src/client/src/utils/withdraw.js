@@ -1,4 +1,5 @@
 import { auth } from './firebase';
+import { getServerURL } from './getServerURL';
 
 export const deleteLoggingTable = async () => {
   let idToken = '';
@@ -25,5 +26,5 @@ export const deleteLoggingTable = async () => {
     },
   };
 
-  await fetch('/private/deleteUserTable', requestOptions);
+  await fetch(`${getServerURL().url}/private/deleteUserTable`, requestOptions);
 };
