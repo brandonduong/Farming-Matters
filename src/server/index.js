@@ -5,6 +5,8 @@ const { Server } = require("socket.io");
 const { allowSingleSession } = require("./socket/allowSingleSession");
 const { auth } = require("./firebase");
 const mysql = require("mysql2/promise");
+require("dotenv").config();
+const cors = require("cors");
 let db;
 
 const PORT = process.env.PORT || 4001;
@@ -12,6 +14,8 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(express.json());
+app.use(cors({ origin: process.env.REMOTE_CLIENT_APP, credentials: true }));
+
 
 /*********** Authentication ***********/
 
