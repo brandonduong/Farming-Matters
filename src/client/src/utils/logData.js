@@ -1,4 +1,5 @@
 import { auth } from './firebase';
+import { getServerURL } from './getServerURL';
 
 export const logData = async (data) => {
   let idToken = '';
@@ -25,5 +26,5 @@ export const logData = async (data) => {
     body: JSON.stringify({ userId, data }),
   };
 
-  await fetch('/private/logactions', requestOptions);
+  await fetch(`${getServerURL().url}/private/logactions`, requestOptions);
 };

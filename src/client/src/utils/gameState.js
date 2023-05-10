@@ -1,4 +1,5 @@
 import { auth } from './firebase';
+import { getServerURL } from './getServerURL';
 
 // Need to make it so it sends database connection details to verify identity
 export const saveGame = async (gameData) => {
@@ -21,7 +22,7 @@ export const saveGame = async (gameData) => {
     body: JSON.stringify({ userId, gameData }),
   };
 
-  await fetch('/private/saveGame', requestOptions);
+  await fetch(`${getServerURL().url}/private/saveGame`, requestOptions);
 };
 
 // Need to make it so it sends database connection details to verify identity
@@ -46,7 +47,7 @@ export const retrieveSavedGame = async () => {
   };
 
   let gameState;
-  gameState = await fetch('/private/loadGame', requestOptions);
+  gameState = await fetch(`${getServerURL().url}/private/loadGame`, requestOptions);
   gameState = gameState.json().then((currentGameState) => {
     return currentGameState;
   });
@@ -73,5 +74,5 @@ export const resetGame = async () => {
     },
   };
 
-  await fetch('/private/deleteGame', requestOptions);
+  await fetch(`${getServerURL().url}/private/deleteGame`, requestOptions);
 };

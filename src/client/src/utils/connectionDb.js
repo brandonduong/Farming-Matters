@@ -1,4 +1,5 @@
 import { auth } from './firebase';
+import { getServerURL } from './getServerURL';
 
 // Need to make it so it sends database connection details to verify identity
 export const createConnection = async () => {
@@ -21,5 +22,5 @@ export const createConnection = async () => {
     },
   };
 
-  await fetch('/private/connectToDatabase', requestOptions);
+  await fetch(`${getServerURL().url}/private/connectToDatabase`, requestOptions);
 };

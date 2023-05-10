@@ -5,20 +5,27 @@ const { Server } = require("socket.io");
 const { allowSingleSession } = require("./socket/allowSingleSession");
 const { auth } = require("./firebase");
 const mysql = require("mysql2/promise");
-let db;
+const cors = require("cors");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 4001;
 const app = express();
 const server = http.createServer(app);
+let db;
 
-app.use(express.json());
+const router = express.Router()
+
+router.use(express.json());
+router.use(cors({ origin: [process.env.REMOTE_CLIENT_APP, 'http://localhost:3000'], credentials: true })); // Only the client app can use the server
+
+router.get('/hello', (req, res) => res.status(200).send('Hello from the server!'))
+
 
 /*********** Authentication ***********/
 
 // Checking auth token for all incoming HTTP requests
 function checkAuth(req, res, next) {
   if (req.headers.authtoken) {
-    // console.log(req.headers.authtoken);
     auth
       .verifyIdToken(req.headers.authtoken)
       .then(() => {
@@ -31,11 +38,20 @@ function checkAuth(req, res, next) {
     res.status(403).send("Unauthorized");
   }
 }
-app.use("/private", checkAuth);
+
+// Check the authentication token on all private routes
+router.use("/private", checkAuth);
 
 // Validating that a user only has a single session
 var allClients = new Map();
-const io = new Server(server); // Serverside socket object
+
+const io = new Server(server, {
+  cors: {
+    origin: [process.env.REMOTE_CLIENT_APP, 'http://localhost:3000'],
+    credentials: true,
+  },
+  path: '/api/farmingmatters/socket.io'
+}); // Serverside socket object
 
 io.on("connection", (socket) => {
   allowSingleSession(socket, allClients);
@@ -44,7 +60,7 @@ io.on("connection", (socket) => {
 /************ SQL Database Endpoints ************/
 
 // Initialize a database connection
-app.get("/private/connectToDatabase", async (req, res) => {
+router.get("/private/connectToDatabase", async (req, res) => {
   try {
     db = await mysql.createConnection({
       host: "localhost",
@@ -66,7 +82,7 @@ app.get("/private/connectToDatabase", async (req, res) => {
 });
 
 // Store user actions in the database
-app.post("/private/logactions", async (req, res) => {
+router.post("/private/logactions", async (req, res) => {
   let userId = req.body.userId;
   let data = req.body.data;
   console.log("data: ", data);
@@ -78,7 +94,7 @@ app.post("/private/logactions", async (req, res) => {
 });
 
 // Save a game state in the database
-app.post("/private/saveGame", async (req, res) => {
+router.post("/private/saveGame", async (req, res) => {
   let userId = req.body.userId;
   let gameState = req.body.gameData;
 
@@ -89,7 +105,7 @@ app.post("/private/saveGame", async (req, res) => {
 });
 
 // Retrieve a game state from the database
-app.get("/private/loadGame", async (req, res) => {
+router.get("/private/loadGame", async (req, res) => {
   let userId = req.headers.userid;
   let gameState = await databaseOperations.loadGame(db, userId);
   if (!gameState) {
@@ -101,19 +117,22 @@ app.get("/private/loadGame", async (req, res) => {
 });
 
 // Deletes all stored data related to a user
-app.delete("/private/deleteUserTable", async (req, res) => {
+router.delete("/private/deleteUserTable", async (req, res) => {
   let userId = req.headers.userid;
   await databaseOperations.deleteUserTable(db, userId);
   res.status(200).send();
 });
 
 // Deletes a user's save game data (not saved actions/research data)
-app.delete("/private/deleteGame", async (req, res) => {
+router.delete("/private/deleteGame", async (req, res) => {
   let userId = req.headers.userid;
   await databaseOperations.deleteGame(db, userId);
   res.status(200).send();
 });
 
+
+// To use cPanel hosting, this prefix is needed to match the directory containing the files on the server
+app.use(process.env.SERVER_BASE_URL, router)
 
 server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
