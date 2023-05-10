@@ -263,3 +263,14 @@ td {
   grid-template-rows: 0.25fr 1fr;
   justify-items: center;
 }
+
+@media only screen and (max-width: 1100px) {
+  .inventory-button {
+    padding: 10px 30px;
+    font-size: medium;
+  }
+
+  .inventory-button:hover {
+    padding: 12px 33px;
+  }
+}

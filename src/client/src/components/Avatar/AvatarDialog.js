@@ -24,11 +24,13 @@ const AvatarDialog = (props) => {
         className="dialog-modal"
         style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
       >
-        The consultant has the power to look ahead into the future and provide
-        you insights about different areas such as upcoming weather, future
-        market prices of crops and other events. However, you do have the option
-        to follow the consultant's advice or not. If you choose not to, simply
-        play the game as you normally would.
+        <div className="tooltip-dialog-content">
+          The consultant has the power to look ahead into the future and provide
+          you insights about different areas such as upcoming weather, future
+          market prices of crops and other events. However, you do have the
+          option to follow the consultant's advice or not. If you choose not to,
+          simply play the game as you normally would.
+        </div>
         <button
           type="button"
           className="close-button"

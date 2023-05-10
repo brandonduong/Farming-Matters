@@ -32,9 +32,10 @@ const ShopItem = (props) => {
       >
         <img src={props.image} alt="crops" className="item-image"></img>
         <div className="shop-item-name">
-          {capitalizeFirstLetter(props.name) +
-            ' - $' +
-            parseFloat(props.price).toFixed(2)}
+          {capitalizeFirstLetter(props.name)}
+        </div>
+        <div className="shop-item-name">
+          {'$' + parseFloat(props.price).toFixed(2)}
         </div>
       </div>
     </div>

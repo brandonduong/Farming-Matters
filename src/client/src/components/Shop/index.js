@@ -7,6 +7,7 @@ import { SellInfo } from './SellItems/SellInfo';
 import { globalInventoryContext } from '../../Game';
 import { useGameInfo, useInventory } from '../../contexts';
 import { getCrops } from '../Inventory';
+import { seasonIconMapping } from '../GameLogic/constants';
 const Shop = (props) => {
   const { inventoryState, setInventoryState, cropInfo } = useInventory();
   const { money, setMoney } = useGameInfo();
@@ -150,6 +151,7 @@ const Shop = (props) => {
                         <label>Filters: </label>
                         <select
                           name="filters"
+                          className="select-filters"
                           value={filter}
                           onChange={(e) => setFilter(e.target.value)}
                         >
@@ -171,10 +173,21 @@ const Shop = (props) => {
                         </select>
                       </div>
                       <div className="Info">
-                        <p>Season: {props.season}</p>
+                        <div className="shop-info-header-season">
+                          <p className="info-header-details">
+                            <strong>Season:</strong>
+                          </p>
+                          <img
+                            className="small-season-icon-display"
+                            src={seasonIconMapping[props.season]}
+                          ></img>
+                        </div>
                       </div>
                       <div className="Info">
-                        <p>Money: ${props.money.toFixed(2)}</p>
+                        <p className="info-header-details">
+                          <strong>Money:</strong>
+                        </p>
+                        <p>${props.money.toFixed(2)}</p>
                       </div>
                     </div>
                   </div>
