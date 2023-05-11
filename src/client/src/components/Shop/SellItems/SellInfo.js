@@ -4,6 +4,7 @@ import { getAllCropContracts } from '../../Inventory';
 import { SellInfoRow } from './SellInfoRow';
 import { removeItemFromCropInfo } from '../../Farm/FarmTile/FarmingHelpers';
 import { removeItem } from '../../Inventory';
+import Button from 'react-bootstrap/esm/Button';
 
 export const SellInfo = ({
   name,
@@ -171,7 +172,7 @@ export const SellInfo = ({
           </div>
 
           <div className="purchase">
-            <button onClick={() => sell()}>Sell</button>
+            <Button onClick={() => sell()}>Sell</Button>
           </div>
         </>
       )}
