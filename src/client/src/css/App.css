@@ -214,3 +214,9 @@
     height: 25px;
   }
 }
+
+@media only screen and (max-width: 850px) {
+  .tile-popup-info {
+    flex-direction: column;
+  }
+}
