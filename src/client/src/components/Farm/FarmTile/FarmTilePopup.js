@@ -10,12 +10,14 @@ import {
 import { checkIfItemIsPlant } from '../../GameLogic/GameLogic';
 import { addItemToCropInfo, removePlant, addPlant } from './FarmingHelpers';
 import { globalInventoryContext } from '../../../Game';
-import { logData } from '../../../utils/logData';
+import { useTurnActions } from '../../../contexts';
+// import { logData } from '../../../utils/logData';
 import Button from 'react-bootstrap/esm/Button';
 
 const SEASONS = ['Winter', 'Spring', 'Summer', 'Fall'];
 //TODO: Make popup go away on blur
 const FarmTilePopup = (props) => {
+  const { currentTurnActions, setcurrentTurnActions } = useTurnActions();
   const seasonName = SEASONS[(SEASONS.indexOf(props.season) + 1) % 4];
   function newTile() {
     return props.grid.find((tile) => {
@@ -84,14 +86,18 @@ const FarmTilePopup = (props) => {
     updatedGrid(updatedTile);
     props.setClickedTile(null);
 
-    logData({
-      actionType: 'Harvested plant',
-      turn: props.turn,
-      season: seasonName,
-      isExperimental: true,
-      balance: props.money,
-      details: { x: props.x, z: props.z },
-    });
+    //adds the performed actions to a list of all the actions performed during the current turn
+    // setcurrentTurnActions([
+    //   ...currentTurnActions,
+    //   {
+    //     actionType: 'Harvested plant',
+    //     turn: props.turn,
+    //     season: seasonName,
+    //     isExperimental: true,
+    //     balance: props.money,
+    //     details: { x: props.x, z: props.z },
+    //   },
+    // ]);
   }
 
   // For selling:
@@ -116,14 +122,17 @@ const FarmTilePopup = (props) => {
 
     removeItem(props.inventoryState, fertilizer);
 
-    logData({
-      actionType: 'Applied fertilizer',
-      turn: props.turn,
-      season: seasonName,
-      isExperimental: true,
-      balance: props.money,
-      details: { x: props.x, z: props.z },
-    });
+    setcurrentTurnActions([
+      ...currentTurnActions,
+      {
+        actionType: 'Applied fertilizer',
+        turn: props.turn,
+        season: seasonName,
+        isExperimental: true,
+        balance: props.money,
+        details: { x: props.x, z: props.z },
+      },
+    ]);
   }
 
   function buyPlot() {
@@ -133,14 +142,17 @@ const FarmTilePopup = (props) => {
     updatedGrid(updatedTile);
     props.setClickedTile(null);
 
-    logData({
-      actionType: 'Bought land',
-      turn: props.turn,
-      season: seasonName,
-      isExperimental: true,
-      balance: props.money,
-      details: { x: props.x, z: props.z },
-    });
+    setcurrentTurnActions([
+      ...currentTurnActions,
+      {
+        actionType: 'Bought land',
+        turn: props.turn,
+        season: seasonName,
+        isExperimental: true,
+        balance: props.money,
+        details: { x: props.x, z: props.z },
+      },
+    ]);
   }
 
   // Buttons for planting seeds

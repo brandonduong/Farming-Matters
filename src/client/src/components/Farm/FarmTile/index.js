@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Html, Sparkles } from '@react-three/drei';
 import FarmTilePopup from './FarmTilePopup';
-import { logData } from '../../../utils/logData';
+import { useTurnActions } from '../../../contexts';
+// import { logData } from '../../../utils/logData';
 import { plants } from './constants';
 import { BeetModel } from '../../models/BeetModel';
 import { CarrotModel } from '../../models/CarrotModel';
@@ -25,6 +26,7 @@ const FarmTile = (props) => {
   const fertilizerAmount = props.fertilizerAmount;
   const plantedSeed = props.plantedSeed;
   const [turnPlanted, setTurnPlanted] = useState(null);
+  const { currentTurnActions, setcurrentTurnActions } = useTurnActions();
 
   function onClick(e) {
     e.stopPropagation();
@@ -48,14 +50,21 @@ const FarmTile = (props) => {
         season = 'Summer';
       }
 
-      logData({
-        actionType: 'Seed planted',
-        turn: props.turn,
-        season: season,
-        isExperimental: true,
-        balance: props.money,
-        details: { x: props.x, z: props.z, seedInfo: plantedSeed },
-      });
+      console.log('setcurrentactions: ', typeof currentTurnActions);
+      console.log('setcurrentactions: ', typeof currentTurnActions);
+
+      // setcurrentTurnActions([
+      //   ...currentTurnActions,
+      //   'seed planted',
+      //   // {
+      //   //   actionType: 'Seed planted',
+      //   //   turn: props.turn,
+      //   //   season: season,
+      //   //   isExperimental: true,
+      //   //   balance: props.money,
+      //   //   details: { x: props.x, z: props.z, seedInfo: plantedSeed },
+      //   // },
+      // ]);
     }
   }, [plantedSeed]);
 

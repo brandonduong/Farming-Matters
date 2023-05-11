@@ -16,14 +16,15 @@ export const logData = async (data) => {
     console.error(error);
   }
 
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      AuthToken: idToken,
-    },
-    body: JSON.stringify({ userId, data }),
-  };
+  console.log(data);
+  // const requestOptions = {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     AuthToken: idToken,
+  //   },
+  //   body: JSON.stringify({ userId, data }),
+  // };
 
-  await fetch('/private/logactions', requestOptions);
+  // await fetch('/private/logactions', requestOptions);
 };

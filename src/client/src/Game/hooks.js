@@ -4,6 +4,7 @@ import {
   useGameInfo,
   useInventory,
   useItems,
+  useTurnActions,
 } from '../contexts';
 import { GameLogic } from '../components/GameLogic/GameLogic';
 import {
@@ -27,6 +28,7 @@ export const useSaveGame = (loadedTurn) => {
   const { inventoryState } = useInventory();
   const { allTurnPrices } = useItems();
   const { accessToConsultant, consultantStatement } = useConsultant();
+  const { currentTurnActions, setcurrentTurnActions } = useTurnActions();
 
   useEffect(() => {
     if (turn > loadedTurn) {
@@ -45,6 +47,8 @@ export const useSaveGame = (loadedTurn) => {
         consultant: [accessToConsultant, consultantStatement],
         farmGrid: savableGrid.join(FARM_TILE_INFO_SEPARATOR),
       });
+      logData(currentTurnActions);
+      setcurrentTurnActions([]);
     }
   }, [turn]);
 };

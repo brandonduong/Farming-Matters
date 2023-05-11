@@ -7,7 +7,7 @@ import {
   getItemFluctuation,
 } from '../GameLogic/GameLogic';
 import { plants } from '../Farm/FarmTile/constants';
-import { logData } from '../../utils/logData';
+// import { logData } from '../../utils/logData';
 import { shopItemsList } from '../Shop/constants';
 import { itemFluctuation } from '../GameLogic/constants';
 import { quantityContent } from '../Shop/constants';

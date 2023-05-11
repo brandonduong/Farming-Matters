@@ -8,6 +8,7 @@ import {
 } from '../Inventory';
 import { globalInventoryContext, marketItems } from '../../Game';
 import { getImage } from '../GameLogic/GameLogic';
+import { useTurnActions } from '../../contexts';
 import { logData } from '../../utils/logData';
 import { checkIfItemIsPlant } from '../GameLogic/GameLogic';
 import { plants } from '../Farm/FarmTile/constants';
@@ -21,7 +22,8 @@ const InventoryRender = (props) => {
   const { inventoryState } = useInventory();
   const [itemSelected, setItemSelected] = useState('');
   let currInventory = [];
-  
+  const { currentTurnActions, setCurrentTurnActions } = useTurnActions();
+
   function onClick() {
     setIsInventoryOpen(!isInventoryOpen);
     setItemSelected('');
