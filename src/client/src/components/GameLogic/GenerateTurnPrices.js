@@ -16,7 +16,7 @@ export function generateNTurnPriceState(
   for (let i = 0; i < priceFluctuations.length; i++) {
     const currentItemName = priceFluctuations[i].name;
     const currentFluctuationFactor = priceFluctuations[i].fluctuationFactor;
-    const basePrices = marketItems[i].price;
+    const basePrices = priceFluctuations[i].price;
     const currentItemPrices = generateNTurnItemPrices(
       basePrices,
       currentFluctuationFactor,
