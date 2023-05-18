@@ -412,9 +412,13 @@ const DetailedItem = (props) => {
                 <div className="individual-cost">
                   Total Item Cost: ${totalItemCost.toFixed(2)}
                 </div>
-                <div className="individual-cost">
-                  Total Insurance Cost: ${totalInsuranceCost.toFixed(2)}
-                </div>
+                {insuranceOption ? (
+                  <div className="individual-cost">
+                    Total Insurance Cost: ${totalInsuranceCost.toFixed(2)}
+                  </div>
+                ) : (
+                  <></>
+                )}
               </>
             ) : (
               <></>

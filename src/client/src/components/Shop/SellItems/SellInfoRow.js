@@ -31,16 +31,19 @@ export const SellInfoRow = ({
   return (
     <tr>
       {floorPrice == 'null' ? (
-        <td>{currPrice.toFixed(2)}</td>
+        <td>{'$' + currPrice.toFixed(2)}</td>
       ) : parseInt(floorPrice) < currPrice ? (
         <td>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             {floorPrice}{' '}
-            <div style={{ color: 'green' }}> &rarr; {currPrice.toFixed(2)}</div>
+            <div style={{ color: 'green' }}>
+              {' '}
+              &rarr; {'$' + currPrice.toFixed(2)}
+            </div>
           </div>
         </td>
       ) : (
-        <td>{parseInt(floorPrice).toFixed(2)}</td>
+        <td>{'$' + parseInt(floorPrice).toFixed(2)}</td>
       )}
 
       <td>{maxQuantity}</td>

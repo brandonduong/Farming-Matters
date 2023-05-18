@@ -88,35 +88,38 @@ const InventoryRender = (props) => {
             {isPlant ? (
               <>
                 <div className="quant-grid">
-                  <h4 className="quantity-title">Quantities:</h4>
+                  <h4 className="quantity-title">Quantity:</h4>
                   <div className="quantity-info-grid">
-                    <img
-                      className="count-pics"
-                      src={quantityContent[0].image}
-                      alt="Item-Pic"
-                    ></img>
-                    <p className="seed quantity">
-                      {getSeedCount(inventoryState, itemList[i])}
-                    </p>
-                    <div className="empty"></div>
-                    <img
-                      className="count-pics"
-                      src={quantityContent[1].image}
-                      alt="Item-Pic"
-                    ></img>
-                    <p className="crop quantity">
-                      {getCropCount(inventoryState, itemList[i])}
-                    </p>
+                    <div className="quantity-info-item">
+                      <img
+                        className="count-pics"
+                        src={quantityContent[0].image}
+                        alt="Item-Pic"
+                      ></img>
+                      <p className="seed quantity">
+                        {getSeedCount(inventoryState, itemList[i])}
+                      </p>
+                    </div>
+                    <div className="quantity-info-item">
+                      <img
+                        className="count-pics"
+                        src={quantityContent[1].image}
+                        alt="Item-Pic"
+                      ></img>
+                      <p className="crop quantity">
+                        {getCropCount(inventoryState, itemList[i])}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </>
             ) : (
-              <>
+              <div className="">
                 <h4 className="quantity-title">Quantity:</h4>
                 <p className="seed quantity">
                   {getItemCount(inventoryState, itemList[i])}
                 </p>
-              </>
+              </div>
             )}
           </div>
         </div>
@@ -152,7 +155,7 @@ const InventoryRender = (props) => {
                   )}
                 </div>
                 <div className="empty"></div>
-                <div className="display-more">
+                <div className="display-more-inventory">
                   <h1>More Information:</h1>
                   <InventoryItem item={itemSelected} {...props} />
                 </div>

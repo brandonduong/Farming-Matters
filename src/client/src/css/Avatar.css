@@ -4,7 +4,8 @@
   grid-template-rows: auto;
   position: absolute;
   top: 15%;
-  width: 15%;
+  left: 6.5%;
+  width: 100px;
   justify-content: center;
   justify-items: center;
 }
@@ -33,7 +34,7 @@
   z-index: 1;
   transition: all 0.05s ease-in;
   transform: translateY(-50px);
-  background-color: rgba(255, 255, 255, 0.65);
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 .avatar {
@@ -43,8 +44,6 @@
   padding: 5px;
 
   margin: 15% auto;
-
-  /* border: 1px solid #000; */
 
   border-radius: 100%;
 }
@@ -64,12 +63,12 @@
 
 .avatar-mini-name {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .general-avatar {
   background: url('./img/general-avatar.png');
-  background-color: rgba(255, 255, 255, 0.65);
+  background-color: rgba(255, 255, 255, 0.85);
   margin: 15px auto;
   cursor: pointer;
   width: 70px;
@@ -98,7 +97,7 @@
   background-color: rgba(255, 255, 255, 0.65);
   border: 1px solid #000;
   border-radius: 30px;
-  margin-top: 10%;
+  margin-top: 25vh;
   justify-content: center;
 }
 
@@ -246,7 +245,7 @@
   grid-template-columns: 0.5fr 2fr;
   grid-template-rows: 5fr;
   align-self: self-end;
-  margin-top: 15%;
+  margin-top: 30vh;
   /* justify-items: center; */
   align-items: start;
   margin-left: 5%;
@@ -286,13 +285,13 @@
 
 .avatar-info {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: auto;
+  row-gap: 1em;
 }
 
 .avatar-info > h1 {
   font-size: 32px;
   margin: 0;
+  padding: 0;
 }
 
 .avatar-info > h2 {
@@ -358,12 +357,41 @@
 #purchase-consultant-info {
   width: 2em;
   height: 2.5em;
+  margin-top: 5%;
 }
 
 #consultant-info-tooltip {
   position: absolute;
   z-index: 2;
-  width: 40em;
-  height: 15em;
-  padding: 50px;
+  width: 70%;
+  height: 60%;
+  padding: 5%;
+}
+
+@media screen and (max-width: 1225px) {
+  #purchase-consultant-info {
+    margin-top: 15%;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  #consultant-info-tooltip {
+    overflow: visible;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .purchase-consultant > h1 {
+    font-size: 2.5rem;
+  }
+
+  .purchase-consultant > h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media screen and (max-width: 675px) {
+  #purchase-consultant-info {
+    margin-top: 50%;
+  }
 }

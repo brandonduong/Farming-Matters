@@ -22,8 +22,8 @@
 
 .shop-button:hover {
   padding: 12px 33px;
-  bottom: 49px;
-  right: 45px;
+  bottom: 52.5px;
+  right: 50px;
   transition: 300ms;
 }
 
@@ -100,6 +100,7 @@
 
 .display-more-title {
   font-size: 1.75em;
+  text-decoration: underline;
 }
 
 .shop-title {
@@ -114,7 +115,7 @@
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
-  align-items: center;
+  align-items: start;
 }
 
 .market-options {
@@ -144,7 +145,8 @@
 .filter-grid {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1.25fr 1fr;
+  margin-left: 25%;
 }
 
 .shop-items {
@@ -159,9 +161,7 @@
   background-color: rgb(0, 0, 0, 0.15);
   border: 1px solid;
   border-radius: 30px;
-  padding-left: 1em;
-  padding-top: 1em;
-  padding-right: 1em;
+  padding: 2em;
 }
 
 .sell-no-items {
@@ -182,8 +182,8 @@
 }
 
 .shop-items::-webkit-scrollbar-track {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .shop-items::-webkit-scrollbar-thumb {
@@ -229,6 +229,9 @@
   color: green;
 }
 
+.Info {
+  font-weight: 400;
+}
 .shop-item:hover {
   box-shadow: 1px 1px 5px white;
 }
@@ -249,6 +252,18 @@
   background-color: white;
   border-radius: 100%;
   padding: 5px;
+}
+
+.small-season-icon-display {
+  width: 35px;
+  height: 35px;
+  /* top: -5%; */
+  position: relative;
+  background-color: white;
+  border-radius: 100%;
+  padding: 5px;
+  margin: 0;
+  top: -5px;
 }
 
 .item-image {
@@ -273,10 +288,17 @@
   /* -webkit-clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
   /* clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 85% 100%, 100% 0%); */
 }
+.buy-button:hover {
+  background-color: lightgrey;
+}
 
 .sell-button {
   /* -webkit-clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%);*/
   /* clip-path: polygon(15% 0%, 0% 100%, 100% 100%, 100% 100%, 100% 0%) */
+}
+
+.sell-button:hover {
+  background-color: lightgrey;
 }
 
 .insurance-button {
@@ -285,6 +307,11 @@
 }
 
 .active {
+  background-color: darkseagreen;
+}
+
+/* overwrite the hover color (from the buy and sell buttons) to not change on the active tab */
+.active:hover {
   background-color: darkseagreen;
 }
 
@@ -508,4 +535,34 @@ input[type='number'] {
   padding: 50px;
   margin-left: -150px;
   font-weight: 300;
+}
+
+@media only screen and (max-width: 1100px) {
+  .shop-button {
+    padding: 10px 30px;
+    font-size: medium;
+  }
+
+  .shop-button:hover {
+    padding: 12px 33px;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .shop-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .select-filters {
+    width: 100%;
+    overflow-x: visible;
+  }
+}
+
+.info-header-details {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+.select-filters {
 }

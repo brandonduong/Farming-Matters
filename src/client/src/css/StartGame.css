@@ -77,8 +77,8 @@
 
 .guide-button:hover {
   padding: 12px 33px;
-  top: 25px;
-  right: 35px;
+  top: 22.5px;
+  right: 30px;
   transition: 300ms;
   /* font-weight: bold; */
 }

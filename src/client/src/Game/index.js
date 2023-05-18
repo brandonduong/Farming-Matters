@@ -206,9 +206,7 @@ export const Game = () => {
             money={money}
             turn={turn}
           />
-          {autoPrompt &&
-          displayTransition == false &&
-          consultantStatement != '' ? (
+          {autoPrompt && !displayTransition ? (
             <div className="dialog-background">
               <Avatar
                 avatarID={0}
